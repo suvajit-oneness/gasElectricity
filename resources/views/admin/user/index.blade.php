@@ -36,14 +36,18 @@
                                         <td>{{$user->name}}</td>
                                         <td>{{$user->email}}</td>
                                         <td>{{$user->mobile}}</td>
-                                        <td>
-                                            <?php $action = 'Block';
-                                                if($user->status != 1){
-                                                    $action = 'Unblock';
-                                                }
-                                            ?>
-                                            <a href="javascript:void(0)" class="blockUnblock" data-id="{{$user->id}}">{{$action}}</a> | <a href="javascript:void(0)" class="text-danger userDelete" data-id="{{$user->id}}">Delete</a>
-                                        </td>
+                                        @if($user->user_type == 1)
+                                            <td></td>
+                                        @else
+                                            <td>
+                                                <?php $action = 'Block';
+                                                    if($user->status != 1){
+                                                        $action = 'Unblock';
+                                                    }
+                                                ?>
+                                                <a href="javascript:void(0)" class="blockUnblock" data-id="{{$user->id}}">{{$action}}</a> | <a href="javascript:void(0)" class="text-danger userDelete" data-id="{{$user->id}}">Delete</a>
+                                            </td>
+                                        @endif
                                     </tr>
                                 @endforeach
                             </tbody>

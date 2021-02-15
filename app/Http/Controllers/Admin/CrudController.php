@@ -14,8 +14,7 @@ class CrudController extends Controller
 /****************************** Users ******************************/
 	public function getUsers(Request $req)
 	{
-        // get all user except Admin
-		$users = User::orderBy('users.id','desc')->where('user_type','!=',1)->get();
+		$users = User::orderBy('users.id','desc')->get();
 		return view('admin.user.index',compact('users'));
 	}
 
