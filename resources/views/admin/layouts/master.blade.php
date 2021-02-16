@@ -6,9 +6,10 @@
     <title>{{config('app.name', 'Laravel')}} - @yield('title')</title>
     <link rel="stylesheet" type="text/css" href="{{asset('design/css/bootstrap.min.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('design/css/style.css')}}">
-
     <link rel="stylesheet" href="{{asset('design/vendor/fonts/fontawesome/css/fontawesome-all.css')}}">
     <link rel="stylesheet" href="{{asset('design/vendor/fonts/flag-icon-css/flag-icon.min.css')}}">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.23/css/dataTables.bootstrap4.min.css">
     @yield('css')
 </head>
 <body>
@@ -30,7 +31,8 @@
     <script type="text/javascript" src="{{asset('design/js/bootstrap.min.js')}}"></script>
     <script type="text/javascript" src="{{asset('design/js/sweetalert.min.js')}}"></script>
     <script src="{{asset('design/vendor/slimscroll/jquery.slimscroll.js')}}"></script>
-
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function() {
             $('.loading-data').hide();

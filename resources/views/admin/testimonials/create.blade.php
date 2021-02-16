@@ -1,8 +1,5 @@
 @extends('admin.layouts.master')
 @section('title','Add Testimonials')
-@section('css')
-
-@stop
 @section('content')
 <div class="container-fluid  dashboard-content">
     <div class="row">
@@ -24,11 +21,11 @@
                         <div class="form-group">
                             <label for="name" class="col-form-label">Name:</label>
                             <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" placeholder="Your name" value="{{old('name')}}">
-                                @error('name')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
+                            @error('name')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
                         <div class="form-group">
                             <label for="title" class="col-form-label">Title:</label>

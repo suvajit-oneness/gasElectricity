@@ -1,20 +1,15 @@
 @extends('admin.layouts.master')
 @section('title','Dashboard')
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
+<div class="container-fluid  dashboard-content">
+    <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
             <div class="card">
-                <div class="card-header">Admin Dashboard</div>
-
+                <div class="card-header">
+                    <h5 class="mb-0">Admin Dashboard</h5>
+                </div>
                 <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-                    You are logged in!
+                    <p>Welcome to the Dashboard</p>
                 </div>
             </div>
         </div>

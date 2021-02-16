@@ -1,8 +1,5 @@
 @extends('admin.layouts.master')
 @section('title','Edit Blog')
-@section('css')
-
-@stop
 @section('content')
 <div class="container-fluid  dashboard-content">
     <div class="row">
