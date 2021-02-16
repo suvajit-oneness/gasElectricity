@@ -280,17 +280,16 @@ class CrudController extends Controller
                 $imageurl = url('upload/admin/aboutus/'.$random.'.'.$image->getClientOriginalExtension());
                 $about->image = $imageurl;
             }
-            // dd($req->all());
             $about->whychooseus = $req->whychooseheading;
             foreach($req->whychooseId as $key => $whychooseData){
                 $whychoose = WhyChooseUs::where('id',$whychooseData)->where('aboutus_id',$about->id)->first();
-                // if($req->hasFile('whychooseimage')){
-                //     $image = $req->file('whychooseimage');
-                //     $random = randomGenerator();
-                //     $image->move('upload/admin/aboutus/',$random.'.'.$image->getClientOriginalExtension());
-                //     $imageurl = url('upload/admin/aboutus/'.$random.'.'.$image->getClientOriginalExtension());
-                //     $whychoose->image = $imageurl;
-                // }
+                if(!empty($req->whychooseimage[$key])){
+                    $image = $req->file('whychooseimage')[$key];
+                    $random = randomGenerator();
+                    $image->move('upload/admin/whychooseus/',$random.'.'.$image->getClientOriginalExtension());
+                    $imageurl = url('upload/admin/whychooseus/'.$random.'.'.$image->getClientOriginalExtension());
+                    $whychoose->image = $imageurl;
+                }
                 $whychoose->title = $req->whychoosetitle[$key];
                 $whychoose->description = $req->whychoosedescription[$key];;
                 $whychoose->save();
