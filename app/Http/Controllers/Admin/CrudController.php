@@ -245,5 +245,14 @@ class CrudController extends Controller
         }
         return errorResponse($validator->errors()->first());
     }
-/********/
+/****How It Works****/
+    public function howItWorks(Request $req)
+    {
+        return view('admin.setting.howitworks');
+    }
+
+    public function aboutUs(Request $req)
+    {
+        return view('admin.setting.about-us');
+    }
 }

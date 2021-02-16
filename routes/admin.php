@@ -29,5 +29,10 @@
 		Route::post('/update','Admin\CrudController@updateTestimonial')->name('admin.testimonial.update');
 		Route::post('/{id}/delete', 'Admin\CrudController@deleteTestimonial')->name('admin.testimonial.delete');
 	});
+
+	Route::group(['prefix'=>'setting'],function(){
+		Route::get('how-it-works','Admin\CrudController@howItWorks')->name('admin.setting.how_it_works');
+		Route::get('about-us','Admin\CrudController@aboutUs')->name('admin.setting.about_us');
+	});
 	
  ?>
