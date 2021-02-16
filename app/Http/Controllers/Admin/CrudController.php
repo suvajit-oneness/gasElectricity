@@ -8,7 +8,7 @@ use App\Model\Blog;use App\Model\UserType;
 use App\User;use App\Model\ContactUs;
 use App\Model\Testimonials;
 use Hash;use App\Model\AboutUs;
-use App\Model\WhyChooseUs;
+use App\Model\WhyChooseUs;use App\Model\HowItWork;
 
 class CrudController extends Controller
 {
@@ -250,7 +250,8 @@ class CrudController extends Controller
 /****************************** How It Works ******************************/
     public function howItWorks(Request $req)
     {
-        return view('admin.setting.howitworks');
+        $howitWork = HowItWork::first();
+        return view('admin.setting.howitworks',compact('howitWork'));
     }
 
 /****************************** About Us ******************************/
