@@ -8,6 +8,7 @@ use App\Model\Blog;use App\Model\UserType;
 use App\User;use App\Model\ContactUs;
 use App\Model\Testimonials;
 use Hash;use App\Model\AboutUs;
+use App\Model\WhyChooseUs;
 
 class CrudController extends Controller
 {
@@ -245,15 +246,58 @@ class CrudController extends Controller
         }
         return errorResponse($validator->errors()->first());
     }
-/****How It Works****/
+/******************** How It Works ********************/
     public function howItWorks(Request $req)
     {
         return view('admin.setting.howitworks');
     }
-
+/******************** About Us ********************/
     public function aboutUs(Request $req)
     {
         $aboutus = AboutUs::with('whychoose')->first();
         return view('admin.setting.about-us',compact('aboutus'));
+    }
+
+    public function saveaboutUs(Request $req)
+    {
+        $req->validate([
+            'aboutUsId' => 'required|numeric|min:1',
+            'aboutusheading' => 'required|max:200',
+            'aboutustitle' => 'required|max:200',
+            'aboutusdescription' => 'required|string',
+            'aboutusImage' => '',
+            'whychooseheading' => 'required|max:200|string',
+        ]);
+        $about = AboutUs::where('id',$req->aboutUsId)->first();
+        if($about){
+            $about->heading = $req->aboutusheading;
+            $about->title = $req->aboutustitle;
+            $about->description = $req->aboutusdescription;
+            if($req->hasFile('aboutusImage')){
+                $image = $req->file('aboutusImage');
+                $random = randomGenerator();
+                $image->move('upload/admin/aboutus/',$random.'.'.$image->getClientOriginalExtension());
+                $imageurl = url('upload/admin/aboutus/'.$random.'.'.$image->getClientOriginalExtension());
+                $about->image = $imageurl;
+            }
+            // dd($req->all());
+            $about->whychooseus = $req->whychooseheading;
+            foreach($req->whychooseId as $key => $whychooseData){
+                $whychoose = WhyChooseUs::where('id',$whychooseData)->where('aboutus_id',$about->id)->first();
+                // if($req->hasFile('whychooseimage')){
+                //     $image = $req->file('whychooseimage');
+                //     $random = randomGenerator();
+                //     $image->move('upload/admin/aboutus/',$random.'.'.$image->getClientOriginalExtension());
+                //     $imageurl = url('upload/admin/aboutus/'.$random.'.'.$image->getClientOriginalExtension());
+                //     $whychoose->image = $imageurl;
+                // }
+                $whychoose->title = $req->whychoosetitle[$key];
+                $whychoose->description = $req->whychoosedescription[$key];;
+                $whychoose->save();
+            }
+            $about->save();
+            return back()->with('Success','About Us Updated SuccessFully');
+        }
+        return back()->with('Error','Invalid About Us Details');
     }
 }
