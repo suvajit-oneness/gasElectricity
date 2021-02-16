@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Model\Blog;use App\Model\UserType;
 use App\User;use App\Model\ContactUs;
 use App\Model\Testimonials;
-use Hash;
+use Hash;use App\Model\AboutUs;
 
 class CrudController extends Controller
 {
@@ -253,6 +253,7 @@ class CrudController extends Controller
 
     public function aboutUs(Request $req)
     {
-        return view('admin.setting.about-us');
+        $aboutus = AboutUs::with('whychoose')->first();
+        return view('admin.setting.about-us',compact('aboutus'));
     }
 }
