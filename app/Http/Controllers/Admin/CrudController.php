@@ -246,12 +246,14 @@ class CrudController extends Controller
         }
         return errorResponse($validator->errors()->first());
     }
-/******************** How It Works ********************/
+
+/****************************** How It Works ******************************/
     public function howItWorks(Request $req)
     {
         return view('admin.setting.howitworks');
     }
-/******************** About Us ********************/
+
+/****************************** About Us ******************************/
     public function aboutUs(Request $req)
     {
         $aboutus = AboutUs::with('whychoose')->first();
