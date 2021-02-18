@@ -32,6 +32,7 @@
 
 	Route::group(['prefix'=>'setting'],function(){
 		Route::get('how-it-works','Admin\CrudController@howItWorks')->name('admin.setting.how_it_works');
+		Route::post('how-it-works','Admin\CrudController@updateHowItWorks')->name('admin.setting.updatehow_it_works');
 		Route::get('about-us','Admin\CrudController@aboutUs')->name('admin.setting.about_us');
 		Route::post('about-us','Admin\CrudController@saveaboutUs')->name('admin.setting.save_aboutUs');
 	});

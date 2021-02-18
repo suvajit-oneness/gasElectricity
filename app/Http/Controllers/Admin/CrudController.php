@@ -254,6 +254,66 @@ class CrudController extends Controller
         return view('admin.setting.howitworks',compact('howitWork'));
     }
 
+    public function updateHowItWorks(Request $req)
+    {
+        $req->validate([
+            'howItWorksId' => 'required|numeric|min:1',
+            'main_heading' => 'required|max:200|string',
+            'title1' => 'required',
+            'title2' => 'required',
+            'description' => 'required',
+            'media' => '',
+            'review_heading' => 'required|max:200|string',
+            'review_image' => '',
+            'review_description' => 'required',
+            'compare_heading' => 'required|max:200|string',
+            'compare_image' => '',
+            'compare_description' => 'required',
+
+            'switchonspot_heading' => 'required|max:200|string',
+            'switchonspot_image' => '',
+            'switchonspot_description' => 'required',
+        ]);
+        $howitWork = HowItWork::where('id',$req->howItWorksId)->first();
+        $howitWork->main_heading = $req->main_heading;
+        $howitWork->title1 = $req->title1;
+        $howitWork->title2 = $req->title2;
+        $howitWork->description = $req->description;
+        $howitWork->review_heading = $req->review_heading;
+        $howitWork->review_description = $req->review_description;
+        $howitWork->compare_heading = $req->compare_heading;
+        $howitWork->compare_description = $req->compare_description;
+        $howitWork->switchonspot_heading = $req->switchonspot_heading;
+        $howitWork->switchonspot_description = $req->switchonspot_description;
+        $random = randomGenerator();
+        if($req->hasFile('media')){
+            $media = $req->file('media');
+            $media->move('upload/admin/howitWorks/media/',$random.'.'.$media->getClientOriginalExtension());
+            $mediaurl = url('upload/admin/howitWorks/media/'.$random.'.'.$media->getClientOriginalExtension());
+            $howitWork->media = $mediaurl;
+        }
+        if($req->hasFile('review_image')){
+            $reviewImage = $req->file('review_image');
+            $reviewImage->move('upload/admin/howitWorks/review/',$random.'.'.$reviewImage->getClientOriginalExtension());
+            $reviewImageurl = url('upload/admin/howitWorks/review/'.$random.'.'.$reviewImage->getClientOriginalExtension());
+            $howitWork->review_image = $reviewImageurl;
+        }
+        if($req->hasFile('compare_image')){
+            $compareImage = $req->file('review_image');
+            $compareImage->move('upload/admin/howitWorks/compare/',$random.'.'.$compareImage->getClientOriginalExtension());
+            $compareImageurl = url('upload/admin/howitWorks/compare/'.$random.'.'.$compareImage->getClientOriginalExtension());
+            $howitWork->compare_image = $compareImageurl;
+        }
+        if($req->hasFile('switchonspot_image')){
+            $switchImage = $req->file('review_image');
+            $switchImage->move('upload/admin/howitWorks/switchonspot/',$random.'.'.$switchImage->getClientOriginalExtension());
+            $switchOnSpotImageurl = url('upload/admin/howitWorks/switchonspot/'.$random.'.'.$switchImage->getClientOriginalExtension());
+            $howitWork->switchonspot_image = $switchOnSpotImageurl;
+        }
+        $howitWork->save();
+        return back()->with('Success','How it works Updated SuccessFully');
+    }
+
 /****************************** About Us ******************************/
     public function aboutUs(Request $req)
     {
