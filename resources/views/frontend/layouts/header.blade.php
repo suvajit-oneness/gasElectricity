@@ -1,13 +1,14 @@
-<header>
+
+<header class="inner_head">
 	<div class="container">
 		<div class="inner-header">
-			<a href="#" class="logo">
+			<a href="{{url('/')}}" class="logo">
 				<img src="{{asset('forntEnd/images/logo.png')}}">
 			</a>
 			<div class="left-header">
 				<div class="navigation">
 					<ul class="menu">
-						<li><a href="#">About Us</a></li>
+						<li><a href="{{route('aboutus')}}">About Us</a></li>
 						<li><a href="#">Contact</a></li>
 						<li><a href="#">Individual State</a></li>
 						<li><a href="#"> Individual Utility </a></li>

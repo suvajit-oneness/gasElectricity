@@ -4,13 +4,13 @@
 <div class="sticky_social_icon">
 	<ul>
 		<li>
-			<a href="#"><img src="{{asset('forntEnd/images/twitter.png')}}"></a>
+			<a href="javascript:void(0)"><img src="{{asset('forntEnd/images/twitter.png')}}"></a>
 		</li>
 		<li>
-			<a href="#"><img src="{{asset('forntEnd/images/linkedin.png')}}"></a>
+			<a href="javascript:void(0)"><img src="{{asset('forntEnd/images/linkedin.png')}}"></a>
 		</li>
 		<li>
-			<a href="#"><img src="{{asset('forntEnd/images/youtube.png')}}"></a>
+			<a href="javascript:void(0)"><img src="{{asset('forntEnd/images/youtube.png')}}"></a>
 		</li>
 	</ul>
 </div>
@@ -20,8 +20,18 @@
 		<div class="banner-caption">
 			<h1 class="banner-heading">LOREM IPSUM <span>DOLOR SIT AMET</span> <br> <span> IS A DUMMY TEXT</span></h1>
 			<ul class="button-list">
-				<li><a href="#" class="blue-btm">Explore now <span><i class="fas fa-arrow-circle-right"></i></span></a></li>
-				<li><a href="#" class="login-btm">Login <span><i class="fas fa-user-circle"></i></span></a></li>
+				<li>
+					<a href="javascript:void(0)" class="blue-btm">Explore now 
+						<span><i class="fas fa-arrow-circle-right"></i></span>
+					</a>
+				</li>
+				@guest
+					<li>
+						<a href="{{url('login')}}" class="login-btm">Login 
+							<span><i class="fas fa-user-circle"></i></span>
+						</a>
+					</li>
+				@endguest
 			</ul>
 			<div class="location-search-section">
 				<h3>Compare, Switch, Save & postcode </h3>
@@ -112,7 +122,7 @@
 					<span class="count">01</span>
 					<h3>Share few details</h3>
 					<p>Share few details like your postcode, type of energy plan, typical usage rates and if you have solar power.</p>
-					<a href="#" class="arrow-btm"><i class="fas fa-arrow-right"></i></a>
+					<a href="javascript:void(0)" class="arrow-btm"><i class="fas fa-arrow-right"></i></a>
 				</div>
 			</li>
 			<li>
@@ -120,7 +130,7 @@
 					<span class="count">02</span>
 					<h3>Compare Rates & Tariffs</h3>
 					<p>Shop around for the right plan using our constantly updated database of all the competitive energy plans and rates.</p>
-					<a href="#" class="arrow-btm"><i class="fas fa-arrow-right"></i></a>
+					<a href="javascript:void(0)" class="arrow-btm"><i class="fas fa-arrow-right"></i></a>
 				</div>
 			</li>
 			<li>
@@ -128,7 +138,7 @@
 					<span class="count">03</span>
 					<h3>Pick Your Energy Plan</h3>
 					<p>Like what you see? Pick your cheaper plan and we do the rest. No calls, no fuss, no worries, just a better deal on your electricity and gas bill!</p>
-					<a href="#" class="arrow-btm"><i class="fas fa-arrow-right"></i></a>
+					<a href="javascript:void(0)" class="arrow-btm"><i class="fas fa-arrow-right"></i></a>
 				</div>
 			</li>
 		</ul>
@@ -177,25 +187,25 @@
 			<div class="map-content-wrap">
 				<ul>
 					<li>
-						<a href="#">Energy Comparison – NSW</a>
+						<a href="javascript:void(0)">Energy Comparison – NSW</a>
 					</li>
 					<li>
-						<a href="#">Energy Comparison SA</a>
+						<a href="javascript:void(0)">Energy Comparison SA</a>
 					</li>
 					<li>
-						<a href="#">Energy Comparison VIC</a>
+						<a href="javascript:void(0)">Energy Comparison VIC</a>
 					</li>
 					<li>
-						<a href="#">Energy Comparison ACT</a>
+						<a href="javascript:void(0)">Energy Comparison ACT</a>
 					</li>
 					<li>
-						<a href="#">Energy Comparison QLD</a>
+						<a href="javascript:void(0)">Energy Comparison QLD</a>
 					</li>
 					<li>
-						<a href="#">Comparison Solar Providers</a>
+						<a href="javascript:void(0)">Comparison Solar Providers</a>
 					</li>
 					<li>
-						<a href="#">Comparison Feed in Tariffs</a>
+						<a href="javascript:void(0)">Comparison Feed in Tariffs</a>
 					</li>
 				</ul>
 			</div>
@@ -211,8 +221,8 @@
 				<li>
 					<div class="inner-box" style="background:url(forntEnd/images/blog-1.png) no-repeat center center; background-size: cover;">
 						<div class="grid-content">
-							<a href="#" class="date">October 24, 2018</a>
-							<a href="#" class="blog-heading">LOREM IPSUM DOLOR SIT AMET DUMMY</a>
+							<a href="javascript:void(0)" class="date">October 24, 2018</a>
+							<a href="javascript:void(0)" class="blog-heading">LOREM IPSUM DOLOR SIT AMET DUMMY</a>
 						</div>
 						
 					</div>
@@ -220,37 +230,37 @@
 				<li>
 					<div class="inner-box" style="background:url(forntEnd/images/blog-2.png) no-repeat center center; background-size: cover;">
 						<div class="grid-content">
-							<a href="#" class="date">March 10, 2017</a>
-							<a href="#" class="blog-heading">DOLOR SIT AMET DUMMY TEXT</a>
+							<a href="javascript:void(0)" class="date">March 10, 2017</a>
+							<a href="javascript:void(0)" class="blog-heading">DOLOR SIT AMET DUMMY TEXT</a>
 						</div>
 					</div>
 				</li>
 				<li>
 					<div class="inner-box" style="background:url(forntEnd/images/blog-3.png) no-repeat center center; background-size: cover;">
 						<div class="grid-content">
-							<a href="#" class="date">March 10, 2017</a>
-							<a href="#" class="blog-heading">CAN AGILE PRODUCE RELIABLE PLANS?</a>
+							<a href="javascript:void(0)" class="date">March 10, 2017</a>
+							<a href="javascript:void(0)" class="blog-heading">CAN AGILE PRODUCE RELIABLE PLANS?</a>
 						</div>
 					</div>
 				</li>
 				<li>
 					<div class="inner-box" style="background:url(forntEnd/images/blog-4.png) no-repeat center center; background-size: cover;">
 						<div class="grid-content">
-							<a href="#" class="date">January 22, 2018</a>
-							<a href="#" class="blog-heading">BEING AGILE OUTSIDE OF I.T.</a>
+							<a href="javascript:void(0)" class="date">January 22, 2018</a>
+							<a href="javascript:void(0)" class="blog-heading">BEING AGILE OUTSIDE OF I.T.</a>
 						</div>
 					</div>
 				</li>
 				<li>
 					<div class="inner-box" style="background:url(forntEnd/images/blog-5.png) no-repeat center center; background-size: cover;">
 						<div class="grid-content">
-							<a href="#" class="date">April 18, 2017</a>
-							<a href="#" class="blog-heading">YOU JUST CAN’T GET THE STAFF THESE DAYS</a>
+							<a href="javascript:void(0)" class="date">April 18, 2017</a>
+							<a href="javascript:void(0)" class="blog-heading">YOU JUST CAN’T GET THE STAFF THESE DAYS</a>
 						</div>
 					</div>
 				</li>
 			</ul>
-			<a href="#" class="blue-btm">view all <span><i class="fas fa-arrow-circle-right"></i></span></a>
+			<a href="javascript:void(0)" class="blue-btm">view all <span><i class="fas fa-arrow-circle-right"></i></span></a>
 		</div>
 	</div>
 </section>

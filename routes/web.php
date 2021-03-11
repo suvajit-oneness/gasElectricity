@@ -1,9 +1,7 @@
 <?php
 
-
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/','WelcomeController@index');
+Route::get('about-us','WelcomeController@aboutUs')->name('aboutus');
 
 Auth::routes(['register' => false]);
 
@@ -20,10 +18,6 @@ Route::group(['prefix'=>'user','middleware'=>'user'],function(){
 });
 
 // Common Routes
-
-
-
-
 // Route::get('delete/{id}','ContactUsController@delete');
 // // Route::get('delete/{id}',function(){
 //     // return 'yeah its Workin';
