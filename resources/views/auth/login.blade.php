@@ -1,73 +1,84 @@
-@extends('layouts.app')
-@section('title','Login')
+@extends('frontend.layouts.master')
+@section('title','Welcome')
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Login') }}</div>
-
-                <div class="card-body">
-                    <form method="POST" action="{{ route('login') }}">
-                        @csrf
-
-                        <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
-
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
+    
+<section class="contact_wraper">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="contact_form sign_in_form">
+                    <div class="row">
+                        <div class="col-12 col-md-6 d-none d-md-block">
+                            <div class="contact_details_wrap contact_details_wrap-mod"></div>
                         </div>
-
-                        <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
-
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <div class="col-md-6 offset-md-4">
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
-
-                                    <label class="form-check-label" for="remember">
-                                        {{ __('Remember Me') }}
-                                    </label>
+                        <div class="col-12 col-md-6">
+                            <div class="sign_in_form_wrap">
+                                <div class="form_container">
+                                    <h3>Welcome Back :)</h3>
+                                    <p>To keep connected with us please login with your personal information by email address and password.<span><img src="{{asset('forntEnd/images/bell-icon.png')}}"></span></p>
+                                    <form method="POST" action="{{ route('login') }}">
+                                        @csrf
+                                        <div class="form_group">
+                                            <img src="{{asset('forntEnd/images/envelop-3.png')}}">
+                                            <input type="email" name="email" class="custom_input @error('email'){{'is-invalid'}}@enderror" placeholder="EMAIL ADDRESS" value="{{old('email')}}">
+                                            @error('email')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                        <div class="form_group">
+                                            <img src="{{asset('forntEnd/images/lock.png')}}">
+                                            <input type="password" name="password" class="custom_input @error('password'){{'is-invalid'}}@enderror" placeholder="PASSWORD">
+                                            @error('password')
+                                                <span class="invalid-feedback" role="alert">
+                                                    <strong>{{ $message }}</strong>
+                                                </span>
+                                            @enderror
+                                        </div>
+                                        <div class="group_link">
+                                            <div class="custom-control custom-checkbox mr-sm-2">
+                                                <input type="checkbox" class="custom-control-input" name="remember" id="customControlAutosizing" {{ old('remember') ? 'checked' : '' }}>
+                                                <label class="custom-control-label" for="customControlAutosizing">Remember Me</label>
+                                            </div>
+                                            @if (Route::has('password.request'))
+                                                <a href="{{ route('password.request') }}">Forgot Password?</a>
+                                            @endif
+                                        </div>
+                                        <div class="">
+                                            <img src="{{asset('forntEnd/images/verify-robot.png')}}">
+                                        </div>
+                                        <button class="blue-btm blue-btm-mod mr-md-3" type="submit">Login Now</button>
+                                        @if (Route::has('register'))
+                                            <a href="{{route('register')}}" class="white-btm">+ Create an Account</a>
+                                        @endif
+                                    </form>
+                                    <div class="social_group">
+                                        <p>Or you can join with</p>
+                                        <ul>
+                                            <li>
+                                                <a href="#"><img src="{{asset('forntEnd/images/facebook-2.png')}}"></a>
+                                            </li>
+                                            <li>
+                                                <a href="#"><img src="{{asset('forntEnd/images/twitter-2.png')}}"></a>
+                                            </li>
+                                            <li>
+                                                <a href="#"><img src="{{asset('forntEnd/images/google-plus.png')}}"></a>
+                                            </li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-
-                        <div class="form-group row mb-0">
-                            <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Login') }}
-                                </button>
-
-                                @if (Route::has('password.request'))
-                                    <a class="btn btn-link" href="{{ route('password.request') }}">
-                                        {{ __('Forgot Your Password?') }}
-                                    </a>
-                                @endif
-                            </div>
-                        </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+</section>
+
+@section('script')
+    <script type="text/javascript"></script>
+@stop
 @endsection
+
