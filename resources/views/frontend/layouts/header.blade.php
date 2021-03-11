@@ -13,7 +13,7 @@
 						<li><a href="#">Individual State</a></li>
 						<li><a href="#"> Individual Utility </a></li>
 						<li><a href="#">Blog</a></li>
-						<li><a href="#">How It Works? </a></li>
+						<li><a href="{{route('how-it-works')}}">How It Works? </a></li>
 					</ul>
 				</div>
 				@if(Auth::user())

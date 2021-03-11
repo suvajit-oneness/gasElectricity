@@ -15,4 +15,9 @@ class WelcomeController extends Controller
     {
     	return view('about-us');
     }
+
+    public function howItWorks(Request $req)
+    {
+    	return view('howItWorks');
+    }
 }
