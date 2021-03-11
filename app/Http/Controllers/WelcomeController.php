@@ -20,4 +20,19 @@ class WelcomeController extends Controller
     {
     	return view('howItWorks');
     }
+
+    public function getBlogs(Request $req)
+    {
+        return view('blog');
+    }
+
+    public function blogDetails(Request $req)
+    {
+        return view('blogdetails');
+    }
+
+    public function contactUs(Request $req)
+    {
+        return view('contactus');
+    }
 }

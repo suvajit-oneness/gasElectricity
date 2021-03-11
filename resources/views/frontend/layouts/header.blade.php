@@ -9,13 +9,14 @@
 				<div class="navigation">
 					<ul class="menu">
 						<li><a href="{{route('aboutus')}}">About Us</a></li>
-						<li><a href="#">Contact</a></li>
+						<li><a href="{{route('contact-us')}}">Contact</a></li>
 						<li><a href="#">Individual State</a></li>
-						<li><a href="#"> Individual Utility </a></li>
-						<li><a href="#">Blog</a></li>
+						<li><a href="#">Individual Utility </a></li>
+						<li><a href="{{route('blogs')}}">Blog</a></li>
 						<li><a href="{{route('how-it-works')}}">How It Works? </a></li>
 					</ul>
 				</div>
+
 				@if(Auth::user())
 					<a href="{{url('login')}}" class="login-btm" id="navbarDropdownMenuLink2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="{{Auth::user()->image}}" height="30" width="30"></a>
                     <div class="dropdown-menu dropdown-menu-right nav-user-dropdown" aria-labelledby="navbarDropdownMenuLink2">

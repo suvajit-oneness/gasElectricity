@@ -3,6 +3,11 @@
 Route::get('/','WelcomeController@index');
 Route::get('about-us','WelcomeController@aboutUs')->name('aboutus');
 Route::get('how-it-works','WelcomeController@howItWorks')->name('how-it-works');
+Route::get('blog','WelcomeController@getBlogs')->name('blog');
+Route::get('how-it-works','WelcomeController@howItWorks')->name('how-it-works');
+Route::get('blogs','WelcomeController@getBlogs')->name('blogs');
+Route::get('blog/details','WelcomeController@blogDetails')->name('blog.detail');
+Route::get('contact-us','WelcomeController@contactUs')->name('contact-us');
 
 Auth::routes(['register' => false]);
 
