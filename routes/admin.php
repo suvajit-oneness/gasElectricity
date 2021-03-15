@@ -30,6 +30,15 @@
 		Route::post('/{id}/delete', 'Admin\CrudController@deleteTestimonial')->name('admin.testimonial.delete');
 	});
 
+	Route::group(['prefix' => 'faq'],function(){
+		Route::get('/','Admin\CrudController@faq')->name('admin.faq');
+		Route::get('/create','Admin\CrudController@createFaq')->name('admin.faq.create');
+		Route::post('/create', 'Admin\CrudController@saveFaq')->name('admin.faq.save');
+		Route::get('/{id}/edit','Admin\CrudController@editFaq')->name('admin.faq.edit');
+		Route::post('/update','Admin\CrudController@updateFaq')->name('admin.faq.update');
+		Route::post('/{id}/delete', 'Admin\CrudController@deleteFaq')->name('admin.faq.delete');
+	});
+
 	Route::group(['prefix'=>'setting'],function(){
 		Route::get('how-it-works','Admin\CrudController@howItWorks')->name('admin.setting.how_it_works');
 		Route::post('how-it-works','Admin\CrudController@updateHowItWorks')->name('admin.setting.updatehow_it_works');

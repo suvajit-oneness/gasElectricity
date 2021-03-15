@@ -144,36 +144,25 @@
 		</ul>
 	</div>
 </section>
-
+<!-- Testimonial Section -->
+@if(count($data->testimonials) > 0)
 <section class="testimonial-section">
 	<div class="container">
 		<h2 class="heading text-center">TESTIMONIALS</h2>
-
 		<div class="testi-alider">
-			<div class="testi-rotator">
-				<figure>
-					<img src="{{asset('forntEnd/images/mentor2.jpg')}}">
-				</figure>
-				<h4>Mark Howard</h4>
-				<p>Suspendisse et molestie ipsum, rutrum dapibus mi. Nam et ultrices eros. In sagittis lacinia nunc sit amet scelerisque. Vivamus rutrum dictum ipsum nec efficitur. Praesent et blandit magna. In interdum purus turpis, in tincidunt dolor scelerisque eget. Mauris id lorem rutrum eros interdum congue vitae sed nisi. </p>
-			</div>
-			<div class="testi-rotator">
-				<figure>
-					<img src="{{asset('forntEnd/images/mentor2.jpg')}}">
-				</figure>
-				<h4>Mark Howard</h4>
-				<p>Suspendisse et molestie ipsum, rutrum dapibus mi. Nam et ultrices eros. In sagittis lacinia nunc sit amet scelerisque. Vivamus rutrum dictum ipsum nec efficitur. Praesent et blandit magna. In interdum purus turpis, in tincidunt dolor scelerisque eget. Mauris id lorem rutrum eros interdum congue vitae sed nisi. </p>
-			</div>
-			<div class="testi-rotator">
-				<figure>
-					<img src="{{asset('forntEnd/images/mentor2.jpg')}}">
-				</figure>
-				<h4>Mark Howard</h4>
-				<p>Suspendisse et molestie ipsum, rutrum dapibus mi. Nam et ultrices eros. In sagittis lacinia nunc sit amet scelerisque. Vivamus rutrum dictum ipsum nec efficitur. Praesent et blandit magna. In interdum purus turpis, in tincidunt dolor scelerisque eget. Mauris id lorem rutrum eros interdum congue vitae sed nisi. </p>
-			</div>
+			@foreach($data->testimonials as $testimonial)
+				<div class="testi-rotator">
+					<figure>
+						<img src="{{asset('forntEnd/images/mentor2.jpg')}}">
+					</figure>
+					<h4>{{$testimonial->name}}</h4>
+					<p>{{$testimonial->quote}}.</p>
+				</div>
+			@endforeach
 		</div>
 	</div>
 </section>
+@endif
 
 <section class="compare-section">
 	<h2 class="heading text-center">Compare by State </h2>
@@ -265,46 +254,28 @@
 	</div>
 </section>
 
+@if(count($data->faq) > 0)
 <section class="faq_wraper">
 	<div class="container">
 		<h2 class="heading text-center">FREQUENTLY ASKED QUESTIONS</h2>
 		<p class="text-center sub-content">Check your energy comparison questions answered</p>
 		<div class="faq-place">
-			<div class="dropdown">
-				<a href="javascript:void(0)" class="dropdown-toggle dropdown-active">
-					<span class="caret minus"><img src="{{asset('forntEnd/images/minus.png')}}"></span>
-					<span class="caret plus"><img src="{{asset('forntEnd/images/plus.png')}}"></span>	
-					Where does it come from? 
-				</a>
-				<div class="dropdown-inner open">
-				    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software.</p>
+			@foreach($data->faq as $key => $faq)
+				<div class="dropdown">
+					<a href="javascript:void(0)" class="dropdown-toggle @if($key == 0){{('dropdown-active')}}@endif">
+						<span class="caret minus"><img src="{{asset('forntEnd/images/minus.png')}}"></span>
+						<span class="caret plus"><img src="{{asset('forntEnd/images/plus.png')}}"></span>	
+						Where does it come from? 
+					</a>
+					<div class="dropdown-inner @if($key == 0){{('open')}}@endif">
+					    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software.</p>
+					</div>
 				</div>
-			</div>
-
-			<div class="dropdown">
-				<a href="javascript:void(0)" class="dropdown-toggle">
-					<span class="caret minus"><img src="{{asset('forntEnd/images/minus.png')}}"></span>
-					<span class="caret plus"><img src="{{asset('forntEnd/images/plus.png')}}"></span>	
-					What is Lorem Ipsum?
-				</a>
-				<div class="dropdown-inner">
-					<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software.</p>
-				</div>
-			</div>
-
-			<div class="dropdown">
-				<a href="javascript:void(0)" class="dropdown-toggle">
-					<span class="caret minus"><img src="{{asset('forntEnd/images/minus.png')}}"></span>
-					<span class="caret plus"><img src="{{asset('forntEnd/images/plus.png')}}"></span>	
-					Time Commitment
-				</a>
-			  	<div class="dropdown-inner">
-			    	<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of</p>
-			  	</div>
-			</div>
+			@endforeach
 		</div>
 	</div>
 </section>
+@endif
 
 @section('script')
     <script type="text/javascript"></script>

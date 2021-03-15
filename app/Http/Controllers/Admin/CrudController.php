@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Model\Blog;use App\Model\UserType;
 use App\User;use App\Model\ContactUs;
-use App\Model\Testimonials;
+use App\Model\Testimonials;use App\Model\Faq;
 use Hash;use App\Model\AboutUs;
 use App\Model\WhyChooseUs;use App\Model\HowItWork;
 
@@ -233,7 +233,7 @@ class CrudController extends Controller
     public function deleteTestimonial(Request $req)
     {
         $rules = [
-            'id' => 'required', // ids will accept the data with comma separate
+            'id' => 'required',
         ];
         $validator = validator()->make($req->all(),$rules);
         if(!$validator->fails()){
@@ -362,4 +362,67 @@ class CrudController extends Controller
         }
         return back()->with('Error','Invalid About Us Details');
     }
+
+/****************************** FAQ ******************************/
+    public function faq(Request $req)
+    {
+        $faq = Faq::get();
+        return view('admin.faq.index',compact('faq'));
+    }
+
+    public function createFaq(Request $req)
+    {
+        return view('admin.faq.create');
+    }
+
+    public function saveFaq(Request $req)
+    {
+        $req->validate([
+            'title' => 'required|max:200',
+            'description' => 'required',
+        ]);
+        $faq = new Faq();
+        $faq->title = $req->title;
+        $faq->description = $req->description;
+        $faq->save();
+        return redirect(route('admin.faq'))->with('Success','Faq Added SuccessFully');
+    }
+
+    public function editFaq(Request $req, $id)
+    {
+        $faq = Faq::findOrFail($id);
+        return view('admin.faq.edit',compact('faq'));
+    }
+
+    public function updateFaq(Request $req)
+    {
+        $req->validate([
+            'faqId' => 'required|min:1|numeric',
+            'title' => 'required|max:200',
+            'description' => 'required',
+        ]);
+        $faq = Faq::find($req->faqId);
+        $faq->title = $req->title;
+        $faq->description = $req->description;
+        $faq->save();
+        return redirect(route('admin.faq'))->with('Success','Faq Updated SuccessFully');
+    }
+
+    public function deleteFaq(Request $req)
+    {
+        $rules = [
+            'id' => 'required',
+        ];
+        $validator = validator()->make($req->all(),$rules);
+        if(!$validator->fails()){
+            $faq = Faq::find($req->id);
+            if($faq){
+                $faq->delete();
+                return successResponse('Faq Deleted Success');  
+            }
+            return errorResponse('Invalid Faq Id');
+        }
+        return errorResponse($validator->errors()->first());
+    }
+
 }

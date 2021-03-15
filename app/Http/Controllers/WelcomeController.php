@@ -3,12 +3,17 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Model\Testimonials;
+use App\Model\Faq;
 
 class WelcomeController extends Controller
 {
     public function index(Request $req)
     {
-    	return view('welcome');
+        $data = new WelcomeController();
+        $data->testimonials = Testimonials::get();
+        $data->faq = Faq::get(); 
+    	return view('welcome',compact('data'));
     }
 
     public function aboutUs(Request $req)
