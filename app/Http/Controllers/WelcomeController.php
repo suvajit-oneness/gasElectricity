@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Model\Testimonials;
 use App\Model\Faq;use App\Model\Blog;
+use App\Model\AboutUs;
 
 class WelcomeController extends Controller
 {
@@ -19,7 +20,8 @@ class WelcomeController extends Controller
 
     public function aboutUs(Request $req)
     {
-    	return view('about-us');
+        $aboutus = AboutUs::with('whychoose')->first();
+    	return view('about-us',compact('aboutus'));
     }
 
     public function howItWorks(Request $req)
