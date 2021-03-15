@@ -201,58 +201,29 @@
 		</div>
 	</div>
 </section>
-
+<!-- Blogs -->
+@if(count($data->blogs) > 0)
 <section class="blog_wraper">
 	<div class="container">
 		<h2 class="heading text-center">latest blog</h2>
 		<div class="blog_container text-center">
 			<ul class="blog-list">
+				@foreach($data->blogs as $index => $blog)
 				<li>
-					<div class="inner-box" style="background:url(forntEnd/images/blog-1.png) no-repeat center center; background-size: cover;">
+					<div class="inner-box" style="background:url({{$blog->image}}) no-repeat center center; background-size: cover;">
 						<div class="grid-content">
-							<a href="javascript:void(0)" class="date">October 24, 2018</a>
-							<a href="javascript:void(0)" class="blog-heading">LOREM IPSUM DOLOR SIT AMET DUMMY</a>
-						</div>
-						
-					</div>
-				</li>
-				<li>
-					<div class="inner-box" style="background:url(forntEnd/images/blog-2.png) no-repeat center center; background-size: cover;">
-						<div class="grid-content">
-							<a href="javascript:void(0)" class="date">March 10, 2017</a>
-							<a href="javascript:void(0)" class="blog-heading">DOLOR SIT AMET DUMMY TEXT</a>
+							<a href="javascript:void(0)" class="date">{{date('M, d Y',strtotime($blog->created_at))}}</a>
+							<a href="javascript:void(0)" class="blog-heading">{{$blog->title}}</a>
 						</div>
 					</div>
 				</li>
-				<li>
-					<div class="inner-box" style="background:url(forntEnd/images/blog-3.png) no-repeat center center; background-size: cover;">
-						<div class="grid-content">
-							<a href="javascript:void(0)" class="date">March 10, 2017</a>
-							<a href="javascript:void(0)" class="blog-heading">CAN AGILE PRODUCE RELIABLE PLANS?</a>
-						</div>
-					</div>
-				</li>
-				<li>
-					<div class="inner-box" style="background:url(forntEnd/images/blog-4.png) no-repeat center center; background-size: cover;">
-						<div class="grid-content">
-							<a href="javascript:void(0)" class="date">January 22, 2018</a>
-							<a href="javascript:void(0)" class="blog-heading">BEING AGILE OUTSIDE OF I.T.</a>
-						</div>
-					</div>
-				</li>
-				<li>
-					<div class="inner-box" style="background:url(forntEnd/images/blog-5.png) no-repeat center center; background-size: cover;">
-						<div class="grid-content">
-							<a href="javascript:void(0)" class="date">April 18, 2017</a>
-							<a href="javascript:void(0)" class="blog-heading">YOU JUST CAN’T GET THE STAFF THESE DAYS</a>
-						</div>
-					</div>
-				</li>
+				@endforeach
 			</ul>
-			<a href="javascript:void(0)" class="blue-btm">view all <span><i class="fas fa-arrow-circle-right"></i></span></a>
+			<a href="{{route('blog')}}" class="blue-btm">view all <span><i class="fas fa-arrow-circle-right"></i></span></a>
 		</div>
 	</div>
 </section>
+@endif
 
 @if(count($data->faq) > 0)
 <section class="faq_wraper">
