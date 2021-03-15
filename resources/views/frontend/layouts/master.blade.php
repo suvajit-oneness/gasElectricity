@@ -110,6 +110,13 @@
 			    }
 			});
 		});
+
+		function isNumberKey(evt){  
+            if(evt.charCode >= 48 && evt.charCode <= 57){  
+                return true;  
+            }  
+            return false;  
+        }
 	</script>
 	@yield('script')
 </body>

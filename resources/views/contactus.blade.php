@@ -42,12 +42,28 @@
 							<div class="contact_form_wrap">
 								<div class="form_container">
 									<h3>Get in touch with us</h3>
-									<form>
-										<input type="text" name="" class="custom_input" placeholder="Your Name">
-										<input type="text" name="" class="custom_input" placeholder="Enter Phone No">
-										<input type="email" name="" class="custom_input" placeholder="Enter email address">
-										<textarea class="custom_textarea" placeholder="Your Message"></textarea>
-										<button class="blue-btm">submit<span><i class="fas fa-arrow-circle-right"></i></span></button>
+									<form method="post" action="{{route('contactus.save')}}">
+										@csrf
+										<input type="text" name="name" class="custom_input @error('name'){{'is-invalid'}}@enderror" placeholder="Your Name">
+										@error('name')
+                                			<span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+                            			@enderror
+										<input type="text" name="phone" class="custom_input @error('phone'){{'is-invalid'}}@enderror" placeholder="Enter Phone No" maxlength="10" onkeypress="return isNumberKey(event)">
+										@error('phone')
+                                			<span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+                            			@enderror
+										<input type="email" name="email" class="custom_input @error('email'){{'is-invalid'}}@enderror" placeholder="Enter email address">
+										@error('email')
+                                			<span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+                            			@enderror
+										<textarea class="custom_textarea @error('message'){{'is-invalid'}}@enderror" name="message" placeholder="Your Message"></textarea>
+										@error('message')
+                                			<span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+                            			@enderror
+                            			@error('msg')
+                            				<span class="valid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+                            			@enderror
+										<button class="blue-btm" type="submit">submit<span><i class="fas fa-arrow-circle-right"></i></span></button>
 									</form>
 								</div>
 							</div>

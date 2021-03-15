@@ -8,6 +8,7 @@ Route::get('how-it-works','WelcomeController@howItWorks')->name('how-it-works');
 Route::get('blogs','WelcomeController@getBlogs')->name('blogs');
 Route::get('blog/details','WelcomeController@blogDetails')->name('blog.detail');
 Route::get('contact-us','WelcomeController@contactUs')->name('contact-us');
+Route::post('contact-us','WelcomeController@saveContactUs')->name('contactus.save');
 
 Auth::routes(['register' => false]);
 
