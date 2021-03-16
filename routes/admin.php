@@ -20,7 +20,7 @@
 	});
 
 	Route::group(['prefix'=>'blogs'],function(){
-		Route::get('/','Admin\AdminController@blogs')->name('admin.blogs');
+		Route::get('/{blogCategoryId?}','Admin\AdminController@blogs')->name('admin.blogs');
 		Route::get('/create','Admin\AdminController@createBlog')->name('admin.blogs.create');
 		Route::post('/create','Admin\AdminController@saveBlog')->name('admin.blogs.save');
 		Route::get('/{id}/edit','Admin\AdminController@editBlog')->name('admin.blogs.edit');

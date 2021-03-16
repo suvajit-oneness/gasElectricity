@@ -19,8 +19,10 @@
                             <thead>
                                 <tr>
                                     <th>Image</th>
+                                    <th>Category</th>
                                     <th>Title</th>
                                     <th>Description</th>
+                                    <th>Posted By</th>
                                     <th>Posted at</th>
                                     <th>Action</th>
                                 </tr>
@@ -29,9 +31,11 @@
                                 @foreach($blogs as $blog)
                                     <tr>
                                         <td style="height: 100px; width: 100px"><img height="100px" width="100px" src="{{$blog->image}}"></td>
+                                        <td>@if($blog->category){{$blog->category->name}}@else{{'N/A'}}@endif</td>
                                         <td>{{$blog->title}}</td>
                                         <td>{!! $blog->description !!}</td>
                                         <!-- <td>{{strip_tags($blog->description)}}</td> -->
+                                        <td>@if($blog->posted){{$blog->posted->name}}@else{{'N/A'}}@endif</td>
                                         <td>{{$blog->created_at->diffForHumans()}}</td>
                                         <td>
                                             <a href="{{route('admin.blogs.edit',$blog->id)}}">Edit</a> | <a href="javascript:void(0)" class="deleteBlog text-danger" data-id="{{$blog->id}}">Delete</a>

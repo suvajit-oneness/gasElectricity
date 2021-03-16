@@ -87,7 +87,7 @@ class AdminController extends Controller
 /****************************** Blog Category ******************************/
     public function blogsCategory(Request $req)
     {
-        $category = BlogCategory::get();
+        $category = BlogCategory::with('blogs')->get();
         return view('admin.blogs.category.index',compact('category'));
     }
 
@@ -147,15 +147,20 @@ class AdminController extends Controller
     }
 
 /****************************** Blog ******************************/
-	public function blogs(Request $req)
+	public function blogs(Request $req,$blogCategoryId = 0)
 	{
-		$blogs = Blog::get();
+		$blogs = Blog::with('category')->with('posted');
+        if($blogCategoryId > 0){
+            $blogs = $blogs->where('blogCategoryId',$blogCategoryId);
+        }
+        $blogs = $blogs->get();
         return view('admin.blogs.index',compact('blogs'));
 	}
 
     public function createBlog(Request $req)
     {
-        return view('admin.blogs.create');
+        $category = BlogCategory::get();
+        return view('admin.blogs.create',compact('category'));
     }
 
     public function saveBlog(Request $req)
@@ -164,9 +169,14 @@ class AdminController extends Controller
             'image' => '',
             'title' => 'required',
             'description' => '',
+            'category' => '',
         ]);
         $blog = new Blog();
         $blog->title = $req->title;
+        if(!empty($req->category)){
+            $blog->blogCategoryId = $req->category;
+        }
+        $blog->postedBy = auth()->user()->id;
         if($req->hasFile('image')){
             $image = $req->file('image');
             $random = randomGenerator();
@@ -182,7 +192,8 @@ class AdminController extends Controller
     public function editBlog(Request $req,$id)
     {
         $blog = Blog::find($id);
-        return view('admin.blogs.edit',compact('blog'));
+        $category = BlogCategory::get();
+        return view('admin.blogs.edit',compact('blog','category'));
     }
 
     public function updateBlog(Request $req)
@@ -192,9 +203,13 @@ class AdminController extends Controller
             'image' => '',
             'title' => 'required',
             'description' => '',
+            'category' => '',
         ]);
         $blog = Blog::find($req->blogId);
         $blog->title = $req->title;
+        if(!empty($req->category)){
+            $blog->blogCategoryId = $req->category;
+        }
         if($req->hasFile('image')){
             $image = $req->file('image');
             $random = randomGenerator();

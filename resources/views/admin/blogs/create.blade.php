@@ -18,6 +18,17 @@
                             <label for="image" class="col-form-label">Image:</label>
                             <input type="file" class="form-control" id="image" name="image" value="{{old('image')}}">
                         </div>
+
+                        <div class="form-group">
+                            <label for="category" class="col-form-label">Blog Category</label>
+                            <select name="category" class="form-control" id="category">
+                                <option value="">Select Category</option>
+                                @foreach($category as $cat)
+                                    <option value="{{$cat->id}}" @if(old('category') == $cat->id){{('selected')}}@endif>{{$cat->name}}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
                         <div class="form-group">
                             <label for="title" class="col-form-label">Blog Title:</label>
                             <input type="text" class="form-control @error('title') is-invalid @enderror" id="title" name="title" placeholder="Blog Title" value="{{old('title')}}">

@@ -19,6 +19,7 @@
                             <thead>
                                 <tr>
                                     <th>Name</th>
+                                    <th>No. Of Blogs</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -26,6 +27,7 @@
                                 @foreach($category as $cat)
                                     <tr>
                                         <td>{{$cat->name}}</td>
+                                        <th><a href="{{route('admin.blogs',$cat->id)}}">{{count($cat->blogs)}}</a></th>
                                         <td>
                                             <a href="javascript:void(0)" class="editBlogCategory" data-id="{{$cat->id}}" data-name="{{$cat->name}}">Edit</a> | <a href="javascript:void(0)" class="deleteBlogCategory text-danger" data-id="{{$cat->id}}">Delete</a>
                                         </td>
