@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Model\Blog;use App\Model\UserType;
 use App\User;use App\Model\ContactUs;
 use App\Model\Testimonials;use App\Model\Faq;
-use Hash;use App\Model\AboutUs;
+use Hash;use App\Model\AboutUs;use App\Model\BlogCategory;
 use App\Model\WhyChooseUs;use App\Model\HowItWork;
 
 class CrudController extends Controller
@@ -83,6 +83,68 @@ class CrudController extends Controller
 		return view('admin.reports.contact',compact('contactUs'));
 	}
 
+/****************************** Blog Category ******************************/
+    public function blogsCategory(Request $req)
+    {
+        $category = BlogCategory::get();
+        return view('admin.blogs.category.index',compact('category'));
+    }
+
+    public function saveBlogCategory(Request $req)
+    {
+        $req->validate([
+            'name' => 'required|string|max:255',
+        ]);
+        $category = BlogCategory::where('name',$req->name)->first();
+        if(!$category){
+            $category = new BlogCategory();
+            $category->name = $req->name;
+            $category->save();
+            return back()->with('Success','Blog Category Added SuccessFully');
+        }
+        $errors['name'] = 'This Blog Category already exist!';
+        return back()->withErrors($errors)->withInput($req->all());
+    }
+
+    public function updateBlogCategory(Request $req)
+    {
+        $req->validate([
+            'blogCategoryId' => 'required|numeric|min:1',
+            'updatename' => 'required|string|max:255',
+        ]);
+        $category = BlogCategory::where('id','!=',$req->blogCategoryId)->where('name',$req->updatename)->first();
+        if(!$category){
+            $category = BlogCategory::where('id',$req->blogCategoryId)->first();
+            if($category){
+                $category->name = $req->updatename;
+                $category->save();
+                return back()->with('Success','Blog Category Updated SuccessFully');
+            }
+            $errors['updatename'] = 'Something went wrong please try after sometime!';
+            return back()->withErrors($errors)->withInput($req->all());
+        }
+        $errors['updatename'] = 'This Blog Category already exist!';
+        return back()->withErrors($errors)->withInput($req->all());
+    }
+
+    public function deleteBlogCategory(Request $req)
+    {
+        $rules = [
+            'id' => 'required',
+        ];
+        $validator = validator()->make($req->all(),$rules);
+        if(!$validator->fails()){
+            $blogCategory = BlogCategory::find($req->id);
+            if($blogCategory){
+                Blog::where('blogCategoryId',$blogCategory->id)->update(['blogCategoryId'=>0]);
+                $blogCategory->delete();
+                return successResponse('Blog Category Deleted Success'); 
+            }
+            return errorResponse('Invalid Blog Category Id');
+        }
+        return errorResponse($validator->errors()->first());
+    }
+
 /****************************** Blog ******************************/
 	public function blogs(Request $req)
 	{
@@ -147,7 +209,7 @@ class CrudController extends Controller
     public function deleteBlog(Request $req)
     {
         $rules = [
-            'id' => 'required', // ids will accept the data with comma separate
+            'id' => 'required',
         ];
         $validator = validator()->make($req->all(),$rules);
         if(!$validator->fails()){

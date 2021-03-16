@@ -13,6 +13,8 @@
 	@yield('css')
 </head>
 <body>
+	<!-- loader -->
+    <div class="loading-data" style="display:block; color: #fff;">Loading&#8230;</div>
 	<!-- Header -->
 	@include('frontend.layouts.header')
 

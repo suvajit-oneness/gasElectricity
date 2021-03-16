@@ -10,7 +10,7 @@ Route::get('blog/details','WelcomeController@blogDetails')->name('blog.detail');
 Route::get('contact-us','WelcomeController@contactUs')->name('contact-us');
 Route::post('contact-us','WelcomeController@saveContactUs')->name('contactus.save');
 
-Auth::routes(['register' => false]);
+Auth::routes(['register' => true]);
 
 Route::get('/home', 'HomeController@index')->name('home');
 

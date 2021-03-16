@@ -12,6 +12,13 @@
 
 	Route::get('contact-us','Admin\CrudController@contactUs')->name('admin.contactus');
 
+	Route::group(['prefix'=>'blog/category'],function(){
+		Route::get('/','Admin\CrudController@blogsCategory')->name('admin.blogs.category');
+		Route::post('/create','Admin\CrudController@saveBlogCategory')->name('admin.blogs.category.save');
+		Route::post('/update','Admin\CrudController@updateBlogCategory')->name('admin.blogs.category.update');
+		Route::post('/{id}/delete', 'Admin\CrudController@deleteBlogCategory')->name('admin.blogs.category.delete');
+	});
+
 	Route::group(['prefix'=>'blogs'],function(){
 		Route::get('/','Admin\CrudController@blogs')->name('admin.blogs');
 		Route::get('/create','Admin\CrudController@createBlog')->name('admin.blogs.create');
