@@ -10,8 +10,9 @@ use App\Model\Testimonials;use App\Model\Faq;
 use Hash;use App\Model\AboutUs;use App\Model\BlogCategory;
 use App\Model\WhyChooseUs;use App\Model\HowItWork;
 
-class CrudController extends Controller
+class AdminController extends Controller
 {
+
 /****************************** Users ******************************/
 	public function getUsers(Request $req)
 	{
