@@ -17,20 +17,26 @@
 		<div class="row">
 			<div class="col-12 col-md-9">
 				<div class="blog_list_container">
-					<ul>
-						@foreach($blogs as $key=>$blog)
-							<li>
-								<img src="{{asset('forntEnd/images/blog-6.png')}}">
-								<div class="blog_info">
-									<p class="publist_date">{{date('l, M d, Y',strtotime($blog->created_at))}}</p>
-									<h5>{!! $blog->title !!}</h5>
-									<!-- <p class="publish_author">By <span>John Doe</span></p> -->
-									<p class="blog_content">{!! $blog->description !!}.</p>
-									<a href="#" class="read_post"><p>Read More</p> <img src="{{asset('forntEnd/images/button-small-icon-2.png')}}"></a>
-								</div>
-							</li>
-						@endforeach
-					</ul>
+					@if(count($data->blogs) > 0)
+						<ul>
+							@foreach($data->blogs as $key => $blog)
+								<li>
+									<img src="{{$blog->image}}">
+									<div class="blog_info">
+										<p class="publist_date">{{date('l, M d, Y',strtotime($blog->created_at))}}</p>
+										<h5>{!! $blog->title !!}</h5>
+										@if($blog->posted)
+											<p class="publish_author">By <span>{{$blog->posted->name}}</span></p>
+										@endif
+										<p class="blog_content">{!! $blog->description !!}.</p>
+										<a href="{{route('blog.detail',$blog->id)}}" class="read_post"><p>Read More</p> <img src="{{asset('forntEnd/images/button-small-icon-2.png')}}"></a>
+									</div>
+								</li>
+							@endforeach
+						</ul>
+					@else
+						<h1>Oops! No Blog Found</h1>
+					@endif
 				</div>
 			</div>
 			<div class="col-12 col-md-3">
@@ -49,27 +55,10 @@
 				<div class="blog_category_wrap">
 					<h4 class="category_title">Categories</h4>
 					<ul>
-						<li>
-							<a href="#">Culture</a>
-						</li>
-						<li>
-							<a href="#">Creativity</a>
-						</li>
-						<li>
-							<a href="#">Music</a>
-						</li>
-						<li>
-							<a href="#">Travel</a>
-						</li>
-						<li>
-							<a href="#">Lifestyle</a>
-						</li>
-						<li>
-							<a href="#">Fashion</a>
-						</li>
-						<li>
-							<a href="#">Entertainment</a>
-						</li>
+						<li><a href="{{route('blog')}}">All</a></li>
+						@foreach($data->category as $category)
+							<li><a href="{{route('blog')}}?category={{base64_encode($category->id)}}">{{$category->name}}</a></li>
+						@endforeach
 					</ul>
 				</div>
 				<div class="newsletter_wrap">

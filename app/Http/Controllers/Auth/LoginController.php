@@ -4,8 +4,9 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use Illuminate\Http\Request;
+use Illuminate\Http\Request;use Socialite;
 use App\User;use Hash;use App\Model\Master;
+use Str;
 
 class LoginController extends Controller
 {
@@ -76,6 +77,29 @@ class LoginController extends Controller
             $errors['email'] = 'this email is not register with us';
         }
         return back()->withErrors($errors)->withInput($req->all());
+    }
+
+    public function socialiteLogin(Request $req,$socialite)
+    {
+        return Socialite::driver($socialite)->redirect();
+    }
+
+    public function socialiteLoginRedirect(Request $req,$socialite)
+    {
+        $socialiteUser = Socialite::driver($socialite)->user();
+        $user = User::where('email',$socialiteUser->email)->first();
+        if(!$user){
+            $password = Str::random(8);
+            $user = new User();
+            $user->user_type = 2;
+            $user->name = emptyCheck($socialiteUser->name);
+            $user->email = $socialiteUser->email;
+            $user->password = Hash::make($password);
+            $user->image = $socialiteUser->avatar;
+            $user->save();
+        }
+        auth()->login($user);
+        return redirect('/home');
     }
 
     public function logout(Request $request)

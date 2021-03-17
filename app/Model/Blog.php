@@ -18,4 +18,14 @@ class Blog extends Model
     {
     	return $this->belongsTo('App\User','postedBy','id');
     }
+
+    public function likes()
+    {
+    	return $this->hasMany('App\Model\BlogLike','blogId','id');
+    }
+
+    public function comment()
+    {
+    	return $this->hasMany('App\Model\BlogComment','blogId','id');
+    }
 }

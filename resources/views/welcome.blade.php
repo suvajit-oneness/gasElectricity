@@ -37,9 +37,9 @@
 				<h3>Compare, Switch, Save & postcode </h3>
 				<div class="search-form">
 					<label>Where are you located?</label>
-					<input type="text" id="search" placeholder="Enter your postcode or suburb...">
+					<input type="text" id="searchCompareNow" name="search" placeholder="Enter your postcode or suburb...">
 					<div class="button">
-						<input type="submit" id="" value="compare now">
+						<input type="submit" id="searchBtnCompareNow" value="compare now">
 						<i class="fas fa-arrow-circle-right"></i>
 					</div>
 				</div>
@@ -249,7 +249,13 @@
 @endif
 
 @section('script')
-    <script type="text/javascript"></script>
+    <script type="text/javascript">
+    	$(document).on('click','#searchBtnCompareNow',function(){
+    		var URL = "{{route('plan.listing')}}",keyword = $('#searchCompareNow').val();
+    		var redirectURL = URL+'?search='+keyword;
+    		window.location.href = redirectURL;
+    	});
+    </script>
 @stop
 @endsection
 

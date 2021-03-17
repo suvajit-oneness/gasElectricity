@@ -6,10 +6,10 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-12">
-				<h1 class="heading text-white pb-0 mb-0 text-center">Lorem ipsum dolor sit amet</h1>
+				<h1 class="heading text-white pb-0 mb-0 text-center">{{$data->blogs->title}}</h1>
 				<div class="blog_date">
 					<img src="{{asset('forntEnd/images/calender.png')}}">
-					<h5>1st march, 2021</h5>
+					<h5>{{date('M d, Y',strtotime($data->blogs->created_at))}}</h5>
 				</div>
 				<div class="blog_category_group">
 					<ul>
@@ -20,12 +20,14 @@
 					</ul>
 				</div>
 			</div>
-			<div class="col-12 text-right">
-				<div class="blog_author_box">
-					<img src="{{asset('forntEnd/images/14164.png')}}">
-					<p>Kitty Watson</p>
+			@if($data->blogs->posted)
+				<div class="col-12 text-right">
+					<div class="blog_author_box">
+						<img src="{{$data->blogs->posted->image}}">
+						<p>{{$data->blogs->posted->name}}</p>
+					</div>
 				</div>
-			</div>
+			@endif
 		</div>
 	</div>
 </section>
@@ -36,7 +38,7 @@
 			<div class="col-12 col-md-9">
 				<div class="blog_details_container">
 					<div class="blog_title_wrap">
-						<img src="{{asset('forntEnd/images/5531.png')}}">
+						<img src="{{$data->blogs->image}}">
 						<div class="content_title">
 							<h2>Lorem Ipsum is <span>simply dummy text</span></h2>
 						</div>
@@ -69,8 +71,16 @@
 						</div>
 						<div class="social_count_wrap">
 							<ul>
-								<li><a href="#"><img src="{{asset('forntEnd/images/like.png')}}">355 Likes <i class="fas fa-chevron-down"></i></a></li>
-								<li><a href="#"><img src="{{asset('forntEnd/images/chat.png')}}">25 Comments</a></li>
+								<li>
+									<a href="javascript:void(0)">
+										<img src="{{asset('forntEnd/images/like.png')}}">{{count($data->blogs->likes)}} Likes <i class="fas fa-chevron-down"></i>
+									</a>
+								</li>
+								<li>
+									<a href="javascript:void(0)">
+										<img src="{{asset('forntEnd/images/chat.png')}}">{{count($data->blogs->comment)}} Comments
+									</a>
+								</li>
 							</ul>
 						</div>
 					</div>
@@ -129,27 +139,10 @@
 				<div class="blog_category_wrap">
 					<h4 class="category_title">Categories</h4>
 					<ul>
-						<li>
-							<a href="#">Culture</a>
-						</li>
-						<li>
-							<a href="#">Creativity</a>
-						</li>
-						<li>
-							<a href="#">Music</a>
-						</li>
-						<li>
-							<a href="#">Travel</a>
-						</li>
-						<li>
-							<a href="#">Lifestyle</a>
-						</li>
-						<li>
-							<a href="#">Fashion</a>
-						</li>
-						<li>
-							<a href="#">Entertainment</a>
-						</li>
+						<li><a href="{{route('blog')}}">All</a></li>
+						@foreach($data->category as $category)
+							<li><a href="{{route('blog')}}?category={{base64_encode($category->id)}}">{{$category->name}}</a></li>
+						@endforeach
 					</ul>
 				</div>
 				<div class="newsletter_wrap">

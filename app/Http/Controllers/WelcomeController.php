@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Model\Testimonials;
+use App\Model\Testimonials;use App\Model\BlogCategory;
 use App\Model\Faq;use App\Model\Blog;
 use App\Model\AboutUs;use App\Model\ContactUs;
 
@@ -31,13 +31,22 @@ class WelcomeController extends Controller
 
     public function getBlogs(Request $req)
     {
-        $blogs = Blog::get();
-        return view('blog',compact('blogs'));
+        $data = new WelcomeController();
+        $data->category = BlogCategory::get();
+        $data->blogs = Blog::with('posted')->with('likes')->with('comment');
+        if(!empty($req->category)){
+            $data->blogs = $data->blogs->where('blogCategoryId',base64_decode($req->category));    
+        }
+        $data->blogs = $data->blogs->orderBy('id','desc')->get();
+        return view('blog',compact('data'));
     }
 
-    public function blogDetails(Request $req)
+    public function blogDetails(Request $req,$blogId)
     {
-        return view('blogdetails');
+        $data = new WelcomeController();
+        $data->category = BlogCategory::get();
+        $data->blogs = Blog::where('id',$blogId)->with('posted')->first();
+        return view('blogdetails',compact('data'));
     }
 
     public function contactUs(Request $req)
@@ -62,5 +71,24 @@ class WelcomeController extends Controller
         $contact->save();
         $sucess['msg'] = 'Thankyou for contact with us, we will guide you soon!';
         return back()->withErrors($sucess);
+    }
+
+    public function planListing(Request $req)
+    {
+        if(auth()){
+            return $this->planListingwithoutAuth($req);
+        }else{
+            return $this->planListingwithAuth($req);
+        }
+    }
+
+    public function planListingwithoutAuth(Request $req)
+    {
+        return view('listing.planWithoutLogin');
+    }
+
+    public function planListingwithAuth(Request $req)
+    {
+        return view('listing.planWithLogin');
     }
 }
