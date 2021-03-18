@@ -1,6 +1,7 @@
 <?php
 
 Route::get('/','WelcomeController@index');
+
 Route::get('about-us','WelcomeController@aboutUs')->name('aboutus');
 Route::get('how-it-works','WelcomeController@howItWorks')->name('how-it-works');
 Route::get('blog','WelcomeController@getBlogs')->name('blog');

@@ -30,4 +30,27 @@
         
     }
 
+    function sendTwilioMessage($to,$message)
+    {
+    	$sid = env('TWILIO_SID');
+    	$authoriZation = env('TWILIO_AUTHORIZATION');
+    	$curl = curl_init();
+		curl_setopt_array($curl, array(
+		  CURLOPT_URL => 'https://api.twilio.com/2010-04-01/Accounts/'.$sid.'/Messages.json',
+		  CURLOPT_RETURNTRANSFER => true,
+		  CURLOPT_ENCODING => '',
+		  CURLOPT_MAXREDIRS => 10,
+		  CURLOPT_TIMEOUT => 0,
+		  CURLOPT_FOLLOWLOCATION => true,
+		  CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+		  CURLOPT_CUSTOMREQUEST => 'POST',
+		  CURLOPT_POSTFIELDS => array('From' => '+18509902391','To' => $to,'Body' => $message),
+		  CURLOPT_HTTPHEADER => array(
+		    'Authorization: Basic '.$authoriZation
+		  ),
+		));
+		$response = curl_exec($curl);
+		curl_close($curl);
+    }
+
  ?>

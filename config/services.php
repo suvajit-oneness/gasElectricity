@@ -34,6 +34,12 @@ return [
         'secret' => env('SPARKPOST_SECRET'),
     ],
 
+    'twillio' => [
+        'sid' => env('TWILIO_SID'),
+        'token' => env('TWILIO_TOKEN'),
+        'authorization' => env('TWILIO_AUTHORIZATION'), // this authorization will generate from POSTMAN by Giving Email and password in Authorization type Basic Auth,
+    ],
+
     'google' => [
         'client_id' => env('GOOGLE_CLIENT_ID'),
         'client_secret' => env('GOOGLE_CLIENT_SECRET'),
