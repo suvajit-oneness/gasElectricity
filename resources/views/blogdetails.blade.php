@@ -105,19 +105,19 @@
 						<h3>Leave A Reply</h3>
 						<p>Your Email Address Will Not Be Published. Required Fields Are Marked</p>
 						<div class="form_wrap">
-							<form>
+							<form onsubmit="return thisFormValidation()">
 								<div class="form-row">
 									<div class="col-12 col-md-6">
-										<input type="text" name="" placeholder="Name" class="custom_input">
+										<input type="text" name="commentName" id="commentName" placeholder="Name" class="custom_input">
 									</div>
 									<div class="col-12 col-md-6">
-										<input type="email" name="" placeholder="Email" class="custom_input">
+										<input type="email" name="commentEmail" id="commentEmail" placeholder="Email" class="custom_input">
 									</div>
 									<div class="col-12">
-										<textarea class="custom_textarea" placeholder="Comments"></textarea>
+										<textarea class="custom_textarea" name="commentMessage" id="commentMessage" placeholder="Comments"></textarea>
 									</div>
 								</div>
-								<a href="#" class="blue-btm">LEAVE A COMMENT <span><i class="fas fa-arrow-circle-right"></i></span></a>
+								<a href="javascript:void(0)" class="blue-btm leaveComment">LEAVE A COMMENT <span><i class="fas fa-arrow-circle-right"></i></span></a>
 							</form>
 						</div>
 					</div>
@@ -170,6 +170,10 @@
 </section>
 
 @section('script')
-    <script type="text/javascript"></script>
+    <script type="text/javascript">
+    	function thisFormValidation(){
+
+    	}
+    </script>
 @stop
 @endsection
