@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Model\Testimonials;use App\Model\BlogCategory;
-use App\Model\Faq;use App\Model\Blog;
+use App\Model\Faq;use App\Model\Blog;use Auth;
 use App\Model\AboutUs;use App\Model\ContactUs;
 
 class WelcomeController extends Controller
@@ -75,10 +75,10 @@ class WelcomeController extends Controller
 
     public function planListing(Request $req)
     {
-        if(auth()){
-            return $this->planListingwithoutAuth($req);
-        }else{
+        if(auth()->user()){
             return $this->planListingwithAuth($req);
+        }else{
+            return $this->planListingwithoutAuth($req);
         }
     }
 
@@ -90,5 +90,15 @@ class WelcomeController extends Controller
     public function planListingwithAuth(Request $req)
     {
         return view('listing.planWithLogin');
+    }
+
+    public function electricityForm(Request $req)
+    {
+        return view('forms.electricityForm');
+    }
+
+    public function indivisualStates(Request $req)
+    {
+        return view('forms.indivisualStates');
     }
 }

@@ -176,25 +176,25 @@
 			<div class="map-content-wrap">
 				<ul>
 					<li>
-						<a href="javascript:void(0)">Energy Comparison – NSW</a>
+						<a href="{{route('electricityform')}}">Energy Comparison – NSW</a>
 					</li>
 					<li>
-						<a href="javascript:void(0)">Energy Comparison SA</a>
+						<a href="{{route('electricityform')}}">Energy Comparison SA</a>
 					</li>
 					<li>
-						<a href="javascript:void(0)">Energy Comparison VIC</a>
+						<a href="{{route('electricityform')}}">Energy Comparison VIC</a>
 					</li>
 					<li>
-						<a href="javascript:void(0)">Energy Comparison ACT</a>
+						<a href="{{route('electricityform')}}">Energy Comparison ACT</a>
 					</li>
 					<li>
-						<a href="javascript:void(0)">Energy Comparison QLD</a>
+						<a href="{{route('electricityform')}}">Energy Comparison QLD</a>
 					</li>
 					<li>
-						<a href="javascript:void(0)">Comparison Solar Providers</a>
+						<a href="{{route('electricityform')}}">Comparison Solar Providers</a>
 					</li>
 					<li>
-						<a href="javascript:void(0)">Comparison Feed in Tariffs</a>
+						<a href="{{route('electricityform')}}">Comparison Feed in Tariffs</a>
 					</li>
 				</ul>
 			</div>

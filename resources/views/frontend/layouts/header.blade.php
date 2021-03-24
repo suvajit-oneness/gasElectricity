@@ -10,7 +10,7 @@
 					<ul class="menu">
 						<li><a href="{{route('aboutus')}}">About Us</a></li>
 						<li><a href="{{route('contact-us')}}">Contact</a></li>
-						<li><a href="#">Individual State</a></li>
+						<li><a href="{{route('indivisual.state')}}">Individual State</a></li>
 						<li><a href="#">Individual Utility </a></li>
 						<li><a href="{{route('blogs')}}">Blog</a></li>
 						<li><a href="{{route('how-it-works')}}">How It Works? </a></li>

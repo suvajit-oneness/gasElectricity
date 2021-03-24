@@ -1927,10 +1927,12 @@ footer {
   font-weight: 500;
 }
 /*=============================================================================================
-                                        Plan listing                                               
+                                Plan listing without sign in                                             
 ==============================================================================================*/
 .plan_listing_wraper {
     background: url(../images/idea.png) no-repeat top right;
+    background-position-y: 44px;
+    background-size: auto;
     width: 100%;
     padding: 80px 0 160px;
     border-top: 13px solid #314159;
@@ -2095,6 +2097,7 @@ footer {
     text-transform: uppercase;
 }
 .plane_list_wrapper {
+    position: relative;
     border: 1px solid #d0d0d0;
     background-color: #fff;
     display: flex;
@@ -2102,8 +2105,8 @@ footer {
 }
 .list_container_first {
     position: relative;
-    padding: 55px 30px;
-    width: 57%;
+    padding: 55px 20px;
+    width: 43%;
 }
 .list_container_first h4 {
     font-size: 28px;
@@ -2326,6 +2329,982 @@ footer {
     font-size: 15px;
     font-weight: 500;
 }
+/*=============================================================================================
+                                        Plan listing                                            
+==============================================================================================*/
+.listing_wrap_title {
+    font-size: 42px;
+    font-weight: 700;
+    line-height: 1.15;
+    margin-bottom: 60px;
+    text-transform: uppercase;
+}
+.energy_select_box {
+    background: rgb(71,192,144);
+    background: -moz-linear-gradient(90deg, rgba(71,192,144,1) 0%, rgba(71,192,108,1) 100%);
+    background: -webkit-linear-gradient(90deg, rgba(71,192,144,1) 0%, rgba(71,192,108,1) 100%);
+    background: linear-gradient(90deg, rgba(71,192,144,1) 0%, rgba(71,192,108,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#47c090",endColorstr="#47c06c",GradientType=1);
+    display: inline-block;
+    padding: 25px 50px 37px;
+}
+.energy_select_box > p {
+    font-size: 17px; 
+    font-weight: bold;
+    color: #FFF;
+}
+.energy_select_box .custom-radio {
+    position: relative;
+    width: 404px;
+    height: 66px;
+    border: 1px solid #FFF;
+    box-sizing: border-box;
+    padding: 22px 40px 22px 60px;
+    display: flex;
+    align-items: center;
+    background-color: #ffffff8c;
+    background-image: none;
+}
+.energy_select_box .custom-radio:before {
+    position: absolute;
+    content: "";
+    background: url(../images/fire-icon.png) center right;
+    background-size: auto;
+    width: 26px;
+    height: 36px;
+    right: 44px;
+}
+.energy_select_box .custom-radio:after {
+    position: absolute;
+    content: "";
+    background: url(../images/lightbulb.png) center right;
+    background-size: auto;
+    width: 34px;
+    height: 40px;
+    right: 10px;
+    top: 8px;
+}
+.energy_select_box .custom-radio label {
+    font-size: 16px;
+    line-height: 25px;
+}
+.your-search {
+    margin-top: 66px;
+    border: 1px solid #cdcdcd;
+    margin-bottom: 22px;
+}
+.top-panel-search {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #f2f2f2;  
+}
+.search-panel {
+    padding: 30px;
+}
+.search-panel p {
+    font-size: 16px; 
+    color: #000;
+}
+.search-panel p span {
+    color: #5cdb94;
+    font-weight: 600;
+}
+.toggle_down {
+    font-size: 16px;
+    color: #5cdb94;
+    font-weight: 500;
+    text-decoration: underline;
+    display: block;
+    padding-bottom: 40px;
+    margin-bottom: 27px;
+    border-bottom: 1px solid #e8e8e8;
+}
+.toggle_down:hover {
+    color: #5cdb94;
+}
+.toggle_down span {
+    display: inline-block;
+    margin-left: 10px;
+}
+.top-panel-search h4{
+    margin: 0;
+    padding-left: 36px;
+    font-size: 21px;
+    font-weight: bold;
+    color: #000;
+}
+.right-toggle {
+    padding: 15px 20px 15px 15px;
+    border-left: 1px solid #cdcdcd;
+}
+.right-toggle p {
+    margin: 0;
+    font-size: 16px; 
+    line-height: 25px;
+}
+.right-toggle span {
+     font-size: 16px; 
+     color: #5cdb94;
+     font-weight: 600;
+}
+.energy_select_box .custom-control-label::before {
+    position: absolute;
+    top: 0;
+    left: -40px;
+    display: block;
+    width: 25px;
+    height: 25px;
+    pointer-events: none;
+    content: "";
+    background-color: #fff;
+    border: 0;
+    box-shadow: 0 0 16px 0 rgba(0, 0, 0, 0.33) !important;
+}
+.energy_select_box .custom-control-input:not(:disabled):active~.custom-control-label::before {
+    color: #fff;
+    background-color: #ace3c3;
+    border-color: transparent;
+}
+.energy_select_box .custom-radio .custom-control-input:checked~.custom-control-label::after {
+    background-image: url(data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%23fff'/%3e%3c/svg%3e);
+    background: #47c082;
+    border-radius: 50%;
+}
+.energy_select_box .custom-control-input:checked~.custom-control-label::before {
+    color: #fff;
+    border-color: #ffffff;
+    background-color: #ffffff;
+}
+.energy_select_box .custom-control-label::after {
+    position: absolute;
+    top: 5px;
+    left: -35px;
+    display: block;
+    width: 15px;
+    height: 15px;
+    content: "";
+    background: no-repeat 50%/50% 50%;
+}
+.select-four {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.select-box-one {
+    position: relative;
+    background: rgb(71,192,143); /* Old browsers */
+    background: -moz-linear-gradient(left,  rgba(71,192,143,1) 0%, rgba(71,192,143,1) 74%, rgba(71,192,120,1) 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(left,  rgba(71,192,143,1) 0%,rgba(71,192,143,1) 74%,rgba(71,192,120,1) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to right,  rgba(71,192,143,1) 0%,rgba(71,192,143,1) 74%,rgba(71,192,120,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#47c08f', endColorstr='#47c078',GradientType=1 ); /* IE6-9 */
+    cursor: pointer;
+}
+.select-box-one-content {
+    position: absolute;
+    top: 20px;
+    left: 29px;
+}
+.select-box-one-content p {
+    margin: 0;
+    color: #fff;
+    line-height: 1;
+    font-size: 15px;
+}
+.select-box-one img {
+    filter: brightness(0)invert(1);
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+}
+.select-box-one select {
+    background: transparent;
+    border: 0;
+    font-size: 21px;
+    font-weight: 500;
+    margin: 0;
+    width: 252px;
+    height: 83px;
+    padding: 20px 20px 20px 28px;
+    line-height: 65px;
+    color: #fff;
+    -webkit-appearance: none;
+    cursor: pointer;
+}
+.select-box-one select option {
+    color: #fff;
+    background: #47c08f;
+    font-size: 18px;
+}
+.select-box-one select option:hover {
+    background: #fff;
+    color: #47c08f;
+}
+.select-box-one-mod-two {
+    background: rgb(71,192,173);
+    background: -moz-linear-gradient(90deg, rgba(71,192,173,1) 0%, rgba(71,192,150,1) 100%);
+    background: -webkit-linear-gradient(90deg, rgba(71,192,173,1) 0%, rgba(71,192,150,1) 100%);
+    background: linear-gradient(90deg, rgba(71,192,173,1) 0%, rgba(71,192,150,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#47c0ad",endColorstr="#47c096",GradientType=1);
+}
+.select-box-one-mod-three {
+    background: rgb(71,192,101);
+    background: -moz-linear-gradient(90deg, rgba(71,192,101,1) 0%, rgba(71,192,78,1) 100%);
+    background: -webkit-linear-gradient(90deg, rgba(71,192,101,1) 0%, rgba(71,192,78,1) 100%);
+    background: linear-gradient(90deg, rgba(71,192,101,1) 0%, rgba(71,192,78,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#47c065",endColorstr="#47c04e",GradientType=1);
+}
+.select-box-one-mod-four {
+    background: rgb(162,192,71);
+    background: -moz-linear-gradient(90deg, rgba(162,192,71,1) 0%, rgba(185,192,71,1) 100%);
+    background: -webkit-linear-gradient(90deg, rgba(162,192,71,1) 0%, rgba(185,192,71,1) 100%);
+    background: linear-gradient(90deg, rgba(162,192,71,1) 0%, rgba(185,192,71,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#a2c047",endColorstr="#b9c047",GradientType=1);
+}
+/*=============================================================================================
+                                    Individual State Banner                                                
+==============================================================================================*/
+
+.state_banner {
+    min-height: 284px;
+    background: url(../images/plan-details-banner.png) center bottom;
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+}
+.feature_list_wrap {
+    padding: 70px 0 40px;
+    background-color: #fff;
+}
+.feature_heading {
+    font-size: 42px;
+    color: #000000;
+    font-weight: 600;
+    text-transform: uppercase;
+    margin-bottom: 25px;
+    position: relative;
+}
+.feature_subheading {
+    font-size: 27px;
+    font-weight: 500;
+}
+.feature_list {
+    text-align: center;
+    margin-top: 60px;
+}
+.feature_list li {
+    position: relative;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    width: calc((100% - 70px) / 3);
+    justify-content: center;
+    background-color: #f8faf5;
+    padding: 48px 25px 20px;
+    border: 1px solid rgba(0, 0, 0, 0.21);
+    margin: 10px 10px 40px;
+    border-radius: 5px;
+}
+.feature_list li:nth-child(1):before, .feature_list li:nth-child(3):before, .feature_list li:nth-child(5):before {
+    position: absolute;
+    content: "";
+    background-color: #314159;
+    width: 231px;
+    height: 7px;
+    top: -7px;
+    left: 3px;
+    border-radius: 3px 3px 0px 0px;
+}
+.feature_list li:nth-child(2):before, .feature_list li:nth-child(4):before, .feature_list li:nth-child(6):before {
+    position: absolute;
+    content: "";
+    background-color: #5cdb94;
+    width: 231px;
+    height: 7px;
+    top: -7px;
+    left: 3px;
+    border-radius: 3px 3px 0px 0px;
+}
+.feature_list li h6 {
+    font-size: 20px;
+    font-weight: 600;
+    line-height: 1.45;
+    margin-bottom: 25px;
+}
+.feature_list li p {
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.8;
+}
+.momentum_wrap {
+    background-color: #1b7d42;
+    padding: 50px 0 70px;
+}
+.momentum_title {
+    font-size: 28px;
+    font-weight: 600;
+    text-align: center;
+    color: #fff;
+}
+.momentum_list {
+    margin-top: 40px;
+    text-align: center;
+}
+.momentum_list li {
+    position: relative;
+    display: inline-block;
+    color: #fff;
+    font-size: 16px;
+    line-height: 26px;
+    padding-left: 40px;
+    margin-right: 30px;
+}
+.momentum_list li img {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    top: 0;
+    left: 0;
+}
+.momentum_list li:last-child {
+    margin-right: 0;
+}
+.elctricity_bill_wrap {
+    padding: 35px 0 50px;
+}
+.plan_details_wrap {
+    display: flex;
+    align-items: stretch;
+    justify-content: space-between;
+    border: 1px solid rgba(176, 176, 176, 0.61);
+    padding: 40px;
+    font-size: 0;
+    margin-bottom: 50px;
+}
+.plan_details_wrap li {
+    display: inline-block;
+    vertical-align: top;
+    /*flex-direction: column;
+    width: auto;
+    vertical-align: top;*/
+}
+.electricity_plan_info_wrap {
+    padding: 30px 60px 45px 80px;
+    background-color: #e6f1ea; 
+}
+.electricity_plan_info_wrap h4 {
+    font-size: 28px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    line-height: 1.03;
+}
+.electricity_plan_info_wrap a {
+    display: block;
+    font-size: 21px;
+    color: #1b7d42;
+    font-weight: 500;
+    margin-bottom: 26px;
+    line-height: 1;
+}
+.electricity_plan_info_wrap a:hover {
+    color: #1b7d42;
+}
+.electricity_plan_info_wrap h3 {
+    font-size: 34px;
+    font-weight: 400;
+    text-decoration: underline;
+    line-height: 1;
+    margin-bottom: 0;
+}
+.plan_price_info {
+    width: calc(100% - 474px);
+    margin-left: 10px;
+}
+.plan_price_info ul li {
+    display: inline-flex;
+    width: calc((100% - 8px) / 2);
+    min-height: 65px;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    border: 1px solid rgba(176, 176, 176, 0.61);
+    padding: 0 40px;
+    margin: 2px;
+}
+.plan_price_info ul li:nth-child(1), .plan_price_info ul li:nth-child(2), .plan_price_info ul li:nth-child(5), .plan_price_info ul li:nth-child(6) {
+    background-color: #f2f2f2;
+}
+.plan_price_info ul li p {
+    font-size: 15px;
+    line-height: 1.6;
+    margin: 0;
+}
+.plan_price_info ul li h6 {
+    font-size: 20px;
+    color: #1b7d42;
+    font-weight: 400;
+    margin-bottom: 0;
+}
+.load_consumption {
+    max-width: 822px;
+}
+.load_consumption .tab-content {
+    background-color: #f8f8f8;
+    padding: 35px 30px;
+    border: 1px solid rgba(0, 0, 0, 0.21);
+    margin-bottom: 35px;
+}
+.load_consumption .nav-tabs {
+    border-bottom: 0;
+}
+.load_consumption .nav-tabs .nav-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 235px;
+    height: 45px;
+    border: 1px solid #b0b0b0;
+    background-color: #47c091;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 300;
+    border-radius: 0;
+    margin-right: 5px;
+}
+.load_consumption .nav-tabs .nav-item.show .nav-link, .load_consumption .nav-tabs .nav-link.active {
+    background-color: #47c06c;
+}
+.load_details {
+    padding-left: 25px;
+    margin-bottom: 45px;
+}
+.load_details p {
+    font-size: 16px;
+    font-weight: 300;
+    margin-bottom: 0;
+    line-height: 1.875;
+}
+.load_details p > span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    min-width: 160px;
+    font-weight: 500;
+    margin-right: 40px;
+}
+.usage_price_info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 13px;
+}
+.usage_price_info li {
+    width: 100%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    vertical-align: top;
+    background-color: #ececec;
+    border: 1px solid #ececec;
+    min-height: 49px;
+    margin-right: 5px;
+    font-size: 16px;
+    font-weight: 500;
+}
+.usage_price_info li:nth-child(1) {
+    min-width: 328px;
+}
+.usage_price_info li:last-child {
+    margin-right: 0;
+}
+.usage_price_info_content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.usage_price_info_content li {
+    width: 100%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    vertical-align: top;
+    background-color: #fff;
+    border: 1px solid rgba(18, 18, 18, 0.1);
+    min-height: 49px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    font-size: 16px;
+    font-weight: 400;
+    padding: 10px 20px;
+}
+.usage_price_info_content li:nth-child(1) {
+    min-width: 328px;
+    justify-content: flex-start;
+    font-weight: 500;
+}
+.usage_price_info_content li:last-child {
+    margin-right: 0;
+}
+.rate_details_wrap {
+    background-color: #f8f8f8;
+    padding: 35px 30px;
+    border: 1px solid rgba(0, 0, 0, 0.21);
+    margin-bottom: 35px;
+    max-width: 822px;
+}
+.rate_details_wrap h4 {
+    font-size: 28px;
+    font-weight: 600;
+    margin-bottom: 55px;
+    line-height: 1.03;
+}
+.rate_details_content {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+.rate_details_content li {
+    width: 100%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-start;
+    vertical-align: top;
+    background-color: #fff;
+    border: 1px solid rgba(18, 18, 18, 0.1);
+    min-height: 55px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    font-size: 16px;
+    font-weight: 400;
+    padding: 10px 20px;
+}
+.rate_details_content li:nth-child(1) {
+    max-width: 328px;
+    justify-content: flex-start;
+    font-weight: 500;
+}
+.rate_details_content li:last-child {
+    margin-right: 0;
+}
+.state_content {
+    font-size: 16px;
+    line-height: 1.875;
+}
+.apply_wrap {
+    background-color: #314159;
+    padding: 85px 0;
+}
+.call_btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-start;
+    font-size: 45px;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1;
+}
+.call_btn span {
+    display: inline-block;
+     margin-right: 20px;
+}
+.call_btn span i {
+    color: #5cdb94;
+    font-size: 35px;
+}
+.call_btn:hover {
+    color: #fff;
+}
+.terms_condition_wrap {
+    padding: 40px 0 80px;
+    border-bottom: 13px solid #314159;
+}
+.terms_condition_wrap p {
+    font-size: 16px;
+    color: #2d2d2d;
+    line-height: 1.875;
+    margin-bottom: 0;
+}
+.terms_condition_wrap p.terms_title {
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+.terms_condition_wrap p.terms_title a {
+    color: #5cdb94;
+}
+
+/*=============================================================================================
+                                    Electricity Form                                            
+==============================================================================================*/
+
+.autowidth 
+{
+    width: 100% !important; 
+}
+
+.block-display 
+{
+    display: block;
+}
+
+ 
+.energy_select_box .electricy-icon:before
+{
+    content: '';
+    display: none;
+    background: transparent !important;
+}
+
+.energy_select_box .gas-icon:after
+{
+    content: '';
+    display: none;
+    background: transparent !important;
+}
+
+.energy_select_box .gas-icon:before
+{
+    content: '';
+    right: 10px !important;
+}
+
+.light-green 
+{
+    background: #f2fbf5;
+}
+
+
+.back-transparent 
+{
+    background: transparent !important;
+}
+
+.black-content 
+{
+    color: #151318 !important;
+}
+
+.border-area 
+{
+    border: 1px solid #d1d1d1;
+}
+
+.border-area .energy_select_box
+{
+    border-bottom: 1px solid #acacac;
+}
+
+.border-area .energy_select_box .custom-radio 
+{
+    background: #fbfefc;
+    border: 1px solid #b2b2b2;
+}
+
+.border-area .energy_select_box .custom-radio:before, .border-area .energy_select_box .custom-radio:after 
+{
+    display: none;
+}
+
+.date-control input[type="date"]
+{
+    background: #fbfefc url('../images/calender-green.png') no-repeat left;
+    border: 1px solid #b2b2b2;
+    height: 66px;
+    border-radius: 0;
+    padding-left: 70px;
+    background-position-x: 16px;
+
+}
+
+  
+
+.date-control input[type=date]::-webkit-calendar-picker-indicator {
+    color: rgba(0,0,0,0);
+    background-color: rgba(0,0,0,0);
+    z-index: -1;
+    position: relative;
+    transform: translateX(16px);
+}
+
+.date-control .form-control:focus {
+     
+    outline: 0;
+    box-shadow: none !important;
+}
+
+.border-b-none 
+{
+    border-bottom: none !important;
+}
+
+.electricity-details 
+{
+    padding-top: 100px;
+}
+
+.drop-control .form-control
+{
+    background:#FFF url('../images/arrow-down-b.png') no-repeat right;
+    border: 1px solid #b2b2b2;
+    height: 66px;
+    border-radius: 0;
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    background-position-x: 98%;
+}
+
+.drop-control .form-control:focus {
+     
+    outline: 0;
+    box-shadow: none !important;
+}
+
+
+.what-label
+{
+    padding: 80px 44px 44px;
+}
+
+.padd-bott60 
+{
+    padding-bottom: 60px;
+    display: inline-block;
+}
+
+.common-label 
+{
+    width: 383px;
+    background: #f8faf5;
+    padding: 30px 35px;
+    border: 1px solid #cdcdcd;
+    border-radius: 5px;
+    margin: 0 10px;
+    position: relative;
+    z-index: 999;
+}
+
+.feature_list .energy_select_box 
+{
+    padding: 0;
+    background: #f8faf5 !important;
+}
+
+.feature_list .custom-control
+{ 
+    background: transparent;
+    border: none;
+    width: 100% !important;
+    margin: 0 auto;
+}
+
+.feature_list .custom-radio::before, .feature_list .custom-radio::after 
+{
+    display: none;
+}
+
+.feature_list .custom-radio label {
+    font-size: 24px;
+    line-height: 25px;
+    font-weight: 600;
+    padding-left: 20px;
+}
+
+.label-content p
+{
+    margin: 0;
+    font-size: 16px; 
+    color: #000;
+    line-height: 30px;
+}
+
+.label-content p span 
+{
+    color: #47c08d;
+    font-weight: 500;
+}
+.what-label .feature_list
+{
+    display: flex;
+    margin: 0 -10px;
+    margin-top: 60px;
+}
+.what-label .feature_list li 
+{
+    padding: 30px 25px 30px;
+}
+
+.what-label .feature_list li:first-child::before
+{
+    background-color: #5cdb94;
+}
+
+.what-label .feature_list li:nth-child(2)::before
+{
+    background-color: #314159;
+}
+
+.what-label .feature_list li:nth-child(3)::before
+{
+    background-color: #5cdb94;
+}
+
+.check-area .custom-control-mod 
+{
+    margin-bottom: 20px;
+}
+
+.top-gap30 
+{
+    margin-top: 30px;
+}
+
+.check-area .custom-control-mod span 
+{
+    color: #47c06c;
+    font-weight: 600;
+}
+
+.electric-head 
+{
+    margin-bottom: 30px;
+}
+
+.electric-head p 
+{
+    font-size: 19px;
+}
+
+.electric-head h2
+{
+    margin: 0;
+}
+
+
+/*=============================================================================================
+                            Gas Electricity Individual State                                           
+==============================================================================================*/
+
+
+.gas-electricity-banner  
+{
+    background: url('../images/state-banner.png') no-repeat center;
+    background-size: cover;
+    border-top: 10px solid #314159;
+    border-bottom: 10px solid #314159;
+    padding-top: 110px;
+    justify-content: center;
+    padding-bottom: 50px;
+}
+
+.gas-electricity-banner .banner-heading 
+{
+    font-weight: 700;
+    color: #5cdb94;
+}
+
+.gas-electricity-banner .banner-heading span
+{
+    color: #FFF;
+    text-transform: uppercase;
+}
+
+.gas-electricity-banner .white-para p 
+{
+    color: #FFF;
+    font-size: 20px;
+    line-height: 35px;
+}
+
+.gas-electricity-banner .location-search-section p 
+{
+    color: #FFF;
+}
+
+.bg-elect 
+{
+    background: rgb(42,169,112); 
+    background: -moz-linear-gradient(left,  rgba(42,169,112,1) 0%, rgba(62,189,126,1) 100%); 
+    background: -webkit-linear-gradient(left,  rgba(42,169,112,1) 0%,rgba(62,189,126,1) 100%); 
+    background: linear-gradient(to right,  rgba(42,169,112,1) 0%,rgba(62,189,126,1) 100%); 
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2aa970', endColorstr='#3ebd7e',GradientType=1 ); 
+}
+
+.capitalize-text span
+{
+    text-transform: capitalize !important;
+}
+
+.energy-comp 
+{
+    padding-top: 85px;
+    padding-bottom: 100px;
+}
+
+
+.energy-comp .energy_select_box p 
+{
+    color: #FFF;
+    font-weight: 600;
+}
+
+
+.white-bg 
+{
+    background: #FFF !important;
+}
+.yes-no-btn 
+{
+    display: flex;
+    align-items: center;
+}
+
+.yes-no-btn a {
+    height: 65px;
+    background: #FFF;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #000;
+}
+
+.yes-no-btn .active
+{
+    background: #05396b; 
+    color: #FFF;
+}
+
+.energy-comp .energy_select_box .custom-radio:before 
+{
+    display: none;
+}
+
+.energy-comp .search-form input[type="text"] {
+     
+    border-right: 1px solid #bbbbbb;
+    border-radius: 9px;
+}
+
+.ccheckandbtn 
+{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.ccheckandbtn label 
+{
+    color: #FFF;
+}
+
+.margin-top0 
+{
+    margin-top: 0;
+}
+
+
+
 
 
 
@@ -2474,4 +3453,254 @@ footer {
         transform: rotate(135deg)
     }
 }
+.plan_icon_wrap {
+    width: 11%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0 15px;
+    margin: 15px 0 55px;
+    border-right: 1px solid #ededed;
+}
+.plan_icon_wrap img {
+    max-width: 100%;
+    margin-bottom: 15px;
+}
+.plan_icon_wrap h6 {
+    text-align: center;
+    font-size: 15px;
+    font-weight: 600;
+}
+.rate_title {
+    line-height: 1.03;
+    margin-bottom: 27px;
+}
+.rate_sub_content {
+    font-size: 16px;
+    line-height: 1.875;
+}
 
+
+
+/***************** Loader Design **************************/
+.loading-data {
+    position: fixed;
+    z-index: 999;
+    height: 2em;
+    width: 2em;
+    overflow: visible;
+    margin: auto;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+.loading-data:before {
+    content: "";
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.62);
+}
+.loading-data:not(:required) {
+    font: 0/0 a;
+    color: transparent;
+    text-shadow: none;
+    background-color: transparent;
+    border: 0;
+}
+.loading-data:not(:required):after {
+    content: "";
+    display: block;
+    font-size: 12px;
+    width: 1em;
+    height: 1em;
+    margin-top: -0.5em;
+    -webkit-animation: spinner 1500ms infinite linear;
+    -moz-animation: spinner 1500ms infinite linear;
+    -ms-animation: spinner 1500ms infinite linear;
+    -o-animation: spinner 1500ms infinite linear;
+    animation: spinner 1500ms infinite linear;
+    border-radius: 0.5em;
+    -webkit-box-shadow: rgba(255, 255, 255, 1) 1.5em 0 0 0,
+    rgba(255, 255, 255, 1) 1.1em 1.1em 0 0, rgba(255, 255, 255, 1) 0 1.5em 0 0,
+    rgba(255, 255, 255, 1) -1.1em 1.1em 0 0, rgba(255, 255, 255, 1) -1.5em 0 0 0,
+    rgba(255, 255, 255, 1) -1.1em -1.1em 0 0, rgba(255, 255, 255, 1) 0 -1.5em 0 0,
+    rgba(255, 255, 255, 1) 1.1em -1.1em 0 0;
+    box-shadow: rgba(255, 255, 255, 1) 1.5em 0 0 0,
+    rgba(255, 255, 255, 1) 1.1em 1.1em 0 0, rgba(255, 255, 255, 1) 0 1.5em 0 0,
+    rgba(255, 255, 255, 1) -1.1em 1.1em 0 0, rgba(255, 255, 255, 1) -1.5em 0 0 0,
+    rgba(255, 255, 255, 1) -1.1em -1.1em 0 0, rgba(255, 255, 255, 1) 0 -1.5em 0 0,
+    rgba(255, 255, 255, 1) 1.1em -1.1em 0 0;
+}
+@-webkit-keyframes spinner {
+    0% {
+        -webkit-transform: rotate(0deg);
+        -moz-transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+        -moz-transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        -o-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+@-moz-keyframes spinner {
+    0% {
+        -webkit-transform: rotate(0deg);
+        -moz-transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+        -moz-transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        -o-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+@-o-keyframes spinner {
+    0% {
+        -webkit-transform: rotate(0deg);
+        -moz-transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+        -moz-transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        -o-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+@keyframes spinner {
+    0% {
+        -webkit-transform: rotate(0deg);
+        -moz-transform: rotate(0deg);
+        -ms-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+        -moz-transform: rotate(360deg);
+        -ms-transform: rotate(360deg);
+        -o-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+/***************** Sweet Alert Design **********************/
+.swal-button {
+    padding: 5px 14px;
+    font-family: averta;
+    font-size: 14px;
+    font-weight: normal;
+    text-transform: uppercase;
+}
+.swal-button:hover{background: transparent;}
+.swal-button--cancel:not([disabled]):hover {
+    background-color: transparent !important;
+}
+.swal-modal {
+    width: 335px;
+    border-radius: 0px;
+}
+.swal-button--cancel:focus {
+    box-shadow: inherit;
+}
+.swal-title {
+    color: rgba(0,0,0,.65);
+    font-weight: 600;
+    text-transform: none;
+    position: relative;
+    display: block;
+    padding: 12px 16px;
+    font-size: 15px;
+    line-height: normal;
+    text-align: center;
+    margin-bottom: 0;
+    background: #f5f5f5;
+    text-align: center;
+    border-bottom: 1px solid #ccc;
+}
+.swal-title:first-child {
+  margin-top: 0px;
+}
+.swal-footer {
+    text-align: right;
+    padding-top: 0px;
+    margin-top: 20px;
+    padding: 9px 16px;
+    border-top: 1px solid #ccc;
+}
+
+.swal-text {
+    font-size: 16px;
+    padding: 0px 10px;
+    font-family: averta;
+    color: #000;
+}
+.swal-title{
+    margin-top: 0px;
+    font-family: averta;
+    color: #000;
+    font-size: 16px;
+}
+.swal-button--cancel {
+    background-color: transparent;
+    color: #c5c5c5;
+    padding: 5px 14px;
+}
+.swal-button-container{margin:0px;}
+.swal-button--cancel:hover{ background-color: transparent;}
+.swal-button--danger {
+    background: #528be9 !important;
+    border: 1px solid #2e75b6 !important;
+    padding: 0px 16px;
+    border-radius: 4px;
+    font-size: 12px;
+    height: 30px;
+    line-height: 14px;
+}
+.swal-button--confirm{background: #528be9 !important;
+    border: 1px solid #2e75b6 !important;
+    padding: 0px 16px;
+    border-radius: 4px;
+    font-size: 12px;
+    height: 30px;
+    line-height: 14px;}
+.swal-button--danger:hover{background: #2e75b6 !important;
+    border: 1px solid #2e75b6 !important;}
+.sweet-alert {margin-left: -240px; border:1px solid #ccc; border-radius: 0px;}
+.sweet-alert h2{font-size: 18px;
+    padding-top: 20px;}
+.sweet-alert .sa-button-container .cancel {background: transparent;
+    color: #8c8c8c;
+    border: 0;
+    font-size:14px;
+    padding: 6px 15px;
+  text-transform: uppercase;}
+.sweet-alert .sa-confirm-button-container{}
+.sweet-alert .sa-confirm-button-container .confirm{background: #528be9;
+    color: #fff;
+    border: 1px solid #528be9;
+    padding: 6px 15px;
+    font-size: 14px;}
+.sweet-alert .sa-button-container{text-align: right;
+    border-top: 1px solid #ccc;
+    padding: 12px 12px 0px 12px;
+}
+/***************** Sweet Alert Design END **********************/
