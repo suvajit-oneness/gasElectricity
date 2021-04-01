@@ -1,7 +1,6 @@
 @extends('frontend.layouts.master')
 @section('title','Plan Listing')
 @section('content')
-<?php dd('without Login'); ?>
 <section class="plan_listing_wraper">
 	<div class="container">
 		<div class="row align-items-center">

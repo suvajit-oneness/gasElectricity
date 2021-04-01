@@ -32,6 +32,14 @@ Route::group(['prefix'=>'user','middleware'=>'user'],function(){
 	});
 });
 
+
+// Laravel OCR Testing
+Route::get('ocr/testing',function(){
+	return view('lara_ocr.upload_image');
+});
+
+Route::post('ocr/testing','TestController@parseText')->name('ocr.testing.post');
+
 // Common Routes
 // Route::get('delete/{id}','ContactUsController@delete');
 // // Route::get('delete/{id}',function(){
