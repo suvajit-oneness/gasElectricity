@@ -1,7 +1,7 @@
 <footer>
 	<div class="container">
 		<div class="row">
-			<div class="col-md-3">
+			<div class="col-xl-4 col-lg-5 col-md-6 col-sm-12 col-12">
 				<div class="foot_info">
 					<a href="#" class="foot_logo">
 						<img src="{{asset('forntEnd/images/switchr_logo_footer.png')}}">
@@ -9,35 +9,35 @@
 					<p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin</p>
 				</div>
 			</div>
-			<div class="col">
+			<div class="col-xl-2 col-lg-3 col-md-3 col-sm-6 col-12">
 				<div class="foot_links">
 					<h6 class="foot_title">Links</h6>
 					<ul>
 						<li>
-							<a href="#">HOME</a>
+							<a href="index.html">HOME</a>
 						</li>
 						<li>
-							<a href="#">ABOUT</a>
+							<a href="about.html">ABOUT</a>
 						</li>
 						<li>
-							<a href="#">CONTACT</a>
+							<a href="contact.html">CONTACT</a>
 						</li>
 						<li>
-							<a href="#">Individual State</a>
+							<a href="individual-state.html">Individual State</a>
 						</li>
 						<li>
 							<a href="#">Individual Utility</a>
 						</li>
 						<li>
-							<a href="#">blog</a>
+							<a href="blog.html">blog</a>
 						</li>
 						<li>
-							<a href="#">how it works</a>
+							<a href="how-it-works.html">how it works</a>
 						</li>
 					</ul>
 				</div>
 			</div>
-			<div class="col px-md-0">
+			<div class="col-xl-2 col-lg-4 col-md-3 col-sm-6 col-12 px-md-0 ">
 				<h6 class="foot_title">Contact</h6>
 				<ul class="address_links">
 					<li>
@@ -50,7 +50,7 @@
 					</li>
 				</ul>
 			</div>
-			<div class="col">
+			<div class="col-xl-4 col-lg-12 col-md-12 col-sm-12 col-12">
 				<h6 class="foot_title">Contact</h6>
 				<ul class="social_links">
 					<li>

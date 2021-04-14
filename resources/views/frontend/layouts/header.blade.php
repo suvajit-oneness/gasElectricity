@@ -1,12 +1,13 @@
-
-<header class="inner_head">
+<header>
 	<div class="container">
 		<div class="inner-header">
 			<a href="{{url('/')}}" class="logo">
 				<img src="{{asset('forntEnd/images/logo.png')}}">
 			</a>
 			<div class="left-header">
-				<div class="navigation">
+				<a href="javascript:void(0)" onclick="openNav()" id="pull"><i class="fas fa-bars"></i> </a>
+				<div class="navigation sidenav" id="mySidenav">
+					<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
 					<ul class="menu">
 						<li><a href="{{route('aboutus')}}">About Us</a></li>
 						<li><a href="{{route('contact-us')}}">Contact</a></li>
@@ -16,7 +17,6 @@
 						<li><a href="{{route('how-it-works')}}">How It Works? </a></li>
 					</ul>
 				</div>
-
 				@if(Auth::user())
 					<a href="{{url('login')}}" class="login-btm" id="navbarDropdownMenuLink2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="{{Auth::user()->image}}" height="30" width="30"></a>
                     <div class="dropdown-menu dropdown-menu-right nav-user-dropdown" aria-labelledby="navbarDropdownMenuLink2">

@@ -27,6 +27,7 @@
 	<script src="{{asset('forntEnd/js/jquery.min.js')}}"></script>
 	<script src="{{asset('forntEnd/js/popper.min.js')}}"></script>
 	<script src="{{asset('forntEnd/js/bootstrap.min.js')}}"></script>
+	<script src="{{asset('forntEnd/js/custome.js')}}"></script>
 	<script type="text/javascript" src="{{asset('forntEnd/js/slick.min.js')}}"></script>
 
 	<script type="text/javascript">
