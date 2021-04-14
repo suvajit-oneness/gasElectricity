@@ -78,7 +78,7 @@ class WelcomeController extends Controller
         if(auth()->user()){
             return $this->planListingwithAuth($req);
         }else{
-            // return view('listing.planWithLogin');
+            return view('listing.planWithLogin');
             return $this->planListingwithoutAuth($req);
         }
     }

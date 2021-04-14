@@ -110,11 +110,12 @@
 					</div>
 					<div class="plan_wraper">
 						<div class="plane_list_wrapper">
+							<div class="res-planheading"><h5>Plan <span>and highlights</span></h5></div>
 							<div class="plan_icon_wrap">
 								<img src="{{asset('forntEnd/images/24-hours.png')}}">
 								<h6>COMPANY NAME</h6>
 							</div>
-							<div class="list_container_first">
+							<div class="list_container_first ">
 								<h4>Everyday Rewards</h4>
 								<ul class="reward_facilities">
 									<li>Sign Up & get up to 10K Everyday Rewards Points</li>
@@ -123,7 +124,9 @@
 									<li>5,000 Everyday Rewards points + 1 point for every $1 billed.</li>
 								</ul>
 							</div>
+							<div class="res-planheading"><h5>Price/year <span>(estimated^)</span></h5></div>
 							<div class="list_amount">
+
 								<div class="list_amount_inner">
 									<div class="price_compare">
 										<span><img src="{{asset('forntEnd/images/fire-icon.png')}}">Gas</span>
@@ -150,6 +153,7 @@
 							</div>
 						</div>
 						<div class="plane_list_wrapper">
+							<div class="res-planheading"><h5>Plan <span>and highlights</span></h5></div>
 							<div class="plan_icon_wrap">
 								<img src="{{asset('forntEnd/images/tools.png')}}">
 								<h6>COMPANY NAME</h6>
@@ -163,6 +167,7 @@
 									<li>5,000 Everyday Rewards points + 1 point for every $1 billed.</li>
 								</ul>
 							</div>
+							<div class="res-planheading"><h5>Price/year <span>(estimated^)</span></h5></div>
 							<div class="list_amount">
 								<div class="list_amount_inner">
 									<div class="price_compare">
@@ -190,6 +195,7 @@
 							</div>
 						</div>
 						<div class="plane_list_wrapper">
+							<div class="res-planheading"><h5>Plan <span>and highlights</span></h5></div>
 							<div class="plan_icon_wrap">
 								<img src="{{asset('forntEnd/images/refilling.png')}}">
 								<h6>COMPANY NAME</h6>
@@ -203,6 +209,7 @@
 									<li>5,000 Everyday Rewards points + 1 point for every $1 billed.</li>
 								</ul>
 							</div>
+							<div class="res-planheading"><h5>Price/year <span>(estimated^)</span></h5></div>
 							<div class="list_amount">
 								<div class="list_amount_inner">
 									<div class="price_compare">
@@ -230,6 +237,7 @@
 							</div>
 						</div>
 						<div class="plane_list_wrapper">
+							<div class="res-planheading"><h5>Plan <span>and highlights</span></h5></div>
 							<div class="plan_icon_wrap">
 								<img src="{{asset('forntEnd/images/nuclear.png')}}">
 								<h6>COMPANY NAME</h6>
@@ -243,6 +251,7 @@
 									<li>5,000 Everyday Rewards points + 1 point for every $1 billed.</li>
 								</ul>
 							</div>
+							<div class="res-planheading"><h5>Price/year <span>(estimated^)</span></h5></div>
 							<div class="list_amount">
 								<div class="list_amount_inner">
 									<div class="price_compare">
@@ -271,6 +280,7 @@
 						</div>
 
 						<div class="plane_list_wrapper plane_list_wrapper-mod">
+							<div class="res-planheading"><h5>Plan <span>and highlights</span></h5></div>
 							<div class="plan_icon_wrap">
 								<img src="{{asset('forntEnd/images/apartment.png')}}">
 								<h6>COMPANY NAME</h6>
@@ -285,6 +295,7 @@
 								<h4>Value <span>(out of 10)</span></h4>
 								<img src="{{asset('forntEnd/images/rating.png')}}">
 							</div>
+							<div class="res-planheading"><h5>Price/year <span>(estimated^)</span></h5></div>
 							<div class="list_amount">
 								<div class="list_amount_inner">
 									<div class="price_compare">
@@ -312,6 +323,7 @@
 							</div>
 						</div>
 						<div class="plane_list_wrapper plane_list_wrapper-mod">
+							<div class="res-planheading"><h5>Plan <span>and highlights</span></h5></div>
 							<div class="plan_icon_wrap">
 								<img src="{{asset('forntEnd/images/metal-gear-2.png')}}">
 								<h6>COMPANY NAME</h6>
@@ -326,6 +338,7 @@
 								<h4>Value <span>(out of 10)</span></h4>
 								<img src="{{asset('forntEnd/images/rating.png')}}">
 							</div>
+							<div class="res-planheading"><h5>Price/year <span>(estimated^)</span></h5></div>
 							<div class="list_amount">
 								<div class="list_amount_inner">
 									<div class="price_compare">
