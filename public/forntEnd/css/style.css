@@ -10,21 +10,21 @@ body {
 }
 
 a:hover {
-	text-decoration: none;
+    text-decoration: none;
     color:#000;
 }
 ul{
-	padding:0;
-	margin: 0;
-	list-style: none;
+    padding:0;
+    margin: 0;
+    list-style: none;
 }
 
 input:focus, input:hover, select:focus, select:hover {
-	outline: none;
-	box-shadow: none;
+    outline: none;
+    box-shadow: none;
 }
 p {
-	font-family: 'Montserrat', sans-serif;
+    font-family: 'Montserrat', sans-serif;
     color: #2e2b2b;
     font-size: 14px;
     font-weight: 400;
@@ -4993,7 +4993,6 @@ footer {
     
 }
 
-
 /***************** Loader Design **************************/
 .loading-data {
     position: fixed;
@@ -5215,11 +5214,3 @@ footer {
     padding: 12px 12px 0px 12px;
 }
 /***************** Sweet Alert Design END **********************/
-
-
-
-
-
-
-
-
