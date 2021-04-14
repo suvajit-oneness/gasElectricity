@@ -1,5 +1,5 @@
 @extends('frontend.layouts.master')
-@section('title','About Us')
+@section('title','Contact Us')
 @section('content')
 	
 <section class="contact_wraper">
@@ -8,7 +8,7 @@
 			<div class="col-12">
 				<div class="contact_form">
 					<div class="row">
-						<div class="col-12 col-md-6 d-none d-md-block">
+						<div class="col-12 col-lg-6 col-md-12">
 							<div class="contact_details_wrap">
 								<ul class="conatct_links">
 									<li>
@@ -38,7 +38,7 @@
 								</ul>
 							</div>
 						</div>
-						<div class="col-12 col-md-6">
+						<div class="col-12 col-lg-6 col-md-12">
 							<div class="contact_form_wrap">
 								<div class="form_container">
 									<h3>Get in touch with us</h3>

@@ -34,8 +34,50 @@
 
 <section class="blog_wrapper">
 	<div class="container">
-		<div class="row">
-			<div class="col-12 col-md-9">
+		<div class="row flex-row-reverse">
+			<div class="col-12 col-lg-3 col-md-12">
+				<div class="energy_plan">
+					<h3 class="text-white">Compare <span class="bold">Energy Plans</span> Here – <span class="bold lightgreen">Free!</span></h3>
+					<a href="#" class="white_btn">view all <span><img src="{{asset('forntEnd/images/button-small-icon-3.png')}}"></span></a>
+				</div>
+				<div class="search_form_wrap">
+					<form>
+						<div class="search_container">
+							<input type="search" name="" placeholder="Enter Your Keyword...">
+							<button><img src="{{asset('forntEnd/images/search.png')}}"></button>
+						</div>
+					</form>
+				</div>
+				<div class="blog_category_wrap">
+					<h4 class="category_title">Categories</h4>
+					<ul>
+						<li><a href="{{route('blog')}}">All</a></li>
+						@foreach($data->category as $category)
+							<li><a href="{{route('blog')}}?category={{base64_encode($category->id)}}">{{$category->name}}</a></li>
+						@endforeach
+					</ul>
+				</div>
+				<div class="newsletter_wrap">
+					<img src="{{asset('forntEnd/images/Layer.png')}}">
+					<h3>Stay Tuned !</h3>
+					<p>Subscribe our Newsletter & get notifications to stay update</p>
+					<form>
+						<div class="email_wrapper">
+							<input type="email" name="" placeholder="Enter your e-mail Address">
+							<button><img src="{{asset('forntEnd/images/submit.png')}}"></button>
+						</div>
+					</form>
+				</div>
+				<div class="blog_wraper_social">
+					<h6>Follow us On :</h6>
+					<ul>
+						<li><a href="#"><img src="{{asset('forntEnd/images/facebook.png')}}"></a></li>
+						<li><a href="#"><img src="{{asset('forntEnd/images/linkedin.png')}}"></a></li>
+						<li><a href="#"><img src="{{asset('forntEnd/images/youtube.png')}}"></a></li>
+					</ul>
+				</div>
+			</div>
+			<div class="col-12 col-lg-9 col-md-12">
 				<div class="blog_details_container">
 					<div class="blog_title_wrap">
 						<img src="{{$data->blogs->image}}">
@@ -121,48 +163,6 @@
 							</form>
 						</div>
 					</div>
-				</div>
-			</div>
-			<div class="col-12 col-md-3">
-				<div class="energy_plan">
-					<h3 class="text-white">Compare <span class="bold">Energy Plans</span> Here – <span class="bold lightgreen">Free!</span></h3>
-					<a href="#" class="white_btn">view all <span><img src="{{asset('forntEnd/images/button-small-icon-3.png')}}"></span></a>
-				</div>
-				<div class="search_form_wrap">
-					<form>
-						<div class="search_container">
-							<input type="search" name="" placeholder="Enter Your Keyword...">
-							<button><img src="{{asset('forntEnd/images/search.png')}}"></button>
-						</div>
-					</form>
-				</div>
-				<div class="blog_category_wrap">
-					<h4 class="category_title">Categories</h4>
-					<ul>
-						<li><a href="{{route('blog')}}">All</a></li>
-						@foreach($data->category as $category)
-							<li><a href="{{route('blog')}}?category={{base64_encode($category->id)}}">{{$category->name}}</a></li>
-						@endforeach
-					</ul>
-				</div>
-				<div class="newsletter_wrap">
-					<img src="{{asset('forntEnd/images/Layer.png')}}">
-					<h3>Stay Tuned !</h3>
-					<p>Subscribe our Newsletter & get notifications to stay update</p>
-					<form>
-						<div class="email_wrapper">
-							<input type="email" name="" placeholder="Enter your e-mail Address">
-							<button><img src="{{asset('forntEnd/images/submit.png')}}"></button>
-						</div>
-					</form>
-				</div>
-				<div class="blog_wraper_social">
-					<h6>Follow us On :</h6>
-					<ul>
-						<li><a href="#"><img src="{{asset('forntEnd/images/facebook.png')}}"></a></li>
-						<li><a href="#"><img src="{{asset('forntEnd/images/linkedin.png')}}"></a></li>
-						<li><a href="#"><img src="{{asset('forntEnd/images/youtube.png')}}"></a></li>
-					</ul>
 				</div>
 			</div>
 		</div>

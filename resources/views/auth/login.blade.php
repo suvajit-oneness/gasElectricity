@@ -8,10 +8,10 @@
             <div class="col-12">
                 <div class="contact_form sign_in_form">
                     <div class="row">
-                        <div class="col-12 col-md-6 d-none d-md-block">
+                        <div class="col-12 col-lg-6 col-md-12 d-none d-md-block">
                             <div class="contact_details_wrap contact_details_wrap-mod"></div>
                         </div>
-                        <div class="col-12 col-md-6">
+                        <div class="col-12 col-lg-6 col-md-12">
                             <div class="sign_in_form_wrap">
                                 <div class="form_container">
                                     <h3>Welcome Back :)</h3>
