@@ -1,4 +1,4 @@
-<header>
+<header @if(Route::currentRouteName() != '') class="inner_head" @endif>
 	<div class="container">
 		<div class="inner-header">
 			<a href="{{url('/')}}" class="logo">
