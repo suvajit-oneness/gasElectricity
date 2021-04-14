@@ -239,6 +239,8 @@ header {
 .location-search-section {
     text-align: left;
     margin-top: 43px;
+    position: relative;
+    z-index: 9999;
 }
 .location-search-section p {
     padding: 0 38px;
