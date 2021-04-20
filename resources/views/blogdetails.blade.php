@@ -51,9 +51,9 @@
 				<div class="blog_category_wrap">
 					<h4 class="category_title">Categories</h4>
 					<ul>
-						<li><a href="{{route('blog')}}">All</a></li>
+						<li><a href="{{route('blogs')}}">All</a></li>
 						@foreach($data->category as $category)
-							<li><a href="{{route('blog')}}?category={{base64_encode($category->id)}}">{{$category->name}}</a></li>
+							<li><a href="{{route('blogs')}}?category={{base64_encode($category->id)}}">{{$category->name}}</a></li>
 						@endforeach
 					</ul>
 				</div>

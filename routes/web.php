@@ -4,7 +4,6 @@ Route::get('/','WelcomeController@index');
 
 Route::get('about-us','WelcomeController@aboutUs')->name('aboutus');
 Route::get('how-it-works','WelcomeController@howItWorks')->name('how-it-works');
-Route::get('blog','WelcomeController@getBlogs')->name('blog');
 Route::get('how-it-works','WelcomeController@howItWorks')->name('how-it-works');
 Route::get('blogs','WelcomeController@getBlogs')->name('blogs');
 Route::get('blog/{blogId}/details','WelcomeController@blogDetails')->name('blog.detail');
@@ -27,9 +26,7 @@ Route::group(['prefix'=>'admin','middleware'=>'admin'],function(){
 });
 
 Route::group(['prefix'=>'user','middleware'=>'user'],function(){
-	Route::get('dashboard',function(){
-		return view('home');
-	});
+	require 'user.php';
 });
 
 
@@ -37,14 +34,4 @@ Route::group(['prefix'=>'user','middleware'=>'user'],function(){
 Route::get('ocr/testing',function(){
 	return view('lara_ocr.upload_image');
 });
-
 Route::post('ocr/testing','TestController@parseText')->name('ocr.testing.post');
-
-// Common Routes
-// Route::get('delete/{id}','ContactUsController@delete');
-// // Route::get('delete/{id}',function(){
-//     // return 'yeah its Workin';
-// // });
-// Route::get('/create','ContactUsController@create');
-// Route::get('/','ContactUsController@index');
-// Route::get('/{id}','ContactUsController@update');
