@@ -144,7 +144,7 @@
 									</div>
 									<div class="price_amount">
 										<h2>$1,252</h2>
-										<a href="#" class="blue-btm">EXPLORE <span><i class="fas fa-arrow-circle-right"></i></span></a>
+										<a href="{{route('plan.details',1)}}" class="blue-btm">EXPLORE <span><i class="fas fa-arrow-circle-right"></i></span></a>
 									</div>
 								</div>
 							</div>
@@ -186,7 +186,7 @@
 									</div>
 									<div class="price_amount">
 										<h2>$1,252</h2>
-										<a href="#" class="blue-btm">EXPLORE <span><i class="fas fa-arrow-circle-right"></i></span></a>
+										<a href="{{route('plan.details',1)}}" class="blue-btm">EXPLORE <span><i class="fas fa-arrow-circle-right"></i></span></a>
 									</div>
 								</div>
 							</div>
@@ -228,7 +228,7 @@
 									</div>
 									<div class="price_amount">
 										<h2>$1,252</h2>
-										<a href="#" class="blue-btm">EXPLORE <span><i class="fas fa-arrow-circle-right"></i></span></a>
+										<a href="{{route('plan.details',1)}}" class="blue-btm">EXPLORE <span><i class="fas fa-arrow-circle-right"></i></span></a>
 									</div>
 								</div>
 							</div>
@@ -270,7 +270,7 @@
 									</div>
 									<div class="price_amount">
 										<h2>$1,252</h2>
-										<a href="#" class="blue-btm">EXPLORE <span><i class="fas fa-arrow-circle-right"></i></span></a>
+										<a href="{{route('plan.details',1)}}" class="blue-btm">EXPLORE <span><i class="fas fa-arrow-circle-right"></i></span></a>
 									</div>
 								</div>
 							</div>
@@ -314,7 +314,7 @@
 									</div>
 									<div class="price_amount">
 										<h2>$1,252</h2>
-										<a href="#" class="blue-btm">EXPLORE <span><i class="fas fa-arrow-circle-right"></i></span></a>
+										<a href="{{route('plan.details',1)}}" class="blue-btm">EXPLORE <span><i class="fas fa-arrow-circle-right"></i></span></a>
 									</div>
 								</div>
 							</div>
@@ -357,7 +357,7 @@
 									</div>
 									<div class="price_amount">
 										<h2>$1,252</h2>
-										<a href="#" class="blue-btm">EXPLORE <span><i class="fas fa-arrow-circle-right"></i></span></a>
+										<a href="{{route('plan.details',1)}}" class="blue-btm">EXPLORE <span><i class="fas fa-arrow-circle-right"></i></span></a>
 									</div>
 								</div>
 							</div>

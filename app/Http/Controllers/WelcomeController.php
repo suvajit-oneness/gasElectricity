@@ -98,6 +98,12 @@ class WelcomeController extends Controller
 
     public function indivisualStates(Request $req)
     {
-        return view('forms.indivisualStates');
+        $about = AboutUs::with('whychoose')->first();
+        return view('forms.indivisualStates',compact('about'));
+    }
+
+    public function planDetails(Request $req,$planId)
+    {
+        return view('welcome.plan_details');
     }
 }

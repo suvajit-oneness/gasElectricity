@@ -1,21 +1,22 @@
 @extends('frontend.layouts.master')
-@section('title','Plan Listing')
+@section('title','Electricity Form')
 @section('content')
-	
+
 <section class="state_banner">
 	<div class="container">
 	</div>
 </section>
 
-<section class="contact_wraper">
-	<div class="container"> 
+<section class="contact_wraper bac-white">
+	<div class="container">
+		 
 		<div class="electric-head">
 			<h2 class="heading text-center"> Your Usage </h2>
 			<p class="text-center">To find you a great plan we need to collect some details about you.</p>
 		</div>
 
-		<div class="energy_select_box block-display">
-			<p>What are you looking to compare? *</p>
+		<div class="energy_select_box block-display elect-form">
+			<p>What are you looking to compare? <span class="orange-color">*</span></p>
 			<div class="row">
 				<div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
 					<div class="custom-control custom-radio autowidth">
@@ -37,122 +38,126 @@
 				</div>
 			</div>
 		</div>
+		<div class="light-green border-area elect-form">
 
-		<div class="light-green border-area">
 			<div class="energy_select_box block-display back-transparent">
-				<p class="black-content"> What type of property? *</p>
-				<div class="row">
-					<div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
-						<div class="custom-control custom-radio autowidth">
-						  <input type="radio" id="myhome" name="customRadio" class="custom-control-input">
-						  <label class="custom-control-label" for="myhome">My home</label>
-						</div>
-					</div>
-					<div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
-						<div class="custom-control custom-radio autowidth">
-						  <input type="radio" id="mybusness" name="customRadio" class="custom-control-input">
-						  <label class="custom-control-label" for="mybusness">My business</label>
-						</div>
+			<p class="black-content"> What type of property? <span class="orange-color">*</span></p>
+			<div class="row">
+				<div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
+					<div class="custom-control custom-radio autowidth">
+					  <input type="radio" id="myhome" name="customRadio" class="custom-control-input">
+					  <label class="custom-control-label" for="myhome">My home</label>
 					</div>
 				</div>
-		   	</div>
+				<div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
+					<div class="custom-control custom-radio autowidth">
+					  <input type="radio" id="mybusness" name="customRadio" class="custom-control-input">
+					  <label class="custom-control-label" for="mybusness">My business</label>
+					</div>
+				</div>
+			</div>
+		   </div>
 
 		   <div class="energy_select_box block-display back-transparent">
-				<p class="black-content"> Do you own or rent the property? *</p>
-				<div class="row">
-					<div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
-						<div class="custom-control custom-radio autowidth">
-						  <input type="radio" id="own" name="customRadio" class="custom-control-input">
-						  <label class="custom-control-label" for="own"> Own </label>
-						</div>
-					</div>
-					<div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
-						<div class="custom-control custom-radio autowidth ">
-						  <input type="radio" id="rent" name="customRadio" class="custom-control-input">
-						  <label class="custom-control-label" for="rent"> Rent </label>
-						</div>
+			<p class="black-content"> Do you own or rent the property? <span class="orange-color">*</span></p>
+			<div class="row">
+				<div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
+					<div class="custom-control custom-radio autowidth">
+					  <input type="radio" id="own" name="customRadio" class="custom-control-input">
+					  <label class="custom-control-label" for="own"> Own </label>
 					</div>
 				</div>
-		   	</div>
+				<div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
+					<div class="custom-control custom-radio autowidth ">
+					  <input type="radio" id="rent" name="customRadio" class="custom-control-input">
+					  <label class="custom-control-label" for="rent"> Rent </label>
+					</div>
+				</div>
+			</div>
+		   </div>
 
-		   	<div class="energy_select_box block-display back-transparent">
-				<p class="black-content"> Are you moving into this property? * </p>
-				<div class="row">
-					<div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
-						<div class="custom-control custom-radio autowidth">
-						  <input type="radio" id="mov-yes" name="customRadio" class="custom-control-input">
-						  <label class="custom-control-label" for="mov-yes"> Yes </label>
-						</div>
-					</div>
-					<div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
-						<div class="custom-control custom-radio autowidth ">
-						  <input type="radio" id="mov-no" name="customRadio" class="custom-control-input">
-						  <label class="custom-control-label" for="mov-no"> No </label>
-						</div>
+		   <div class="energy_select_box block-display back-transparent">
+			<p class="black-content"> Are you moving into this property? <span class="orange-color">*</span> </p>
+			<div class="row">
+				<div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
+					<div class="custom-control custom-radio autowidth">
+					  <input type="radio" id="mov-yes" name="customRadio" class="custom-control-input">
+					  <label class="custom-control-label" for="mov-yes"> Yes </label>
 					</div>
 				</div>
-		   	</div>
+				<div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
+					<div class="custom-control custom-radio autowidth ">
+					  <input type="radio" id="mov-no" name="customRadio" class="custom-control-input">
+					  <label class="custom-control-label" for="mov-no"> No </label>
+					</div>
+				</div>
+			</div>
+		   </div>
 
-		   	<div class="energy_select_box block-display back-transparent">
-				<p class="black-content"> What is your move in date? * </p>
-				<div class="row">
-					<div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
-						<div class="date-control autowidth">
-							<input class="form-control" type="date" value="2021-02-15">
-						</div>
+		   <div class="energy_select_box block-display back-transparent">
+			<p class="black-content"> What is your move in date? <span class="orange-color">*</span> </p>
+			<div class="row">
+				<div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
+					<div class="date-control autowidth">
+						<input class="form-control" type="date" value="2021-02-15" >
 					</div>
 				</div>
-		   	</div>
+			</div>
+		   </div>
 
-		   	<div class="energy_select_box block-display back-transparent">
-				<p class="black-content"> Do you also need to connect a broadband or home entertainment service? * </p>
-				<div class="row">
-					<div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
-						<div class="custom-control custom-radio autowidth">
-						  <input type="radio" id="mov-yes2" name="customRadio" class="custom-control-input">
-						  <label class="custom-control-label" for="mov-yes2"> Yes </label>
-						</div>
-					</div>
-					<div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
-						<div class="custom-control custom-radio autowidth ">
-						  <input type="radio" id="mov-no2" name="customRadio" class="custom-control-input">
-						  <label class="custom-control-label" for="mov-no2"> No </label>
-						</div>
+
+		   <div class="energy_select_box block-display back-transparent">
+			<p class="black-content"> Do you also need to connect a broadband or home entertainment service? <span class="orange-color">*</span> </p>
+			<div class="row">
+				<div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
+					<div class="custom-control custom-radio autowidth">
+					  <input type="radio" id="mov-yes2" name="customRadio" class="custom-control-input">
+					  <label class="custom-control-label" for="mov-yes2"> Yes </label>
 					</div>
 				</div>
-		   	</div>
+				<div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
+					<div class="custom-control custom-radio autowidth ">
+					  <input type="radio" id="mov-no2" name="customRadio" class="custom-control-input">
+					  <label class="custom-control-label" for="mov-no2"> No </label>
+					</div>
+				</div>
+			</div>
+		   </div>
 
 		    <div class="energy_select_box block-display back-transparent border-b-none">
-				<p class="black-content"> Do you have gas connection to the property? * </p>
-				<div class="row">
-					<div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
-						<div class="custom-control custom-radio autowidth">
-						  <input type="radio" id="mov-yes3" name="customRadio" class="custom-control-input">
-						  <label class="custom-control-label" for="mov-yes3"> Yes </label>
-						</div>
-					</div>
-					<div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
-						<div class="custom-control custom-radio autowidth ">
-						  <input type="radio" id="mov-no3" name="customRadio" class="custom-control-input">
-						  <label class="custom-control-label" for="mov-no3"> No </label>
-						</div>
-					</div>
-					<div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
-						<div class="custom-control custom-radio autowidth">
-						  <input type="radio" id="know" name="customRadio" class="custom-control-input">
-						  <label class="custom-control-label" for="know"> Don't Know </label>
-						</div>
+			<p class="black-content"> Do you have gas connection to the property? <span class="orange-color">*</span> </p>
+			<div class="row">
+				<div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
+					<div class="custom-control custom-radio autowidth">
+					  <input type="radio" id="mov-yes3" name="customRadio" class="custom-control-input">
+					  <label class="custom-control-label" for="mov-yes3"> Yes </label>
 					</div>
 				</div>
-		   	</div>
+				<div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
+					<div class="custom-control custom-radio autowidth ">
+					  <input type="radio" id="mov-no3" name="customRadio" class="custom-control-input">
+					  <label class="custom-control-label" for="mov-no3"> No </label>
+					</div>
+				</div>
+				<div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
+					<div class="custom-control custom-radio autowidth">
+					  <input type="radio" id="know" name="customRadio" class="custom-control-input">
+					  <label class="custom-control-label" for="know"> Don't Know </label>
+					</div>
+				</div>
+			</div>
+		   </div>
+
+
 		</div>
 
-		<div class="electricity-details">
+
+		<div class="electricity-details elect-form">
 			<h2 class="heading text-center"> Your Electricity Details </h2>
 
 			<div class="light-green border-area">
 				<div class="energy_select_box block-display back-transparent">
-					<p class="black-content"> Do you have gas connection to the property? * </p>
+					<p class="black-content"> Do you have gas connection to the property? <span class="orange-color">*</span> </p>
 					<div class="row">
 						<div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
 							<div class="custom-control custom-radio autowidth">
@@ -170,7 +175,7 @@
 			   	</div>
 
 			   	<div class="energy_select_box block-display back-transparent border-b-none ">
-					<p class="black-content"> Who is your current electricity provider? * </p>
+					<p class="black-content"> Who is your current electricity provider? <span class="orange-color">*</span> </p>
 					<div class="row">
 						<div class="col-xl-8 col-lg-8 col-md-12 col-sm-12 col-12">
 							<div class="drop-control autowidth">
@@ -186,7 +191,7 @@
 			</div>
 
 			<div class="what-label">
-				<strong class="black-content "> What level best describes your typical electricity usage? * </strong>
+				<strong class="black-content "> What level best describes your typical electricity usage? <span class="orange-color">*</span> </strong>
 
 				<ul class="feature_list">
 					<li>
@@ -225,7 +230,6 @@
 								<label class="custom-control-label" for="High">  High </label>
 							</div>
 						</div>
-
 						<div class="label-content text-center">
 							<p><span>4 to 5+ people</span></p>
 							<p><span>4+ bedrooms</span></p>
@@ -249,8 +253,7 @@
 			</div>
  		</div>
 	</div>
-</section>	
-
+</section>
 @section('script')
     <script type="text/javascript"></script>
 @stop

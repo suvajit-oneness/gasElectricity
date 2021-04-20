@@ -151,38 +151,19 @@
 
 <section class="why_choose_wrap">
 	<div class="container">
-		<h2 class="heading text-center">Why Choose Us</h2>
+		<h2 class="heading text-center">{!! $about->whychooseus !!}</h2>
 		<div class="row">
 			<div class="why_choose_content">
 				<ul>
-					<li>
-						<div class="why_choose_img_wrap">
-							<img src="{{asset('forntEnd/images/inovative_system.png')}}">
-						</div>
-						<h5>Innovative System</h5>
-						<p>Econnex is an innovative system helping you and thousands of Aussies compare energy plans across Australia.</p>
-					</li>
-					<li>
-						<div class="why_choose_img_wrap">
-							<img src="{{asset('forntEnd/images/calculator.png')}}">
-						</div>
-						<h5>Latest Technology</h5>
-						<p>We use the latest technology to search and compare electricity and gas plans from our panel of leading retailers.</p>
-					</li>
-					<li>
-						<div class="why_choose_img_wrap">
-							<img src="{{asset('forntEnd/images/service.png')}}">
-						</div>
-						<h5>Free Service</h5>
-						<p>We don’t charge you anything to use our service and we won’t call or try to steer you into something you don’t need.</p>
-					</li>
-					<li>
-						<div class="why_choose_img_wrap">
-							<img src="{{asset('forntEnd/images/ecosystem.png')}}">
-						</div>
-						<h5>Be Energy Smart</h5>
-						<p>Econnex filters through available energy prices and deals so you can make an informed decision of your Energy needs.</p>
-					</li>
+					@foreach($about->whychoose as $key=>$choose)
+						<li>
+							<div class="why_choose_img_wrap">
+								<img src="{{$choose->image}}">
+							</div>
+							<h5>{!! $choose->title !!}</h5>
+							<p>{!! $choose->description !!}</p>
+						</li>
+					@endforeach
 				</ul>
 			</div>
 		</div>
