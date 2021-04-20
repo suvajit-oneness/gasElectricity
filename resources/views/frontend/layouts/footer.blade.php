@@ -14,25 +14,25 @@
 					<h6 class="foot_title">Links</h6>
 					<ul>
 						<li>
-							<a href="index.html">HOME</a>
+							<a href="{{url('/')}}">HOME</a>
 						</li>
 						<li>
-							<a href="about.html">ABOUT</a>
+							<a href="{{route('aboutus')}}">ABOUT</a>
 						</li>
 						<li>
-							<a href="contact.html">CONTACT</a>
+							<a href="{{route('contact-us')}}">CONTACT</a>
 						</li>
 						<li>
-							<a href="individual-state.html">Individual State</a>
+							<a href="{{route('indivisual.state')}}">Individual State</a>
 						</li>
 						<li>
 							<a href="#">Individual Utility</a>
 						</li>
 						<li>
-							<a href="blog.html">blog</a>
+							<a href="{{route('blogs')}}">blogs</a>
 						</li>
 						<li>
-							<a href="how-it-works.html">how it works</a>
+							<a href="{{route('how-it-works')}}">how it works?</a>
 						</li>
 					</ul>
 				</div>

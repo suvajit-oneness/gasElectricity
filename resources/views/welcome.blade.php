@@ -219,7 +219,7 @@
 				</li>
 				@endforeach
 			</ul>
-			<a href="{{route('blog')}}" class="blue-btm">view all <span><i class="fas fa-arrow-circle-right"></i></span></a>
+			<a href="{{route('blogs')}}" class="blue-btm">view all <span><i class="fas fa-arrow-circle-right"></i></span></a>
 		</div>
 	</div>
 </section>

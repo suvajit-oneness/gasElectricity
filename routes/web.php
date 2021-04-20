@@ -10,6 +10,7 @@ Route::get('blog/{blogId}/details','WelcomeController@blogDetails')->name('blog.
 Route::get('contact-us','WelcomeController@contactUs')->name('contact-us');
 Route::post('contact-us','WelcomeController@saveContactUs')->name('contactus.save');
 Route::get('plan-listing','WelcomeController@planListing')->name('plan.listing');
+Route::get('plan-details/{planId?}','WelcomeController@planDetails')->name('plan.details');
 Route::get('electricity-form','WelcomeController@electricityForm')->name('electricityform');
 Route::get('indivisual-states','WelcomeController@indivisualStates')->name('indivisual.state');
 

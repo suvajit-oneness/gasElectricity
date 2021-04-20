@@ -96,7 +96,7 @@
 
 			<div class="search-form">
 				<label>Enter your suburb or postcode</label>
-				<input type="text" id="search" placeholder="Enter your postcode or suburb..."> 
+				<input type="text" id="postcodesearch" placeholder="Enter your postcode or suburb..."> 
 			</div>
 			<div class="ccheckandbtn">
 				<div class="custom-control custom-checkbox custom-control-mod">
@@ -137,7 +137,7 @@
 				 
 				<div class="search-form">
 					<label>Enter your post code</label>
-					<input type="text" id="search" placeholder="Enter here...">
+					<input type="text" id="search2" placeholder="Enter here...">
 					<div class="button">
 						<input type="submit" id="" value="START NOW">
 						<i class="fas fa-arrow-circle-right"></i>
