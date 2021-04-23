@@ -63,11 +63,23 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-            'image' => url('/defaultUser.jpg'),
-        ]);
+        DB::beginTransaction();
+        try {
+            $user = new User();
+            $user->name = $data['name'];
+            $user->email = $data['email'];
+            $user->password = Hash::make($data['password']);
+            $user->image = url('/defaultUser.jpg');
+                $referral = $this->generateUniqueReferral();
+                $user->refferal_code = $referral->code;
+            $user->save();
+                $referral->userId = $user->id;
+                $referral->save();
+            return $user;
+            DB::commit();
+        }catch (Exception $e) {
+            DB::rollback();
+            return new User();
+        }
     }
 }

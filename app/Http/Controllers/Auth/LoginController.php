@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;use Socialite;
 use App\User;use Hash;use App\Model\Master;
-use Str;
+use Str;use DB;
 
 class LoginController extends Controller
 {
@@ -89,17 +89,29 @@ class LoginController extends Controller
         $socialiteUser = Socialite::driver($socialite)->user();
         $user = User::where('email',$socialiteUser->email)->first();
         if(!$user){
-            $password = Str::random(8);
-            $user = new User();
-            $user->user_type = 2;
-            $user->name = emptyCheck($socialiteUser->name);
-            $user->email = $socialiteUser->email;
-            $user->password = Hash::make($password);
-            $user->image = $socialiteUser->avatar;
-            $user->save();
+            DB::beginTransaction();
+            try {
+                $password = Str::random(8);
+                $user = new User();
+                $user->user_type = 2;
+                $user->name = emptyCheck($socialiteUser->name);
+                $user->email = $socialiteUser->email;
+                $user->password = Hash::make($password);
+                $user->image = $socialiteUser->avatar;
+                    $referral = $this->generateUniqueReferral();
+                    $user->refferal_code = $referral->code;
+                $user->save();
+                    $referral->userId = $user->id;
+                    $referral->save();
+                    DB::commit();
+                auth()->login($user);
+                return redirect('/home');
+            } catch (Exception $e) {
+                DB::rollback();
+                $error['socialite'] = 'Something went wrong please try after some time';
+                return back()->withErrors($error);
+            }
         }
-        auth()->login($user);
-        return redirect('/home');
     }
 
     public function logout(Request $request)
