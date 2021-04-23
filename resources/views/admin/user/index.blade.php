@@ -53,11 +53,7 @@
                                                 @endif
                                             </td>
                                             <td>
-                                                <?php $points = getSumOfPoints($user->user_points); ?>
-                                                @if($points > 0)
-                                                    <a href="{{route('admin.user.points',$user->id)}}">{{$points}}</a>
-                                                @else{{'0'}}@endif
-                                                
+                                                <a href="{{route('admin.user.points',$user->id)}}">{{getSumOfPoints($user->user_points)}}</a>
                                             </td>
                                             @if($user->user_type == 1)
                                                 <td></td>
