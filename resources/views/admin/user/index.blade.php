@@ -25,6 +25,7 @@
                                     <th>Referral Code</th>
                                     <th>Referred By</th>
                                     <th>Count Referred To</th>
+                                    <th>Total Points</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -50,6 +51,9 @@
                                                 @else
                                                     {{('N/A')}}
                                                 @endif
+                                            </td>
+                                            <td>
+                                                <a href="{{route('admin.user.points',$user->id)}}">{{getSumOfPoints($user->user_points)}}</a>
                                             </td>
                                             @if($user->user_type == 1)
                                                 <td></td>

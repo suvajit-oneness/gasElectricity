@@ -64,4 +64,12 @@
     	return $random_string;
     }
 
+    function getSumOfPoints($userPoints){
+    	$totalPoint = 0;
+    	foreach($userPoints as $getPoint){
+    		$totalPoint += $getPoint->points;
+    	}
+    	return $totalPoint;
+    }
+
  ?>

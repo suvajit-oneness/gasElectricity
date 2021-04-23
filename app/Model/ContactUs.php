@@ -8,5 +8,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class ContactUs extends Model
 {
     use SoftDeletes;
+
     protected $fillable = ['name','subject','email','phone','description'];
+    
+    protected $hidden = [
+        'deleted_at', 'updated_at','created_at',
+    ];
 }

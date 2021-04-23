@@ -7,6 +7,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Laravel\Passport\HasApiTokens;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use DB;
 
 class User extends Authenticatable
 {
@@ -47,5 +48,10 @@ class User extends Authenticatable
     public function referred_to()
     {
         return $this->hasMany('App\User','referred_by','id');
+    }
+
+    public function user_points()
+    {
+        return $this->hasMany('App\Model\UserPoints','userId','id');
     }
 }

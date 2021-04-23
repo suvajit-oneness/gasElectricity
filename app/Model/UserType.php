@@ -8,4 +8,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 class UserType extends Model
 {
     use SoftDeletes;
+
+    protected $hidden = [
+        'deleted_at', 'updated_at','created_at',
+    ];
 }

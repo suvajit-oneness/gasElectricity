@@ -53,5 +53,6 @@
 		Route::post('about-us','Admin\AdminController@saveaboutUs')->name('admin.setting.save_aboutUs');
 	});
 	Route::get('referred_to/user/{userId}','Admin\AdminController@getReferredToList')->name('admin.referral.referred_to');
+	Route::get('user/points/{userId}','Admin\AdminController@getUserPoints')->name('admin.user.points');
 	
  ?>

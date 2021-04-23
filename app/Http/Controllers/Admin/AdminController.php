@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Model\Blog;use App\Model\UserType;
-use App\User;use App\Model\ContactUs;
+use App\User;use App\Model\ContactUs;use DB;
 use App\Model\Testimonials;use App\Model\Faq;
 use Hash;use App\Model\AboutUs;use App\Model\BlogCategory;
 use App\Model\WhyChooseUs;use App\Model\HowItWork;
@@ -16,7 +16,8 @@ class AdminController extends Controller
 /****************************** Users ******************************/
 	public function getUsers(Request $req)
 	{
-		$users = User::/*with('referred_through')->with('referred_to')->*/orderBy('users.id','desc')->get();
+		$users = User::select('*');/*with('referred_through')->with('referred_to')->*/
+        $users = $users->orderBy('users.id','desc')->get();
 		return view('admin.user.index',compact('users'));
 	}
 
@@ -507,6 +508,12 @@ class AdminController extends Controller
     {
         $user = User::findorFail($userId);
         return view('admin.referral.referred_to',compact('user'));
+    }
+
+    public function getUserPoints(Request $req,$userId)
+    {
+        $user = User::findorFail($userId);
+        return view('admin.point.info',compact('user'));
     }
 
 }

@@ -98,12 +98,9 @@ class LoginController extends Controller
                 $user->email = $socialiteUser->email;
                 $user->password = Hash::make($password);
                 $user->image = $socialiteUser->avatar;
-                    $referral = $this->generateUniqueReferral();
-                    $user->refferal_code = $referral->code;
                 $user->save();
-                    $referral->userId = $user->id;
-                    $referral->save();
-                    DB::commit();
+                $this->setReferralCode($user,'');
+                DB::commit();
                 auth()->login($user);
                 return redirect('/home');
             } catch (Exception $e) {
