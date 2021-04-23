@@ -52,5 +52,6 @@
 		Route::get('about-us','Admin\AdminController@aboutUs')->name('admin.setting.about_us');
 		Route::post('about-us','Admin\AdminController@saveaboutUs')->name('admin.setting.save_aboutUs');
 	});
+	Route::get('referred_to/user/{userId}','Admin\AdminController@getReferredToList')->name('admin.referral.referred_to');
 	
  ?>

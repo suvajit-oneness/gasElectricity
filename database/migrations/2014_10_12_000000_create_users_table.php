@@ -25,7 +25,8 @@ class CreateUsersTable extends Migration
             $table->tinyInteger('subscribed')->default(0)->comment('1:Subscribed ,0:Un-Subscribed');
             $table->tinyInteger('status')->comment('1:Active,0:In-Active')->default(1);
             $table->string('image');
-            $table->string('refferal_code',10)->comment('ReFFeral Code')->unique();
+            $table->string('referral_code',10)->unique()->comment('Referral Code');
+            $table->bigInteger('referred_by')->comment('Referred By UserId');
             $table->rememberToken();
             $table->softDeletes();
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));

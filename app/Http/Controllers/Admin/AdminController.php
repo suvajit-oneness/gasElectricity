@@ -16,7 +16,7 @@ class AdminController extends Controller
 /****************************** Users ******************************/
 	public function getUsers(Request $req)
 	{
-		$users = User::orderBy('users.id','desc')->get();
+		$users = User::/*with('referred_through')->with('referred_to')->*/orderBy('users.id','desc')->get();
 		return view('admin.user.index',compact('users'));
 	}
 
@@ -149,7 +149,7 @@ class AdminController extends Controller
 /****************************** Blog ******************************/
 	public function blogs(Request $req,$blogCategoryId = 0)
 	{
-		$blogs = Blog::with('category')->with('posted');
+		$blogs = Blog::select('*')/*->with('category')->with('posted')*/;
         if($blogCategoryId > 0){
             $blogs = $blogs->where('blogCategoryId',$blogCategoryId);
         }
@@ -395,7 +395,7 @@ class AdminController extends Controller
 /****************************** About Us ******************************/
     public function aboutUs(Request $req)
     {
-        $aboutus = AboutUs::with('whychoose')->first();
+        $aboutus = AboutUs::select('*')/*->with('whychoose')*/->first();
         return view('admin.setting.about-us',compact('aboutus'));
     }
 
@@ -501,6 +501,12 @@ class AdminController extends Controller
             return errorResponse('Invalid Faq Id');
         }
         return errorResponse($validator->errors()->first());
+    }
+
+    public function getReferredToList(Request $req,$userId)
+    {
+        $user = User::findorFail($userId);
+        return view('admin.referral.referred_to',compact('user'));
     }
 
 }

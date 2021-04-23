@@ -21,9 +21,9 @@ class CreateUserTypesTable extends Migration
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
         });
         $data = [
-            [
-                'name' => 'Admin',
-            ]
+            ['name' => 'Admin'],
+            ['name' => 'Client'],
+            ['name' => 'Customer'],
         ];
         DB::table('user_types')->insert($data);
     }

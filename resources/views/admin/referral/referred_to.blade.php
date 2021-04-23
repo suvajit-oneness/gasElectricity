@@ -6,7 +6,7 @@
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
             <div class="card">
                 <div class="card-header">
-                    <h5 class="mb-0">User List
+                    <h5 class="mb-0">User List Referred By ({{$user->name}}) - (Referral Code : {{$user->referral_code}})
                         <a class="headerbuttonforAdd" href="{{route('admin.user.create')}}">
                             <i class="fa fa-plus" aria-hidden="true"></i>Add User
                         </a>
@@ -29,42 +29,40 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($users as $user)
-                                    @if($user->user_type != 1)
-                                        <tr>
-                                            <td style="height: 100px; width: 100px"><img height="100px" width="100px" src="{{$user->image}}"></td>
-                                            <td>{{$user->name}}</td>
-                                            <td>{{$user->email}}</td>
-                                            <td>{{$user->mobile}}</td>
-                                            <td>{{$user->referral_code}}</td>
-                                            <td>
-                                                @if($user->referred_through)
-                                                    <a href="javascript:void(0)" class="getReferredByDetails" data-details="{{json_encode($user->referred_through)}}">view</a>
-                                                @else
-                                                    {{('N/A')}}
-                                                @endif
-                                            </td>
-                                            <td>
-                                                @if(count($user->referred_to) > 0)
-                                                    <a href="{{route('admin.referral.referred_to',$user->id)}}">{{count($user->referred_to)}}</a>
-                                                @else
-                                                    {{('N/A')}}
-                                                @endif
-                                            </td>
-                                            @if($user->user_type == 1)
-                                                <td></td>
+                                @foreach($user->referred_to as $user)
+                                    <tr>
+                                        <td style="height: 100px; width: 100px"><img height="100px" width="100px" src="{{$user->image}}"></td>
+                                        <td>{{$user->name}}</td>
+                                        <td>{{$user->email}}</td>
+                                        <td>{{$user->mobile}}</td>
+                                        <td>{{$user->referral_code}}</td>
+                                        <td>
+                                            @if($user->referred_through)
+                                                <a href="javascript:void(0)" class="getReferredByDetails" data-details="{{json_encode($user->referred_through)}}">view</a>
                                             @else
-                                                <td>
-                                                    <?php $action = 'Block';
-                                                        if($user->status != 1){
-                                                            $action = 'Unblock';
-                                                        }
-                                                    ?>
-                                                    <a href="javascript:void(0)" class="blockUnblock" data-id="{{$user->id}}">{{$action}}</a> | <a href="javascript:void(0)" class="text-danger userDelete" data-id="{{$user->id}}">Delete</a>
-                                                </td>
+                                                {{('N/A')}}
                                             @endif
-                                        </tr>
-                                    @endif
+                                        </td>
+                                        <td>
+                                            @if(count($user->referred_to) > 0)
+                                                <a href="{{route('admin.referral.referred_to',$user->id)}}">{{count($user->referred_to)}}</a>
+                                            @else
+                                                {{('N/A')}}
+                                            @endif
+                                        </td>
+                                        @if($user->user_type == 1)
+                                            <td></td>
+                                        @else
+                                            <td>
+                                                <?php $action = 'Block';
+                                                    if($user->status != 1){
+                                                        $action = 'Unblock';
+                                                    }
+                                                ?>
+                                                <a href="javascript:void(0)" class="blockUnblock" data-id="{{$user->id}}">{{$action}}</a> | <a href="javascript:void(0)" class="text-danger userDelete" data-id="{{$user->id}}">Delete</a>
+                                            </td>
+                                        @endif
+                                    </tr>
                                 @endforeach
                             </tbody>
                         </table>
@@ -98,17 +96,6 @@
         $(document).ready(function() {
             $('#example4').DataTable();
         });
-
-        $(document).on('click','.getReferredByDetails',function(){
-            var details = JSON.parse($(this).attr('data-details'));
-            var data = '<h3>Name : '+details.name+'</h3>';
-            data += '<h3>Email : '+details.email+'</h3>';
-            data += '<h3>Phone : '+details.mobile+'</h3>';
-            data += '<h3>Referral Code : '+details.referral_code+'</h3>';
-            $('#referredByModal #referredByData').empty().append(data);
-            $('#referredByModal').modal('show');
-        });
-
         $(document).on('click','.userDelete',function(){
             var userId = $(this).attr('data-id');
             var thisClickedbtn = $(this);
@@ -160,6 +147,18 @@
                 }
             });
         }
+
+        $(document).on('click','.getReferredByDetails',function(){
+            var details = JSON.parse($(this).attr('data-details'));
+            console.log(details);
+
+            var data = '<h3>Name : '+details.name+'</h3>';
+            data += '<h3>Email : '+details.email+'</h3>';
+            data += '<h3>Phone : '+details.mobile+'</h3>';
+            data += '<h3>Referral Code : '+details.referral_code+'</h3>';
+            $('#referredByModal #referredByData').empty().append(data);
+            $('#referredByModal').modal('show');
+        });
 
     </script>
 @stop

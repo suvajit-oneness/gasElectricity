@@ -1,6 +1,7 @@
 <?php
 
-Auth::routes(['register' => true]);
+Auth::routes(['register' => true,'logout'=>false]);
+Route::any('logout','Auth\LoginController@logout');
 
 Route::get('/home', 'HomeController@index')->name('home');
 

@@ -15,7 +15,7 @@ class CreateReferralsTable extends Migration
     {
         Schema::create('referrals', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('code',20);
+            $table->string('code',20)->unique();
             $table->bigInteger('userId');
             $table->softDeletes();
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));

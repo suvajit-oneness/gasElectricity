@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+// use DB;use App\Model\Referral;
 
 class RegisterController extends Controller
 {
@@ -52,6 +53,7 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'referral' => ['string','nullable','exists:referrals,code'],
         ]);
     }
 
@@ -63,23 +65,7 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        DB::beginTransaction();
-        try {
-            $user = new User();
-            $user->name = $data['name'];
-            $user->email = $data['email'];
-            $user->password = Hash::make($data['password']);
-            $user->image = url('/defaultUser.jpg');
-                $referral = $this->generateUniqueReferral();
-                $user->refferal_code = $referral->code;
-            $user->save();
-                $referral->userId = $user->id;
-                $referral->save();
-            return $user;
-            DB::commit();
-        }catch (Exception $e) {
-            DB::rollback();
-            return new User();
-        }
+        $userObject = (object)$data;
+        return $this->createNewUser($userObject);
     }
 }
