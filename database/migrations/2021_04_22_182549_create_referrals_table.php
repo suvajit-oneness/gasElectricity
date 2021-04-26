@@ -21,6 +21,12 @@ class CreateReferralsTable extends Migration
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
         });
+        $data = [
+            ['code' => 'AAAAAAA','userId'=>1],
+            ['code' => 'AAAAAAB','userId'=>2],
+            ['code' => 'AAAAAAC','userId'=>3],
+        ];
+        DB::table('referrals')->insert($data);
     }
 
     /**

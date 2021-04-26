@@ -39,6 +39,8 @@ class CreateUsersTable extends Migration
                 'email' => 'admin@admin.com',
                 'password' => Hash::make('secret'),
                 'image' => url('/defaultUser.jpg'),
+                'referral_code' => 'AAAAAAA',
+                'referred_by' => 1,
             ],
             [
                 'user_type' => 2,
@@ -46,6 +48,7 @@ class CreateUsersTable extends Migration
                 'email' => 'client@client.com',
                 'password' => Hash::make('secret'),
                 'image' => url('/defaultUser.jpg'),
+                'referral_code' => 'AAAAAAB',
             ],
             [
                 'user_type' => 3,
@@ -53,6 +56,7 @@ class CreateUsersTable extends Migration
                 'email' => 'customer@customer.com',
                 'password' => Hash::make('secret'),
                 'image' => url('/defaultUser.jpg'),
+                'referral_code' => 'AAAAAAC',
             ],
         ];
 
