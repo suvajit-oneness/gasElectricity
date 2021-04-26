@@ -25,10 +25,13 @@ Route::group(['prefix'=>'admin','middleware'=>'admin'],function(){
 	require 'admin.php';
 });
 
+Route::group(['prefix'=>'client','middleware'=>'client'],function(){
+	require 'client.php';
+});
+
 Route::group(['prefix'=>'customer','middleware'=>'customer'],function(){
 	require 'customer.php';
 });
-
 
 /************************** Laravel Testing Routes *************************/
 Route::get('ocr/testing',function(){
