@@ -20,9 +20,9 @@
 	});
 
 	Route::group(['prefix'=>'blogs'],function(){
-		Route::get('/{blogCategoryId?}','Admin\AdminController@blogs')->name('admin.blogs');
 		Route::get('/create','Admin\AdminController@createBlog')->name('admin.blogs.create');
 		Route::post('/create','Admin\AdminController@saveBlog')->name('admin.blogs.save');
+		Route::get('/{blogCategoryId?}','Admin\AdminController@blogs')->name('admin.blogs');
 		Route::get('/{id}/edit','Admin\AdminController@editBlog')->name('admin.blogs.edit');
 		Route::post('/update','Admin\AdminController@updateBlog')->name('admin.blogs.update');
 		Route::post('/{id}/delete', 'Admin\AdminController@deleteBlog')->name('admin.blogs.delete');
@@ -52,6 +52,7 @@
 		Route::get('about-us','Admin\AdminController@aboutUs')->name('admin.setting.about_us');
 		Route::post('about-us','Admin\AdminController@saveaboutUs')->name('admin.setting.save_aboutUs');
 	});
+
 	Route::get('referred_to/user/{userId}','Admin\AdminController@getReferredToList')->name('admin.referral.referred_to');
 	Route::get('user/points/{userId}','Admin\AdminController@getUserPoints')->name('admin.user.points');
 	

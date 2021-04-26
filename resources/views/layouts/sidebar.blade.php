@@ -27,7 +27,7 @@
                             <a class="nav-link {{request()->routeIs('admin.blogs.category')?'active':''}}" href="{{route('admin.blogs.category')}}"><i class="fa fa-fw fa-user-circle"></i>Blog Category</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {{request()->routeIs('admin.blogs')?'active':''}}" href="{{route('admin.blogs')}}"><i class="fa fa-fw fa-user-circle"></i>Blog</a>
+                            <a class="nav-link {{request()->routeIs('admin.blogs')?'active':''}}" href="{{route('admin.blogs')}}"><i class="fa fa-fw fa-user-circle"></i>Blogs</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link {{request()->routeIs('admin.testimonial')?'active':''}}" href="{{route('admin.testimonial')}}"><i class="fa fa-fw fa-user-circle"></i>Testimonial</a>
