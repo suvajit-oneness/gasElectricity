@@ -41,3 +41,14 @@ Route::group(['middleware' => 'auth'],function(){
 	Route::post('user/change/password','HomeController@updateUserPassword')->name('user.changepassword.save');
 });
 /************************** Laravel Testing Routes *************************/
+
+Route::get('mail',function(){
+	$data = [
+			'to'=>'arpan@onenesstechs.in', 
+			'name' => 'test name',
+			'subject'=>'Login Successfull',
+			'message'=>'Welcome Back to SwitchR!'
+		];
+	$template = 'emails.loginmail';
+	sendMail($data,$template);
+});

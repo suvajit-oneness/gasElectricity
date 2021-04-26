@@ -28,9 +28,17 @@
         return Str::words($value, $words, $end);
     }
     
-    function sendMail()
+    function sendMail($data , $template)
     {
-        
+		$toEmail = $data['to'];
+		$toName = $data['name'];
+		$sub = $data['subject'];
+		
+        Mail::send($template, compact('data'), function ($message) use ($toName, $toEmail, $sub) {
+            $message->to($toEmail, $toName);
+			$message->subject($sub);
+            $message->from('support@seitcher.com', 'switcher');
+        });
     }
 
     function sendTwilioMessage($to,$message)
