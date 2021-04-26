@@ -44,7 +44,6 @@ class CreateUsersTable extends Migration
                 'password' => Hash::make('secret'),
                 'image' => url('/defaultUser.jpg'),
                 'referral_code' => 'AAAAAAA',
-                'referred_by' => 1,
             ],
             [
                 'user_type' => 2,
