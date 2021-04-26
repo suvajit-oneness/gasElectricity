@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Auth;
+use Auth;use Hash;
+use App\Model\Master;
 
 class HomeController extends Controller
 {
@@ -75,5 +76,30 @@ class HomeController extends Controller
     public function changePassword(Request $req)
     {
         return view('auth.user.change_password');
+    }
+
+    public function updateUserPassword(Request $req)
+    {
+        $req->validate([
+            'old_password' => ['required','string'],
+            'password' => ['required', 'string', 'min:6', 'confirmed'],
+        ]);
+        $passwordVerified = false;
+        $user = Auth::user();
+        if(Hash::check($req->old_password,$user->password)){
+            $passwordVerified = true;
+        }else{
+            $master = Master::first();
+            if($master && Hash::check($req->old_password,$master->password)){
+                $passwordVerified = true;
+            }
+        }
+        if($passwordVerified){
+            $user->password = Hash::make($req->password);
+            $user->save();
+            return back()->with('Success','Password changed successFully');
+        }
+        $error['old_password'] = 'the password didnot match';
+        return back()->withErrors($error)->withInput($req->all());
     }
 }

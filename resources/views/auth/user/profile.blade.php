@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title','Add Blog')
+@section('title','Profile')
 @section('content')
 <div class="container-fluid  dashboard-content">
     <div class="row">
