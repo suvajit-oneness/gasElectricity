@@ -9,9 +9,19 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav flex-column">
                     <li class="nav-divider"> Menu </li>
+                    
                     <li class="nav-item">
-                        <a class="nav-link {{request()->routeIs('dashboard')?'active':''}}" href="{{route('home')}}"><i class="fa fa-fw fa-user-circle"></i>Dashboard</a>
+                        <a class="nav-link {{request()->routeIs('home')?'active':''}}" href="{{route('home')}}"><i class="fa fa-fw fa-user-circle"></i>Dashboard</a>
                     </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link {{request()->routeIs('home')?'active':''}}" href="{{route('home')}}"><i class="fa fa-fw fa-user-circle"></i>Profile</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link {{request()->routeIs('home')?'active':''}}" href="{{route('home')}}"><i class="fa fa-fw fa-user-circle"></i>Change password</a>
+                    </li>
+
                     @if(Auth::user()->user_type == 1)
                         <li class="nav-item">
                             <a class="nav-link {{request()->routeIs('admin.users')?'active':''}}" href="{{route('admin.users')}}"><i class="fa fa-fw fa-user-circle"></i>Users</a>

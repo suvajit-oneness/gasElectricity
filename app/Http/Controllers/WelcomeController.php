@@ -21,12 +21,12 @@ class WelcomeController extends Controller
     public function aboutUs(Request $req)
     {
         $aboutus = AboutUs::with('whychoose')->first();
-    	return view('about-us',compact('aboutus'));
+    	return view('frontend.about-us',compact('aboutus'));
     }
 
     public function howItWorks(Request $req)
     {
-    	return view('howItWorks');
+    	return view('frontend.howItWorks');
     }
 
     public function getBlogs(Request $req)
@@ -38,7 +38,7 @@ class WelcomeController extends Controller
             $data->blogs = $data->blogs->where('blogCategoryId',base64_decode($req->category));    
         }
         $data->blogs = $data->blogs->orderBy('id','desc')->get();
-        return view('blog',compact('data'));
+        return view('frontend.blog',compact('data'));
     }
 
     public function blogDetails(Request $req,$blogId)
@@ -46,12 +46,12 @@ class WelcomeController extends Controller
         $data = new WelcomeController();
         $data->category = BlogCategory::get();
         $data->blogs = Blog::where('id',$blogId)->with('posted')->first();
-        return view('blogdetails',compact('data'));
+        return view('frontend.blogdetails',compact('data'));
     }
 
     public function contactUs(Request $req)
     {
-        return view('contactus');
+        return view('frontend.contactus');
     }
 
     public function saveContactUs(Request $req)
@@ -83,27 +83,28 @@ class WelcomeController extends Controller
 
     public function planListingwithoutAuth(Request $req)
     {
-        return view('listing.planWithoutLogin');
+        return view('frontend.listing.planWithoutLogin');
     }
 
     public function planListingwithAuth(Request $req)
     {
-        return view('listing.planWithLogin');
+        return view('frontend.listing.planWithLogin');
+    }
+
+    public function planDetails(Request $req,$planId)
+    {
+        return view('frontend.listing.plan_details');
     }
 
     public function electricityForm(Request $req)
     {
-        return view('forms.electricityForm');
+        return view('frontend.forms.electricityForm');
     }
 
     public function indivisualStates(Request $req)
     {
         $about = AboutUs::with('whychoose')->first();
-        return view('forms.indivisualStates',compact('about'));
+        return view('frontend.forms.indivisualStates',compact('about'));
     }
-
-    public function planDetails(Request $req,$planId)
-    {
-        return view('welcome.plan_details');
-    }
+    
 }

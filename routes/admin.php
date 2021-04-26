@@ -2,7 +2,8 @@
 
 	Route::get('dashboard',function(){
 		return view('admin.dashboard');
-	})->name('dashboard');
+	})->name('home');
+
 	Route::group(['prefix'=>'users'],function(){
 		Route::get('/','Admin\AdminController@getUsers')->name('admin.users');
 		Route::get('/create','Admin\AdminController@createUser')->name('admin.user.create');

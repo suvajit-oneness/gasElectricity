@@ -1,6 +1,7 @@
 <?php 
-	Route::get('dashboard',function(){
-		return view('home');
-	});
 
+	Route::get('dashboard',function(){
+		return view('customer.dashboard');
+	})->name('home');
+	
  ?>
