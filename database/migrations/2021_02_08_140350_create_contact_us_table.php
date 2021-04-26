@@ -15,15 +15,31 @@ class CreateContactUsTable extends Migration
     {
         Schema::create('contact_us', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->tinyInteger('type')->default(2)->comment('1:Setting,2:Contacts List');
             $table->string('name');
             $table->string('phone',20);
             $table->string('email');
             $table->string('subject');
             $table->longText('description');
+            $table->string('address');
+            $table->string('image');
             $table->softDeletes();
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
         });
+
+        $data = [
+            [
+                'type' => 1,
+                'name' => 'Headquarters',
+                'address' => '5/13 Fielden Way, Port Kennedy,WA, 6172, Dummy location',
+                'phone' => '[88] 657 524 332',
+                'email' => 'info@example.com',
+                'image' => '',
+            ],
+        ];
+
+        DB::table('contact_us')->insert($data);
     }
 
     /**

@@ -27,6 +27,10 @@ class CreateUsersTable extends Migration
             $table->string('image');
             $table->string('referral_code',10)->unique()->comment('Referral Code');
             $table->bigInteger('referred_by')->comment('Referred By UserId');
+            $table->string('gender',20)->comment('Male,Female,Not specified');
+            $table->date('dob');
+            $table->string('marital',20)->comment('Single,Married,Divorced');
+            $table->date('aniversary');
             $table->rememberToken();
             $table->softDeletes();
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
