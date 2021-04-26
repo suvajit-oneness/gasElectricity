@@ -51,7 +51,8 @@ class WelcomeController extends Controller
 
     public function contactUs(Request $req)
     {
-        return view('frontend.contactus');
+        $contact = ContactUs::where('type',1)->first();
+        return view('frontend.contactus',compact('contact'));
     }
 
     public function saveContactUs(Request $req)
@@ -63,6 +64,7 @@ class WelcomeController extends Controller
             'message' => 'required|string',
         ]);
         $contact = new ContactUs();
+        $contact->type = 2;
         $contact->name = $req->name;
         $contact->phone = $req->phone;
         $contact->email = $req->email;

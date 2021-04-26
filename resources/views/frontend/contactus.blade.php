@@ -13,16 +13,16 @@
 								<ul class="conatct_links">
 									<li>
 										<img src="{{asset('forntEnd/images/location-pin.png')}}">
-										<h3>Headquarters</h3>
-										<p>5/13 Fielden Way, Port Kennedy,WA, 6172, Dummy location</p>
+										<h3>{{$contact->name}}</h3>
+										<p>{{$contact->address}}</p>
 									</li>
 									<li>
 										<img src="{{asset('forntEnd/images/call-2.png')}}">
-										<a href="tel:+88 657524332">[88] 657 524 332</a>
+										<a href="tel:+88 657524332">{{$contact->phone}}</a>
 									</li>
 									<li class="d-flex justify-content-between">
 										<img src="{{asset('forntEnd/images/envelop-2.png')}}">
-										<a href="mailto:info@example.com">info@example.com</a>
+										<a href="mailto:info@example.com">{{$contact->email}}</a>
 										<ul class="contact_social_links">
 											<li>
 												<a href="#"><img src="{{asset('forntEnd/images/facebook.png')}}"></a>

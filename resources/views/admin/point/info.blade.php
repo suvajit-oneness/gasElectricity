@@ -7,9 +7,11 @@
             <div class="card">
                 <div class="card-header">
                     <h5 class="mb-0">User Points of ({{$user->name}})
-                        <a class="headerbuttonforAdd" href="{{route('admin.users')}}">
-                            <i class="fa fa-plus" aria-hidden="true"></i>Back
-                        </a>
+                        @if(Auth::user()->user_type == 1)
+                            <a class="headerbuttonforAdd" href="{{route('admin.users')}}">
+                                <i class="fa fa-plus" aria-hidden="true"></i>Back
+                            </a>
+                        @endif
                     </h5>
                     <!-- <p>This example shows FixedHeader being styled by the Bootstrap 4 CSS framework.</p> -->
                 </div>
