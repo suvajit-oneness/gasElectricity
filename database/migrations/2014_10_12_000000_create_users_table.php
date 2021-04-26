@@ -15,7 +15,7 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->tinyInteger('user_type');
+            $table->tinyInteger('user_type')->default(3);
             $table->string('name');
             $table->string('email')->unique();
             $table->string('mobile',20);
@@ -40,7 +40,22 @@ class CreateUsersTable extends Migration
                 'password' => Hash::make('secret'),
                 'image' => url('/defaultUser.jpg'),
             ],
+            [
+                'user_type' => 2,
+                'name' => 'Client',
+                'email' => 'client@client.com',
+                'password' => Hash::make('secret'),
+                'image' => url('/defaultUser.jpg'),
+            ],
+            [
+                'user_type' => 3,
+                'name' => 'Customer',
+                'email' => 'customer@customer.com',
+                'password' => Hash::make('secret'),
+                'image' => url('/defaultUser.jpg'),
+            ],
         ];
+
         DB::table('users')->insert($data);
     }
 
