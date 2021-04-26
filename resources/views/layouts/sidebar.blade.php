@@ -15,11 +15,11 @@
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link {{request()->routeIs('home')?'active':''}}" href="{{route('home')}}"><i class="fa fa-fw fa-user-circle"></i>Profile</a>
+                        <a class="nav-link {{request()->routeIs('user.profile')?'active':''}}" href="{{route('user.profile')}}"><i class="fa fa-fw fa-user-circle"></i>Profile</a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link {{request()->routeIs('home')?'active':''}}" href="{{route('home')}}"><i class="fa fa-fw fa-user-circle"></i>Change password</a>
+                        <a class="nav-link {{request()->routeIs('user.changepassword')?'active':''}}" href="{{route('user.changepassword')}}"><i class="fa fa-fw fa-user-circle"></i>Change password</a>
                     </li>
 
                     @if(Auth::user()->user_type == 1)

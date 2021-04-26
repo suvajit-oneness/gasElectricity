@@ -13,10 +13,10 @@
                         @csrf
                         <input type="hidden" name="aboutUsId" value="{{$aboutus->id}}" required readonly>
 
+                        <img src="{{$aboutus->image}}" height="300" width="300">
                         <div class="form-group">
                             <label for="aboutusheading" class="col-form-label">About Us Image:</label>
                             <input type="file" name="aboutusImage" id="aboutusheading">
-                            <img src="{{$aboutus->image}}">
                         </div>
 
                         <div class="form-group">

@@ -33,5 +33,10 @@ Route::get('plan-details/{planId?}','WelcomeController@planDetails')->name('plan
 Route::get('indivisual-states','WelcomeController@indivisualStates')->name('indivisual.state');
 Route::get('electricity-form','WelcomeController@electricityForm')->name('electricityform');
 
-
+// Common Auth Routes
+Route::group(['middleware' => 'auth'],function(){
+	Route::get('user/profile','HomeController@userProfile')->name('user.profile');
+	Route::post('user/profile','HomeController@userProfileSave')->name('user.profile.save');
+	Route::get('user/change/password','HomeController@changePassword')->name('user.changepassword');
+});
 /************************** Laravel Testing Routes *************************/

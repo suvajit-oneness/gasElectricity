@@ -10,8 +10,11 @@
 		return response()->json(['error'=>true,'status'=>$status,'message'=>$msg,'data'=>$data]);
 	}
 
-	function emptyCheck($string)
+	function emptyCheck($string,$date=false)
 	{
+		if($string){
+			return !empty($string) ? $string : '0000-00-00';
+		}
 		return !empty($string) ? $string : '';
 	}
 
