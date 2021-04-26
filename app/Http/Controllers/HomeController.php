@@ -29,7 +29,7 @@ class HomeController extends Controller
                 return redirect('admin/dashboard');
                 break;       
             default:
-                return redirect('user/dashboard');
+                return redirect('customer/dashboard');
                 break;
         }
     }

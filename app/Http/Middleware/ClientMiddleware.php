@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Auth;use Session;
 
-class adminMiddleware
+class ClientMiddleware
 {
     /**
      * Handle an incoming request.
@@ -16,7 +16,7 @@ class adminMiddleware
      */
     public function handle($request, Closure $next)
     {
-        if(Auth::user() && Auth::user()->user_type == 1){
+        if(Auth::user() && Auth::user()->user_type == 2){
             return $next($request);
         }
         Session::flash('error', 'you are not authorise to move');

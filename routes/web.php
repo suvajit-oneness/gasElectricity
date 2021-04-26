@@ -25,8 +25,8 @@ Route::group(['prefix'=>'admin','middleware'=>'admin'],function(){
 	require 'admin.php';
 });
 
-Route::group(['prefix'=>'user','middleware'=>'user'],function(){
-	require 'user.php';
+Route::group(['prefix'=>'customer','middleware'=>'customer'],function(){
+	require 'customer.php';
 });
 
 
