@@ -54,6 +54,11 @@
 		Route::post('about-us','Admin\AdminController@saveaboutUs')->name('admin.setting.save_aboutUs');
 	});
 
+	Route::group(['prefix'=>'membership'],function(){
+		Route::get('/','Admin\AdminController@membership')->name('admin.membership');
+		Route::get('/create','Admin\AdminController@membership')->name('admin.membership.create');
+	});
+
 	Route::get('referred_to/user/{userId}','Admin\AdminController@getReferredToList')->name('admin.referral.referred_to');
 	Route::get('user/points/{userId}','Admin\AdminController@getUserPoints')->name('admin.user.points');
 	

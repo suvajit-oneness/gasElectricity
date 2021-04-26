@@ -54,4 +54,9 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Model\UserPoints','userId','id');
     }
+
+    public function membership()
+    {
+        return $this->belongsTo('App\Model\Membership','membershipId','id');
+    }
 }

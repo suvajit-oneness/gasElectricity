@@ -39,6 +39,7 @@ Route::group(['middleware' => 'auth'],function(){
 	Route::post('user/profile','HomeController@userProfileSave')->name('user.profile.save');
 	Route::get('user/change/password','HomeController@changePassword')->name('user.changepassword');
 	Route::post('user/change/password','HomeController@updateUserPassword')->name('user.changepassword.save');
+	Route::get('user/points','HomeController@userPoints')->name('user.points');
 });
 /************************** Laravel Testing Routes *************************/
 

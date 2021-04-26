@@ -9,6 +9,7 @@ use App\User;use App\Model\ContactUs;use DB;
 use App\Model\Testimonials;use App\Model\Faq;
 use Hash;use App\Model\AboutUs;use App\Model\BlogCategory;
 use App\Model\WhyChooseUs;use App\Model\HowItWork;
+use App\Model\Membership;
 
 class AdminController extends Controller
 {
@@ -514,6 +515,12 @@ class AdminController extends Controller
     {
         $user = User::findorFail($userId);
         return view('admin.point.info',compact('user'));
+    }
+
+    public function membership(Request $req)
+    {
+        $membership = Membership::select('*')->get();
+        return view('admin.membership.index',compact('membership'));
     }
 
 }

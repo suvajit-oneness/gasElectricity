@@ -21,8 +21,17 @@
                     <li class="nav-item">
                         <a class="nav-link {{request()->routeIs('user.changepassword')?'active':''}}" href="{{route('user.changepassword')}}"><i class="fa fa-fw fa-user-circle"></i>Change password</a>
                     </li>
+                    @if(Auth::user()->user_type != 1)
+                        <li class="nav-item">
+                            <a class="nav-link {{request()->routeIs('user.points')?'active':''}}" href="{{route('user.points')}}"><i class="fa fa-fw fa-user-circle"></i>Your Points</a>
+                        </li>
+                    @endif
 
                     @if(Auth::user()->user_type == 1)
+                        <li class="nav-item">
+                            <a class="nav-link {{request()->routeIs('admin.membership')?'active':''}}" href="{{route('admin.membership')}}"><i class="fa fa-fw fa-user-circle"></i>Membership</a>
+                        </li>
+
                         <li class="nav-item">
                             <a class="nav-link {{request()->routeIs('admin.users')?'active':''}}" href="{{route('admin.users')}}"><i class="fa fa-fw fa-user-circle"></i>Users</a>
                         </li>

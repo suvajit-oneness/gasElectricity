@@ -102,4 +102,10 @@ class HomeController extends Controller
         $error['old_password'] = 'the password didnot match';
         return back()->withErrors($error)->withInput($req->all());
     }
+
+    public function userPoints(Request $req)
+    {
+        $user = Auth::user();
+        return view('admin.point.info',compact('user'));
+    }
 }
