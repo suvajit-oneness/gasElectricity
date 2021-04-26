@@ -1,4 +1,4 @@
-@extends('admin.layouts.master')
+@extends('layouts.master')
 @section('title','Point')
 @section('content')
 <div class="container-fluid  dashboard-content">
