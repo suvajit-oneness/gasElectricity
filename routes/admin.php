@@ -56,7 +56,8 @@
 
 	Route::group(['prefix'=>'membership'],function(){
 		Route::get('/','Admin\AdminController@membership')->name('admin.membership');
-		Route::get('/create','Admin\AdminController@membership')->name('admin.membership.create');
+		Route::get('/create','Admin\AdminController@createMembership')->name('admin.membership.create');
+		Route::post('/save','Admin\AdminController@saveMembership')->name('admin.membership.save');
 	});
 
 	Route::get('referred_to/user/{userId}','Admin\AdminController@getReferredToList')->name('admin.referral.referred_to');

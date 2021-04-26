@@ -523,4 +523,26 @@ class AdminController extends Controller
         return view('admin.membership.index',compact('membership'));
     }
 
+    public function createMembership(Request $req)
+    {
+        return view('admin.membership.create');
+    }
+
+    public function saveMembership(Request $req)
+    {
+        $req->validate([
+            'title' => 'required|string|max:255',
+            'price' => 'required|numeric|max:999999',
+            'duration' => 'required|numeric|max:99',
+            'description' => 'nullable|string'
+        ]);
+        $newmember = new Membership();
+        $newmember->title = $req->title;
+        $newmember->price = $req->price;
+        $newmember->duration = $req->duration;
+        $newmember->description = $req->description;
+        $newmember->save();
+        return redirect(route('admin.membership'))->with('Success','Membership Created SuccessFully');
+    }
+    
 }

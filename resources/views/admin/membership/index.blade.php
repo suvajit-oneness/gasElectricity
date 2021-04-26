@@ -29,7 +29,7 @@
                                 @foreach($membership as $member)
                                     <tr>
                                         <td>{{$member->title}}</td>
-                                        <td>{{$member->description}}</td>
+                                        <td>{!! $member->description !!}</td>
                                         <td>$ {{$member->price}}</td>
                                         <td>{{$member->duration}} Year</td>
                                         <td></td>
