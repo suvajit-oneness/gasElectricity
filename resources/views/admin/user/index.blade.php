@@ -22,6 +22,7 @@
                                     <th>Name</th>
                                     <th>Email</th>
                                     <th>Phone</th>
+                                    <th>Membership</th>
                                     <th>Referral Code</th>
                                     <th>Referred By</th>
                                     <th>Count Referred To</th>
@@ -37,6 +38,7 @@
                                             <td>{{$user->name}}</td>
                                             <td>{{$user->email}}</td>
                                             <td>{{$user->mobile}}</td>
+                                            <td>{{($user->membership ? $user->membership->title : 'N/A')}}</td>
                                             <td>{{$user->referral_code}}</td>
                                             <td>
                                                 @if($user->referred_through)

@@ -57,6 +57,6 @@ class User extends Authenticatable
 
     public function membership()
     {
-        return $this->belongsTo('App\Model\Membership','id','membershipId');
+        return $this->belongsTo('App\Model\Membership','membershipId','id');
     }
 }

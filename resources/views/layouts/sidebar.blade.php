@@ -29,6 +29,10 @@
 
                     @if(Auth::user()->user_type == 1)
                         <li class="nav-item">
+                            <a class="nav-link {{request()->routeIs('admin.membership')?'active':''}}" href="{{route('admin.membership')}}"><i class="fa fa-fw fa-user-circle"></i>Membership</a>
+                        </li>
+
+                        <li class="nav-item">
                             <a class="nav-link {{request()->routeIs('admin.users')?'active':''}}" href="{{route('admin.users')}}"><i class="fa fa-fw fa-user-circle"></i>Users</a>
                         </li>
                         <!-- Report Section -->
