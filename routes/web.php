@@ -32,6 +32,9 @@ Route::get('plan-listing','WelcomeController@planListing')->name('plan.listing')
 Route::get('plan-details/{planId?}','WelcomeController@planDetails')->name('plan.details');
 Route::get('indivisual-states','WelcomeController@indivisualStates')->name('indivisual.state');
 Route::get('electricity-form','WelcomeController@electricityForm')->name('electricityform');
+Route::get('membership','WelcomeController@membership')->name('membership');
+Route::get('membership/purchase/{membershipId}','WelcomeController@purchaseMembership')->name('user.membership.purchase');
+Route::get('membership/claimed/success/{membershipId}','WelcomeController@membershipSuccessFullPurchase')->name('membership.claimed.success');
 
 // Common Auth Routes
 Route::group(['middleware' => 'auth'],function(){
@@ -53,3 +56,7 @@ Route::get('mail',function(){
 	$template = 'emails.loginmail';
 	sendMail($data,$template);
 });
+
+// Stripe Payment Route
+Route::post('stripe/payment/form_submit','StripePaymentController@stripePostForm_Submit')->name('stripe.payment.form_submit');
+Route::get('payment/successfull/thankyou/{stripeTransactionId}','StripePaymentController@thankyouStripePayment')->name('payment.successfull.thankyou');

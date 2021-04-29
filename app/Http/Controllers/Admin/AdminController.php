@@ -17,7 +17,7 @@ class AdminController extends Controller
 /****************************** Users ******************************/
 	public function getUsers(Request $req)
 	{
-		$users = User::select('*');/*with('referred_through')->with('referred_to')->*/
+		$users = User::select('*')->where('user_type',3);/*with('referred_through')->with('referred_to')->*/
         $users = $users->orderBy('users.id','desc')->get();
 		return view('admin.user.index',compact('users'));
 	}
@@ -544,5 +544,19 @@ class AdminController extends Controller
         $newmember->save();
         return redirect(route('admin.membership'))->with('Success','Membership Created SuccessFully');
     }
-    
+
+    public function updateMembershipStatus(Request $req)
+    {
+        $rules = [
+            'id' => 'required|min:1|numeric',
+            'is_active' => 'required|in:0,1',
+        ];
+        $validator = validator()->make($req->all(),$rules);
+        if(!$validator->fails()){
+            Membership::where('id',$req->id)->update(['is_active' => $req->is_active]);
+            return successResponse('Membership status updated success');
+        }
+        return errorResponse($validator->errors()->first());
+    }
+
 }

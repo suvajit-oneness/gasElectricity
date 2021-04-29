@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Model\Testimonials;use App\Model\BlogCategory;
 use App\Model\Faq;use App\Model\Blog;use Auth;
 use App\Model\AboutUs;use App\Model\ContactUs;
+use App\Model\Membership;use App\Model\UserMembership;
 
 class WelcomeController extends Controller
 {
@@ -107,6 +108,32 @@ class WelcomeController extends Controller
     {
         $about = AboutUs::with('whychoose')->first();
         return view('frontend.forms.indivisualStates',compact('about'));
+    }
+
+    public function membership(Request $req)
+    {
+        $membership = Membership::get();
+        return view('frontend.membership',compact('membership'));
+    }
+
+    public function purchaseMembership(Request $req,$membershipId)
+    {
+        $membership = Membership::where('id',base64_decode($membershipId))->first();
+        $data = [
+            'redirectUrl' => route('membership.claimed.success',$membership->id),
+            'price' => $membership->price,
+        ];
+        return view('stripe.index',compact('data'));
+    }
+
+    public function membershipSuccessFullPurchase(Request $req,$membershipId)
+    {
+        $userMembership = new UserMembership();
+        $userMembership->userId = auth()->user()->id;
+        $userMembership->membershipId = $membershipId;
+        $userMembership->stripeTransactionId = $req->stripeTransactionId;
+        $userMembership->save();
+        return redirect(route('payment.successfull.thankyou',$req->stripeTransactionId));
     }
     
 }

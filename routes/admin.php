@@ -58,6 +58,7 @@
 		Route::get('/','Admin\AdminController@membership')->name('admin.membership');
 		Route::get('/create','Admin\AdminController@createMembership')->name('admin.membership.create');
 		Route::post('/save','Admin\AdminController@saveMembership')->name('admin.membership.save');
+		Route::post('/updateMembershipStatus','Admin\AdminController@updateMembershipStatus')->name('admin.membership.updateMembershipStatus');
 	});
 
 	Route::get('referred_to/user/{userId}','Admin\AdminController@getReferredToList')->name('admin.referral.referred_to');

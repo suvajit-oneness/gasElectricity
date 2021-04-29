@@ -33,7 +33,6 @@
 		$toEmail = $data['to'];
 		$toName = $data['name'];
 		$sub = $data['subject'];
-		
         Mail::send($template, compact('data'), function ($message) use ($toName, $toEmail, $sub) {
             $message->to($toEmail, $toName);
 			$message->subject($sub);

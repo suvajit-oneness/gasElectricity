@@ -33,7 +33,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link {{request()->routeIs('admin.users')?'active':''}}" href="{{route('admin.users')}}"><i class="fa fa-fw fa-user-circle"></i>Users</a>
+                            <a class="nav-link {{request()->routeIs('admin.users')?'active':''}}" href="{{route('admin.users')}}"><i class="fa fa-fw fa-user-circle"></i>Customers</a>
                         </li>
                         <!-- Report Section -->
                         <li class="nav-divider">Report</li>
