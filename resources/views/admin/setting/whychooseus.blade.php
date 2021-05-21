@@ -35,6 +35,7 @@
                             </tr>
                             @foreach($whychooseUs as $key => $whychoose)
                                 <input type="hidden" name="whychooseId[]" value="{{$whychoose->id}}">
+                                <input type="hidden" name="old_whychooseimage[]" value="{{$whychoose->image}}">
                                 <tr>
                                     <td><img src="{{$whychoose->image}}" height="100" width="100"></td>
                                     <td>
@@ -58,7 +59,7 @@
                         </table>
 
                         <div class="form-group">
-                            <button type="submit" class="btn btn-primary">Save</button>
+                            <button type="submit" class="btn btn-primary">Update</button>
                         </div>
                     </form>
                 </div>

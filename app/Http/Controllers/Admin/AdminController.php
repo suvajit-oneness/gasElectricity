@@ -332,7 +332,7 @@ class AdminController extends Controller
 /****************************** How It Works ******************************/
     public function howItWorks(Request $req)
     {
-        $howitWork = HowItWork::first();
+        $howitWork = Setting::where('key','how_it_works')->get();
         return view('admin.setting.howitworks',compact('howitWork'));
     }
 
@@ -443,14 +443,31 @@ class AdminController extends Controller
             'whychooseheading' => 'required|string|max:200',
             'whychooseId' => 'required|array',
             'whychooseId.*' => 'required|numeric',
+            'whychooseimage' => 'nullable|array',
+            'whychooseimage.*' => 'nullable|image',
             'whychoosetitle' => 'required|array',
             'whychoosetitle.*' => 'required|string|max:200',
             'whychoosedescription' => 'required|array',
             'whychoosedescription.*' => 'required|string|max:200',
         ]);
+        dd($req->all());
         DB::beginTransaction();
         try {
-            DB::commit();
+            // Setting::where('key','whychooseus')->update(['heading'=>$req->whychooseheading]);
+            // foreach($req->whychooseId as $key => $whychooseData){
+            //     $whychoose = Setting::where('id',$whychooseData)->where('key','whychooseus')->first();
+            //     if(!empty($req->whychooseimage[$key])){
+            //         $image = $req->file('whychooseimage')[$key];
+            //         $random = randomGenerator();
+            //         $image->move('upload/admin/whychooseus/',$random.'.'.$image->getClientOriginalExtension());
+            //         $imageurl = url('upload/admin/whychooseus/'.$random.'.'.$image->getClientOriginalExtension());
+            //         $whychoose->image = $imageurl;
+            //     }
+            //     $whychoose->title = $req->whychoosetitle[$key];
+            //     $whychoose->description = $req->whychoosedescription[$key];;
+            //     $whychoose->save();
+            // }   
+            // DB::commit();
             return back()->with('Success','Why Choose Us Updated SuccessFully');
         } catch (Exception $e) {
             DB::rollback();
