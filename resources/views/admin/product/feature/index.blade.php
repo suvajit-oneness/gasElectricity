@@ -69,7 +69,7 @@
                         success:function(data){
                             if(data.error == false){
                                 deleteproductfeature.closest('tr').remove();
-                                swal('Success',"Poof! Your product has been deleted!", 'success');
+                                swal('Success',"Poof! Product feature has been deleted!", 'success');
                             }else{
                                 swal('Error',data.message);
                             }

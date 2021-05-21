@@ -20,6 +20,9 @@
                                 <tr>
                                     <th>Product</th>
                                     <th>Company Name</th>
+                                    <th>Features</th>
+                                    <th>Gas</th>
+                                    <th>Electricity</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -28,6 +31,23 @@
                                     <tr>
                                         <td>{{$product->name}}</td>
                                         <td><a href="{{route('admin.companies',$product->company->id)}}">{{$product->company->name}}</a></td>
+                                        <td>
+                                            @forelse ($product->feature as $item)
+                                                <li><a href="{{route('admin.products.feature',$item->id)}}">{{$item->title}}</a></li>
+                                            @empty
+                                                N/A
+                                            @endforelse
+                                        </td>
+                                        @if ($product->gas_data)
+                                            <td><a href="{{route('admin.products.gas',$product->gas_data->id)}}">{{$product->gas_data->title}}</a></td>
+                                        @else
+                                            <td>N/A</td>
+                                        @endif
+                                        @if ($product->electricity_data)
+                                            <td><a href="{{route('admin.products.electricity',$product->electricity_data->id)}}">{{$product->electricity_data->title}}</a></td>
+                                        @else
+                                            <td>N/A</td>
+                                        @endif
                                         <td>
                                             <a href="{{route('admin.products.edit',$product->id)}}">Edit</a> | <a href="javascript:void(0)" class="deleteproduct text-danger" data-id="{{$product->id}}">Delete</a>
                                         </td>

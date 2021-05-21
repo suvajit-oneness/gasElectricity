@@ -7,6 +7,7 @@ use App\Model\Testimonials;use App\Model\BlogCategory;
 use App\Model\Faq;use App\Model\Blog;use Auth;
 use App\Model\ContactUs;use App\Model\Membership;
 use App\Model\UserMembership;use App\Model\Setting;
+use App\Model\Product;
 
 class WelcomeController extends Controller
 {
@@ -88,24 +89,26 @@ class WelcomeController extends Controller
 
     public function getPlanlistingData(Request $req)
     {
-        // 
+        $productData = Product::paginate(10);
+        return $productData;
     }
 
     public function planListingwithoutAuth(Request $req)
     {
-        $data = $this->getPlanlistingData($req);
-        return view('frontend.listing.planWithoutLogin');
+        $productData = $this->getPlanlistingData($req);
+        return view('frontend.listing.planWithoutLogin', compact('productData'));
     }
 
     public function planListingwithAuth(Request $req)
     {
-        $data = $this->getPlanlistingData($req);
-        return view('frontend.listing.planWithLogin');
+        $productData = $this->getPlanlistingData($req);
+        return view('frontend.listing.planWithLogin', compact('productData'));
     }
 
     public function planDetails(Request $req,$planId)
     {
-        return view('frontend.listing.plan_details');
+        $productData = Product::findOrFali($planId);
+        return view('frontend.listing.plan_details', compact('productData'));
     }
 
     public function electricityForm(Request $req)

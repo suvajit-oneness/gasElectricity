@@ -1,14 +1,14 @@
 @extends('layouts.master')
-@section('title','Product Gas')
+@section('title','Product Gas data')
 @section('content')
 <div class="container-fluid  dashboard-content">
     <div class="row">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
             <div class="card">
                 <div class="card-header">
-                    <h5 class="mb-0">Gas Data
-                        <a class="headerbuttonforAdd" href="{{route('admin.products.gas.create')}}">
-                            <i class="fa fa-plus" aria-hidden="true"></i>Add Product Gas Data
+                    <h5 class="mb-0">Electricity Data
+                        <a class="headerbuttonforAdd" href="{{route('admin.products.electricity.create')}}">
+                            <i class="fa fa-plus" aria-hidden="true"></i>Add Product Electricity Data
                         </a>
                     </h5>
                     <!-- <p>This example shows FixedHeader being styled by the Bootstrap 4 CSS framework.</p> -->
@@ -25,13 +25,13 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($gas as $data)
+                                @foreach($electricity as $data)
                                     <tr>
                                         <td><a href="{{route('admin.products',$data->product->id)}}">{{$data->product->name}}</a></td>
                                         <td>{{$data->title}}</td>
-                                        <td>{{$data->price}}</td>
+                                        <td>${{$data->price}}</td>
                                         <td>
-                                            <a href="{{route('admin.products.gas.edit',$data->id)}}">Edit</a> | <a href="javascript:void(0)" class="deleteproductgas text-danger" data-id="{{$data->id}}">Delete</a>
+                                            <a href="{{route('admin.products.electricity.edit',$data->id)}}">Edit</a> | <a href="javascript:void(0)" class="deleteProductElectric text-danger" data-id="{{$data->id}}">Delete</a>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -49,8 +49,8 @@
             $('#example4').DataTable();
         });
 
-        $(document).on('click','.deleteproductgas',function(){
-            var deleteproductgas = $(this);
+        $(document).on('click','.deleteProductElectric',function(){
+            var deleteProductElectric = $(this);
             var productId = $(this).attr('data-id');
             swal({
                 title: "Are you sure?",
@@ -64,12 +64,12 @@
                     $.ajax({
                         type:'POST',
                         dataType:'JSON',
-                        url:"{{route('admin.products.gas.delete',"+productId+")}}",
+                        url:"{{route('admin.products.electricity.delete',"+productId+")}}",
                         data: {id:productId,'_token': $('input[name=_token]').val()},
                         success:function(data){
                             if(data.error == false){
-                                deleteproductgas.closest('tr').remove();
-                                swal('Success',"Poof! Your product has been deleted!", 'success');
+                                deleteProductElectric.closest('tr').remove();
+                                swal('Success',"Poof! Electricity data has been deleted!", 'success');
                             }else{
                                 swal('Error',data.message);
                             }

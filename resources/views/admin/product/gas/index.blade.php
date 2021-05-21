@@ -29,7 +29,7 @@
                                     <tr>
                                         <td><a href="{{route('admin.products',$data->product->id)}}">{{$data->product->name}}</a></td>
                                         <td>{{$data->title}}</td>
-                                        <td>{{$data->price}}</td>
+                                        <td>${{$data->price}}</td>
                                         <td>
                                             <a href="{{route('admin.products.gas.edit',$data->id)}}">Edit</a> | <a href="javascript:void(0)" class="deleteproductgas text-danger" data-id="{{$data->id}}">Delete</a>
                                         </td>
@@ -69,7 +69,7 @@
                         success:function(data){
                             if(data.error == false){
                                 deleteproductgas.closest('tr').remove();
-                                swal('Success',"Poof! Your product has been deleted!", 'success');
+                                swal('Success',"Poof! Gas Data has been deleted!", 'success');
                             }else{
                                 swal('Error',data.message);
                             }

@@ -1,5 +1,42 @@
 @extends('frontend.layouts.master')
 @section('title','Plan Listing')
+@section('css')
+<style>
+.page-item.active .page-link {
+    z-index: 3;
+    color: #fff;
+    background-color: #279679;
+    border-color: #007bff;
+    width: 47px;
+    height: 47px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: 600;
+    border: 1px solid #279679;
+    border-radius: 3px;
+}
+.page-item:first-child .page-link {
+	z-index: 3;
+    color: #000;
+    background-color: white;
+    border-color: #007bff;
+    width: 47px;
+    height: 47px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: 600;
+    border: 1px solid #c7c7c7;
+    border-radius: 3px;
+}
+.pagination {
+	justify-content: flex-end;
+}
+</style>
+@endsection
 @section('content')
 
 <section class="plan_listing_wraper">
@@ -109,19 +146,21 @@
 						<a href="javascript:void(0)" class="close-panel">CLOSE</a>
 					</div>
 					<div class="plan_wraper">
+						@foreach ($productData as $data)
 						<div class="plane_list_wrapper">
 							<div class="res-planheading"><h5>Plan <span>and highlights</span></h5></div>
 							<div class="plan_icon_wrap">
-								<img src="{{asset('forntEnd/images/24-hours.png')}}">
-								<h6>COMPANY NAME</h6>
+								<img src="{{$data->company->logo}}">
+								<h6>{{$data->company->name}}</h6>
 							</div>
 							<div class="list_container_first ">
-								<h4>Everyday Rewards</h4>
+								<h4>{{$data->name}}</h4>
 								<ul class="reward_facilities">
-									<li>Sign Up & get up to 10K Everyday Rewards Points</li>
-									<li>1 point for every $1 charged on your bill (T&Cs)</li>
-									<li>Includes 25% GreenPower</li>
-									<li>5,000 Everyday Rewards points + 1 point for every $1 billed.</li>
+									@forelse ($data->feature as $featureData)
+									<li>{{$featureData->title}}</li>
+									@empty
+									<li>N/A</li>
+									@endforelse
 								</ul>
 							</div>
 							<div class="res-planheading"><h5>Price/year <span>(estimated^)</span></h5></div>
@@ -130,154 +169,29 @@
 								<div class="list_amount_inner">
 									<div class="price_compare">
 										<span><img src="{{asset('forntEnd/images/fire-icon.png')}}">Gas</span>
-										<h2>17% less</h2>
+										<h2>{{$data->gas_data->title}}</h2>
 									</div>
 									<div class="price_amount">
-										<h2>$9,252</h2>
+										<h2>${{$data->gas_data->price}}</h2>
 									</div>
 								</div>
 								<div class="list_amount_inner">
 									<div class="price_compare">
 										<span><img src="{{asset('forntEnd/images/lightbulb.png')}}">ELECTRICITY</span>
-										<h2>15% less</h2>
+										<h2>{{$data->electricity_data->title}}</h2>
 										<p>than reference price</p>
 									</div>
 									<div class="price_amount">
-										<h2>$1,252</h2>
+										<h2>${{$data->electricity_data->price}}</h2>
 										<a href="{{route('plan.details',1)}}" class="blue-btm">EXPLORE <span><i class="fas fa-arrow-circle-right"></i></span></a>
 									</div>
 								</div>
 							</div>
 							<div class="plan_info">
-								<p>Basic Plan Information <img src="{{asset('forntEnd/images/question.png')}}"></p>
+								<p>{{$data->tag}} <img src="{{asset('forntEnd/images/question.png')}}"></p>
 							</div>
 						</div>
-						<div class="plane_list_wrapper">
-							<div class="res-planheading"><h5>Plan <span>and highlights</span></h5></div>
-							<div class="plan_icon_wrap">
-								<img src="{{asset('forntEnd/images/tools.png')}}">
-								<h6>COMPANY NAME</h6>
-							</div>
-							<div class="list_container_first">
-								<h4>Everyday Rewards</h4>
-								<ul class="reward_facilities">
-									<li>Sign Up & get up to 10K Everyday Rewards Points</li>
-									<li>1 point for every $1 charged on your bill (T&Cs)</li>
-									<li>Includes 25% GreenPower</li>
-									<li>5,000 Everyday Rewards points + 1 point for every $1 billed.</li>
-								</ul>
-							</div>
-							<div class="res-planheading"><h5>Price/year <span>(estimated^)</span></h5></div>
-							<div class="list_amount">
-								<div class="list_amount_inner">
-									<div class="price_compare">
-										<span><img src="{{asset('forntEnd/images/fire-icon.png')}}">Gas</span>
-										<h2>17% less</h2>
-									</div>
-									<div class="price_amount">
-										<h2>$9,252</h2>
-									</div>
-								</div>
-								<div class="list_amount_inner">
-									<div class="price_compare">
-										<span><img src="{{asset('forntEnd/images/lightbulb.png')}}">ELECTRICITY</span>
-										<h2>15% less</h2>
-										<p>than reference price</p>
-									</div>
-									<div class="price_amount">
-										<h2>$1,252</h2>
-										<a href="{{route('plan.details',1)}}" class="blue-btm">EXPLORE <span><i class="fas fa-arrow-circle-right"></i></span></a>
-									</div>
-								</div>
-							</div>
-							<div class="plan_info">
-								<p>Basic Plan Information <img src="{{asset('forntEnd/images/question.png')}}"></p>
-							</div>
-						</div>
-						<div class="plane_list_wrapper">
-							<div class="res-planheading"><h5>Plan <span>and highlights</span></h5></div>
-							<div class="plan_icon_wrap">
-								<img src="{{asset('forntEnd/images/refilling.png')}}">
-								<h6>COMPANY NAME</h6>
-							</div>
-							<div class="list_container_first">
-								<h4>Everyday Rewards</h4>
-								<ul class="reward_facilities">
-									<li>Sign Up & get up to 10K Everyday Rewards Points</li>
-									<li>1 point for every $1 charged on your bill (T&Cs)</li>
-									<li>Includes 25% GreenPower</li>
-									<li>5,000 Everyday Rewards points + 1 point for every $1 billed.</li>
-								</ul>
-							</div>
-							<div class="res-planheading"><h5>Price/year <span>(estimated^)</span></h5></div>
-							<div class="list_amount">
-								<div class="list_amount_inner">
-									<div class="price_compare">
-										<span><img src="{{asset('forntEnd/images/fire-icon.png')}}">Gas</span>
-										<h2>17% less</h2>
-									</div>
-									<div class="price_amount">
-										<h2>$9,252</h2>
-									</div>
-								</div>
-								<div class="list_amount_inner">
-									<div class="price_compare">
-										<span><img src="{{asset('forntEnd/images/lightbulb.png')}}">ELECTRICITY</span>
-										<h2>15% less</h2>
-										<p>than reference price</p>
-									</div>
-									<div class="price_amount">
-										<h2>$1,252</h2>
-										<a href="{{route('plan.details',1)}}" class="blue-btm">EXPLORE <span><i class="fas fa-arrow-circle-right"></i></span></a>
-									</div>
-								</div>
-							</div>
-							<div class="plan_info">
-								<p>Basic Plan Information <img src="{{asset('forntEnd/images/question.png')}}"></p>
-							</div>
-						</div>
-						<div class="plane_list_wrapper">
-							<div class="res-planheading"><h5>Plan <span>and highlights</span></h5></div>
-							<div class="plan_icon_wrap">
-								<img src="{{asset('forntEnd/images/nuclear.png')}}">
-								<h6>COMPANY NAME</h6>
-							</div>
-							<div class="list_container_first">
-								<h4>Everyday Rewards</h4>
-								<ul class="reward_facilities">
-									<li>Sign Up & get up to 10K Everyday Rewards Points</li>
-									<li>1 point for every $1 charged on your bill (T&Cs)</li>
-									<li>Includes 25% GreenPower</li>
-									<li>5,000 Everyday Rewards points + 1 point for every $1 billed.</li>
-								</ul>
-							</div>
-							<div class="res-planheading"><h5>Price/year <span>(estimated^)</span></h5></div>
-							<div class="list_amount">
-								<div class="list_amount_inner">
-									<div class="price_compare">
-										<span><img src="{{asset('forntEnd/images/fire-icon.png')}}">Gas</span>
-										<h2>17% less</h2>
-									</div>
-									<div class="price_amount">
-										<h2>$9,252</h2>
-									</div>
-								</div>
-								<div class="list_amount_inner">
-									<div class="price_compare">
-										<span><img src="{{asset('forntEnd/images/lightbulb.png')}}">ELECTRICITY</span>
-										<h2>15% less</h2>
-										<p>than reference price</p>
-									</div>
-									<div class="price_amount">
-										<h2>$1,252</h2>
-										<a href="{{route('plan.details',1)}}" class="blue-btm">EXPLORE <span><i class="fas fa-arrow-circle-right"></i></span></a>
-									</div>
-								</div>
-							</div>
-							<div class="plan_info">
-								<p>Basic Plan Information <img src="{{asset('forntEnd/images/question.png')}}"></p>
-							</div>
-						</div>
+						@endforeach
 
 						<div class="plane_list_wrapper plane_list_wrapper-mod">
 							<div class="res-planheading"><h5>Plan <span>and highlights</span></h5></div>
@@ -322,57 +236,11 @@
 								<p>Basic Plan Information <img src="{{asset('forntEnd/images/question.png')}}"></p>
 							</div>
 						</div>
-						<div class="plane_list_wrapper plane_list_wrapper-mod">
-							<div class="res-planheading"><h5>Plan <span>and highlights</span></h5></div>
-							<div class="plan_icon_wrap">
-								<img src="{{asset('forntEnd/images/metal-gear-2.png')}}">
-								<h6>COMPANY NAME</h6>
-							</div>
-							<div class="list_container_first">
-								<h4>Reamped Advance</h4>
-								<ul class="reward_facilities">
-									<li>Sign Up & get up to 10K Everyday Rewards Points</li>
-								</ul>
-							</div>
-							<div class="plan_value">
-								<h4>Value <span>(out of 10)</span></h4>
-								<img src="{{asset('forntEnd/images/rating.png')}}">
-							</div>
-							<div class="res-planheading"><h5>Price/year <span>(estimated^)</span></h5></div>
-							<div class="list_amount">
-								<div class="list_amount_inner">
-									<div class="price_compare">
-										<span><img src="{{asset('forntEnd/images/fire-icon.png')}}">Gas</span>
-										<h2>17% less</h2>
-									</div>
-									<div class="price_amount">
-										<h2>$9,252</h2>
-									</div>
-								</div>
-								<div class="list_amount_inner">
-									<div class="price_compare">
-										<span><img src="{{asset('forntEnd/images/lightbulb.png')}}">ELECTRICITY</span>
-										<h2>15% less</h2>
-										<p>than reference price</p>
-									</div>
-									<div class="price_amount">
-										<h2>$1,252</h2>
-										<a href="{{route('plan.details',1)}}" class="blue-btm">EXPLORE <span><i class="fas fa-arrow-circle-right"></i></span></a>
-									</div>
-								</div>
-							</div>
-							<div class="plan_info">
-								<p>Basic Plan Information <img src="{{asset('forntEnd/images/question.png')}}"></p>
-							</div>
-						</div>
+						
 					</div>
 
-					<ul class="plan_pagination">
-						<li><a class="active" href="#">1</a></li>
-						<li><a href="#">2</a></li>
-						<li><a href="#">3</a></li>
-						<li><a href="#">4</a></li>
-						<li><a href="#">+</a></li>
+					<ul class="plan_pagination mx-auto">
+						{!!$productData->links()!!}
 					</ul>
 				</div>
 				<div class="important_note_wrap">

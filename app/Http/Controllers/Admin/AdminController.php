@@ -707,9 +707,13 @@ class AdminController extends Controller
     }
 
     /****************************** Product Feature ******************************/
-	public function productsFeature()
+	public function productsFeature($featureId = 0)
 	{
-		$features = ProductFeature::all();
+        $features = ProductFeature::select('*');
+        if($featureId > 0){
+            $features = $features->where('id',$featureId);
+        }
+        $features = $features->get();
         return view('admin.product.feature.index',compact('features'));
 	}
 
@@ -774,9 +778,13 @@ class AdminController extends Controller
     }
 
     /****************************** Product Gas Data ******************************/
-	public function productsGas()
+	public function productsGas($gasId = 0)
 	{
-		$gas = GasData::all();
+        $gas = GasData::select('*');
+        if($gasId > 0){
+            $gas = $gas->where('id',$gasId);
+        }
+        $gas = $gas->get();
         return view('admin.product.gas.index',compact('gas'));
 	}
 
@@ -842,70 +850,74 @@ class AdminController extends Controller
     }
 
     /****************************** Product Electricity Data ******************************/
-	// public function productsElectricity()
-	// {
-	// 	$electricity = ElectricityData::all();
-    //     return view('admin.product.electricity.index',compact('electricity'));
-	// }
+	public function productsElectricity($electricityId = 0)
+	{
+        $electricity = ElectricityData::select('*');
+        if($electricityId > 0){
+            $electricity = $electricity->where('id',$electricityId);
+        }
+        $electricity = $electricity->get();
+        return view('admin.product.electricity.index',compact('electricity'));
+	}
 
-    // public function createProductGas()
-    // {
-    //     $products = Product::all();
-    //     return view('admin.product.gas.create', compact('products'));
-    // }
+    public function createProductElectricity()
+    {
+        $products = Product::all();
+        return view('admin.product.electricity.create', compact('products'));
+    }
 
-    // public function saveProductGas(Request $req)
-    // {   
-    //     $req->validate([
-    //         'title' => 'required',
-    //         'product_id' => 'required|min:1|numeric',
-    //         'price' => 'numeric',
-    //     ]);
-    //     $gas = new GasData();
-    //     $gas->title = $req->title;
-    //     $gas->product_id = $req->product_id;
-    //     $gas->price = $req->price;
-    //     $gas->created_by = auth()->user()->id;
-    //     $gas->save();
-    //     return redirect(route('admin.products.gas'))->with('Success','Product Gas Data Added SuccessFully');
-    // }
+    public function saveProductElectricity(Request $req)
+    {   
+        $req->validate([
+            'title' => 'required',
+            'product_id' => 'required|min:1|numeric',
+            'price' => 'numeric',
+        ]);
+        $electricity = new ElectricityData();
+        $electricity->title = $req->title;
+        $electricity->product_id = $req->product_id;
+        $electricity->price = $req->price;
+        $electricity->created_by = auth()->user()->id;
+        $electricity->save();
+        return redirect(route('admin.products.electricity'))->with('Success','Product Electricity Data Added SuccessFully');
+    }
 
-    // public function editProductGas($id)
-    // {
-    //     $gas = GasData::find($id);
-    //     $products = Product::all();
-    //     return view('admin.product.gas.edit',compact('products', 'gas'));
-    // }
+    public function editProductElectricity($id)
+    {
+        $electricity = ElectricityData::find($id);
+        $products = Product::all();
+        return view('admin.product.electricity.edit',compact('products', 'electricity'));
+    }
 
-    // public function updateProductGas(Request $req)
-    // {
-    //     $req->validate([
-    //         'title' => 'required',
-    //         'product_id' => 'required|min:1|numeric',
-    //         'price' => 'numeric',
-    //     ]);
-    //     $gas = GasData::find($req->gasId);
-    //     $gas->title = $req->title;
-    //     $gas->product_id = $req->product_id;
-    //     $gas->price = $req->price;
-    //     $gas->save();
-    //     return redirect(route('admin.products.gas'))->with('Success','Product Gas Data Updated SuccessFully');
-    // }
+    public function updateProductElectricity(Request $req)
+    {
+        $req->validate([
+            'title' => 'required',
+            'product_id' => 'required|min:1|numeric',
+            'price' => 'numeric',
+        ]);
+        $electricity = ElectricityData::find($req->electricityId);
+        $electricity->title = $req->title;
+        $electricity->product_id = $req->product_id;
+        $electricity->price = $req->price;
+        $electricity->save();
+        return redirect(route('admin.products.electricity'))->with('Success','Product Electricity Data Updated SuccessFully');
+    }
 
-    // public function deleteProductGas(Request $req)
-    // {
-    //     $rules = [
-    //         'id' => 'required',
-    //     ];
-    //     $validator = validator()->make($req->all(),$rules);
-    //     if(!$validator->fails()){
-    //         $gas = GasData::find($req->id);
-    //         if($gas){
-    //         	$gas->delete();
-    //         	return successResponse('Product Gas Data Deleted Success');	
-    //         }
-    //     	return errorResponse('Invalid Product Gas Data Id');
-    //     }
-    //     return errorResponse($validator->errors()->first());
-    // }
+    public function deleteProductElectricity(Request $req)
+    {
+        $rules = [
+            'id' => 'required',
+        ];
+        $validator = validator()->make($req->all(),$rules);
+        if(!$validator->fails()){
+            $electricity = ElectricityData::find($req->id);
+            if($electricity){
+            	$electricity->delete();
+            	return successResponse('Product Electricity Data Deleted Success');	
+            }
+        	return errorResponse('Invalid Product Electricity Data Id');
+        }
+        return errorResponse($validator->errors()->first());
+    }
 }
