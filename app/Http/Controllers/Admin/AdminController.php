@@ -430,6 +430,42 @@ class AdminController extends Controller
         return back()->with('Error','Invalid About Us Details');
     }
 
+/****************************** Why Choose Us ******************************/
+    public function whyChooseUs(Request $req)
+    {
+        $whychooseUs = Setting::where('key','whychooseus')->get();
+        return view('admin.setting.whychooseus',compact('whychooseUs'));
+    }
+
+    public function updateWhyChooseUs(Request $req)
+    {
+        $req->validate([
+            'whychooseheading' => 'required|string|max:200',
+            'whychooseId' => 'required|array',
+            'whychooseId.*' => 'required|numeric',
+            'whychoosetitle' => 'required|array',
+            'whychoosetitle.*' => 'required|string|max:200',
+            'whychoosedescription' => 'required|array',
+            'whychoosedescription.*' => 'required|string|max:200',
+        ]);
+        DB::beginTransaction();
+        try {
+            DB::commit();
+            return back()->with('Success','Why Choose Us Updated SuccessFully');
+        } catch (Exception $e) {
+            DB::rollback();
+            return back()->with('Error','Something went wrong please try after sometime');
+        }
+        
+    }
+
+    public function deleteWhyChooseUs(Request $req,$id)
+    {
+        // Setting::where('id',$id)->where('key','whychooseus')->delete();
+        return back()->with('Success','Deleted SuccessFully');
+    }
+
+
 /****************************** FAQ ******************************/
     public function faq(Request $req)
     {

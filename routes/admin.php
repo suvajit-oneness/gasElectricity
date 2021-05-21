@@ -97,6 +97,7 @@
 		Route::post('about-us','Admin\AdminController@saveaboutUs')->name('admin.setting.save_aboutUs');
 		Route::get('why-choose-us','Admin\AdminController@whyChooseUs')->name('admin.setting.whychooseus');
 		Route::post('why-choose-us','Admin\AdminController@updateWhyChooseUs')->name('admin.setting.whychooseus.save');
+		Route::get('why-choose-us/{id}/delete','Admin\AdminController@deleteWhyChooseUs')->name('admin.setting.whychooseus.delete');
 		Route::get('how-it-works','Admin\AdminController@howItWorks')->name('admin.setting.how_it_works');
 		Route::post('how-it-works','Admin\AdminController@updateHowItWorks')->name('admin.setting.updatehow_it_works');
 		
