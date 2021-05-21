@@ -10,6 +10,12 @@ use App\Model\Testimonials;use App\Model\Faq;
 use Hash;use App\Model\AboutUs;use App\Model\BlogCategory;
 use App\Model\WhyChooseUs;use App\Model\HowItWork;
 use App\Model\Membership;
+use App\Model\Company;
+use App\Model\Product;
+use App\Model\ProductFeature;
+use App\Model\ProductTating;
+use App\Model\GasData;
+use App\Model\ElectricityData;
 
 class AdminController extends Controller
 {
@@ -559,4 +565,366 @@ class AdminController extends Controller
         return errorResponse($validator->errors()->first());
     }
 
+    /****************************** Company ******************************/
+	public function companies($companyId = 0)
+	{
+        $companies = Company::select('*');
+        if($companyId > 0){
+            $companies = $companies->where('id',$companyId);
+        }
+        $companies = $companies->get();
+        return view('admin.company.index',compact('companies'));
+	}
+
+    public function createCompany()
+    {
+        return view('admin.company.create');
+    }
+
+    public function saveCompany(Request $req)
+    {
+        $req->validate([
+            'logo' => '',
+            'name' => 'required',
+            'description' => '',
+        ]);
+        $company = new Company();
+        $company->name = $req->name;
+        $company->created_by = auth()->user()->id;
+        if($req->hasFile('logo')){
+            $logo = $req->file('logo');
+            $random = randomGenerator();
+            $logo->move('upload/admin/companies/',$random.'.'.$logo->getClientOriginalExtension());
+            $logourl = url('upload/admin/companies/'.$random.'.'.$logo->getClientOriginalExtension());
+            $company->logo = $logourl;
+        }
+        $company->description = emptyCheck($req->description);
+        $company->save();
+        return redirect(route('admin.companies'))->with('Success','Company Added SuccessFully');
+    }
+
+    public function editCompany(Request $req,$id)
+    {
+        $company = Company::find($id);
+        return view('admin.company.edit',compact('company'));
+    }
+
+    public function updateCompany(Request $req)
+    {
+        $req->validate([
+            'companyId' => 'required|min:1|numeric',
+            'logo' => '',
+            'name' => 'required',
+            'description' => '',
+        ]);
+        $company = Company::find($req->companyId);
+        $company->name = $req->name;
+        if($req->hasFile('logo')){
+            $logo = $req->file('logo');
+            $random = randomGenerator();
+            $logo->move('upload/admin/companies/',$random.'.'.$logo->getClientOriginalExtension());
+            $logourl = url('upload/admin/companies/'.$random.'.'.$logo->getClientOriginalExtension());
+            $company->logo = $logourl;
+        }
+        $company->description = emptyCheck($req->description);
+        $company->save();
+        return redirect(route('admin.companies'))->with('Success','Company Updated SuccessFully');
+    }
+
+    public function deleteCompany(Request $req)
+    {
+        $rules = [
+            'id' => 'required',
+        ];
+        $validator = validator()->make($req->all(),$rules);
+        if(!$validator->fails()){
+            $company = Company::find($req->id);
+            if($company){
+            	$company->delete();
+            	return successResponse('Company Deleted Success');	
+            }
+        	return errorResponse('Invalid Company Id');
+        }
+        return errorResponse($validator->errors()->first());
+    }
+
+
+    /****************************** Product ******************************/
+	public function products($productId = 0)
+	{
+        $products = Product::select('*');
+        if($productId > 0){
+            $products = $products->where('id',$productId);
+        }
+        $products = $products->get();
+        return view('admin.product.index',compact('products'));
+	}
+
+    public function createProduct()
+    {
+        $companies = Company::all();
+        return view('admin.product.create', compact('companies'));
+    }
+
+    public function saveProduct(Request $req)
+    {
+        $req->validate([
+            'name' => 'required',
+            'company_id' => 'required|min:1|numeric',
+            'tag' => 'required',
+            'tag_description' => '',
+        ]);
+        $product = new Product();
+        $product->name = $req->name;
+        $product->company_id = $req->company_id;
+        $product->tag = $req->tag;
+        $product->tag_description = emptyCheck($req->tag_description);
+        $product->created_by = auth()->user()->id;
+        $product->save();
+        return redirect(route('admin.products'))->with('Success','Product Added SuccessFully');
+    }
+
+    public function editProduct(Request $req,$id)
+    {
+        $product = Product::find($id);
+        $companies = Company::all();
+        return view('admin.product.edit',compact('product', 'companies'));
+    }
+
+    public function updateProduct(Request $req)
+    {
+        $req->validate([
+            'name' => 'required',
+            'company_id' => 'required|min:1|numeric',
+            'tag' => 'required',
+            'tag_description' => '',
+        ]);
+        $product = Product::find($req->productId);
+        $product->name = $req->name;
+        $product->company_id = $req->company_id;
+        $product->tag = $req->tag;
+        $product->tag_description = emptyCheck($req->tag_description);
+        $product->save();
+        return redirect(route('admin.products'))->with('Success','Product Updated SuccessFully');
+    }
+
+    public function deleteProduct(Request $req)
+    {
+        $rules = [
+            'id' => 'required',
+        ];
+        $validator = validator()->make($req->all(),$rules);
+        if(!$validator->fails()){
+            $product = Product::find($req->id);
+            if($product){
+            	$product->delete();
+            	return successResponse('Product Deleted Success');	
+            }
+        	return errorResponse('Invalid Product Id');
+        }
+        return errorResponse($validator->errors()->first());
+    }
+
+    /****************************** Product Feature ******************************/
+	public function productsFeature()
+	{
+		$features = ProductFeature::all();
+        return view('admin.product.feature.index',compact('features'));
+	}
+
+    public function createProductFeature()
+    {
+        $products = Product::all();
+        return view('admin.product.feature.create', compact('products'));
+    }
+
+    public function saveProductFeature(Request $req)
+    {   
+        $req->validate([
+            'title' => 'required',
+            'product_id' => 'required|min:1|numeric',
+            'description' => '',
+        ]);
+        $feature = new ProductFeature();
+        $feature->title = $req->title;
+        $feature->product_id = $req->product_id;
+        $feature->description = emptyCheck($req->description);
+        $feature->save();
+        return redirect(route('admin.products.feature'))->with('Success','Product Feature Added SuccessFully');
+    }
+
+    public function editProductFeature($id)
+    {
+        $feature = ProductFeature::find($id);
+        $products = Product::all();
+        return view('admin.product.feature.edit',compact('products', 'feature'));
+    }
+
+    public function updateProductFeature(Request $req)
+    {
+        $req->validate([
+            'title' => 'required',
+            'product_id' => 'required|min:1|numeric',
+            'description' => '',
+        ]);
+        $feature = ProductFeature::find($req->featureId);
+        $feature->title = $req->title;
+        $feature->product_id = $req->product_id;
+        $feature->description = emptyCheck($req->description);
+        $feature->save();
+        return redirect(route('admin.products.feature'))->with('Success','Product Feature Updated SuccessFully');
+    }
+
+    public function deleteProductFeature(Request $req)
+    {
+        $rules = [
+            'id' => 'required',
+        ];
+        $validator = validator()->make($req->all(),$rules);
+        if(!$validator->fails()){
+            $feature = ProductFeature::find($req->id);
+            if($feature){
+            	$feature->delete();
+            	return successResponse('Feature Deleted Success');	
+            }
+        	return errorResponse('Invalid Feature Id');
+        }
+        return errorResponse($validator->errors()->first());
+    }
+
+    /****************************** Product Gas Data ******************************/
+	public function productsGas()
+	{
+		$gas = GasData::all();
+        return view('admin.product.gas.index',compact('gas'));
+	}
+
+    public function createProductGas()
+    {
+        $products = Product::all();
+        return view('admin.product.gas.create', compact('products'));
+    }
+
+    public function saveProductGas(Request $req)
+    {   
+        $req->validate([
+            'title' => 'required',
+            'product_id' => 'required|min:1|numeric',
+            'price' => 'numeric',
+        ]);
+        $gas = new GasData();
+        $gas->title = $req->title;
+        $gas->product_id = $req->product_id;
+        $gas->price = $req->price;
+        $gas->created_by = auth()->user()->id;
+        $gas->save();
+        return redirect(route('admin.products.gas'))->with('Success','Product Gas Data Added SuccessFully');
+    }
+
+    public function editProductGas($id)
+    {
+        $gas = GasData::find($id);
+        $products = Product::all();
+        return view('admin.product.gas.edit',compact('products', 'gas'));
+    }
+
+    public function updateProductGas(Request $req)
+    {
+        $req->validate([
+            'title' => 'required',
+            'product_id' => 'required|min:1|numeric',
+            'price' => 'numeric',
+        ]);
+        $gas = GasData::find($req->gasId);
+        $gas->title = $req->title;
+        $gas->product_id = $req->product_id;
+        $gas->price = $req->price;
+        $gas->save();
+        return redirect(route('admin.products.gas'))->with('Success','Product Gas Data Updated SuccessFully');
+    }
+
+    public function deleteProductGas(Request $req)
+    {
+        $rules = [
+            'id' => 'required',
+        ];
+        $validator = validator()->make($req->all(),$rules);
+        if(!$validator->fails()){
+            $gas = GasData::find($req->id);
+            if($gas){
+            	$gas->delete();
+            	return successResponse('Product Gas Data Deleted Success');	
+            }
+        	return errorResponse('Invalid Product Gas Data Id');
+        }
+        return errorResponse($validator->errors()->first());
+    }
+
+    /****************************** Product Electricity Data ******************************/
+	// public function productsElectricity()
+	// {
+	// 	$electricity = ElectricityData::all();
+    //     return view('admin.product.electricity.index',compact('electricity'));
+	// }
+
+    // public function createProductGas()
+    // {
+    //     $products = Product::all();
+    //     return view('admin.product.gas.create', compact('products'));
+    // }
+
+    // public function saveProductGas(Request $req)
+    // {   
+    //     $req->validate([
+    //         'title' => 'required',
+    //         'product_id' => 'required|min:1|numeric',
+    //         'price' => 'numeric',
+    //     ]);
+    //     $gas = new GasData();
+    //     $gas->title = $req->title;
+    //     $gas->product_id = $req->product_id;
+    //     $gas->price = $req->price;
+    //     $gas->created_by = auth()->user()->id;
+    //     $gas->save();
+    //     return redirect(route('admin.products.gas'))->with('Success','Product Gas Data Added SuccessFully');
+    // }
+
+    // public function editProductGas($id)
+    // {
+    //     $gas = GasData::find($id);
+    //     $products = Product::all();
+    //     return view('admin.product.gas.edit',compact('products', 'gas'));
+    // }
+
+    // public function updateProductGas(Request $req)
+    // {
+    //     $req->validate([
+    //         'title' => 'required',
+    //         'product_id' => 'required|min:1|numeric',
+    //         'price' => 'numeric',
+    //     ]);
+    //     $gas = GasData::find($req->gasId);
+    //     $gas->title = $req->title;
+    //     $gas->product_id = $req->product_id;
+    //     $gas->price = $req->price;
+    //     $gas->save();
+    //     return redirect(route('admin.products.gas'))->with('Success','Product Gas Data Updated SuccessFully');
+    // }
+
+    // public function deleteProductGas(Request $req)
+    // {
+    //     $rules = [
+    //         'id' => 'required',
+    //     ];
+    //     $validator = validator()->make($req->all(),$rules);
+    //     if(!$validator->fails()){
+    //         $gas = GasData::find($req->id);
+    //         if($gas){
+    //         	$gas->delete();
+    //         	return successResponse('Product Gas Data Deleted Success');	
+    //         }
+    //     	return errorResponse('Invalid Product Gas Data Id');
+    //     }
+    //     return errorResponse($validator->errors()->first());
+    // }
 }

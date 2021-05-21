@@ -1,14 +1,14 @@
 @extends('layouts.master')
-@section('title','Blog')
+@section('title','Company')
 @section('content')
 <div class="container-fluid  dashboard-content">
     <div class="row">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
             <div class="card">
                 <div class="card-header">
-                    <h5 class="mb-0">Blogs
-                        <a class="headerbuttonforAdd" href="{{route('admin.blogs.create')}}">
-                            <i class="fa fa-plus" aria-hidden="true"></i>Add Blog
+                    <h5 class="mb-0">Compamies
+                        <a class="headerbuttonforAdd" href="{{route('admin.companies.create')}}">
+                            <i class="fa fa-plus" aria-hidden="true"></i>Add Company
                         </a>
                     </h5>
                     <!-- <p>This example shows FixedHeader being styled by the Bootstrap 4 CSS framework.</p> -->
@@ -18,27 +18,20 @@
                         <table id="example4" class="table table-striped table-bordered" style="width:100%">
                             <thead>
                                 <tr>
-                                    <th>Image</th>
-                                    <th>Category</th>
-                                    <th>Title</th>
+                                    <th>Logo</th>
+                                    <th>Name</th>
                                     <th>Description</th>
-                                    <th>Posted By</th>
-                                    <th>Posted at</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($blogs as $blog)
+                                @foreach($companies as $company)
                                     <tr>
-                                        <td style="height: 100px; width: 100px"><img height="100px" width="100px" src="{{$blog->image}}"></td>
-                                        <td>@if($blog->category){{$blog->category->name}}@else{{'N/A'}}@endif</td>
-                                        <td>{{$blog->title}}</td>
-                                        <td>{!! $blog->description !!}</td>
-                                        <!-- <td>{{strip_tags($blog->description)}}</td> -->
-                                        <td>@if($blog->posted){{$blog->posted->name}}@else{{'N/A'}}@endif</td>
-                                        <td>{{$blog->created_at->diffForHumans()}}</td>
+                                        <td style="height: 100px; width: 100px"><img height="100px" width="100px" src="{{$company->logo}}"></td>
+                                        <td>{{$company->name}}</td>
+                                        <td>{!! $company->description !!}</td>
                                         <td>
-                                            <a href="{{route('admin.blogs.edit',$blog->id)}}">Edit</a> | <a href="javascript:void(0)" class="deleteBlog text-danger" data-id="{{$blog->id}}">Delete</a>
+                                            <a href="{{route('admin.companies.edit',$company->id)}}">Edit</a> | <a href="javascript:void(0)" class="deletecompany text-danger" data-id="{{$company->id}}">Delete</a>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -56,12 +49,12 @@
             $('#example4').DataTable();
         });
 
-        $(document).on('click','.deleteBlog',function(){
-            var deleteBlog = $(this);
-            var blogId = $(this).attr('data-id');
+        $(document).on('click','.deletecompany',function(){
+            var deletecompany = $(this);
+            var companyId = $(this).attr('data-id');
             swal({
                 title: "Are you sure?",
-                text: "Once deleted, you will not be able to recover this blog!",
+                text: "Once deleted, you will not be able to recover this company!",
                 icon: "warning",
                 buttons: true,
                 dangerMode: true,
@@ -71,18 +64,17 @@
                     $.ajax({
                         type:'POST',
                         dataType:'JSON',
-                        url:"{{route('admin.blogs.delete',"+blogId+")}}",
-                        data: {id:blogId,'_token': $('input[name=_token]').val()},
+                        url:"{{route('admin.companies.delete',"+companyId+")}}",
+                        data: {id:companyId,'_token': $('input[name=_token]').val()},
                         success:function(data){
                             if(data.error == false){
-                                deleteBlog.closest('tr').remove();
-                                swal('Success',"Poof! Your blog has been deleted!", 'success');
+                                deletecompany.closest('tr').remove();
+                                swal('Success',"Poof! Your company has been deleted!", 'success');
                             }else{
                                 swal('Error',data.message);
                             }
                         }
                     });
-                    
                 }
             });
         });

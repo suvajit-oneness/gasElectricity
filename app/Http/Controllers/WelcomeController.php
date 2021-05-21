@@ -84,13 +84,20 @@ class WelcomeController extends Controller
             return $this->planListingwithoutAuth($req);
     }
 
+    public function getPlanlistingData(Request $req)
+    {
+        // 
+    }
+
     public function planListingwithoutAuth(Request $req)
     {
+        $data = $this->getPlanlistingData($req);
         return view('frontend.listing.planWithoutLogin');
     }
 
     public function planListingwithAuth(Request $req)
     {
+        $data = $this->getPlanlistingData($req);
         return view('frontend.listing.planWithLogin');
     }
 
