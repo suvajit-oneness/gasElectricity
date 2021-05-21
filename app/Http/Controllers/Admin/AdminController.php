@@ -332,68 +332,58 @@ class AdminController extends Controller
 /****************************** How It Works ******************************/
     public function howItWorks(Request $req)
     {
-        $howitWork = HowItWork::first();
+        $howitWork = Setting::where('key','how_it_works')->get();
         return view('admin.setting.howitworks',compact('howitWork'));
     }
 
     public function updateHowItWorks(Request $req)
     {
         $req->validate([
-            'howItWorksId' => 'required|numeric|min:1',
-            'main_heading' => 'required|max:200|string',
-            'title1' => 'required',
-            'title2' => 'required',
-            'description' => 'required',
-            'media' => '',
-            'review_heading' => 'required|max:200|string',
-            'review_image' => '',
-            'review_description' => 'required',
-            'compare_heading' => 'required|max:200|string',
-            'compare_image' => '',
-            'compare_description' => 'required',
-
-            'switchonspot_heading' => 'required|max:200|string',
-            'switchonspot_image' => '',
-            'switchonspot_description' => 'required',
+            'howitWorkHeading' => 'required|string|max:200',
+            // 'howitWorkId' => 'required|array',
+            // 'howitWorkId.*' => 'required|numeric',
+            'howitWorkImage' => 'nullable|array',
+            'howitWorkImage.*' => 'nullable|image',
+            'old_howitWorkimage' => 'nullable|array',
+            'old_howitWorkimage.*' => 'nullable|string',
+            'howitWorktitle' => 'required|array',
+            'howitWorktitle.*' => 'required|string|max:200',
+            'howitWorkdescription' => 'required|array',
+            'howitWorkdescription.*' => 'required|string',
         ]);
-        $howitWork = HowItWork::where('id',$req->howItWorksId)->first();
-        $howitWork->main_heading = $req->main_heading;
-        $howitWork->title1 = $req->title1;
-        $howitWork->title2 = $req->title2;
-        $howitWork->description = $req->description;
-        $howitWork->review_heading = $req->review_heading;
-        $howitWork->review_description = $req->review_description;
-        $howitWork->compare_heading = $req->compare_heading;
-        $howitWork->compare_description = $req->compare_description;
-        $howitWork->switchonspot_heading = $req->switchonspot_heading;
-        $howitWork->switchonspot_description = $req->switchonspot_description;
-        $random = randomGenerator();
-        if($req->hasFile('media')){
-            $media = $req->file('media');
-            $media->move('upload/admin/howitWorks/media/',$random.'.'.$media->getClientOriginalExtension());
-            $mediaurl = url('upload/admin/howitWorks/media/'.$random.'.'.$media->getClientOriginalExtension());
-            $howitWork->media = $mediaurl;
+        DB::beginTransaction();
+        try {
+            Setting::where('key','how_it_works')->delete();
+            foreach($req->howitWorktitle as $key => $newData){
+                $howitWork = new Setting;
+                $howitWork->key = 'how_it_works';
+                $howitWork->heading = $req->howitWorkHeading;
+                if(!empty($req->howitWorkImage[$key])){
+                    $image = $req->file('howitWorkImage')[$key];
+                    $random = randomGenerator();
+                    $image->move('upload/admin/howitworks/',$random.'.'.$image->getClientOriginalExtension());
+                    $imageurl = url('upload/admin/howitworks/'.$random.'.'.$image->getClientOriginalExtension());
+                    $howitWork->image = $imageurl;
+                }elseif(!empty($req->old_howitWorkimage[$key])){
+                    $howitWork->image = $req->old_howitWorkimage[$key];
+                }
+                $howitWork->title = $req->howitWorktitle[$key];
+                $howitWork->description = $req->howitWorkdescription[$key];
+                $howitWork->save();
+            }   
+            DB::commit();
+            return back()->with('Success','How It Works Updated SuccessFully');
+        } catch (Exception $e) {
+            DB::rollback();
+            dd('here');
+            return back()->with('Errors','Something went wrong please try after sometime');
         }
-        if($req->hasFile('review_image')){
-            $reviewImage = $req->file('review_image');
-            $reviewImage->move('upload/admin/howitWorks/review/',$random.'.'.$reviewImage->getClientOriginalExtension());
-            $reviewImageurl = url('upload/admin/howitWorks/review/'.$random.'.'.$reviewImage->getClientOriginalExtension());
-            $howitWork->review_image = $reviewImageurl;
-        }
-        if($req->hasFile('compare_image')){
-            $compareImage = $req->file('review_image');
-            $compareImage->move('upload/admin/howitWorks/compare/',$random.'.'.$compareImage->getClientOriginalExtension());
-            $compareImageurl = url('upload/admin/howitWorks/compare/'.$random.'.'.$compareImage->getClientOriginalExtension());
-            $howitWork->compare_image = $compareImageurl;
-        }
-        if($req->hasFile('switchonspot_image')){
-            $switchImage = $req->file('review_image');
-            $switchImage->move('upload/admin/howitWorks/switchonspot/',$random.'.'.$switchImage->getClientOriginalExtension());
-            $switchOnSpotImageurl = url('upload/admin/howitWorks/switchonspot/'.$random.'.'.$switchImage->getClientOriginalExtension());
-            $howitWork->switchonspot_image = $switchOnSpotImageurl;
-        }
-        $howitWork->save();
-        return back()->with('Success','How it works Updated SuccessFully');
+    }
+
+    public function deleteHowItWorks(Request $req,$id)
+    {
+        // Setting::where('id',$id)->where('key','how_it_works')->delete();
+        return back()->with('Success','Deleted SuccessFully');
     }
 
 /****************************** About Us ******************************/
@@ -429,6 +419,63 @@ class AdminController extends Controller
         }
         return back()->with('Error','Invalid About Us Details');
     }
+
+/****************************** Why Choose Us ******************************/
+    public function whyChooseUs(Request $req)
+    {
+        $whychooseUs = Setting::where('key','whychooseus')->get();
+        return view('admin.setting.whychooseus',compact('whychooseUs'));
+    }
+
+    public function updateWhyChooseUs(Request $req)
+    {
+        $req->validate([
+            'whychooseheading' => 'required|string|max:200',
+            // 'whychooseId' => 'required|array',
+            // 'whychooseId.*' => 'required|numeric',
+            'whychooseimage' => 'nullable|array',
+            'whychooseimage.*' => 'nullable|image',
+            'old_whychooseimage' => 'nullable|array',
+            'old_whychooseimage.*' => 'nullable|string',
+            'whychoosetitle' => 'required|array',
+            'whychoosetitle.*' => 'required|string|max:200',
+            'whychoosedescription' => 'required|array',
+            'whychoosedescription.*' => 'required|string',
+        ]);
+        DB::beginTransaction();
+        try {
+            Setting::where('key','whychooseus')->delete();
+            foreach($req->whychoosetitle as $key => $newData){
+                $whychoose = new Setting;
+                $whychoose->key = 'whychooseus';
+                if(!empty($req->whychooseimage[$key])){
+                    $image = $req->file('whychooseimage')[$key];
+                    $random = randomGenerator();
+                    $image->move('upload/admin/whychooseus/',$random.'.'.$image->getClientOriginalExtension());
+                    $imageurl = url('upload/admin/whychooseus/'.$random.'.'.$image->getClientOriginalExtension());
+                    $whychoose->image = $imageurl;
+                }elseif(!empty($req->old_whychooseimage[$key])){
+                    $whychoose->image = $req->old_whychooseimage[$key];
+                }
+                $whychoose->heading = $req->whychooseheading;
+                $whychoose->title = $req->whychoosetitle[$key];
+                $whychoose->description = $req->whychoosedescription[$key];
+                $whychoose->save();
+            }   
+            DB::commit();
+            return back()->with('Success','Why Choose Us Updated SuccessFully');
+        } catch (Exception $e) {
+            DB::rollback();
+            return back()->with('Error','Something went wrong please try after sometime');
+        }
+    }
+
+    public function deleteWhyChooseUs(Request $req,$id)
+    {
+        // Setting::where('id',$id)->where('key','whychooseus')->delete();
+        return back()->with('Success','Deleted SuccessFully');
+    }
+
 
 /****************************** FAQ ******************************/
     public function faq(Request $req)
