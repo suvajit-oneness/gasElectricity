@@ -441,39 +441,43 @@ class AdminController extends Controller
     {
         $req->validate([
             'whychooseheading' => 'required|string|max:200',
-            'whychooseId' => 'required|array',
-            'whychooseId.*' => 'required|numeric',
+            // 'whychooseId' => 'required|array',
+            // 'whychooseId.*' => 'required|numeric',
             'whychooseimage' => 'nullable|array',
             'whychooseimage.*' => 'nullable|image',
+            'old_whychooseimage' => 'nullable|array',
+            'old_whychooseimage.*' => 'nullable|string',
             'whychoosetitle' => 'required|array',
             'whychoosetitle.*' => 'required|string|max:200',
             'whychoosedescription' => 'required|array',
             'whychoosedescription.*' => 'required|string|max:200',
         ]);
-        dd($req->all());
         DB::beginTransaction();
         try {
-            // Setting::where('key','whychooseus')->update(['heading'=>$req->whychooseheading]);
-            // foreach($req->whychooseId as $key => $whychooseData){
-            //     $whychoose = Setting::where('id',$whychooseData)->where('key','whychooseus')->first();
-            //     if(!empty($req->whychooseimage[$key])){
-            //         $image = $req->file('whychooseimage')[$key];
-            //         $random = randomGenerator();
-            //         $image->move('upload/admin/whychooseus/',$random.'.'.$image->getClientOriginalExtension());
-            //         $imageurl = url('upload/admin/whychooseus/'.$random.'.'.$image->getClientOriginalExtension());
-            //         $whychoose->image = $imageurl;
-            //     }
-            //     $whychoose->title = $req->whychoosetitle[$key];
-            //     $whychoose->description = $req->whychoosedescription[$key];;
-            //     $whychoose->save();
-            // }   
-            // DB::commit();
+            Setting::where('key','whychooseus')->delete();
+            foreach($req->whychoosetitle as $key => $newData){
+                $whychoose = new Setting;
+                $whychoose->key = 'whychooseus';
+                if(!empty($req->whychooseimage[$key])){
+                    $image = $req->file('whychooseimage')[$key];
+                    $random = randomGenerator();
+                    $image->move('upload/admin/whychooseus/',$random.'.'.$image->getClientOriginalExtension());
+                    $imageurl = url('upload/admin/whychooseus/'.$random.'.'.$image->getClientOriginalExtension());
+                    $whychoose->image = $imageurl;
+                }elseif(!empty($req->old_whychooseimage[$key])){
+                    $whychoose->image = $req->old_whychooseimage[$key];
+                }
+                $whychoose->heading = $req->whychooseheading;
+                $whychoose->title = $req->whychoosetitle[$key];
+                $whychoose->description = $req->whychoosedescription[$key];
+                $whychoose->save();
+            }   
+            DB::commit();
             return back()->with('Success','Why Choose Us Updated SuccessFully');
         } catch (Exception $e) {
             DB::rollback();
             return back()->with('Error','Something went wrong please try after sometime');
         }
-        
     }
 
     public function deleteWhyChooseUs(Request $req,$id)

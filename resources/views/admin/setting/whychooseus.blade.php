@@ -9,8 +9,11 @@
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
             <div class="card">
                 <div class="card-header">
-                    <h5 class="mb-0">About us</h5>
+                    <h5 class="mb-0">Why Choose Us</h5>
                 </div>
+                @if($errors->any())
+                    {!! implode('', $errors->all('<div class="alert alert-danger">:message</div>')) !!}
+                @endif
                 <div class="card-body">
                     <form method="post" action="{{route('admin.setting.whychooseus.save')}}" enctype="multipart/form-data">
                         @csrf
