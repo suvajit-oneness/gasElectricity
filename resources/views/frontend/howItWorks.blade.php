@@ -1,5 +1,5 @@
 @extends('frontend.layouts.master')
-@section('title','About Us')
+@section('title','how it Works')
 @section('content')
 	
 <section class="page_banner">

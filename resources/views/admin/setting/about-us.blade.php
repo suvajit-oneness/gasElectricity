@@ -50,35 +50,6 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="whychooseheading" class="col-form-label">Why choose us Heading:</label>
-                            <input type="text" class="form-control @error('whychooseheading') is-invalid @enderror" id="whychooseheading" name="whychooseheading" placeholder="Why Choose Us" value="{{$aboutus->whychooseus}}" required>
-                            @error('whychooseheading')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-                        <label>Why Choose us Content</label>
-                        @foreach($aboutus->whychoose as $whychoose)
-                            <div class="row">
-                                <input type="hidden" name="whychooseId[]" value="{{$whychoose->id}}">
-                                <img src="{{$whychoose->image}}">
-                                <div class="form-group">
-                                    <label for="image{{$whychoose->id}}">Image</label>
-                                    <input type="file" name="whychooseimage[]">
-                                </div>
-                                <div class="form-group">
-                                    <label for="title{{$whychoose->id}}">Title</label>
-                                    <input type="text" name="whychoosetitle[]" value="{{$whychoose->title}}" required>
-                                </div>
-                                <div class="form-group">
-                                    <label for="description{{$whychoose->id}}">Description</label>
-                                    <input type="text" name="whychoosedescription[]" value="{{$whychoose->description}}" required>
-                                </div>
-                            </div>
-                        @endforeach
-
-                        <div class="form-group">
                             <button type="submit" class="btn btn-primary">Save</button>
                         </div>
                     </form>
