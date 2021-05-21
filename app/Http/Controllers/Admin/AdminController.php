@@ -7,9 +7,8 @@ use App\Http\Controllers\Controller;
 use App\Model\Blog;use App\Model\UserType;
 use App\User;use App\Model\ContactUs;use DB;
 use App\Model\Testimonials;use App\Model\Faq;
-use Hash;use App\Model\AboutUs;use App\Model\BlogCategory;
-use App\Model\WhyChooseUs;use App\Model\HowItWork;
-use App\Model\Membership;
+use Hash;use App\Model\BlogCategory;use App\Model\Setting;
+use App\Model\Membership;use App\Model\HowItWork;
 
 class AdminController extends Controller
 {
@@ -397,7 +396,7 @@ class AdminController extends Controller
 /****************************** About Us ******************************/
     public function aboutUs(Request $req)
     {
-        $aboutus = AboutUs::select('*')/*->with('whychoose')*/->first();
+        $aboutus = Setting::where('key','about_us')->first();
         return view('admin.setting.about-us',compact('aboutus'));
     }
 
@@ -409,9 +408,8 @@ class AdminController extends Controller
             'aboutustitle' => 'required|max:200',
             'aboutusdescription' => 'required|string',
             'aboutusImage' => '',
-            'whychooseheading' => 'required|max:200|string',
         ]);
-        $about = AboutUs::where('id',$req->aboutUsId)->first();
+        $about = Setting::where('id',$req->aboutUsId)->where('key','about_us')->first();
         if($about){
             $about->heading = $req->aboutusheading;
             $about->title = $req->aboutustitle;
@@ -422,20 +420,6 @@ class AdminController extends Controller
                 $image->move('upload/admin/aboutus/',$random.'.'.$image->getClientOriginalExtension());
                 $imageurl = url('upload/admin/aboutus/'.$random.'.'.$image->getClientOriginalExtension());
                 $about->image = $imageurl;
-            }
-            $about->whychooseus = $req->whychooseheading;
-            foreach($req->whychooseId as $key => $whychooseData){
-                $whychoose = WhyChooseUs::where('id',$whychooseData)->where('aboutus_id',$about->id)->first();
-                if(!empty($req->whychooseimage[$key])){
-                    $image = $req->file('whychooseimage')[$key];
-                    $random = randomGenerator();
-                    $image->move('upload/admin/whychooseus/',$random.'.'.$image->getClientOriginalExtension());
-                    $imageurl = url('upload/admin/whychooseus/'.$random.'.'.$image->getClientOriginalExtension());
-                    $whychoose->image = $imageurl;
-                }
-                $whychoose->title = $req->whychoosetitle[$key];
-                $whychoose->description = $req->whychoosedescription[$key];;
-                $whychoose->save();
             }
             $about->save();
             return back()->with('Success','About Us Updated SuccessFully');

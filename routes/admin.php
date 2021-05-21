@@ -48,10 +48,13 @@
 	});
 
 	Route::group(['prefix'=>'setting'],function(){
-		Route::get('how-it-works','Admin\AdminController@howItWorks')->name('admin.setting.how_it_works');
-		Route::post('how-it-works','Admin\AdminController@updateHowItWorks')->name('admin.setting.updatehow_it_works');
 		Route::get('about-us','Admin\AdminController@aboutUs')->name('admin.setting.about_us');
 		Route::post('about-us','Admin\AdminController@saveaboutUs')->name('admin.setting.save_aboutUs');
+		Route::get('why-choose-us','Admin\AdminController@whyChooseUs')->name('admin.setting.whychooseus');
+		Route::post('why-choose-us','Admin\AdminController@updateWhyChooseUs')->name('admin.setting.whychooseus.save');
+		Route::get('how-it-works','Admin\AdminController@howItWorks')->name('admin.setting.how_it_works');
+		Route::post('how-it-works','Admin\AdminController@updateHowItWorks')->name('admin.setting.updatehow_it_works');
+		
 	});
 
 	Route::group(['prefix'=>'membership'],function(){
