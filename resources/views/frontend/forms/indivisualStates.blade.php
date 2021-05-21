@@ -151,11 +151,11 @@
 
 <section class="why_choose_wrap">
 	<div class="container">
-		<h2 class="heading text-center">{!! $about->whychooseus !!}</h2>
+		<h2 class="heading text-center whyChooseUsHeading">Why Choose Us</h2>
 		<div class="row">
 			<div class="why_choose_content">
 				<ul>
-					@foreach($about->whychoose as $key=>$choose)
+					@foreach($data->whychooseus as $key=>$choose)
 						<li>
 							<div class="why_choose_img_wrap">
 								<img src="{{$choose->image}}">
@@ -171,6 +171,13 @@
 </section>
 
 @section('script')
-    <script type="text/javascript"></script>
+    <script type="text/javascript">
+    	var whyChooseUsHeading = 'Why Choose Us';
+    	@foreach($data->whychooseus as $key => $choose)
+        	whyChooseUsHeading = '{{$choose->heading}}';
+    		$('.whyChooseUsHeading').text(whyChooseUsHeading);
+    		@break
+    	@endforeach
+    </script>
 @stop
 @endsection

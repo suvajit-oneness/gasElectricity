@@ -5,11 +5,7 @@ namespace App\Model;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class HowItWork extends Model
+class Setting extends Model
 {
     use SoftDeletes;
-    
-    protected $hidden = [
-        'deleted_at', 'updated_at','created_at',
-    ];
 }

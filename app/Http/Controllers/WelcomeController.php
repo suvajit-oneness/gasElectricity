@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Model\Testimonials;use App\Model\BlogCategory;
 use App\Model\Faq;use App\Model\Blog;use Auth;
-use App\Model\AboutUs;use App\Model\ContactUs;
-use App\Model\Membership;use App\Model\UserMembership;
+use App\Model\ContactUs;use App\Model\Membership;
+use App\Model\UserMembership;use App\Model\Setting;
 
 class WelcomeController extends Controller
 {
@@ -21,8 +21,10 @@ class WelcomeController extends Controller
 
     public function aboutUs(Request $req)
     {
-        $aboutus = AboutUs::with('whychoose')->first();
-    	return view('frontend.about-us',compact('aboutus'));
+        $data = (object)[];
+        $data->aboutus = Setting::where('key','about_us')->first();
+        $data->whychooseus = Setting::where('key','whychooseus')->get();
+    	return view('frontend.about-us',compact('data'));
     }
 
     public function howItWorks(Request $req)
@@ -106,8 +108,9 @@ class WelcomeController extends Controller
 
     public function indivisualStates(Request $req)
     {
-        $about = AboutUs::with('whychoose')->first();
-        return view('frontend.forms.indivisualStates',compact('about'));
+        $data = (object)[];
+        $data->whychooseus = Setting::where('key','whychooseus')->get();
+        return view('frontend.forms.indivisualStates',compact('data'));
     }
 
     public function membership(Request $req)

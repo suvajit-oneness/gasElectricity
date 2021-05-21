@@ -6,7 +6,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-12">
-				<h1 class="heading text-white pb-0 mb-0 text-center">{{$aboutus->heading}}</h1>
+				<h1 class="heading text-white pb-0 mb-0 text-center">{{$data->aboutus->heading}}</h1>
 			</div>
 		</div>
 	</div>
@@ -17,13 +17,13 @@
 		<div class="row align-items-center">
 			<div class="col-12 col-md-7 col-lg-7">
 				<div class="intro_content">
-					<h2>{!! $aboutus->title !!}</h2>
-					<div>{!! $aboutus->description !!}</div>
+					<h2>{!! $data->aboutus->title !!}</h2>
+					<div>{!! $data->aboutus->description !!}</div>
 				</div>
 			</div>
 			<div class="col-12 col-md-5 col-lg-5">
 				<div class="intro_img_wrap">
-					<img src="{{$aboutus->image}}">
+					<img src="{{$data->aboutus->image}}">
 				</div>
 			</div>
 		</div>
@@ -32,11 +32,11 @@
 
 <section class="why_choose_wrap">
 	<div class="container">
-		<h2 class="heading text-center">{!! $aboutus->whychooseus !!}</h2>
+		<h2 class="heading text-center whyChooseUsHeading">Why Choose Us</h2>
 		<div class="row">
 			<div class="why_choose_content">
 				<ul>
-					@foreach($aboutus->whychoose as $key=>$choose)
+					@foreach($data->whychooseus as $key=> $choose)
 						<li>
 							<div class="why_choose_img_wrap">
 								<img src="{{$choose->image}}">
@@ -94,6 +94,13 @@
 </section>
 
 @section('script')
-    <script type="text/javascript"></script>
+    <script type="text/javascript">
+    	var whyChooseUsHeading = 'Why Choose Us';
+    	@foreach($data->whychooseus as $key => $choose)
+        	whyChooseUsHeading = '{{$choose->heading}}';
+    		$('.whyChooseUsHeading').text(whyChooseUsHeading);
+    		@break
+    	@endforeach
+    </script>
 @stop
 @endsection
