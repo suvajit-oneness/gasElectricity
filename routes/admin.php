@@ -99,8 +99,8 @@
 		Route::post('why-choose-us','Admin\AdminController@updateWhyChooseUs')->name('admin.setting.whychooseus.save');
 		Route::get('why-choose-us/{id}/delete','Admin\AdminController@deleteWhyChooseUs')->name('admin.setting.whychooseus.delete');
 		Route::get('how-it-works','Admin\AdminController@howItWorks')->name('admin.setting.how_it_works');
+		Route::get('how-it-works/{id}/delete','Admin\AdminController@deleteHowItWorks')->name('admin.setting.howitWork.delete');
 		Route::post('how-it-works','Admin\AdminController@updateHowItWorks')->name('admin.setting.updatehow_it_works');
-		
 	});
 
 	Route::group(['prefix'=>'membership'],function(){

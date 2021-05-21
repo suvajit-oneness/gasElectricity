@@ -40,7 +40,7 @@
                                 <input type="hidden" name="whychooseId[]" value="{{$whychoose->id}}">
                                 <input type="hidden" name="old_whychooseimage[]" value="{{$whychoose->image}}">
                                 <tr>
-                                    <td><img src="{{$whychoose->image}}" height="100" width="100"></td>
+                                    <td><img src="{{asset($whychoose->image)}}" height="100" width="100"></td>
                                     <td>
                                         <div class="form-group">
                                             <input type="file" name="whychooseimage[]">
@@ -58,7 +58,7 @@
                                     </td>
                                     <!-- <td><a href="{{route('admin.setting.whychooseus.delete',$whychoose->id)}}" onclick="return confirm('Are you sure?')" class="text-danger">Delete</a></td> -->
                                 </tr>
-                            @endforeach   
+                            @endforeach
                         </table>
 
                         <div class="form-group">
