@@ -73,10 +73,10 @@ class HomeController extends Controller
         return back()->with('Success','Profile updated successFully');
     }
 
-    public function changePassword(Request $req)
-    {
-        return view('auth.user.change_password');
-    }
+    // public function changePassword(Request $req)
+    // {
+    //     return view('auth.user.change_password');
+    // }
 
     public function updateUserPassword(Request $req)
     {
