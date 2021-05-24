@@ -593,7 +593,7 @@ class AdminController extends Controller
         return errorResponse($validator->errors()->first());
     }
 
-    /****************************** Company ******************************/
+/****************************** Company ******************************/
 	public function companies($companyId = 0)
 	{
         $companies = Company::select('*');
@@ -676,8 +676,7 @@ class AdminController extends Controller
         return errorResponse($validator->errors()->first());
     }
 
-
-    /****************************** Product ******************************/
+/****************************** Product ******************************/
 	public function products($productId = 0)
 	{
         $products = Product::select('*');
@@ -753,7 +752,7 @@ class AdminController extends Controller
         return errorResponse($validator->errors()->first());
     }
 
-    /****************************** Product Feature ******************************/
+/****************************** Product Feature ******************************/
 	public function productsFeature($featureId = 0)
 	{
         $features = ProductFeature::select('*');
@@ -824,7 +823,7 @@ class AdminController extends Controller
         return errorResponse($validator->errors()->first());
     }
 
-    /****************************** Product Gas Data ******************************/
+/****************************** Product Gas Data ******************************/
 	public function productsGas($gasId = 0)
 	{
         $gas = GasData::select('*');
@@ -896,7 +895,7 @@ class AdminController extends Controller
         return errorResponse($validator->errors()->first());
     }
 
-    /****************************** Product Electricity Data ******************************/
+/****************************** Product Electricity Data ******************************/
 	public function productsElectricity($electricityId = 0)
 	{
         $electricity = ElectricityData::select('*');
@@ -954,7 +953,7 @@ class AdminController extends Controller
     public function deleteProductElectricity(Request $req)
     {
         $rules = [
-            'id' => 'required',
+            'id' => 'required|min:1|numeric',
         ];
         $validator = validator()->make($req->all(),$rules);
         if(!$validator->fails()){
