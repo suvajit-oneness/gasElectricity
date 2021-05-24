@@ -210,7 +210,7 @@
 			<ul class="blog-list">
 				@foreach($data->blogs as $index => $blog)
 				<li>
-					<div class="inner-box" style="background:url({{$blog->image}}) no-repeat center center; background-size: cover;">
+					<div class="inner-box" style="background:url({{asset($blog->image)}}) no-repeat center center; background-size: cover;">
 						<div class="grid-content">
 							<a href="javascript:void(0)" class="date">{{date('M, d Y',strtotime($blog->created_at))}}</a>
 							<a href="javascript:void(0)" class="blog-heading">{{$blog->title}}</a>
