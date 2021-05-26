@@ -12,9 +12,9 @@
 	});
 
 	Route::group(['prefix'=>'companies'],function(){
+		Route::get('/{companyId?}','Admin\AdminController@companies')->name('admin.companies');
 		Route::get('/create','Admin\AdminController@createCompany')->name('admin.companies.create');
 		Route::post('/save','Admin\AdminController@saveCompany')->name('admin.companies.save');
-		Route::get('/{companyId?}','Admin\AdminController@companies')->name('admin.companies');
 		Route::get('/{id}/edit','Admin\AdminController@editCompany')->name('admin.companies.edit');
 		Route::post('/update','Admin\AdminController@updateCompany')->name('admin.companies.update');
 		Route::post('/{id}/delete', 'Admin\AdminController@deleteCompany')->name('admin.companies.delete');

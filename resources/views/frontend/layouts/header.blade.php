@@ -9,12 +9,12 @@
 				<div class="navigation sidenav" id="mySidenav">
 					<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
 					<ul class="menu">
-						<li><a href="{{route('aboutus')}}">About Us</a></li>
-						<li><a href="{{route('contact-us')}}">Contact</a></li>
-						<li><a href="{{route('indivisual.state')}}">Individual State</a></li>
+						<li class="{{request()->routeIs('aboutus')?'active':''}}"><a href="{{route('aboutus')}}">About Us</a></li>
+						<li class="{{request()->routeIs('contact-us')?'active':''}}"><a href="{{route('contact-us')}}">Contact</a></li>
+						<li class="{{request()->routeIs('indivisual.state')?'active':''}}"><a href="{{route('indivisual.state')}}">Individual State</a></li>
 						<li><a href="#">Individual Utility </a></li>
-						<li><a href="{{route('blogs')}}">Blog</a></li>
-						<li><a href="{{route('how-it-works')}}">How It Works? </a></li>
+						<li class="{{request()->routeIs('blogs')?'active':''}}"><a href="{{route('blogs')}}">Blog</a></li>
+						<li class="{{request()->routeIs('how-it-works')?'active':''}}"><a href="{{route('how-it-works')}}">How It Works? </a></li>
 					</ul>
 				</div>
 				@if(Auth::user())

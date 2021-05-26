@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateElectricityDataTable extends Migration
+class CreateProductElectricitiesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateElectricityDataTable extends Migration
      */
     public function up()
     {
-        Schema::create('electricity_data', function (Blueprint $table) {
+        Schema::create('product_electricities', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('product_id');
             $table->longText('title');
@@ -23,6 +23,12 @@ class CreateElectricityDataTable extends Migration
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
         });
+
+        $elecricityData = [];
+        for ($k=0; $k < 8; $k++) {
+            $elecricityData[] = ['product_id' => $k+1,'title' => '15% less','price' => rand(1111,1469),'created_by' => 1];
+        }
+        DB::table('product_electricities')->insert($elecricityData);
     }
 
     /**
@@ -32,6 +38,6 @@ class CreateElectricityDataTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('electricity_data');
+        Schema::dropIfExists('product_electricities');
     }
 }

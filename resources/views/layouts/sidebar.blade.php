@@ -23,13 +23,14 @@
                         </li>
                     @endif
 
+                    <!-- Admin Sidebar -->
                     @if(Auth::user()->user_type == 1)
                         <li class="nav-item">
                             <a class="nav-link {{request()->routeIs('admin.membership')?'active':''}}" href="{{route('admin.membership')}}"><i class="fa fa-fw fa-user-circle"></i>Membership</a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link {{request()->routeIs('admin.users')?'active':''}}" href="{{route('admin.users')}}"><i class="fa fa-fw fa-user-circle"></i>Customers</a>
+                            <a class="nav-link {{request()->routeIs('admin.users')?'active':''}}" href="{{route('admin.users')}}"><i class="fa fa-fw fa-user-circle"></i>Users</a>
                         </li>
                         <!-- Main Section -->
                         <li class="nav-divider">Main</li>
@@ -84,7 +85,29 @@
                                 </ul>
                             </div>
                         </li>
-                    @else
+                    <!-- Admin Sidebar End -->
+                    <!-- Supplier Sidebar -->
+                    @elseif(Auth::user()->user_type == 2)
+                        <!-- Main Section -->
+                        <li class="nav-divider">Main</li>
+                        <li class="nav-item">
+                            <a class="nav-link {{request()->routeIs('supplier.companies')?'active':''}}" href="{{route('supplier.companies')}}"><i class="fa fa-fw fa-user-circle"></i>Companies</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{request()->routeIs('supplier.products')?'active':''}}" href="{{route('supplier.products')}}"><i class="fa fa-fw fa-user-circle"></i>Products</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{request()->routeIs('supplier.products.feature')?'active':''}}" href="{{route('supplier.products.feature')}}"><i class="fa fa-fw fa-user-circle"></i>Product Features</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{request()->routeIs('supplier.products.gas')?'active':''}}" href="{{route('supplier.products.gas')}}"><i class="fa fa-fw fa-user-circle"></i>Gas Data</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link {{request()->routeIs('supplier.products.electricity')?'active':''}}" href="{{route('supplier.products.electricity')}}"><i class="fa fa-fw fa-user-circle"></i>Electricity Data</a>
+                        </li>
+                    <!-- Supplier Sidebar End-->
+                    <!-- Customer Sidebar -->
+                    @elseif(Auth::user()->user_type == 3)
                     @endif
                 </ul>
             </div>

@@ -2,39 +2,39 @@
 @section('title','Plan Listing')
 @section('css')
 <style>
-.page-item.active .page-link {
-    z-index: 3;
-    color: #fff;
-    background-color: #279679;
-    border-color: #007bff;
-    width: 47px;
-    height: 47px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 18px;
-    font-weight: 600;
-    border: 1px solid #279679;
-    border-radius: 3px;
-}
-.page-item:first-child .page-link {
-	z-index: 3;
-    color: #000;
-    background-color: white;
-    border-color: #007bff;
-    width: 47px;
-    height: 47px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 18px;
-    font-weight: 600;
-    border: 1px solid #c7c7c7;
-    border-radius: 3px;
-}
-.pagination {
-	justify-content: flex-end;
-}
+	.page-item.active .page-link {
+	    z-index: 3;
+	    color: #fff;
+	    background-color: #279679;
+	    border-color: #007bff;
+	    width: 47px;
+	    height: 47px;
+	    display: inline-flex;
+	    align-items: center;
+	    justify-content: center;
+	    font-size: 18px;
+	    font-weight: 600;
+	    border: 1px solid #279679;
+	    border-radius: 3px;
+	}
+	.page-item:first-child .page-link {
+		z-index: 3;
+	    color: #000;
+	    background-color: white;
+	    border-color: #007bff;
+	    width: 47px;
+	    height: 47px;
+	    display: inline-flex;
+	    align-items: center;
+	    justify-content: center;
+	    font-size: 18px;
+	    font-weight: 600;
+	    border: 1px solid #c7c7c7;
+	    border-radius: 3px;
+	}
+	.pagination {
+		justify-content: flex-end;
+	}
 </style>
 @endsection
 @section('content')
@@ -146,99 +146,66 @@
 						<a href="javascript:void(0)" class="close-panel">CLOSE</a>
 					</div>
 					<div class="plan_wraper">
-						@foreach ($productData as $data)
-						<div class="plane_list_wrapper">
-							<div class="res-planheading"><h5>Plan <span>and highlights</span></h5></div>
-							<div class="plan_icon_wrap">
-								<img src="{{$data->company->logo}}">
-								<h6>{{$data->company->name}}</h6>
-							</div>
-							<div class="list_container_first ">
-								<h4>{{$data->name}}</h4>
-								<ul class="reward_facilities">
-									@forelse ($data->feature as $featureData)
-									<li>{{$featureData->title}}</li>
-									@empty
-									<li>N/A</li>
-									@endforelse
-								</ul>
-							</div>
-							<div class="res-planheading"><h5>Price/year <span>(estimated^)</span></h5></div>
-							<div class="list_amount">
-
-								<div class="list_amount_inner">
-									<div class="price_compare">
-										<span><img src="{{asset('forntEnd/images/fire-icon.png')}}">Gas</span>
-										<h2>{{$data->gas_data->title}}</h2>
+						@foreach($productData as $product)
+							<?php 
+								$gasData = $product->product_gas;
+								$electricityData = $product->product_electricty;
+							?>
+							@if($gasData || $electricityData)
+								<div class="plane_list_wrapper">
+									<div class="res-planheading"><h5>Plan <span>and highlights</span></h5></div>
+									<div class="plan_icon_wrap">
+										<img src="{{$product->company->logo}}">
+										<h6>{{$product->company->name}}</h6>
 									</div>
-									<div class="price_amount">
-										<h2>${{$data->gas_data->price}}</h2>
+									<div class="list_container_first ">
+										<h4>{{$product->name}}</h4>
+										<ul class="reward_facilities">
+											@forelse ($product->feature as $featureData)
+												<li>{{$featureData->title}}</li>
+											@empty
+												<li>N/A</li>
+											@endforelse
+										</ul>
+									</div>
+									<div class="plan_value">
+										<h4>Value <span>(out of 10)</span></h4>
+										<img src="{{asset('forntEnd/images/rating.png')}}">
+									</div>
+									<div class="res-planheading"><h5>Price/year <span>(estimated^)</span></h5></div>
+									<div class="list_amount">
+										@if($gasData)
+										<div class="list_amount_inner">
+											<div class="price_compare">
+												<span><img src="{{asset('forntEnd/images/fire-icon.png')}}">Gas</span>
+												<h2>{{$gasData->title}}</h2>
+											</div>
+											<div class="price_amount">
+												<h2>$ {{moneyFormat($gasData->price)}}</h2>
+											</div>
+										</div>
+										@endif
+										@if($electricityData)
+											<div class="list_amount_inner">
+												<div class="price_compare">
+													<span><img src="{{asset('forntEnd/images/lightbulb.png')}}">ELECTRICITY</span>
+													<h2>{{$electricityData->title}}</h2>
+													<p>than reference price</p>
+												</div>
+												<div class="price_amount">
+													<h2>${{moneyFormat($electricityData->price)}}</h2>
+													<a href="{{route('plan.details',$product->id)}}" class="blue-btm">EXPLORE <span><i class="fas fa-arrow-circle-right"></i></span></a>
+												</div>
+											</div>
+										@endif
+									</div>
+									<div class="plan_info">
+										<p>{{$product->tag}} <img src="{{asset('forntEnd/images/question.png')}}"></p>
 									</div>
 								</div>
-								<div class="list_amount_inner">
-									<div class="price_compare">
-										<span><img src="{{asset('forntEnd/images/lightbulb.png')}}">ELECTRICITY</span>
-										<h2>{{$data->electricity_data->title}}</h2>
-										<p>than reference price</p>
-									</div>
-									<div class="price_amount">
-										<h2>${{$data->electricity_data->price}}</h2>
-										<a href="{{route('plan.details',1)}}" class="blue-btm">EXPLORE <span><i class="fas fa-arrow-circle-right"></i></span></a>
-									</div>
-								</div>
-							</div>
-							<div class="plan_info">
-								<p>{{$data->tag}} <img src="{{asset('forntEnd/images/question.png')}}"></p>
-							</div>
-						</div>
+							@endif
 						@endforeach
-
-						<div class="plane_list_wrapper plane_list_wrapper-mod">
-							<div class="res-planheading"><h5>Plan <span>and highlights</span></h5></div>
-							<div class="plan_icon_wrap">
-								<img src="{{asset('forntEnd/images/apartment.png')}}">
-								<h6>COMPANY NAME</h6>
-							</div>
-							<div class="list_container_first">
-								<h4>Reamped Advance</h4>
-								<ul class="reward_facilities">
-									<li>Sign Up & get up to 10K Everyday Rewards Points</li>
-								</ul>
-							</div>
-							<div class="plan_value">
-								<h4>Value <span>(out of 10)</span></h4>
-								<img src="{{asset('forntEnd/images/rating.png')}}">
-							</div>
-							<div class="res-planheading"><h5>Price/year <span>(estimated^)</span></h5></div>
-							<div class="list_amount">
-								<div class="list_amount_inner">
-									<div class="price_compare">
-										<span><img src="{{asset('forntEnd/images/fire-icon.png')}}">Gas</span>
-										<h2>17% less</h2>
-									</div>
-									<div class="price_amount">
-										<h2>$9,252</h2>
-									</div>
-								</div>
-								<div class="list_amount_inner">
-									<div class="price_compare">
-										<span><img src="{{asset('forntEnd/images/lightbulb.png')}}">ELECTRICITY</span>
-										<h2>15% less</h2>
-										<p>than reference price</p>
-									</div>
-									<div class="price_amount">
-										<h2>$1,252</h2>
-										<a href="{{route('plan.details',1)}}" class="blue-btm">EXPLORE <span><i class="fas fa-arrow-circle-right"></i></span></a>
-									</div>
-								</div>
-							</div>
-							<div class="plan_info">
-								<p>Basic Plan Information <img src="{{asset('forntEnd/images/question.png')}}"></p>
-							</div>
-						</div>
-						
 					</div>
-
 					<ul class="plan_pagination mx-auto">
 						{!!$productData->links()!!}
 					</ul>

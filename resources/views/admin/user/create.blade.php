@@ -61,6 +61,16 @@
                         </div>
 
                         <div class="form-group">
+                            <label for="referral" class="col-form-label">Referral (optional):</label>
+                            <input type="text" class="form-control @error('referral') is-invalid @enderror" id="referral" name="referral" placeholder="Referral Code" value="{{old('referral')}}">
+                            @error('referral')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+
+                        <div class="form-group">
                             <button type="submit" class="btn btn-primary">Create</button>
                         </div>
                     </form>

@@ -15,7 +15,7 @@
                     <form method="post" action="{{route('admin.companies.update')}}" enctype="multipart/form-data">
                         @csrf
                         <input type="hidden" name="companyId" value="{{$company->id}}">
-                        <img src="{{$company->logo}}" height="150px" width="150px">
+                        <img src="{{asset($company->logo)}}" height="150px" width="150px">
                         <div class="form-group">
                             <label for="logo" class="col-form-label">Logo:</label>
                             <input type="file" class="form-control" id="logo" name="logo">

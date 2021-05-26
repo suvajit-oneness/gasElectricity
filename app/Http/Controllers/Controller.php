@@ -34,14 +34,13 @@ class Controller extends BaseController
             $user->name = $userData->name;
             $user->email = $userData->email;
             $user->password = Hash::make($userData->password);
-            $user->image = url('/defaultUser.jpg');
             $user->save();
             $this->setReferralCode($user,$userData->referral);
             DB::commit();
             return $user;
         }catch (Exception $e) {
             DB::rollback();
-            return new User();
+            return (object)[];
         }
     }
 

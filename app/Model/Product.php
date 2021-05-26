@@ -17,12 +17,12 @@ class Product extends Model
     {
     	return $this->hasMany('App\Model\ProductFeature','product_id','id');
     }
-    public function gas_data()
+    public function product_gas()
     {
-    	return $this->hasOne('App\Model\GasData','product_id','id');
+    	return $this->hasOne('App\Model\ProductGas','product_id','id');
     }
-    public function electricity_data()
+    public function product_electricty()
     {
-    	return $this->hasOne('App\Model\Electricitydata','product_id','id');
+    	return $this->hasOne('App\Model\ProductElectricity','product_id','id');
     }
 }

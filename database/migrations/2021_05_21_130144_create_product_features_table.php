@@ -22,6 +22,14 @@ class CreateProductFeaturesTable extends Migration
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
         });
+        $feature = [];
+        for ($i=0; $i < 8; $i++) { 
+            $feature[] = ['product_id' => $i+1,'title' => 'Sign Up & get up to 10K Everyday Rewards Points','description' => ''];
+            $feature[] = ['product_id' => $i+1,'title' => '1 point for every $1 charged on your bill (T&Cs)','description' => ''];
+            $feature[] = ['product_id' => $i+1,'title' => 'Includes 25% GreenPower','description' => ''];
+            $feature[] = ['product_id' => $i+1,'title' => '5,000 Everyday Rewards points + 1 point for every $1 billed.','description' => ''];
+        }
+        DB::table('product_features')->insert($feature);
     }
 
     /**

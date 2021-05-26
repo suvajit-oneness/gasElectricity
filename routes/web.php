@@ -13,8 +13,8 @@ Route::group(['prefix'=>'admin','middleware'=>'admin'],function(){
 	require 'admin.php';
 });
 
-Route::group(['prefix'=>'client','middleware'=>'client'],function(){
-	require 'client.php';
+Route::group(['prefix'=>'supplier','middleware'=>'supplier'],function(){
+	require 'supplier.php';
 });
 
 Route::group(['prefix'=>'customer','middleware'=>'customer'],function(){
@@ -44,6 +44,7 @@ Route::group(['middleware' => 'auth'],function(){
 	Route::post('user/change/password','HomeController@updateUserPassword')->name('user.changepassword.save');
 	Route::get('user/points','HomeController@userPoints')->name('user.points');
 });
+
 /************************** Laravel Testing Routes *************************/
 
 Route::get('mail',function(){

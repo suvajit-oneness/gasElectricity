@@ -89,25 +89,25 @@ class WelcomeController extends Controller
 
     public function getPlanlistingData(Request $req)
     {
-        $productData = Product::paginate(10);
+        $productData = Product::paginate(8);
         return $productData;
     }
 
     public function planListingwithoutAuth(Request $req)
     {
         $productData = $this->getPlanlistingData($req);
-        return view('frontend.listing.planWithoutLogin', compact('productData'));
+        return view('frontend.listing.planWithoutAuth', compact('productData'));
     }
 
     public function planListingwithAuth(Request $req)
     {
         $productData = $this->getPlanlistingData($req);
-        return view('frontend.listing.planWithLogin', compact('productData'));
+        return view('frontend.listing.planWithAuth', compact('productData'));
     }
 
     public function planDetails(Request $req,$planId)
     {
-        $productData = Product::findOrFali($planId);
+        $productData = Product::findOrFail($planId);
         return view('frontend.listing.plan_details', compact('productData'));
     }
 

@@ -6,7 +6,7 @@
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
             <div class="card">
                 <div class="card-header">
-                    <h5 class="mb-0">Compamies
+                    <h5 class="mb-0">Companies
                         <a class="headerbuttonforAdd" href="{{route('admin.companies.create')}}">
                             <i class="fa fa-plus" aria-hidden="true"></i>Add Company
                         </a>
@@ -27,7 +27,7 @@
                             <tbody>
                                 @foreach($companies as $company)
                                     <tr>
-                                        <td style="height: 100px; width: 100px"><img height="100px" width="100px" src="{{$company->logo}}"></td>
+                                        <td style="height: 100px; width: 100px"><img height="100px" width="100px" src="{{asset($company->logo)}}"></td>
                                         <td>{{$company->name}}</td>
                                         <td>{!! $company->description !!}</td>
                                         <td>

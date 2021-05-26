@@ -11,7 +11,7 @@ use Hash;use App\Model\BlogCategory;use App\Model\Setting;
 use App\Model\Membership;use App\Model\HowItWork;
 use App\Model\Company;use App\Model\Product;
 use App\Model\ProductFeature;use App\Model\ProductTating;
-use App\Model\GasData;use App\Model\ElectricityData;
+use App\Model\ProductGas;use App\Model\ProductElectricity;
 
 class AdminController extends Controller
 {
@@ -19,7 +19,7 @@ class AdminController extends Controller
 /****************************** Users ******************************/
 	public function getUsers(Request $req)
 	{
-		$users = User::select('*')->where('user_type',3);/*with('referred_through')->with('referred_to')->*/
+		$users = User::select('*')->where('user_type','!=',1);
         $users = $users->orderBy('users.id','desc')->get();
 		return view('admin.user.index',compact('users'));
 	}
@@ -62,23 +62,33 @@ class AdminController extends Controller
             'name' => 'required|max:255|string',
             'email' => 'required|email|unique:users',
             'mobile' => 'required|digits:10|numeric',
+            'referral' => 'string|nullable|exists:referrals,code',
         ]);
-        $random = randomGenerator();
-        $user = new User();
-        $user->user_type = $req->user_type;
-        $user->name = $req->name;
-        $user->email = $req->email;
-        $user->mobile = $req->mobile;
-        if($req->hasFile('image')){
-            $image = $req->file('image');
-            $image->move('upload/users/image/',$random.'.'.$image->getClientOriginalExtension());
-            $imageurl = url('upload/users/image/'.$random.'.'.$image->getClientOriginalExtension());
-            $user->image = $imageurl;
+        DB::beginTransaction();
+        try {
+            $random = randomGenerator();
+            $user = new User();
+            $user->user_type = $req->user_type;
+            $user->name = $req->name;
+            $user->email = $req->email;
+            $user->mobile = $req->mobile;
+            if($req->hasFile('image')){
+                $image = $req->file('image');
+                $image->move('upload/users/image/',$random.'.'.$image->getClientOriginalExtension());
+                $imageurl = url('upload/users/image/'.$random.'.'.$image->getClientOriginalExtension());
+                $user->image = $imageurl;
+            }
+            $user->password = Hash::make($random);
+            $user->save();
+            $this->setReferralCode($user,$req->referral);
+            DB::commit();
+            // sendMail();
+            return redirect(route('admin.users'))->with('Success','User Added SuccessFully');
+        } catch (Exception $e) {
+            DB::rollback();
+            $errors['email'] = 'Something went wrong please try after sometime!';
+            return back()->withErrors($errors)->withInput($req->all());
         }
-        $user->password = Hash::make($random);
-        $user->save();
-        // sendMail();
-        return redirect(route('admin.users'))->with('Success','User Added SuccessFully');
     }
 
 /****************************** Contact Us ******************************/
@@ -375,14 +385,13 @@ class AdminController extends Controller
             return back()->with('Success','How It Works Updated SuccessFully');
         } catch (Exception $e) {
             DB::rollback();
-            dd('here');
             return back()->with('Errors','Something went wrong please try after sometime');
         }
     }
 
     public function deleteHowItWorks(Request $req,$id)
     {
-        // Setting::where('id',$id)->where('key','how_it_works')->delete();
+        Setting::where('id',$id)->where('key','how_it_works')->delete();
         return back()->with('Success','Deleted SuccessFully');
     }
 
@@ -594,7 +603,7 @@ class AdminController extends Controller
     }
 
 /****************************** Company ******************************/
-	public function companies($companyId = 0)
+	public function companies(Request $req,$companyId = 0)
 	{
         $companies = Company::select('*');
         if($companyId > 0){
@@ -613,7 +622,7 @@ class AdminController extends Controller
     {
         $req->validate([
             'logo' => '',
-            'name' => 'required',
+            'name' => 'required|max:200|string',
             'description' => '',
         ]);
         $company = new Company();
@@ -744,6 +753,10 @@ class AdminController extends Controller
         if(!$validator->fails()){
             $product = Product::find($req->id);
             if($product){
+                ProductFeature::where('product_id',$product->id)->delete();
+                ProductRating::where('product_id',$product->id)->delete();
+                ProductGas::where('product_id',$product->id)->delete();
+                ProductElectricity::where('product_id',$product->id)->delete();
             	$product->delete();
             	return successResponse('Product Deleted Success');	
             }
@@ -826,7 +839,7 @@ class AdminController extends Controller
 /****************************** Product Gas Data ******************************/
 	public function productsGas($gasId = 0)
 	{
-        $gas = GasData::select('*');
+        $gas = ProductGas::select('*');
         if($gasId > 0){
             $gas = $gas->where('id',$gasId);
         }
@@ -847,7 +860,7 @@ class AdminController extends Controller
             'product_id' => 'required|min:1|numeric',
             'price' => 'numeric',
         ]);
-        $gas = new GasData();
+        $gas = new ProductGas();
         $gas->title = $req->title;
         $gas->product_id = $req->product_id;
         $gas->price = $req->price;
@@ -858,7 +871,7 @@ class AdminController extends Controller
 
     public function editProductGas($id)
     {
-        $gas = GasData::find($id);
+        $gas = ProductGas::find($id);
         $products = Product::all();
         return view('admin.product.gas.edit',compact('products', 'gas'));
     }
@@ -870,7 +883,7 @@ class AdminController extends Controller
             'product_id' => 'required|min:1|numeric',
             'price' => 'numeric',
         ]);
-        $gas = GasData::find($req->gasId);
+        $gas = ProductGas::find($req->gasId);
         $gas->title = $req->title;
         $gas->product_id = $req->product_id;
         $gas->price = $req->price;
@@ -885,7 +898,7 @@ class AdminController extends Controller
         ];
         $validator = validator()->make($req->all(),$rules);
         if(!$validator->fails()){
-            $gas = GasData::find($req->id);
+            $gas = ProductGas::find($req->id);
             if($gas){
             	$gas->delete();
             	return successResponse('Product Gas Data Deleted Success');	
@@ -898,7 +911,7 @@ class AdminController extends Controller
 /****************************** Product Electricity Data ******************************/
 	public function productsElectricity($electricityId = 0)
 	{
-        $electricity = ElectricityData::select('*');
+        $electricity = ProductElectricity::select('*');
         if($electricityId > 0){
             $electricity = $electricity->where('id',$electricityId);
         }
@@ -919,7 +932,7 @@ class AdminController extends Controller
             'product_id' => 'required|min:1|numeric',
             'price' => 'numeric',
         ]);
-        $electricity = new ElectricityData();
+        $electricity = new ProductElectricity();
         $electricity->title = $req->title;
         $electricity->product_id = $req->product_id;
         $electricity->price = $req->price;
@@ -930,7 +943,7 @@ class AdminController extends Controller
 
     public function editProductElectricity($id)
     {
-        $electricity = ElectricityData::find($id);
+        $electricity = ProductElectricity::find($id);
         $products = Product::all();
         return view('admin.product.electricity.edit',compact('products', 'electricity'));
     }
@@ -942,7 +955,7 @@ class AdminController extends Controller
             'product_id' => 'required|min:1|numeric',
             'price' => 'numeric',
         ]);
-        $electricity = ElectricityData::find($req->electricityId);
+        $electricity = ProductElectricity::find($req->electricityId);
         $electricity->title = $req->title;
         $electricity->product_id = $req->product_id;
         $electricity->price = $req->price;
@@ -957,7 +970,7 @@ class AdminController extends Controller
         ];
         $validator = validator()->make($req->all(),$rules);
         if(!$validator->fails()){
-            $electricity = ElectricityData::find($req->id);
+            $electricity = ProductElectricity::find($req->id);
             if($electricity){
             	$electricity->delete();
             	return successResponse('Product Electricity Data Deleted Success');	

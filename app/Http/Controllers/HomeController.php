@@ -29,7 +29,7 @@ class HomeController extends Controller
             case 1:
                 return redirect('admin/dashboard');break;
             case 2:
-                return redirect('client/dashboard');break;
+                return redirect('supplier/dashboard');break;
             case 3:
                 return redirect('customer/dashboard');break;
             default:

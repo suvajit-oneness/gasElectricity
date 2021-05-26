@@ -21,6 +21,8 @@
                                     <th>Product</th>
                                     <th>Company Name</th>
                                     <th>Features</th>
+                                    <th>Tag</th>
+                                    <th>Tag Description</th>
                                     <th>Gas</th>
                                     <th>Electricity</th>
                                     <th>Action</th>
@@ -38,13 +40,15 @@
                                                 N/A
                                             @endforelse
                                         </td>
-                                        @if ($product->gas_data)
-                                            <td><a href="{{route('admin.products.gas',$product->gas_data->id)}}">{{$product->gas_data->title}}</a></td>
+                                        <?php $gasData = $product->gas_data; ?>
+                                        @if ($gasData)
+                                            <td><a href="{{route('admin.products.gas',$gasData->id)}}">{{$gasData->title}}</a></td>
                                         @else
                                             <td>N/A</td>
                                         @endif
-                                        @if ($product->electricity_data)
-                                            <td><a href="{{route('admin.products.electricity',$product->electricity_data->id)}}">{{$product->electricity_data->title}}</a></td>
+                                        <?php $electricityData = $product->electricity_data; ?>
+                                        @if ($electricityData)
+                                            <td><a href="{{route('admin.products.electricity',$electricityData->id)}}">{{$electricityData->title}}</a></td>
                                         @else
                                             <td>N/A</td>
                                         @endif
