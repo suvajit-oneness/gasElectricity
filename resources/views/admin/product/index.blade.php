@@ -55,7 +55,7 @@
                                         <td>{!! $product->tag_description !!}</td>
                                         <td>
                                             <?php $gasData = $product->product_gas; ?>
-                                            @if ($gasData)
+                                            @if($gasData)
                                                 <ul>
                                                     <li>Title : {{$gasData->title}}</li>
                                                     <li>Price : {{moneyFormat($gasData->price)}}</li>
@@ -66,7 +66,7 @@
                                         </td>
                                         <td>
                                             <?php $electricityData = $product->product_electricty; ?>
-                                            @if ($electricityData)
+                                            @if($electricityData)
                                                 <ul>
                                                     <li>Title : {{$electricityData->title}}</li>
                                                     <li>Price : {{moneyFormat($electricityData->price)}}</li>

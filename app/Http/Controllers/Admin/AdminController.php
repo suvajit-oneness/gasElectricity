@@ -677,8 +677,9 @@ class AdminController extends Controller
         if(!$validator->fails()){
             $company = Company::find($req->id);
             if($company){
-            	$company->delete();
-            	return successResponse('Company Deleted Success');	
+            	// $company->delete();
+                return errorResponse('Something went wrong please try after sometime');
+            	return successResponse('Company Deleted Success');
             }
         	return errorResponse('Invalid Company Id');
         }
