@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 	<title>{{config('app.name', 'Laravel')}} - @yield('title')</title>
+	<link rel="icon" href="{{asset('forntEnd/images/logo.png')}}" type="image/gif" sizes="any">
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="description" content="">

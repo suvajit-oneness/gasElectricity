@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{config('app.name', 'Laravel')}} - @yield('title')</title>
+    <link rel="icon" href="{{asset('forntEnd/images/logo.png')}}" type="image/gif" sizes="any">
     <link rel="stylesheet" type="text/css" href="{{asset('design/css/bootstrap.min.css')}}">
     <link rel="stylesheet" type="text/css" href="{{asset('design/css/style.css')}}">
     <link rel="stylesheet" href="{{asset('design/vendor/fonts/fontawesome/css/fontawesome-all.css')}}">
