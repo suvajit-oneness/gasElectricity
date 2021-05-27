@@ -7,7 +7,7 @@
             <div class="card">
                 <div class="card-header">
                     <h5 class="mb-0">Products
-                        <a class="headerbuttonforAdd" href="{{route('admin.products.create')}}">
+                        <a class="headerbuttonforAdd" href="{{route(urlPrefix().'.products.create')}}">
                             <i class="fa fa-plus" aria-hidden="true"></i>Add Product
                         </a>
                     </h5>
@@ -43,7 +43,7 @@
                                         <td>{{$product->id}}</td>
                                         <td>{{$product->name}}</td>
                                         <td>
-                                            <a href="{{route('admin.product.feature',$product->id)}}">
+                                            <a href="{{route(urlPrefix().'.product.feature',$product->id)}}">
                                                 @forelse ($product->feature as $item)
                                                     <li>{{$item->title}}</li>
                                                 @empty
@@ -76,7 +76,7 @@
                                             @endif
                                         </td>
                                         <td>
-                                            <a href="{{route('admin.products.edit',$product->id)}}">Edit</a> | <a href="javascript:void(0)" class="deleteProduct text-danger" data-id="{{$product->id}}">Delete</a>
+                                            <a href="{{route(urlPrefix().'.products.edit',$product->id)}}">Edit</a> | <a href="javascript:void(0)" class="deleteProduct text-danger" data-id="{{$product->id}}">Delete</a>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -109,7 +109,7 @@
                     $.ajax({
                         type:'POST',
                         dataType:'JSON',
-                        url:"{{route('admin.products.delete',"+productId+")}}",
+                        url:"{{route(urlPrefix().'.products.delete',"+productId+")}}",
                         data: {productId:productId,'_token': $('input[name=_token]').val()},
                         success:function(data){
                             if(data.error == false){

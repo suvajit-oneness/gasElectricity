@@ -29,6 +29,17 @@
 		return $amount;
 	}
 
+	// this function will work when user is Authenticated
+	function urlPrefix()
+	{
+		$return = 'admin';
+		switch(auth::user()->user_type){
+			case 1: $return = 'admin';break;
+			case 2: $return = 'supplier';break;
+		}
+		return $return;
+	}
+
 	function words($value, $words = 100, $end = '...')
     {
         return Str::words($value, $words, $end);

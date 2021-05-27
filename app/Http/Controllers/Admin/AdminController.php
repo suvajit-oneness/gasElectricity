@@ -547,19 +547,20 @@ class AdminController extends Controller
         }
         return errorResponse($validator->errors()->first());
     }
-
+/****************************** Referral List ******************************/
     public function getReferredToList(Request $req,$userId)
     {
         $user = User::findorFail($userId);
         return view('admin.referral.referred_to',compact('user'));
     }
 
+/****************************** User List ******************************/
     public function getUserPoints(Request $req,$userId)
     {
         $user = User::findorFail($userId);
-        return view('admin.point.info',compact('user'));
+        return view('auth.user.point_info',compact('user'));
     }
-
+/****************************** Membership ******************************/
     public function membership(Request $req)
     {
         $membership = Membership::select('*')->get();
@@ -610,12 +611,12 @@ class AdminController extends Controller
             $companies = $companies->where('id',$companyId);
         }
         $companies = $companies->get();
-        return view('admin.company.index',compact('companies'));
+        return view('company.index',compact('companies'));
 	}
 
     public function createCompany()
     {
-        return view('admin.company.create');
+        return view('company.create');
     }
 
     public function saveCompany(Request $req)
@@ -631,19 +632,20 @@ class AdminController extends Controller
         if($req->hasFile('logo')){
             $logo = $req->file('logo');
             $random = randomGenerator();
-            $logo->move('upload/admin/companies/',$random.'.'.$logo->getClientOriginalExtension());
-            $logourl = url('upload/admin/companies/'.$random.'.'.$logo->getClientOriginalExtension());
+            $logo->move('upload/companies/',$random.'.'.$logo->getClientOriginalExtension());
+            $logourl = url('upload/companies/'.$random.'.'.$logo->getClientOriginalExtension());
             $company->logo = $logourl;
         }
         $company->description = emptyCheck($req->description);
         $company->save();
-        return redirect(route('admin.companies'))->with('Success','Company Added SuccessFully');
+        return redirect(route(urlPrefix().'.companies'))->with('Success','Company Added SuccessFully');
+        // return redirect(route('admin.companies'))->with('Success','Company Added SuccessFully');
     }
 
     public function editCompany(Request $req,$id)
     {
         $company = Company::find($id);
-        return view('admin.company.edit',compact('company'));
+        return view('company.edit',compact('company'));
     }
 
     public function updateCompany(Request $req)
@@ -659,13 +661,15 @@ class AdminController extends Controller
         if($req->hasFile('logo')){
             $logo = $req->file('logo');
             $random = randomGenerator();
-            $logo->move('upload/admin/companies/',$random.'.'.$logo->getClientOriginalExtension());
-            $logourl = url('upload/admin/companies/'.$random.'.'.$logo->getClientOriginalExtension());
+            $logo->move('upload/companies/',$random.'.'.$logo->getClientOriginalExtension());
+            $logourl = url('upload/companies/'.$random.'.'.$logo->getClientOriginalExtension());
             $company->logo = $logourl;
         }
+        $company->updated_by = auth()->user()->id;
         $company->description = emptyCheck($req->description);
         $company->save();
-        return redirect(route('admin.companies'))->with('Success','Company Updated SuccessFully');
+        return redirect(route(urlPrefix().'.companies'))->with('Success','Company Updated SuccessFully');
+        // return redirect(route('admin.companies'))->with('Success','Company Updated SuccessFully');
     }
 
     public function deleteCompany(Request $req)
@@ -694,13 +698,13 @@ class AdminController extends Controller
             $products = $products->where('id',$productId);
         }
         $products = $products->get();
-        return view('admin.product.index',compact('products'));
+        return view('product.index',compact('products'));
 	}
 
     public function createProduct()
     {
         $companies = Company::get();
-        return view('admin.product.create', compact('companies'));
+        return view('product.create', compact('companies'));
     }
 
     public function saveProduct(Request $req)
@@ -736,7 +740,8 @@ class AdminController extends Controller
                 $electricity->created_by = auth()->user()->id;
             $electricity->save();
             DB::commit();
-            return redirect(route('admin.products'))->with('Success','Product Added SuccessFully');
+            return redirect(route(urlPrefix().'.products'))->with('Success','Product Added SuccessFully');
+            // return redirect(route('admin.products'))->with('Success','Product Added SuccessFully');
         } catch (Exception $e) {
             DB::rollback();
             $errors['company_id'] = 'Something went wrong please try after sometime!';
@@ -748,7 +753,7 @@ class AdminController extends Controller
     {
         $product = Product::find($productId);
         $companies = Company::get();
-        return view('admin.product.edit',compact('product', 'companies'));
+        return view('product.edit',compact('product', 'companies'));
     }
 
     public function updateProduct(Request $req,$productId)
@@ -771,17 +776,21 @@ class AdminController extends Controller
                 $product->company_id = $req->companyId;
                 $product->tag = $req->tag;
                 $product->tag_description = emptyCheck($req->tag_description);
+                $product->updated_by = auth()->user()->id;
             $product->save();
             $gas = ProductGas::where('product_id',$product->id)->first();
                 $gas->title = $req->gas_title;
                 $gas->price = $req->gas_price;
+                $gas->updated_by = auth()->user()->id;
             $gas->save();
             $electricity = ProductElectricity::where('product_id',$product->id)->first();
                 $electricity->title = $req->electricty_title;
                 $electricity->price = $req->electricty_price;
+                $electricity->updated_by = auth()->user()->id;
             $electricity->save();
             DB::commit();
-            return redirect(route('admin.products'))->with('Success','Product Updated SuccessFully');
+            return redirect(route(urlPrefix().'.products'))->with('Success','Product Updated SuccessFully');
+            // return redirect(route('admin.products'))->with('Success','Product Updated SuccessFully');
         }catch(Exception $e) {
             DB::rollback();
             $errors['company_id'] = 'Something went wrong please try after sometime!';
@@ -814,13 +823,13 @@ class AdminController extends Controller
 	public function productFeature(Request $req,$productId)
 	{
         $product = Product::findOrFail($productId);
-        return view('admin.product.feature.index',compact('product'));
+        return view('product.feature.index',compact('product'));
 	}
 
     public function createProductFeature(Request $req,$productId)
     {
         $product = Product::findOrFail($productId);
-        return view('admin.product.feature.create', compact('product'));
+        return view('product.feature.create', compact('product'));
     }
 
     public function saveProductFeature(Request $req,$productId)
@@ -833,17 +842,20 @@ class AdminController extends Controller
         $feature->product_id = $productId;
         $feature->title = $req->title;
         $feature->description = emptyCheck($req->description);
+        $electricity->created_by = auth()->user()->id;
         $feature->save();
-        return redirect(route('admin.product.feature',$productId))->with('Success','Product Feature Added SuccessFully');
+        return redirect(route(urlPrefix().'.product.feature',$productId))->with('Success','Product Feature Added SuccessFully');
+        // return redirect(route('admin.product.feature',$productId))->with('Success','Product Feature Added SuccessFully');
     }
 
     public function editProductFeature(Request $req,$productId,$featureId)
     {
         $feature = ProductFeature::where('id',$featureId)->where('product_id',$productId)->first();
         if($feature){
-            return view('admin.product.feature.edit',compact('feature'));
+            return view('product.feature.edit',compact('feature'));
         }
-        return redirect(route('admin.product.feature',$productId))->with('Errors','Something went wrong please try after sometime');
+        return redirect(route(urlPrefix().'.product.feature',$productId))->with('Errors','Something went wrong please try after sometime');
+        // return redirect(route('admin.product.feature',$productId))->with('Errors','Something went wrong please try after sometime');
     }
 
     public function updateProductFeature(Request $req,$productId,$featureId)
@@ -856,8 +868,10 @@ class AdminController extends Controller
         if($feature){
             $feature->title = $req->title;
             $feature->description = emptyCheck($req->description);
+            $feature->updated_by = auth()->user()->id;
             $feature->save();
-            return redirect(route('admin.product.feature',$productId))->with('Success','Product Feature Updated SuccessFully');
+            return redirect(route(urlPrefix().'.product.feature',$productId))->with('Success','Product Feature Updated SuccessFully');
+            // return redirect(route('admin.product.feature',$productId))->with('Success','Product Feature Updated SuccessFully');
         }
         return back()->with('Errors','Something went wrong please try after sometime');
     }
@@ -879,148 +893,4 @@ class AdminController extends Controller
         }
         return errorResponse($validator->errors()->first());
     }
-
-/****************************** Product Gas Data ******************************/
-	/*public function productsGas($gasId = 0)
-	{
-        $gas = ProductGas::select('*');
-        if($gasId > 0){
-            $gas = $gas->where('id',$gasId);
-        }
-        $gas = $gas->get();
-        return view('admin.product.gas.index',compact('gas'));
-	}
-
-    public function createProductGas()
-    {
-        $products = Product::all();
-        return view('admin.product.gas.create', compact('products'));
-    }
-
-    public function saveProductGas(Request $req)
-    {   
-        $req->validate([
-            'title' => 'required',
-            'product_id' => 'required|min:1|numeric',
-            'price' => 'numeric',
-        ]);
-        $gas = new ProductGas();
-        $gas->title = $req->title;
-        $gas->product_id = $req->product_id;
-        $gas->price = $req->price;
-        $gas->created_by = auth()->user()->id;
-        $gas->save();
-        return redirect(route('admin.products.gas'))->with('Success','Product Gas Data Added SuccessFully');
-    }
-
-    public function editProductGas($id)
-    {
-        $gas = ProductGas::find($id);
-        $products = Product::all();
-        return view('admin.product.gas.edit',compact('products', 'gas'));
-    }
-
-    public function updateProductGas(Request $req)
-    {
-        $req->validate([
-            'title' => 'required',
-            'product_id' => 'required|min:1|numeric',
-            'price' => 'numeric',
-        ]);
-        $gas = ProductGas::find($req->gasId);
-        $gas->title = $req->title;
-        $gas->product_id = $req->product_id;
-        $gas->price = $req->price;
-        $gas->save();
-        return redirect(route('admin.products.gas'))->with('Success','Product Gas Data Updated SuccessFully');
-    }
-
-    public function deleteProductGas(Request $req)
-    {
-        $rules = [
-            'id' => 'required',
-        ];
-        $validator = validator()->make($req->all(),$rules);
-        if(!$validator->fails()){
-            $gas = ProductGas::find($req->id);
-            if($gas){
-            	$gas->delete();
-            	return successResponse('Product Gas Data Deleted Success');	
-            }
-        	return errorResponse('Invalid Product Gas Data Id');
-        }
-        return errorResponse($validator->errors()->first());
-    }*/
-
-/****************************** Product Electricity Data ******************************/
-	/*public function productsElectricity($electricityId = 0)
-	{
-        $electricity = ProductElectricity::select('*');
-        if($electricityId > 0){
-            $electricity = $electricity->where('id',$electricityId);
-        }
-        $electricity = $electricity->get();
-        return view('admin.product.electricity.index',compact('electricity'));
-	}
-
-    public function createProductElectricity()
-    {
-        $products = Product::all();
-        return view('admin.product.electricity.create', compact('products'));
-    }
-
-    public function saveProductElectricity(Request $req)
-    {   
-        $req->validate([
-            'title' => 'required',
-            'product_id' => 'required|min:1|numeric',
-            'price' => 'numeric',
-        ]);
-        $electricity = new ProductElectricity();
-        $electricity->title = $req->title;
-        $electricity->product_id = $req->product_id;
-        $electricity->price = $req->price;
-        $electricity->created_by = auth()->user()->id;
-        $electricity->save();
-        return redirect(route('admin.products.electricity'))->with('Success','Product Electricity Data Added SuccessFully');
-    }
-
-    public function editProductElectricity($id)
-    {
-        $electricity = ProductElectricity::find($id);
-        $products = Product::all();
-        return view('admin.product.electricity.edit',compact('products', 'electricity'));
-    }
-
-    public function updateProductElectricity(Request $req)
-    {
-        $req->validate([
-            'title' => 'required',
-            'product_id' => 'required|min:1|numeric',
-            'price' => 'numeric',
-        ]);
-        $electricity = ProductElectricity::find($req->electricityId);
-        $electricity->title = $req->title;
-        $electricity->product_id = $req->product_id;
-        $electricity->price = $req->price;
-        $electricity->save();
-        return redirect(route('admin.products.electricity'))->with('Success','Product Electricity Data Updated SuccessFully');
-    }
-
-    public function deleteProductElectricity(Request $req)
-    {
-        $rules = [
-            'id' => 'required|min:1|numeric',
-        ];
-        $validator = validator()->make($req->all(),$rules);
-        if(!$validator->fails()){
-            $electricity = ProductElectricity::find($req->id);
-            if($electricity){
-            	$electricity->delete();
-            	return successResponse('Product Electricity Data Deleted Success');	
-            }
-        	return errorResponse('Invalid Product Electricity Data Id');
-        }
-        return errorResponse($validator->errors()->first());
-    }*/
 }

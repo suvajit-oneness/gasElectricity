@@ -88,15 +88,6 @@
                         <li class="nav-item">
                             <a class="nav-link {{request()->routeIs('supplier.products')?'active':''}}" href="{{route('supplier.products')}}"><i class="fa fa-fw fa-user-circle"></i>Products</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link {{request()->routeIs('supplier.products.feature')?'active':''}}" href="{{route('supplier.products.feature')}}"><i class="fa fa-fw fa-user-circle"></i>Product Features</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link {{request()->routeIs('supplier.products.gas')?'active':''}}" href="{{route('supplier.products.gas')}}"><i class="fa fa-fw fa-user-circle"></i>Gas Data</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link {{request()->routeIs('supplier.products.electricity')?'active':''}}" href="{{route('supplier.products.electricity')}}"><i class="fa fa-fw fa-user-circle"></i>Electricity Data</a>
-                        </li>
                     <!-- Supplier Sidebar End-->
                     <!-- Customer Sidebar -->
                     @elseif(Auth::user()->user_type == 3)

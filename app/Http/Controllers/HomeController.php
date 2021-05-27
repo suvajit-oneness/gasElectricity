@@ -73,11 +73,6 @@ class HomeController extends Controller
         return back()->with('Success','Profile updated successFully');
     }
 
-    // public function changePassword(Request $req)
-    // {
-    //     return view('auth.user.change_password');
-    // }
-
     public function updateUserPassword(Request $req)
     {
         $req->validate([
@@ -106,6 +101,6 @@ class HomeController extends Controller
     public function userPoints(Request $req)
     {
         $user = Auth::user();
-        return view('admin.point.info',compact('user'));
+        return view('auth.user.point_info',compact('user'));
     }
 }
