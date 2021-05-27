@@ -25,13 +25,13 @@
 										<a href="mailto:info@example.com">{{$contact->email}}</a>
 										<ul class="contact_social_links">
 											<li>
-												<a href="#"><img src="{{asset('forntEnd/images/facebook.png')}}"></a>
+												<a href="{{$contact->facebook}}" target="_blank"><img src="{{asset('forntEnd/images/facebook.png')}}"></a>
 											</li>
 											<li>
-												<a href="#"><img src="{{asset('forntEnd/images/linkedin.png')}}"></a>
+												<a href="{{$contact->linkedin}}" target="_blank"><img src="{{asset('forntEnd/images/linkedin.png')}}"></a>
 											</li>
 											<li>
-												<a href="#"><img src="{{asset('forntEnd/images/youtube.png')}}"></a>
+												<a href="{{$contact->youtube}}" target="_blank"><img src="{{asset('forntEnd/images/youtube.png')}}"></a>
 											</li>
 										</ul>
 									</li>
@@ -42,6 +42,10 @@
 							<div class="contact_form_wrap">
 								<div class="form_container">
 									<h3>Get in touch with us</h3>
+									<!-- Thankyou Message -->
+									@error('thankyou')
+										<span class="text-success" role="alert"><strong>{{ $message }}</strong></span><br>
+									@enderror
 									<form method="post" action="{{route('contactus.save')}}">
 										@csrf
 										<input type="text" name="name" class="custom_input @error('name'){{'is-invalid'}}@enderror" placeholder="Your Name">
@@ -59,9 +63,6 @@
 										<textarea class="custom_textarea @error('message'){{'is-invalid'}}@enderror" name="message" placeholder="Your Message"></textarea>
 										@error('message')
                                 			<span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
-                            			@enderror
-                            			@error('msg')
-                            				<span class="valid-feedback" role="alert"><strong>{{ $message }}</strong></span>
                             			@enderror
 										<button class="blue-btm" type="submit">submit<span><i class="fas fa-arrow-circle-right"></i></span></button>
 									</form>

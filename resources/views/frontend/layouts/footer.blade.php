@@ -54,13 +54,13 @@
 				<h6 class="foot_title">Contact</h6>
 				<ul class="social_links">
 					<li>
-						<a href="#"><img src="{{asset('forntEnd/images/facebook.png')}}"></a>
+						<a href="{{$contact->facebook}}" target="_blank"><img src="{{asset('forntEnd/images/facebook.png')}}"></a>
 					</li>
 					<li>
-						<a href="#"><img src="{{asset('forntEnd/images/linkedin.png')}}"></a>
+						<a href="{{$contact->linkedin}}" target="_blank"><img src="{{asset('forntEnd/images/linkedin.png')}}"></a>
 					</li>
 					<li>
-						<a href="#"><img src="{{asset('forntEnd/images/youtube.png')}}"></a>
+						<a href="{{$contact->youtube}}" target="_blank"><img src="{{asset('forntEnd/images/youtube.png')}}"></a>
 					</li>
 				</ul>
 				<ul class="foot_logo_items">

@@ -6,7 +6,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-12">
-				<h1 class="heading text-white pb-0 mb-0 text-center">How It Works</h1>
+				<h1 class="heading text-white pb-0 mb-0 text-center" id="howItWorksHeading">How It Works</h1>
 			</div>
 		</div>
 	</div>
@@ -27,7 +27,35 @@
 </section>
 
 <section class="feature_wraper">
-	<div class="feature_wrap_list" style="background-color: #f4f4f4;">
+	@foreach($data->howItWorks as $key => $howWorks)
+		<?php $odd = false;if($key % 2 == 0){$odd = true;}?>
+		@if($odd)
+			<div class="feature_wrap_list">
+				<div class="feature_wrap_list_grid_img">
+					<img src="{{asset($howWorks->image)}}">
+				</div>
+				<div class="feature_wrap_list_grid_content_wrap">
+					<div class="feature_wrap_list_grid_content">
+						<h3>{{$howWorks->title}}</h3>
+						<p>{!! $howWorks->description !!}</p>
+					</div>
+				</div>
+			</div>
+		@else
+		<div class="feature_wrap_list feature_wrap_list-mod">
+			<div class="feature_wrap_list_grid_content_wrap">
+				<div class="feature_wrap_list_grid_content content_right">
+					<h3>{{$howWorks->title}}</h3>
+					<p>{!! $howWorks->description !!}</p>
+				</div>
+			</div>
+			<div class="feature_wrap_list_grid_img">
+				<img src="{{asset($howWorks->image)}}">
+			</div>
+		</div>
+		@endif
+	@endforeach
+	<!-- <div class="feature_wrap_list" style="background-color: #f4f4f4;">
 		<div class="feature_wrap_list_grid_img">
 			<img src="{{asset('forntEnd/images/payment.png')}}">
 		</div>
@@ -70,7 +98,7 @@
 		<div class="feature_wrap_list_grid_img">
 			<img src="{{asset('forntEnd/images/savings.png')}}">
 		</div>
-	</div>
+	</div> -->
 </section>
 
 <section class="energy_savings_plan_wrap">
@@ -94,6 +122,13 @@
 </section>
 
 @section('script')
-    <script type="text/javascript"></script>
+	<script type="text/javascript">
+    	var howItWorksHeading = 'HOW IT WORKS';
+    	@foreach($data->howItWorks as $key => $how)
+			howItWorksHeading = '{{$how->heading}}';
+    		$('#howItWorksHeading').text(howItWorksHeading);
+    		@break
+    	@endforeach
+    </script>
 @stop
 @endsection

@@ -23,6 +23,9 @@ class CreateContactUsTable extends Migration
             $table->longText('description');
             $table->string('address');
             $table->string('image');
+            $table->string('facebook');
+            $table->string('linkedin');
+            $table->string('youtube');
             $table->softDeletes();
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
@@ -35,10 +38,12 @@ class CreateContactUsTable extends Migration
                 'address' => '5/13 Fielden Way, Port Kennedy,WA, 6172, Dummy location',
                 'phone' => '[88] 657 524 332',
                 'email' => 'info@example.com',
-                'image' => '',
+                'image' => 'frontEnd/images/gas-bg.png',
+                'facebook' => 'https://www.facebook.com/',
+                'linkedin' => 'https://www.linkedin.com/',
+                'youtube' => 'https://www.youtube.com/',
             ],
         ];
-
         DB::table('contact_us')->insert($data);
     }
 

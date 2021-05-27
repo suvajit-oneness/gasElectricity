@@ -13,7 +13,7 @@ class WelcomeController extends Controller
 {
     public function index(Request $req)
     {
-        $data = new WelcomeController();
+        $data = (object)[];
         $data->testimonials = Testimonials::get();
         $data->faq = Faq::get();
         $data->blogs = Blog::limit(5)->get();
@@ -30,7 +30,9 @@ class WelcomeController extends Controller
 
     public function howItWorks(Request $req)
     {
-    	return view('frontend.howItWorks');
+        $data = (object)[];
+        $data->howItWorks = Setting::where('key','how_it_works')->orderBy('id','ASC')->get();
+    	return view('frontend.howItWorks',compact('data'));
     }
 
     public function getBlogs(Request $req)
@@ -55,8 +57,7 @@ class WelcomeController extends Controller
 
     public function contactUs(Request $req)
     {
-        $contact = ContactUs::where('type',1)->first();
-        return view('frontend.contactus',compact('contact'));
+        return view('frontend.contactus');
     }
 
     public function saveContactUs(Request $req)
@@ -65,17 +66,18 @@ class WelcomeController extends Controller
             'name' => 'required|string|max:255',
             'phone' => 'required|digits:10|numeric',
             'email' => 'required|email|max:255|string',
+            'subject' => 'nullable|string',
             'message' => 'required|string',
         ]);
         $contact = new ContactUs();
-        $contact->type = 2;
-        $contact->name = $req->name;
-        $contact->phone = $req->phone;
-        $contact->email = $req->email;
-        $contact->subject = '';
-        $contact->description = $req->message;
+            $contact->type = 2;
+            $contact->name = $req->name;
+            $contact->phone = $req->phone;
+            $contact->email = $req->email;
+            $contact->subject = emptyCheck($req->subject);
+            $contact->description = $req->message;
         $contact->save();
-        $sucess['msg'] = 'Thankyou for contact with us, we will guide you soon!';
+        $sucess['thankyou'] = 'Thankyou for contact with us, we will guide you soon!';
         return back()->withErrors($sucess);
     }
 

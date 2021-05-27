@@ -58,19 +58,19 @@
 	</div>
 	<div class="logo-scroll">
 		<div class="slide-logo">
-			<div class="logo-area"><img src="{{asset('forntEnd/images/tango.png')}}" alt=""/></div>
-			<div class="logo-area"><img src="{{asset('forntEnd/images/dodo.png')}}" alt=""/></div>
-			<div class="logo-area"><img src="{{asset('forntEnd/images/simplyenergy.png')}}" alt=""/></div>
-			<div class="logo-area"><img src="{{asset('forntEnd/images/sumo.png')}}" alt=""/></div>
-			<div class="logo-area"><img src="{{asset('forntEnd/images/sumo.png')}}" alt=""/></div>
-			<div class="logo-area"><img src="{{asset('forntEnd/images/sumo.png')}}" alt=""/></div>
+			<div class="logo-area"><img src="{{asset('forntEnd/images/tango.png')}}"/></div>
+			<div class="logo-area"><img src="{{asset('forntEnd/images/dodo.png')}}"></div>
+			<div class="logo-area"><img src="{{asset('forntEnd/images/simplyenergy.png')}}"></div>
+			<div class="logo-area"><img src="{{asset('forntEnd/images/sumo.png')}}"></div>
+			<div class="logo-area"><img src="{{asset('forntEnd/images/sumo.png')}}"></div>
+			<div class="logo-area"><img src="{{asset('forntEnd/images/sumo.png')}}"></div>
 		</div>
 	</div>
 </section>
 
 <section class="what-provide">
 	<div class="provide-image">
-		<img src="{{asset('forntEnd/images/bulb.png')}}" class="img-fluid" alt=""/>
+		<img src="{{asset('forntEnd/images/bulb.png')}}" class="img-fluid">
 	</div>
 	<div class="provide-content">
 		<h2 class="heading heading-left-border">What we provide</h2>
@@ -79,7 +79,7 @@
 		<ul class="provide-list">
 			<li>
 				<div class="provide-icon">
-					<img src="{{asset('forntEnd/images/pro-icon-1.png')}}" alt=""/>
+					<img src="{{asset('forntEnd/images/pro-icon-1.png')}}">
 				</div>
 				<div class="provide-text">
 					<h4>Panel of Providers</h4>
@@ -89,7 +89,7 @@
 
 			<li>
 				<div class="provide-icon">
-					<img src="{{asset('forntEnd/images/pro-icon-2.png')}}" alt=""/>
+					<img src="{{asset('forntEnd/images/pro-icon-2.png')}}">
 				</div>
 				<div class="provide-text">
 					<h4>FREE Energy Comparison</h4>
@@ -99,7 +99,7 @@
 
 			<li>
 				<div class="provide-icon">
-					<img src="{{asset('forntEnd/images/pro-icon-3.png')}}" alt=""/>
+					<img src="{{asset('forntEnd/images/pro-icon-3.png')}}">
 				</div>
 				<div class="provide-text">
 					<h4>Find the Right One</h4>
