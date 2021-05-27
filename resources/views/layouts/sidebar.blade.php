@@ -40,15 +40,7 @@
                         <li class="nav-item">
                             <a class="nav-link {{request()->routeIs('admin.products')?'active':''}}" href="{{route('admin.products')}}"><i class="fa fa-fw fa-user-circle"></i>Products</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link {{request()->routeIs('admin.products.feature')?'active':''}}" href="{{route('admin.products.feature')}}"><i class="fa fa-fw fa-user-circle"></i>Product Features</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link {{request()->routeIs('admin.products.gas')?'active':''}}" href="{{route('admin.products.gas')}}"><i class="fa fa-fw fa-user-circle"></i>Gas Data</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link {{request()->routeIs('admin.products.electricity')?'active':''}}" href="{{route('admin.products.electricity')}}"><i class="fa fa-fw fa-user-circle"></i>Electricity Data</a>
-                        </li>
+                        
                         <!-- Report Section -->
                         <li class="nav-divider">Report</li>
                         <li class="nav-item">

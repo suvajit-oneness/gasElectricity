@@ -18,8 +18,9 @@
                         <table id="example4" class="table table-striped table-bordered" style="width:100%">
                             <thead>
                                 <tr>
-                                    <th>Product</th>
-                                    <th>Company Name</th>
+                                    <th>Company</th>
+                                    <th>Product Id</th>
+                                    <th>Product Name</th>
                                     <th>Features</th>
                                     <th>Tag</th>
                                     <th>Tag Description</th>
@@ -31,29 +32,51 @@
                             <tbody>
                                 @foreach($products as $product)
                                     <tr>
-                                        <td>{{$product->name}}</td>
-                                        <td><a href="{{route('admin.companies',$product->company->id)}}">{{$product->company->name}}</a></td>
                                         <td>
-                                            @forelse ($product->feature as $item)
-                                                <li><a href="{{route('admin.products.feature',$item->id)}}">{{$item->title}}</a></li>
-                                            @empty
-                                                N/A
-                                            @endforelse
+                                            <?php $company = $product->company; ?>
+                                            @if($company)
+                                                {{$company->name}}
+                                            @else
+                                                {{('N/A')}}
+                                            @endif
                                         </td>
-                                        <?php $gasData = $product->gas_data; ?>
-                                        @if ($gasData)
-                                            <td><a href="{{route('admin.products.gas',$gasData->id)}}">{{$gasData->title}}</a></td>
-                                        @else
-                                            <td>N/A</td>
-                                        @endif
-                                        <?php $electricityData = $product->electricity_data; ?>
-                                        @if ($electricityData)
-                                            <td><a href="{{route('admin.products.electricity',$electricityData->id)}}">{{$electricityData->title}}</a></td>
-                                        @else
-                                            <td>N/A</td>
-                                        @endif
+                                        <td>{{$product->id}}</td>
+                                        <td>{{$product->name}}</td>
                                         <td>
-                                            <a href="{{route('admin.products.edit',$product->id)}}">Edit</a> | <a href="javascript:void(0)" class="deleteproduct text-danger" data-id="{{$product->id}}">Delete</a>
+                                            <a href="{{route('admin.product.feature',$product->id)}}">
+                                                @forelse ($product->feature as $item)
+                                                    <li>{{$item->title}}</li>
+                                                @empty
+                                                    N/A
+                                                @endforelse
+                                            </a>
+                                        </td>
+                                        <td>{{$product->tag}}</td>
+                                        <td>{!! $product->tag_description !!}</td>
+                                        <td>
+                                            <?php $gasData = $product->product_gas; ?>
+                                            @if ($gasData)
+                                                <ul>
+                                                    <li>Title : {{$gasData->title}}</li>
+                                                    <li>Price : {{moneyFormat($gasData->price)}}</li>
+                                                </ul>
+                                            @else
+                                                {{('N/A')}}
+                                            @endif
+                                        </td>
+                                        <td>
+                                            <?php $electricityData = $product->product_electricty; ?>
+                                            @if ($electricityData)
+                                                <ul>
+                                                    <li>Title : {{$electricityData->title}}</li>
+                                                    <li>Price : {{moneyFormat($electricityData->price)}}</li>
+                                                </ul>
+                                            @else
+                                                {{('N/A')}}
+                                            @endif
+                                        </td>
+                                        <td>
+                                            <a href="{{route('admin.products.edit',$product->id)}}">Edit</a> | <a href="javascript:void(0)" class="deleteProduct text-danger" data-id="{{$product->id}}">Delete</a>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -71,8 +94,8 @@
             $('#example4').DataTable();
         });
 
-        $(document).on('click','.deleteproduct',function(){
-            var deleteproduct = $(this);
+        $(document).on('click','.deleteProduct',function(){
+            var deleteProduct = $(this);
             var productId = $(this).attr('data-id');
             swal({
                 title: "Are you sure?",
@@ -87,10 +110,10 @@
                         type:'POST',
                         dataType:'JSON',
                         url:"{{route('admin.products.delete',"+productId+")}}",
-                        data: {id:productId,'_token': $('input[name=_token]').val()},
+                        data: {productId:productId,'_token': $('input[name=_token]').val()},
                         success:function(data){
                             if(data.error == false){
-                                deleteproduct.closest('tr').remove();
+                                deleteProduct.closest('tr').remove();
                                 swal('Success',"Poof! Your product has been deleted!", 'success');
                             }else{
                                 swal('Error',data.message);

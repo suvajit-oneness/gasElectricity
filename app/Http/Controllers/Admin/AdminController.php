@@ -9,7 +9,7 @@ use App\User;use App\Model\ContactUs;use DB;
 use App\Model\Testimonials;use App\Model\Faq;
 use Hash;use App\Model\BlogCategory;use App\Model\Setting;
 use App\Model\Membership;use App\Model\HowItWork;
-use App\Model\Company;use App\Model\Product;
+use App\Model\Company;use App\Model\Product;use App\Model\ProductRating;
 use App\Model\ProductFeature;use App\Model\ProductTating;
 use App\Model\ProductGas;use App\Model\ProductElectricity;
 
@@ -475,7 +475,7 @@ class AdminController extends Controller
             return back()->with('Success','Why Choose Us Updated SuccessFully');
         } catch (Exception $e) {
             DB::rollback();
-            return back()->with('Error','Something went wrong please try after sometime');
+            return back()->with('Errors','Something went wrong please try after sometime');
         }
     }
 
@@ -698,60 +698,104 @@ class AdminController extends Controller
 
     public function createProduct()
     {
-        $companies = Company::all();
+        $companies = Company::get();
         return view('admin.product.create', compact('companies'));
     }
 
     public function saveProduct(Request $req)
     {
         $req->validate([
-            'name' => 'required',
-            'company_id' => 'required|min:1|numeric',
-            'tag' => 'required',
-            'tag_description' => '',
+            'company_id' => 'required|min:1|numeric|exists:companies,id',
+            'name' => 'required|max:200|string',
+            'tag' => 'required|max:200|string',
+            'tag_description' => 'nullable|string',
+            'gas_title' => 'required|max:200|string',
+            'gas_price' => 'required|numeric|max:99999',
+            'electricty_title' => 'required|max:200|string',
+            'electricty_price' => 'required|numeric|max:99999',
         ]);
-        $product = new Product();
-        $product->name = $req->name;
-        $product->company_id = $req->company_id;
-        $product->tag = $req->tag;
-        $product->tag_description = emptyCheck($req->tag_description);
-        $product->created_by = auth()->user()->id;
-        $product->save();
-        return redirect(route('admin.products'))->with('Success','Product Added SuccessFully');
+        DB::beginTransaction();
+        try {
+            $product = new Product();
+                $product->name = $req->name;
+                $product->company_id = $req->company_id;
+                $product->tag = $req->tag;
+                $product->tag_description = emptyCheck($req->tag_description);
+                $product->created_by = auth()->user()->id;
+            $product->save();
+            $gas = new ProductGas();
+                $gas->title = $req->gas_title;
+                $gas->product_id = $product->id;
+                $gas->price = $req->gas_price;
+            $gas->save();
+            $electricity = new ProductElectricity();
+                $electricity->title = $req->electricty_title;
+                $electricity->product_id = $product->id;
+                $electricity->price = $req->electricty_price;
+                $electricity->created_by = auth()->user()->id;
+            $electricity->save();
+            DB::commit();
+            return redirect(route('admin.products'))->with('Success','Product Added SuccessFully');
+        } catch (Exception $e) {
+            DB::rollback();
+            $errors['company_id'] = 'Something went wrong please try after sometime!';
+            return back()->withErrors($errors)->withInput($req->all());
+        }
     }
 
-    public function editProduct(Request $req,$id)
+    public function editProduct(Request $req,$productId)
     {
-        $product = Product::find($id);
-        $companies = Company::all();
+        $product = Product::find($productId);
+        $companies = Company::get();
         return view('admin.product.edit',compact('product', 'companies'));
     }
 
-    public function updateProduct(Request $req)
+    public function updateProduct(Request $req,$productId)
     {
         $req->validate([
-            'name' => 'required',
-            'company_id' => 'required|min:1|numeric',
-            'tag' => 'required',
-            'tag_description' => '',
+            'productId' => 'required|min:1|numeric',
+            'companyId' => 'required|min:1|numeric|exists:companies,id',
+            'name' => 'required|max:200|string',
+            'tag' => 'required|max:200|string',
+            'tag_description' => 'nullable|string',
+            'gas_title' => 'required|max:200|string',
+            'gas_price' => 'required|numeric|max:99999',
+            'electricty_title' => 'required|max:200|string',
+            'electricty_price' => 'required|numeric|max:99999',
         ]);
-        $product = Product::find($req->productId);
-        $product->name = $req->name;
-        $product->company_id = $req->company_id;
-        $product->tag = $req->tag;
-        $product->tag_description = emptyCheck($req->tag_description);
-        $product->save();
-        return redirect(route('admin.products'))->with('Success','Product Updated SuccessFully');
+        DB::beginTransaction();
+        try {
+            $product = Product::findOrFail($req->productId);
+                $product->name = $req->name;
+                $product->company_id = $req->companyId;
+                $product->tag = $req->tag;
+                $product->tag_description = emptyCheck($req->tag_description);
+            $product->save();
+            $gas = ProductGas::where('product_id',$product->id)->first();
+                $gas->title = $req->gas_title;
+                $gas->price = $req->gas_price;
+            $gas->save();
+            $electricity = ProductElectricity::where('product_id',$product->id)->first();
+                $electricity->title = $req->electricty_title;
+                $electricity->price = $req->electricty_price;
+            $electricity->save();
+            DB::commit();
+            return redirect(route('admin.products'))->with('Success','Product Updated SuccessFully');
+        }catch(Exception $e) {
+            DB::rollback();
+            $errors['company_id'] = 'Something went wrong please try after sometime!';
+            return back()->withErrors($errors)->withInput($req->all());
+        }
     }
 
-    public function deleteProduct(Request $req)
+    public function deleteProduct(Request $req,$productId)
     {
         $rules = [
-            'id' => 'required',
+            'productId' => 'required|numeric|min:1',
         ];
         $validator = validator()->make($req->all(),$rules);
         if(!$validator->fails()){
-            $product = Product::find($req->id);
+            $product = Product::find($req->productId);
             if($product){
                 ProductFeature::where('product_id',$product->id)->delete();
                 ProductRating::where('product_id',$product->id)->delete();
@@ -766,70 +810,69 @@ class AdminController extends Controller
     }
 
 /****************************** Product Feature ******************************/
-	public function productsFeature($featureId = 0)
+	public function productFeature(Request $req,$productId)
 	{
-        $features = ProductFeature::select('*');
-        if($featureId > 0){
-            $features = $features->where('id',$featureId);
-        }
-        $features = $features->get();
-        return view('admin.product.feature.index',compact('features'));
+        $product = Product::findOrFail($productId);
+        return view('admin.product.feature.index',compact('product'));
 	}
 
-    public function createProductFeature()
+    public function createProductFeature(Request $req,$productId)
     {
-        $products = Product::all();
-        return view('admin.product.feature.create', compact('products'));
+        $product = Product::findOrFail($productId);
+        return view('admin.product.feature.create', compact('product'));
     }
 
-    public function saveProductFeature(Request $req)
-    {   
+    public function saveProductFeature(Request $req,$productId)
+    {
         $req->validate([
-            'title' => 'required',
-            'product_id' => 'required|min:1|numeric',
-            'description' => '',
+            'title' => 'required|max:200',
+            'description' => 'nullable|string',
         ]);
         $feature = new ProductFeature();
+        $feature->product_id = $productId;
         $feature->title = $req->title;
-        $feature->product_id = $req->product_id;
         $feature->description = emptyCheck($req->description);
         $feature->save();
-        return redirect(route('admin.products.feature'))->with('Success','Product Feature Added SuccessFully');
+        return redirect(route('admin.product.feature',$productId))->with('Success','Product Feature Added SuccessFully');
     }
 
-    public function editProductFeature($id)
+    public function editProductFeature(Request $req,$productId,$featureId)
     {
-        $feature = ProductFeature::find($id);
-        $products = Product::all();
-        return view('admin.product.feature.edit',compact('products', 'feature'));
+        $feature = ProductFeature::where('id',$featureId)->where('product_id',$productId)->first();
+        if($feature){
+            return view('admin.product.feature.edit',compact('feature'));
+        }
+        return redirect(route('admin.product.feature',$productId))->with('Errors','Something went wrong please try after sometime');
     }
 
-    public function updateProductFeature(Request $req)
+    public function updateProductFeature(Request $req,$productId,$featureId)
     {
         $req->validate([
-            'title' => 'required',
-            'product_id' => 'required|min:1|numeric',
-            'description' => '',
+            'title' => 'required|max:200',
+            'description' => 'nullable|string',
         ]);
-        $feature = ProductFeature::find($req->featureId);
-        $feature->title = $req->title;
-        $feature->product_id = $req->product_id;
-        $feature->description = emptyCheck($req->description);
-        $feature->save();
-        return redirect(route('admin.products.feature'))->with('Success','Product Feature Updated SuccessFully');
+        $feature = ProductFeature::where('id',$featureId)->where('product_id',$productId)->first();
+        if($feature){
+            $feature->title = $req->title;
+            $feature->description = emptyCheck($req->description);
+            $feature->save();
+            return redirect(route('admin.product.feature',$productId))->with('Success','Product Feature Updated SuccessFully');
+        }
+        return back()->with('Errors','Something went wrong please try after sometime');
     }
 
     public function deleteProductFeature(Request $req)
     {
         $rules = [
-            'id' => 'required',
+            'productId' => 'required|min:1|numeric',
+            'featureId' => 'required|min:1|numeric',
         ];
         $validator = validator()->make($req->all(),$rules);
         if(!$validator->fails()){
-            $feature = ProductFeature::find($req->id);
+            $feature = ProductFeature::where('id',$req->featureId)->where('product_id',$req->productId)->first();
             if($feature){
             	$feature->delete();
-            	return successResponse('Feature Deleted Success');	
+            	return successResponse('Feature Deleted Success');
             }
         	return errorResponse('Invalid Feature Id');
         }
@@ -837,7 +880,7 @@ class AdminController extends Controller
     }
 
 /****************************** Product Gas Data ******************************/
-	public function productsGas($gasId = 0)
+	/*public function productsGas($gasId = 0)
 	{
         $gas = ProductGas::select('*');
         if($gasId > 0){
@@ -906,10 +949,10 @@ class AdminController extends Controller
         	return errorResponse('Invalid Product Gas Data Id');
         }
         return errorResponse($validator->errors()->first());
-    }
+    }*/
 
 /****************************** Product Electricity Data ******************************/
-	public function productsElectricity($electricityId = 0)
+	/*public function productsElectricity($electricityId = 0)
 	{
         $electricity = ProductElectricity::select('*');
         if($electricityId > 0){
@@ -978,5 +1021,5 @@ class AdminController extends Controller
         	return errorResponse('Invalid Product Electricity Data Id');
         }
         return errorResponse($validator->errors()->first());
-    }
+    }*/
 }

@@ -12,37 +12,43 @@
                     <!-- <p>This example shows FixedHeader being styled by the Bootstrap 4 CSS framework.</p> -->
                 </div>
                 <div class="card-body">
-                    <form method="post" action="{{route('admin.products.update')}}" enctype="multipart/form-data">
+                    <form method="post" action="{{route('admin.products.update',$product->company_id)}}" enctype="multipart/form-data">
                         @csrf
                         <input type="hidden" name="productId" value="{{$product->id}}">
                         <div class="form-group">
-                            <label for="name" class="col-form-label">Product Name:</label>
-                            <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" placeholder="Product Name" value="{{$product->name}}">
-                            @error('name')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
-                        </div>
-
-                        <div class="form-group">
                             <label for="company_id" class="col-form-label">Company</label>
-                            <select name="company_id" class="form-control" id="company_id">
+                            <select name="companyId" class="form-control @error('companyId') is-invalid @enderror" id="company_id">
                                 <option value="">Select Company</option>
                                 @foreach($companies as $item)
                                     <option value="{{$item->id}}" @if($product->company_id == $item->id){{('selected')}}@endif>{{$item->name}}</option>
                                 @endforeach
                             </select>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="tag" class="col-form-label">Product tag:</label>
-                            <input type="text" class="form-control @error('tag') is-invalid @enderror" id="tag" name="tag" placeholder="Product tag" value="{{$product->tag}}">
-                            @error('tag')
+                            @error('companyId')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label for="name" class="col-form-label">Product Name:</label>
+                                <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" placeholder="Product Name" value="{{$product->name}}">
+                                @error('name')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <label for="tag" class="col-form-label">Product tag:</label>
+                                <input type="text" class="form-control @error('tag') is-invalid @enderror" id="tag" name="tag" placeholder="Product tag" value="{{$product->tag}}">
+                                @error('tag')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
                         </div>
 
                         <div class="form-group">
@@ -53,6 +59,51 @@
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
+                        </div>
+
+                        <div class="row">
+                            <?php $gasData = $product->product_gas; ?>
+                            <div class="form-group col-md-6">
+                                <label for="gas_title" class="col-form-label">Gas Title:</label>
+                                <input type="text" class="form-control @error('gas_title') is-invalid @enderror" id="gas_title" name="gas_title" placeholder="Product Gas Title" value="{{$gasData->title}}">
+                                @error('gas_title')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                            
+                            <div class="form-group col-md-6">
+                                <label for="gas_price" class="col-form-label">Gas Price:</label>
+                                <input type="text" class="form-control @error('gas_price') is-invalid @enderror" id="gas_price" name="gas_price" placeholder="Gas Price" value="{{$gasData->price}}" onkeypress="return isNumberKey(event)" maxlength="5">
+                                @error('gas_price')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
+                        <div class="row">
+                            <?php $electrictyData = $product->product_electricty; ?>
+                            <div class="form-group col-md-6">
+                                <label for="electricty_title" class="col-form-label">Electricity Title:</label>
+                                <input type="text" class="form-control @error('electricty_title') is-invalid @enderror" id="electricty_title" name="electricty_title" placeholder="Product Electricity Title" value="{{$electrictyData->title}}">
+                                @error('electricty_title')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                            
+                            <div class="form-group col-md-6">
+                                <label for="electricty_price" class="col-form-label">Electricity Price:</label>
+                                <input type="text" class="form-control @error('electricty_price') is-invalid @enderror" id="electricty_price" name="electricty_price" placeholder="Product Electricity Price" value="{{$electrictyData->price}}" onkeypress="return isNumberKey(event)" maxlength="5">
+                                @error('electricty_price')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
                         </div>
                         <div class="form-group">
                             <button type="submit" class="btn btn-primary">Update</button>
