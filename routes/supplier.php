@@ -4,6 +4,7 @@
 		return view('supplier.dashboard');
 	})->name('home');
 
+	// Company
 	Route::group(['prefix'=>'companies'],function(){
 		Route::get('/{companyId?}','Admin\AdminController@companies')->name('supplier.companies')->where('companyId', '[0-9]+');
 		Route::get('/create','Admin\AdminController@createCompany')->name('supplier.companies.create');
@@ -13,6 +14,7 @@
 		Route::post('/{id}/delete', 'Admin\AdminController@deleteCompany')->name('supplier.companies.delete');
 	});
 	
+	// Products
 	Route::group(['prefix'=>'products'],function(){
 		Route::get('/{productId?}','Admin\AdminController@products')->name('supplier.products')->where('productId', '[0-9]+');
 		Route::get('/create','Admin\AdminController@createProduct')->name('supplier.products.create');
@@ -32,5 +34,13 @@
 
 		Route::post('/feature/{featureId}/delete','Admin\AdminController@deleteProductFeature')->name('supplier.products.feature.delete');
 		/********** Product Features End ********/
+	});
+
+	// States
+	Route::group(['prefix' => 'states'],function(){
+		Route::get('/','Supplier\SupplierController@states')->name('admin.states');
+		Route::post('/save','Supplier\SupplierController@addOrUpdateState')->name('admin.state.save');
+		Route::post('/update','Supplier\SupplierController@addOrUpdateState')->name('admin.state.update');
+		Route::get('{stateId}/delete','Supplier\SupplierController@deleteState')->name('admin.state.delete');
 	});
  ?>

@@ -41,33 +41,13 @@
 		/********** Product Features End ********/
 	});
 	
-	// Route::group(['prefix'=>'product/feature'],function(){
-		// Route::get('/','Admin\AdminController@productsFeature')->name('admin.products.feature');
-		// Route::get('/create','Admin\AdminController@createProductFeature')->name('admin.products.feature.create');
-		// Route::post('/save','Admin\AdminController@saveProductFeature')->name('admin.products.feature.save');
-		
-		// Route::get('/{id}/edit','Admin\AdminController@editProductFeature')->name('admin.products.feature.edit');
-		// Route::post('/update','Admin\AdminController@updateProductFeature')->name('admin.products.feature.update');
-		// Route::post('/{id}/delete', 'Admin\AdminController@deleteProductFeature')->name('admin.products.feature.delete');
-	// });
-	
-	/*Route::group(['prefix'=>'product/gas'],function(){
-		Route::get('/create','Admin\AdminController@createProductGas')->name('admin.products.gas.create');
-		Route::post('/save','Admin\AdminController@saveProductGas')->name('admin.products.gas.save');
-		Route::get('/{gasId?}','Admin\AdminController@productsGas')->name('admin.products.gas');
-		Route::get('/{id}/edit','Admin\AdminController@editProductGas')->name('admin.products.gas.edit');
-		Route::post('/update','Admin\AdminController@updateProductGas')->name('admin.products.gas.update');
-		Route::post('/{id}/delete', 'Admin\AdminController@deleteProductGas')->name('admin.products.gas.delete');
+	// States
+	Route::group(['prefix' => 'states'],function(){
+		Route::get('/','Supplier\SupplierController@states')->name('admin.states');
+		Route::post('/save','Supplier\SupplierController@addOrUpdateState')->name('admin.state.save');
+		Route::post('/update','Supplier\SupplierController@addOrUpdateState')->name('admin.state.update');
+		Route::get('{stateId}/delete','Supplier\SupplierController@deleteState')->name('admin.state.delete');
 	});
-	
-	Route::group(['prefix'=>'product/electricity'],function(){
-		Route::get('/create','Admin\AdminController@createProductElectricity')->name('admin.products.electricity.create');
-		Route::post('/save','Admin\AdminController@saveProductElectricity')->name('admin.products.electricity.save');
-		Route::get('/{electricityId?}','Admin\AdminController@productsElectricity')->name('admin.products.electricity');
-		Route::get('/{id}/edit','Admin\AdminController@editProductElectricity')->name('admin.products.electricity.edit');
-		Route::post('/update','Admin\AdminController@updateProductElectricity')->name('admin.products.electricity.update');
-		Route::post('/{id}/delete', 'Admin\AdminController@deleteProductElectricity')->name('admin.products.electricity.delete');
-	});*/
 
 	Route::get('contact-us','Admin\AdminController@contactUs')->name('admin.contactus');
 

@@ -32,18 +32,12 @@
 			<div class="col-12">
 				<h4 class="momentum_title">Why Momentum?</h4>
 				<ul class="momentum_list">
-					<li>
-						<img src="{{asset('forntEnd/images/gear.png')}}">
-						No confusing discounts. Just great rates. 
-					</li>
-					<li>
-						<img src="{{asset('forntEnd/images/gear.png')}}">
-						100% Australian owned 
-					</li>
-					<li>
-						<img src="{{asset('forntEnd/images/gear.png')}}">
-						Award Winning Customer Service 
-					</li>
+					@foreach($productData->product_momentum as $momentum)
+						<li>
+							<img src="{{asset($momentum->icon)}}">
+							{{$momentum->title}}
+						</li>
+					@endforeach
 				</ul>
 			</div>
 		</div>
@@ -57,7 +51,7 @@
 			<ul class="plan_details_wrap">
 				<li class="electricity_plan_info_wrap">
 					<h4>Electricity details</h4>
-					<a href="#">Plan details</a>
+					<a href="javascript:void(0)">Plan details</a>
 					<h3>Discounts and fees</h3>
 				</li>
 				<li class="plan_price_info">

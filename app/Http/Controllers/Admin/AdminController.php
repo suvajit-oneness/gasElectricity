@@ -145,7 +145,7 @@ class AdminController extends Controller
     public function deleteBlogCategory(Request $req)
     {
         $rules = [
-            'id' => 'required',
+            'id' => 'required|numeric|min:1',
         ];
         $validator = validator()->make($req->all(),$rules);
         if(!$validator->fails()){
