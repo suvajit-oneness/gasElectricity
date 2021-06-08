@@ -29,7 +29,7 @@ Route::get('blog/{blogId}/details','WelcomeController@blogDetails')->name('blog.
 Route::get('contact-us','WelcomeController@contactUs')->name('contact-us');
 Route::post('contact-us','WelcomeController@saveContactUs')->name('contactus.save');
 Route::get('product-listing','WelcomeController@productListing')->name('product.listing');
-Route::get('product-details/{planId?}','WelcomeController@productDetails')->name('product.details');
+Route::get('product-details/{productId}','WelcomeController@productDetails')->name('product.details');
 Route::get('indivisual-states','WelcomeController@indivisualStates')->name('indivisual.state');
 Route::get('electricity-form','WelcomeController@electricityForm')->name('electricityform');
 Route::get('membership','WelcomeController@membership')->name('membership');

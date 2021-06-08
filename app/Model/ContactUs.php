@@ -14,4 +14,9 @@ class ContactUs extends Model
     protected $hidden = [
         'deleted_at', 'updated_at','created_at',
     ];
+
+    public function contactBy()
+    {
+        return $this->belongsTo('App\User','contactedBy','id');
+    }
 }

@@ -36,13 +36,6 @@ class AddsomenewrowintoSettingTableon08June2021 extends Migration
                 'image' => 'forntEnd/images/simplyenergy.png',
             ],
             [
-                'key' => 'wecomparealloftheseenegysupplier',
-                'heading' => 'WE COMPARE ALL OF THESE ENERGY SUPPLIERS',
-                'title' => '',
-                'description' => "",
-                'image' => 'forntEnd/images/simplyenergy.png',
-            ],
-            [
                 'key' => 'whatweprovide',
                 'heading' => 'WHAT WE PROVIDE',
                 'title' => 'Panel of Providers',

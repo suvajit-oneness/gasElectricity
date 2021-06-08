@@ -20,6 +20,8 @@ class CreateContactUsTable extends Migration
             $table->string('phone',20);
             $table->string('email');
             $table->string('subject');
+            $table->bigInteger('contactedBy')->comment('userId from Users Table');
+            $table->longText('remarks');
             $table->longText('description');
             $table->string('address');
             $table->string('image');

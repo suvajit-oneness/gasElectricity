@@ -44,7 +44,7 @@
                         <!-- Report Section -->
                         <li class="nav-divider">Report</li>
                         <li class="nav-item">
-                            <a class="nav-link {{request()->routeIs('admin.contactus')?'active':''}}" href="{{route('admin.contactus')}}"><i class="fa fa-fw fa-user-circle"></i>Contact us</a>
+                            <a class="nav-link {{request()->routeIs('admin.report.contactus')?'active':''}}" href="{{route('admin.report.contactus')}}"><i class="fa fa-fw fa-user-circle"></i>Contact us</a>
                         </li>
                         <!-- Crud Operation Section -->
                         <li class="nav-divider">Features</li>

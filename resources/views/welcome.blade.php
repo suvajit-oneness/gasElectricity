@@ -41,14 +41,17 @@
 			</ul>
 			<div class="location-search-section">
 				<h3>Compare, Switch, Save & postcode </h3>
-				<div class="search-form">
-					<label>Where are you located?</label>
-					<input type="text" id="searchCompareNow" name="search" placeholder="Enter your postcode or suburb...">
-					<div class="button">
-						<input type="submit" id="searchBtnCompareNow" value="compare now">
-						<i class="fas fa-arrow-circle-right"></i>
+				<form action="{{route('product.listing')}}">
+					<div class="search-form">
+						<label>Where are you located?</label>
+						<input type="hidden" name="eneryType" value="gas_electricity">
+						<input type="text" id="searchCompareNow" name="search" placeholder="Enter your postcode or suburb...">
+						<div class="button">
+							<input type="submit" id="searchBtnCompareNow" value="compare now">
+							<i class="fas fa-arrow-circle-right"></i>
+						</div>
 					</div>
-				</div>
+				</form>
 				<p>Currently available in NSW, ACT, SA, VIC, parts of QLD, TAS & WA (only Gas). Not available in Ergon Area (QLD), NT and embedded networks or non-quotable meters.</p>
 			</div>
 		</div>
@@ -223,11 +226,11 @@
 
 @section('script')
     <script type="text/javascript">
-    	$(document).on('click','#searchBtnCompareNow',function(){
-    		var URL = "{{route('product.listing')}}",keyword = $('#searchCompareNow').val();
-    		var redirectURL = URL+'?search='+keyword;
-    		window.location.href = redirectURL;
-    	});
+    	// $(document).on('click','#searchBtnCompareNow',function(){
+    	// 	var URL = "{{route('product.listing')}}",keyword = $('#searchCompareNow').val();
+    	// 	var redirectURL = URL+'?search='+keyword;
+    	// 	window.location.href = redirectURL;
+    	// });
     </script>
 @stop
 @endsection

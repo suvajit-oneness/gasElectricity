@@ -43,7 +43,7 @@
 		<div class="row align-items-center">
 			<div class="col-12 col-md-7">
 				<div class="custom-control custom-checkbox custom-control-mod">
-			        <input type="checkbox" class="custom-control-input" id="customControlAutosizing">
+			        <input type="checkbox" class="custom-control-input" id="customControlAutosizing" name="referral_partner" value="true">
 			        <label class="custom-control-label" for="customControlAutosizing">Just compare plans which link to a Referral Partner's website.</label>
 			    </div>
 			</div>
@@ -55,9 +55,9 @@
 					<div class="dropdown filter_selected">
 					  	<a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><p><span>Sorted by:</span>Value Score</p> <img src="{{asset('forntEnd/images/double-arrow-down.png')}}"></a>
 					 	<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-						    <a class="dropdown-item" href="#">Action</a>
-						    <a class="dropdown-item" href="#">Another action</a>
-						    <a class="dropdown-item" href="#">Something else here</a>
+						    <a class="dropdown-item" href="javascript:void(0)">Action</a>
+						    <a class="dropdown-item" href="javascript:void(0)">Another action</a>
+						    <a class="dropdown-item" href="javascript:void(0)">Something else here</a>
 					  	</div>
 					</div>
 				</div>
@@ -80,8 +80,10 @@
 					<div class="plan_wraper">
 						@foreach ($productData as $key => $product)
 							<?php 
-								$gasData = $product->product_gas;
-								$electricityData = $product->product_electricty;
+								// $gasData = $product->product_gas;
+								// $electricityData = $product->product_electricty;
+								$gasData = (!empty($request['eneryType']) && ($request['eneryType'] == 'gas' || $request['eneryType'] == 'gas_electricity')) ? $product->product_gas : [];
+								$electricityData = (!empty($request['eneryType']) && $request['eneryType'] == 'gas_electricity') ? $product->product_electricty : [];
 							?>
 							@if($gasData || $electricityData)
 								<div class="plane_list_wrapper">

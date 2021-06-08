@@ -49,7 +49,11 @@
 		Route::get('{stateId}/delete','Supplier\SupplierController@deleteState')->name('admin.state.delete');
 	});
 
-	Route::get('contact-us','Admin\AdminController@contactUs')->name('admin.contactus');
+	// Reports
+	Route::group(['prefix' => 'report'],function(){
+		Route::get('contact-us','Admin\AdminController@contactUs')->name('admin.report.contactus');
+		Route::post('contact-us/remark/save','Admin\AdminController@saveRemarkOfContactUs')->name('admin.report.contactUsSaveRemark');
+	});
 
 	Route::group(['prefix'=>'blog/category'],function(){
 		Route::get('/','Admin\AdminController@blogsCategory')->name('admin.blogs.category');

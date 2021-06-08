@@ -44,14 +44,6 @@
 		<div class="row align-items-center">
 			<div class="col-12">
 				<h2 class="listing_wrap_title">Compare Electricity Plans: 4000 QLD</h2>
-				<div class="energy_select_box">
-					<p>Energy type</p>
-					<div class="custom-control custom-radio">
-					  <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input">
-					  <label class="custom-control-label" for="customRadio1">Gas & Electricity</label>
-					</div>
-				</div>
-
 				<div class="your-search">
 					<div class="top-panel-search">
 						<h4>Your Search</h4>
@@ -110,7 +102,7 @@
 			</div>
 			<div class="col-12 col-md-7">
 				<div class="custom-control custom-checkbox custom-control-mod">
-			        <input type="checkbox" class="custom-control-input" id="customControlAutosizing">
+			        <input type="checkbox" class="custom-control-input" id="customControlAutosizing" name="referral_partner" value="true">
 			        <label class="custom-control-label" for="customControlAutosizing">Just compare plans which link to a Referral Partner's website.</label>
 			    </div>
 			</div>
@@ -120,12 +112,11 @@
 						<img src="{{asset('forntEnd/images/filter.png')}}">
 					</div>
 					<div class="dropdown filter_selected">
-					  	<a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><p><span>Sorted by:</span>Value Score</p> <img src="{{asset('forntEnd/images/double-arrow-down.png')}}"></a>
-
+					  	<a class="btn btn-secondary dropdown-toggle" href="javascript:void(0)" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><p><span>Sorted by:</span>Value Score</p> <img src="{{asset('forntEnd/images/double-arrow-down.png')}}"></a>
 					 	<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-						    <a class="dropdown-item" href="#">Action</a>
-						    <a class="dropdown-item" href="#">Another action</a>
-						    <a class="dropdown-item" href="#">Something else here</a>
+						    <a class="dropdown-item" href="javascript:void(0)">Action</a>
+						    <a class="dropdown-item" href="javascript:void(0)">Another action</a>
+						    <a class="dropdown-item" href="javascript:void(0)">Something else here</a>
 					  	</div>
 					</div>
 				</div>
@@ -148,8 +139,10 @@
 					<div class="plan_wraper">
 						@foreach($productData as $product)
 							<?php 
-								$gasData = $product->product_gas;
-								$electricityData = $product->product_electricty;
+								// $gasData = $product->product_gas;
+								// $electricityData = $product->product_electricty;
+								$gasData = (!empty($request['eneryType']) && ($request['eneryType'] == 'gas' || $request['eneryType'] == 'gas_electricity')) ? $product->product_gas : [];
+								$electricityData = (!empty($request['eneryType']) && $request['eneryType'] == 'gas_electricity') ? $product->product_electricty : [];
 							?>
 							@if($gasData || $electricityData)
 								<div class="plane_list_wrapper">
@@ -159,7 +152,7 @@
 										<h6>{{$product->company->name}}</h6>
 									</div>
 									<div class="list_container_first ">
-										<h4>{{$product->name}}</h4>
+										<h4>{{$product->name}} <!-- <a href="javascript:void(0)"><i class="fas fa-share"></i></a> --></h4>
 										<ul class="reward_facilities">
 											@forelse ($product->feature as $featureData)
 												<li>{{$featureData->title}}</li>
@@ -175,15 +168,15 @@
 									<div class="res-planheading"><h5>Price/year <span>(estimated^)</span></h5></div>
 									<div class="list_amount">
 										@if($gasData)
-										<div class="list_amount_inner">
-											<div class="price_compare">
-												<span><img src="{{asset('forntEnd/images/fire-icon.png')}}">Gas</span>
-												<h2>{{$gasData->title}}</h2>
+											<div class="list_amount_inner">
+												<div class="price_compare">
+													<span><img src="{{asset('forntEnd/images/fire-icon.png')}}">Gas</span>
+													<h2>{{$gasData->title}}</h2>
+												</div>
+												<div class="price_amount">
+													<h2>$ {{moneyFormat($gasData->price)}}</h2>
+												</div>
 											</div>
-											<div class="price_amount">
-												<h2>$ {{moneyFormat($gasData->price)}}</h2>
-											</div>
-										</div>
 										@endif
 										@if($electricityData)
 											<div class="list_amount_inner">
@@ -194,10 +187,10 @@
 												</div>
 												<div class="price_amount">
 													<h2>${{moneyFormat($electricityData->price)}}</h2>
-													<a href="{{route('plan.details',$product->id)}}" class="blue-btm">EXPLORE <span><i class="fas fa-arrow-circle-right"></i></span></a>
 												</div>
 											</div>
 										@endif
+										<a href="{{route('product.details',$product->id)}}" class="blue-btm">EXPLORE <span><i class="fas fa-arrow-circle-right"></i></span></a>
 									</div>
 									<div class="plan_info">
 										<p>{{$product->tag}} <img src="{{asset('forntEnd/images/question.png')}}"></p>

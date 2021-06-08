@@ -94,9 +94,22 @@ class AdminController extends Controller
 /****************************** Contact Us ******************************/
 	public function contactUs(Request $req)
 	{
-		$contactUs = ContactUs::orderBy('id','desc')->get();
+		$contactUs = ContactUs::orderBy('contactedBy','ASC')->get();
 		return view('admin.reports.contact',compact('contactUs'));
 	}
+
+    public function saveRemarkOfContactUs(Request $req)
+    {
+        $req->validate([
+            'contactUsId' => 'required|min:1|numeric',
+            'remark' => 'required|max:200|string',
+        ]);
+        $contact = ContactUs::where('id',$req->contactUsId)->first();
+        $contact->contactedBy = auth()->user()->id;
+        $contact->remarks = $req->remark;
+        $contact->save();
+        return back()->with('Success','Remarks Saved Success');
+    }
 
 /****************************** Blog Category ******************************/
     public function blogsCategory(Request $req)

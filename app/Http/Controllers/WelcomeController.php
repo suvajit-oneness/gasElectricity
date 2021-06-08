@@ -94,20 +94,26 @@ class WelcomeController extends Controller
 
     public function getPlanlistingData(Request $req)
     {
-        $productData = Product::paginate(8);
+        $productData = Product::select('*');
+        if(!empty($req->productId)){
+            $productData = $productData->where('id',$req->productId);
+        }
+        $productData = $productData->paginate(3);
         return $productData;
     }
 
     public function productListingwithAuth(Request $req)
     {
         $productData = $this->getPlanlistingData($req);
-        return view('frontend.listing.productWithAuth', compact('productData'));
+        $request = $req->all();
+        return view('frontend.listing.productWithAuth', compact('productData','request'));
     }
 
     public function productListingwithoutAuth(Request $req)
     {
         $productData = $this->getPlanlistingData($req);
-        return view('frontend.listing.productWithoutAuth', compact('productData'));
+        $request = $req->all();
+        return view('frontend.listing.productWithoutAuth', compact('productData','request'));
     }
 
     public function productDetails(Request $req,$planId)
@@ -125,6 +131,8 @@ class WelcomeController extends Controller
     {
         $data = (object)[];
         $data->whychooseus = Setting::where('key','whychooseus')->get();
+        $data->compareallSupplier = Setting::where('key','wecomparealloftheseenegysupplier')->get();
+        $data->state = State::where('countryId',2)->get();
         return view('frontend.forms.indivisualStates',compact('data'));
     }
 
