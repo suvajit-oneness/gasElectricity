@@ -26,10 +26,10 @@ class CreateProductFeaturesTable extends Migration
         });
         $feature = [];
         for ($i=0; $i < 8; $i++) { 
-            $feature[] = ['product_id' => $i+1,'title' => 'Sign Up & get up to 10K Everyday Rewards Points','description' => ''];
-            $feature[] = ['product_id' => $i+1,'title' => '1 point for every $1 charged on your bill (T&Cs)','description' => ''];
-            $feature[] = ['product_id' => $i+1,'title' => 'Includes 25% GreenPower','description' => ''];
-            $feature[] = ['product_id' => $i+1,'title' => '5,000 Everyday Rewards points + 1 point for every $1 billed.','description' => ''];
+            $feature[] = ['product_id' => $i+1,'title' => 'Sign Up & get up to 10K Everyday Rewards Points','description' => 'Momentum Energy has ditched discounting in favour of delivering simple rates you can easily understand. With zero cheeky conditions and zero catches, it’s transparent and simple.'];
+            $feature[] = ['product_id' => $i+1,'title' => '1 point for every $1 charged on your bill (T&Cs)','description' => 'Momentum Energy has ditched discounting in favour of delivering simple rates you can easily understand. With zero cheeky conditions and zero catches, it’s transparent and simple.'];
+            $feature[] = ['product_id' => $i+1,'title' => 'Includes 25% GreenPower','description' => 'Momentum Energy has ditched discounting in favour of delivering simple rates you can easily understand. With zero cheeky conditions and zero catches, it’s transparent and simple.'];
+            $feature[] = ['product_id' => $i+1,'title' => '5,000 Everyday Rewards points + 1 point for every $1 billed.','description' => 'Momentum Energy has ditched discounting in favour of delivering simple rates you can easily understand. With zero cheeky conditions and zero catches, it’s transparent and simple.'];
         }
         DB::table('product_features')->insert($feature);
     }

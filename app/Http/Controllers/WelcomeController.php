@@ -84,12 +84,12 @@ class WelcomeController extends Controller
         return back()->withErrors($sucess);
     }
 
-    public function planListing(Request $req)
+    public function productListing(Request $req)
     {
         if(auth()->user())
-            return $this->planListingwithAuth($req);
+            return $this->productListingwithAuth($req);
         else
-            return $this->planListingwithoutAuth($req);
+            return $this->productListingwithoutAuth($req);
     }
 
     public function getPlanlistingData(Request $req)
@@ -98,22 +98,22 @@ class WelcomeController extends Controller
         return $productData;
     }
 
-    public function planListingwithoutAuth(Request $req)
+    public function productListingwithAuth(Request $req)
     {
         $productData = $this->getPlanlistingData($req);
-        return view('frontend.listing.planWithoutAuth', compact('productData'));
+        return view('frontend.listing.productWithAuth', compact('productData'));
     }
 
-    public function planListingwithAuth(Request $req)
+    public function productListingwithoutAuth(Request $req)
     {
         $productData = $this->getPlanlistingData($req);
-        return view('frontend.listing.planWithAuth', compact('productData'));
+        return view('frontend.listing.productWithoutAuth', compact('productData'));
     }
 
-    public function planDetails(Request $req,$planId)
+    public function productDetails(Request $req,$planId)
     {
         $productData = Product::findOrFail($planId);
-        return view('frontend.listing.plan_details', compact('productData'));
+        return view('frontend.listing.product_details', compact('productData'));
     }
 
     public function electricityForm(Request $req)

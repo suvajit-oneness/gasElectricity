@@ -18,6 +18,17 @@
 		return !empty($string) ? $string : '';
 	}
 
+	function findAVG($ratingsList)
+	{
+		// dd($ratingsList);
+		$rating = 0;$counter = 1;
+		foreach($ratingsList as $key => $rate){
+			if($key != 0){$counter++;}
+			$rating += $rate->rating;
+		}
+		return number_format($rating/$counter,2);
+	}
+
 	function randomGenerator()
 	{
 		return uniqid().''.date('ymdhis').''.uniqid();

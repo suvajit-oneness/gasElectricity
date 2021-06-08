@@ -224,7 +224,7 @@
 @section('script')
     <script type="text/javascript">
     	$(document).on('click','#searchBtnCompareNow',function(){
-    		var URL = "{{route('plan.listing')}}",keyword = $('#searchCompareNow').val();
+    		var URL = "{{route('product.listing')}}",keyword = $('#searchCompareNow').val();
     		var redirectURL = URL+'?search='+keyword;
     		window.location.href = redirectURL;
     	});

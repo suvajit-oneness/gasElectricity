@@ -1,5 +1,5 @@
 @extends('frontend.layouts.master')
-@section('title','About Us')
+@section('title','Product Details')
 @section('content')
 	
 <section class="state_banner">
@@ -11,33 +11,15 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-12">
-				<h2 class="feature_heading text-center">Lorem Ipsum</h2>
+				<h2 class="feature_heading text-center">{{$productData->name}}</h2>
 				<h4 class="feature_subheading text-center">Features</h4>
 				<ul class="feature_list">
-					<li>
-						<h6>No confusing discounts. Just great rates.</h6>
-						<p>Momentum Energy has ditched discounting in favour of delivering simple rates you can easily understand. With zero cheeky conditions and zero catches, it’s transparent and simple.</p>
-					</li>
-					<li>
-						<h6>No confusing discounts. Just great rates.</h6>
-						<p>Momentum Energy has ditched discounting in favour of delivering simple rates you can easily understand. With zero cheeky conditions and zero catches, it’s transparent and simple.</p>
-					</li>
-					<li>
-						<h6>No confusing discounts. Just great rates.</h6>
-						<p>Momentum Energy has ditched discounting in favour of delivering simple rates you can easily understand. With zero cheeky conditions and zero catches, it’s transparent and simple.</p>
-					</li>
-					<li>
-						<h6>No confusing discounts. Just great rates.</h6>
-						<p>Momentum Energy has ditched discounting in favour of delivering simple rates you can easily understand. With zero cheeky conditions and zero catches, it’s transparent and simple.</p>
-					</li>
-					<li>
-						<h6>No confusing discounts. Just great rates.</h6>
-						<p>Momentum Energy has ditched discounting in favour of delivering simple rates you can easily understand. With zero cheeky conditions and zero catches, it’s transparent and simple.</p>
-					</li>
-					<li>
-						<h6>No confusing discounts. Just great rates.</h6>
-						<p>Momentum Energy has ditched discounting in favour of delivering simple rates you can easily understand. With zero cheeky conditions and zero catches, it’s transparent and simple.</p>
-					</li>
+					@foreach($productData->feature as $feature)
+						<li>
+							<h6>{{$feature->title}}</h6>
+							<p>{{$feature->description}}</p>
+						</li>
+					@endforeach
 				</ul>
 			</div>
 		</div>
@@ -80,16 +62,10 @@
 				</li>
 				<li class="plan_price_info">
 					<ul>
-						<li><p>Contract Exit Fee</p></li>
-						<li><p>No Exit Fees.</p></li>
-						<li><p>Dishonoured Payment</p>
-							<h6>Fee</h6>
-						</li>
-						<li><p>Nil</p></li>
-						<li><p>Card Payment</p>
-							<h6>Fee</h6>
-						</li>
-						<li><p>No Credit Card Fees.</p></li>
+						@foreach($productData->product_discount as $discount)
+							<li><p>{{$discount->title}}</p></li>
+							<li><p>{{$discount->description}}</p></li>
+						@endforeach
 					</ul>
 				</li>
 			</ul>
@@ -166,16 +142,18 @@
 	</div>
 </section>
 
-<section class="terms_condition_wrap">
-	<div class="container">
-		<div class="row">
-			<div class="col-12">
-				<p class="terms_title">Terms and conditions - <a href="#">click here</a></p>
-				<p>When moving home your new provider will organise your initial meter read, this may incur a connection fee which will be appear on your first energy bill. You may also be charged a disconnection fee from your current provider if you are moving out.</p>
+@if($productData->terms_condition != '')
+	<section class="terms_condition_wrap">
+		<div class="container">
+			<div class="row">
+				<div class="col-12">
+					<p class="terms_title">Terms and conditions - <a href="{{$productData->terms_condition}}" target="_blank">click here</a></p>
+					<p>When moving home your new provider will organise your initial meter read, this may incur a connection fee which will be appear on your first energy bill. You may also be charged a disconnection fee from your current provider if you are moving out.</p>
+				</div>
 			</div>
 		</div>
-	</div>
-</section>
+	</section>
+@endif
 
 @section('script')
     <script type="text/javascript"></script>

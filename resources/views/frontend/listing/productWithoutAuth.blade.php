@@ -38,76 +38,9 @@
 </style>
 @endsection
 @section('content')
-
 <section class="plan_listing_wraper">
 	<div class="container">
 		<div class="row align-items-center">
-			<div class="col-12">
-				<h2 class="listing_wrap_title">Compare Electricity Plans: 4000 QLD</h2>
-				<div class="energy_select_box">
-					<p>Energy type</p>
-					<div class="custom-control custom-radio">
-					  <input type="radio" id="customRadio1" name="customRadio" class="custom-control-input">
-					  <label class="custom-control-label" for="customRadio1">Gas & Electricity</label>
-					</div>
-				</div>
-
-				<div class="your-search">
-					<div class="top-panel-search">
-						<h4>Your Search</h4>
-						<div class="right-toggle">
-							<p>*Product info updated frequently</p>
-							<span>^ See Important Notes</span>
-						</div>
-					</div>
-					<div class="search-panel">
-						<p>The below offers are based on a residential customer who consumes <span> 4,600 kWh / year </span> on a single rate tariff in the <span> SWITCHR </span> network. The lowest annual price is displayed for each offer. Your bill will differ, based on your actual usage.</p>
-						<a href="javascript:void(0)" class="toggle_down">Edit your postcode/suburb, distributor and controlled load <span><img src="{{asset('forntEnd/images/arrow-down.png')}}"></span></a>
-						<div class="select-four">
-							<div class="select-box-one">
-								<select name="option">
-									<option value="">Don't mind</option>
-									<option value="">option2</option>
-								</select>
-								<div class="select-box-one-content">
-									<p>Contract length</p>
-								</div>
-								<img src="{{asset('forntEnd/images/double-arrow-down.png')}}">
-							</div>
-							<div class="select-box-one select-box-one-mod-two">
-								<select name="option">
-									<option value="">Don't mind</option>
-									<option value="">option2</option>
-								</select>
-								<div class="select-box-one-content">
-									<p>Conditional discounts</p>
-								</div>
-								<img src="{{asset('forntEnd/images/double-arrow-down.png')}}">
-							</div>
-							<div class="select-box-one select-box-one-mod-three">
-								<select name="option">
-									<option value="">Don't mind</option>
-									<option value="">option2</option>
-								</select>
-								<div class="select-box-one-content">
-									<p>Billing frequency</p>
-								</div>
-								<img src="{{asset('forntEnd/images/double-arrow-down.png')}}">
-							</div>
-							<div class="select-box-one select-box-one-mod-four">
-								<select name="option">
-									<option value="">Don't mind</option>
-									<option value="">option2</option>
-								</select>
-								<div class="select-box-one-content">
-									<p>Payment methods</p>
-								</div>
-								<img src="{{asset('forntEnd/images/double-arrow-down.png')}}">
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
 			<div class="col-12 col-md-7">
 				<div class="custom-control custom-checkbox custom-control-mod">
 			        <input type="checkbox" class="custom-control-input" id="customControlAutosizing">
@@ -121,7 +54,6 @@
 					</div>
 					<div class="dropdown filter_selected">
 					  	<a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><p><span>Sorted by:</span>Value Score</p> <img src="{{asset('forntEnd/images/double-arrow-down.png')}}"></a>
-
 					 	<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 						    <a class="dropdown-item" href="#">Action</a>
 						    <a class="dropdown-item" href="#">Another action</a>
@@ -146,7 +78,7 @@
 						<a href="javascript:void(0)" class="close-panel">CLOSE</a>
 					</div>
 					<div class="plan_wraper">
-						@foreach($productData as $product)
+						@foreach ($productData as $key => $product)
 							<?php 
 								$gasData = $product->product_gas;
 								$electricityData = $product->product_electricty;
@@ -154,11 +86,7 @@
 							@if($gasData || $electricityData)
 								<div class="plane_list_wrapper">
 									<div class="res-planheading"><h5>Plan <span>and highlights</span></h5></div>
-									<div class="plan_icon_wrap">
-										<img src="{{$product->company->logo}}">
-										<h6>{{$product->company->name}}</h6>
-									</div>
-									<div class="list_container_first ">
+									<div class="list_container_first wid-pad">
 										<h4>{{$product->name}}</h4>
 										<ul class="reward_facilities">
 											@forelse ($product->feature as $featureData)
@@ -167,23 +95,27 @@
 												<li>N/A</li>
 											@endforelse
 										</ul>
+										<div class="plan_info">
+											<p>{{$product->tag}} <img src="{{asset('forntEnd/images/question.png')}}"></p>
+										</div>
 									</div>
 									<div class="plan_value">
-										<h4>Value <span>(out of 10)</span></h4>
-										<img src="{{asset('forntEnd/images/rating.png')}}">
+										<h4>Rating <span>({{findAVG($product->product_rating)}} out of 5)</span></h4>
+										<!-- <img src="{{asset('forntEnd/images/rating.png')}}"> -->
 									</div>
+
 									<div class="res-planheading"><h5>Price/year <span>(estimated^)</span></h5></div>
-									<div class="list_amount">
+									<div class="list_amount mb-0">
 										@if($gasData)
-										<div class="list_amount_inner">
-											<div class="price_compare">
-												<span><img src="{{asset('forntEnd/images/fire-icon.png')}}">Gas</span>
-												<h2>{{$gasData->title}}</h2>
+											<div class="list_amount_inner">
+												<div class="price_compare">
+													<span><img src="{{asset('forntEnd/images/fire-icon.png')}}">Gas</span>
+													<h2>{{$gasData->title}}</h2>
+												</div>
+												<div class="price_amount">
+													<h2>$ {{moneyFormat($gasData->price)}}</h2>
+												</div>
 											</div>
-											<div class="price_amount">
-												<h2>$ {{moneyFormat($gasData->price)}}</h2>
-											</div>
-										</div>
 										@endif
 										@if($electricityData)
 											<div class="list_amount_inner">
@@ -193,20 +125,18 @@
 													<p>than reference price</p>
 												</div>
 												<div class="price_amount">
-													<h2>${{moneyFormat($electricityData->price)}}</h2>
-													<a href="{{route('plan.details',$product->id)}}" class="blue-btm">EXPLORE <span><i class="fas fa-arrow-circle-right"></i></span></a>
+													<h2>$ {{moneyFormat($electricityData->price)}}</h2>
+													<a href="{{route('product.details',$product->id)}}" class="blue-btm">EXPLORE <span><i class="fas fa-arrow-circle-right"></i></span></a>
 												</div>
 											</div>
 										@endif
-									</div>
-									<div class="plan_info">
-										<p>{{$product->tag}} <img src="{{asset('forntEnd/images/question.png')}}"></p>
 									</div>
 								</div>
 							@endif
 						@endforeach
 					</div>
-					<ul class="plan_pagination mx-auto">
+
+					<ul class="plan_pagination justify-content-end">
 						{!!$productData->links()!!}
 					</ul>
 				</div>
@@ -232,6 +162,17 @@
 </section>
 
 @section('script')
-    <script type="text/javascript"></script>
+    <script type="text/javascript">
+    	$(document).ready(function(){
+	  		$(".trigger").click(function(){
+	    		$(".note_content").slideToggle("fast");
+	  		});
+		});
+		$(document).ready(function(){
+	  		$(".close-panel").click(function(){
+	    		$(".plan_wraper").slideToggle("fast");
+	  		});
+		});
+    </script>
 @stop
 @endsection

@@ -25,4 +25,14 @@ class Product extends Model
     {
     	return $this->hasOne('App\Model\ProductElectricity','product_id','id');
     }
+
+    public function product_rating()
+    {
+        return $this->hasMany('App\Model\ProductRating','product_id','id');
+    }
+
+    public function product_discount()
+    {
+        return $this->hasMany('App\Model\ProductDiscount','productId','id');
+    }
 }
