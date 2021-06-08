@@ -3,15 +3,21 @@
 @section('content')
 <div class="sticky_social_icon">
 	<ul>
-		<li>
-			<a href="javascript:void(0)"><img src="{{asset('forntEnd/images/twitter.png')}}"></a>
-		</li>
-		<li>
-			<a href="javascript:void(0)"><img src="{{asset('forntEnd/images/linkedin.png')}}"></a>
-		</li>
-		<li>
-			<a href="javascript:void(0)"><img src="{{asset('forntEnd/images/youtube.png')}}"></a>
-		</li>
+		@if($contact->facebook != '')
+			<li>
+				<a href="{{$contact->facebook}}" target="_blank"><img src="{{asset('forntEnd/images/facebook.png')}}"></a>
+			</li>
+		@endif
+		@if($contact->linkedin != '')
+			<li>
+				<a href="{{$contact->linkedin}}" target="_blank"><img src="{{asset('forntEnd/images/linkedin.png')}}"></a>
+			</li>
+		@endif
+		@if($contact->youtube != '')
+			<li>
+				<a href="{{$contact->youtube}}" target="_blank"><img src="{{asset('forntEnd/images/youtube.png')}}"></a>
+			</li>
+		@endif
 	</ul>
 </div>
 
@@ -52,22 +58,22 @@
 	</div>
 </section>
 
+@if(count($data->compareallSupplier) > 0)
 <section class="logo-slider">
 	<div class="heading-place">
 		<strong>We compare all of these energy suppliers</strong>
 	</div>
 	<div class="logo-scroll">
 		<div class="slide-logo">
-			<div class="logo-area"><img src="{{asset('forntEnd/images/tango.png')}}"/></div>
-			<div class="logo-area"><img src="{{asset('forntEnd/images/dodo.png')}}"></div>
-			<div class="logo-area"><img src="{{asset('forntEnd/images/simplyenergy.png')}}"></div>
-			<div class="logo-area"><img src="{{asset('forntEnd/images/sumo.png')}}"></div>
-			<div class="logo-area"><img src="{{asset('forntEnd/images/sumo.png')}}"></div>
-			<div class="logo-area"><img src="{{asset('forntEnd/images/sumo.png')}}"></div>
+			@foreach($data->compareallSupplier as $compareallSupplier)
+				<div class="logo-area"><img src="{{asset($compareallSupplier->image)}}"/></div>
+			@endforeach
 		</div>
 	</div>
 </section>
+@endif
 
+@if(count($data->whatWeProvide) > 0)
 <section class="what-provide">
 	<div class="provide-image">
 		<img src="{{asset('forntEnd/images/bulb.png')}}" class="img-fluid">
@@ -77,41 +83,22 @@
 		<p>It’s never been simpler to switch energy providers and save. It takes 5 mins to compare your electricity and gas rates with Econnex</p>
 
 		<ul class="provide-list">
-			<li>
-				<div class="provide-icon">
-					<img src="{{asset('forntEnd/images/pro-icon-1.png')}}">
-				</div>
-				<div class="provide-text">
-					<h4>Panel of Providers</h4>
-					<p>Compare Energy Prices, Rates & Tariffs across our panel of TOP retailers – EnergyAustralia, AGL, Origin Energy, Alinta Energy, Powershop and much more.</p>
-				</div>
-			</li>
-
-			<li>
-				<div class="provide-icon">
-					<img src="{{asset('forntEnd/images/pro-icon-2.png')}}">
-				</div>
-				<div class="provide-text">
-					<h4>FREE Energy Comparison</h4>
-					<p>There is no obligation to sign up, our electricity and gas comparison service is 100% free to use!</p>
-				</div>
-			</li>
-
-			<li>
-				<div class="provide-icon">
-					<img src="{{asset('forntEnd/images/pro-icon-3.png')}}">
-				</div>
-				<div class="provide-text">
-					<h4>Find the Right One</h4>
-					<p>Choose competitive Energy Rates and Plans to make an informed choice. Take advantage of a better energy plan.</p>
-				</div>
-			</li>
-
+			@foreach($data->whatWeProvide as $whatWeProvide)
+				<li>
+					<div class="provide-icon">
+						<img src="{{asset($whatWeProvide->image)}}">
+					</div>
+					<div class="provide-text">
+						<h4>{{$whatWeProvide->title}}</h4>
+						<p>{{$whatWeProvide->description}}</p>
+					</div>
+				</li>
+			@endforeach
 		</ul>
 	</div>
 </section>
-
-<section class="gray-section section-border">
+@endif
+<!-- <section class="gray-section section-border">
 	<div class="container">
 		<h2 class="heading text-center heading-center-border">What we provide</h2>
 		<p class="text-center sub-content">It’s never been simpler to switch energy providers and save.</p>
@@ -143,7 +130,8 @@
 			</li>
 		</ul>
 	</div>
-</section>
+</section> -->
+
 <!-- Testimonial Section -->
 @if(count($data->testimonials) > 0)
 <section class="testimonial-section">
@@ -164,10 +152,10 @@
 </section>
 @endif
 
+@if(count($data->state) > 0)
 <section class="compare-section">
 	<h2 class="heading text-center">Compare by State </h2>
 	<p class="text-center sub-content">Easily compare, select and save on your energy plans</p>
-
 	<div class="map-section">
 		<div class="left-map">
 			<img src="{{asset('forntEnd/images/map.png')}}">
@@ -175,32 +163,17 @@
 		<div class="map-content">
 			<div class="map-content-wrap">
 				<ul>
-					<li>
-						<a href="{{route('electricityform')}}">Energy Comparison – NSW</a>
-					</li>
-					<li>
-						<a href="{{route('electricityform')}}">Energy Comparison SA</a>
-					</li>
-					<li>
-						<a href="{{route('electricityform')}}">Energy Comparison VIC</a>
-					</li>
-					<li>
-						<a href="{{route('electricityform')}}">Energy Comparison ACT</a>
-					</li>
-					<li>
-						<a href="{{route('electricityform')}}">Energy Comparison QLD</a>
-					</li>
-					<li>
-						<a href="{{route('electricityform')}}">Comparison Solar Providers</a>
-					</li>
-					<li>
-						<a href="{{route('electricityform')}}">Comparison Feed in Tariffs</a>
-					</li>
+					@foreach($data->state as $state)
+						<li>
+							<a href="{{route('electricityform')}}">Energy Comparison – {{$state->name}}</a>
+						</li>
+					@endforeach
 				</ul>
 			</div>
 		</div>
 	</div>
 </section>
+@endif
 <!-- Blogs -->
 @if(count($data->blogs) > 0)
 <section class="blog_wraper">

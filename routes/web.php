@@ -21,7 +21,7 @@ Route::group(['prefix'=>'customer','middleware'=>'customer'],function(){
 	require 'customer.php';
 });
 
-Route::get('/','WelcomeController@index');
+Route::get('/','WelcomeController@index')->name('landing.page');
 Route::get('about-us','WelcomeController@aboutUs')->name('aboutus');
 Route::get('how-it-works','WelcomeController@howItWorks')->name('how-it-works');
 Route::get('blogs','WelcomeController@getBlogs')->name('blogs');

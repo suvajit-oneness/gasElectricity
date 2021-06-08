@@ -7,7 +7,7 @@ use App\Model\Testimonials;use App\Model\BlogCategory;
 use App\Model\Faq;use App\Model\Blog;use Auth;
 use App\Model\ContactUs;use App\Model\Membership;
 use App\Model\UserMembership;use App\Model\Setting;
-use App\Model\Product;
+use App\Model\Product;use App\Model\State;
 
 class WelcomeController extends Controller
 {
@@ -17,6 +17,9 @@ class WelcomeController extends Controller
         $data->testimonials = Testimonials::get();
         $data->faq = Faq::get();
         $data->blogs = Blog::limit(5)->get();
+        $data->state = State::where('countryId',2)->get();
+        $data->compareallSupplier = Setting::where('key','wecomparealloftheseenegysupplier')->get();
+        $data->whatWeProvide = Setting::where('key','whatweprovide')->get();
     	return view('welcome',compact('data'));
     }
 
