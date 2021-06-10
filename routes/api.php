@@ -16,3 +16,9 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::group(['prefix'=>'company'],function(){
+    Route::get('/','ControllerName@methosId');
+    Route::get('/format/download','ControllerName@methosId');
+    Route::post('/upload','ControllerName@methosName');
+});
