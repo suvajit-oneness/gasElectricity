@@ -17,8 +17,8 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::group(['prefix'=>'company'],function(){
-    Route::get('/','ControllerName@methosId');
-    Route::get('/format/download','ControllerName@methosId');
-    Route::post('/upload','ControllerName@methosName');
+Route::group(['prefix'=>'membership'],function(){
+    Route::get('/','Api\Csv\MembershipsController@list');
+    Route::get('/format/download','Api\Csv\MembershipsController@getFormat');
+    Route::post('/upload','Api\Csv\MembershipsController@uploadCsv');
 });
