@@ -5,9 +5,9 @@ namespace App\Http\Controllers\Api\Csv;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Model\Membership;
-class MembershipsController extends Controller
+class UploadController extends Controller
 {
-    public function list()
+    public function getMembership()
     {
         $header = ['Title', 'Description', 'Price', 'Duration( in year )'];
     	$title = 'Membership List';
@@ -28,7 +28,7 @@ class MembershipsController extends Controller
     	header('Content-Disposition: attachment; filename="'.$title.'.csv'.'";');
     	fpassthru($f);
     }
-    public function getFormat()
+    public function getMembershipFormat()
     {
         $header = ['Title', 'Description', 'Price', 'Duration( in year )'];
     	$title = 'Membership List';
@@ -39,7 +39,7 @@ class MembershipsController extends Controller
     	header('Content-Disposition: attachment; filename="'.$title.'.csv'.'";');
     	fpassthru($f);
     }
-    public function uploadCsv(Request $req)
+    public function uploadMembership(Request $req)
     {
         if($req->hasFile('membership_csv')){
             $extension= ['csv'];
