@@ -18,7 +18,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 Route::group(['prefix'=>'membership'],function(){
-    Route::get('/','Api\Upload\UploadController@getMembership');
-    Route::get('/format/download','Api\Upload\UploadController@getMembershipFormat');
+    Route::get('/','Api\Upload\UploadController@memberShipFormat');
+    Route::get('/format/download','Api\Upload\UploadController@memberShipFormat');
     Route::post('/upload','Api\Upload\UploadController@uploadMembership');
 });

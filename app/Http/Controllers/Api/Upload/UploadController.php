@@ -7,38 +7,30 @@ use App\Http\Controllers\Controller;
 use App\Model\Membership;
 class UploadController extends Controller
 {
-    public function getMembership()
+    public function memberShipFormat(Request $req,$data=false)
     {
         $header = ['Title', 'Description', 'Price', 'Duration( in year )'];
-    	$title = 'Membership List';
-    	$f = fopen('php://memory', 'w');
-    	fputcsv($f, $header, ',');
-        $memberships = Membership::where('is_active', 1)->get();
-    	foreach ($memberships as $val) {
-    		$lineData = [
-                $val->title,
-                $val->description,
-                $val->price,
-                $val->duration,
-            ];
-    		fputcsv($f, $lineData, ',');
-    	}
-    	fseek($f, 0);
-    	header('Content-Type: text/csv');
-    	header('Content-Disposition: attachment; filename="'.$title.'.csv'.'";');
-    	fpassthru($f);
+        $title = 'Membership_List';
+        $f = fopen('php://memory', 'w');
+        fputcsv($f, $header, ',');
+        if($data == true){
+            $memberships = Membership::where('is_active', 1)->get();
+            foreach ($memberships as $val) {
+                $lineData = [
+                    $val->title,
+                    $val->description,
+                    $val->price,
+                    $val->duration,
+                ];
+                fputcsv($f, $lineData, ',');
+            }
+        }
+        fseek($f, 0);
+        header('Content-Type: text/csv');
+        header('Content-Disposition: attachment; filename="'.$title.'.csv'.'";');
+        fpassthru($f);
     }
-    public function getMembershipFormat()
-    {
-        $header = ['Title', 'Description', 'Price', 'Duration( in year )'];
-    	$title = 'Membership List';
-    	$f = fopen('php://memory', 'w');
-    	fputcsv($f, $header, ',');
-    	fseek($f, 0);
-    	header('Content-Type: text/csv');
-    	header('Content-Disposition: attachment; filename="'.$title.'.csv'.'";');
-    	fpassthru($f);
-    }
+
     public function uploadMembership(Request $req)
     {
         if($req->hasFile('membership_csv')){
