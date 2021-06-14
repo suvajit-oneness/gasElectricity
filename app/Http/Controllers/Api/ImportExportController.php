@@ -129,7 +129,7 @@ class ImportExportController extends Controller
                         }
                     }
                 }
-                // \DB::commit();
+                \DB::commit();
                 return successResponse('Company Imported Success',$response);
             } catch (Exception $e) {
                 \DB::rollback();
