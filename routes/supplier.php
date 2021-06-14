@@ -43,4 +43,9 @@
 		Route::post('/update','Supplier\SupplierController@addOrUpdateState')->name('admin.state.update');
 		Route::get('{stateId}/delete','Supplier\SupplierController@deleteState')->name('admin.state.delete');
 	});
+
+	// Forms
+	Route::group(['prefix' => 'setting/form'],function(){
+		Route::get('/','Supplier\SupplierController@supplierForm')->name('supplier.setting.form');
+	});
  ?>

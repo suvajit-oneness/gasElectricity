@@ -8,10 +8,15 @@ use App\Model\State;use App\Model\Country;
 
 class SupplierController extends Controller
 {
+
+    public function supplierForm(Request $req)
+    {
+        return view('supplier.setting.form');
+    }
+
     public function states(Request $req)
     {
         $state = State::where('countryId',2)->with('country')->get();
-        // dd($state);
         return view('supplier.state',compact('state'));
     }
 

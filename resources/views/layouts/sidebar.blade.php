@@ -88,6 +88,16 @@
                         <li class="nav-item">
                             <a class="nav-link {{request()->routeIs('supplier.products')?'active':''}}" href="{{route('supplier.products')}}"><i class="fa fa-fw fa-user-circle"></i>Products</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="javascript:void(0)" data-toggle="collapse" aria-expanded="{{request()->routeIs('supplier.setting.*')?'true':'false'}}" data-target="#supplierSettings-6" aria-controls="supplierSettings-6"><i class="fas fa-fw fa-file"></i> Settings </a>
+                            <div id="supplierSettings-6" class="collapse submenu {{request()->routeIs('supplier.setting.*')?'show':''}}">
+                                <ul class="nav flex-column">
+                                    <li class="nav-item {{request()->routeIs('supplier.setting.form')?'active':''}}">
+                                        <a class="nav-link" href="{{route('supplier.setting.form')}}">Forms</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </li>
                     <!-- Supplier Sidebar End-->
                     <!-- Customer Sidebar -->
                     @elseif(Auth::user()->user_type == 3)
