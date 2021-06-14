@@ -17,8 +17,19 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::group(['prefix'=>'membership'],function(){
-    Route::get('/','Api\Upload\UploadController@memberShipFormat');
-    Route::get('/format/download','Api\Upload\UploadController@memberShipFormat');
-    Route::post('/upload','Api\Upload\UploadController@uploadMembership');
+// Import-Export Apis
+Route::group(['prefix' => 'import-export'],function(){
+    // Membership
+    Route::group(['prefix' => 'membership'],function(){
+        Route::get('export/format','API\ImportExportController@exportMemberShip');
+        Route::get('export/data','API\ImportExportController@exportMemberShipWithData');
+        Route::post('import/data','API\ImportExportController@importMembershipWithData');
+    });
+    // Company
+    Route::group(['prefix' => 'company'],function(){
+        Route::get('export/format','API\ImportExportController@exportCompany');
+        Route::get('export/data','API\ImportExportController@exportCompanyWithData');
+        Route::post('import/data','API\ImportExportController@importCompanyWithData');
+    });
+
 });
