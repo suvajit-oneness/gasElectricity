@@ -47,5 +47,6 @@
 	// Forms
 	Route::group(['prefix' => 'setting/form'],function(){
 		Route::get('/','Supplier\SupplierController@supplierForm')->name('supplier.setting.form');
+		Route::post('/update','Supplier\SupplierController@updateSupplierForm')->name('supplier.setting.form.update');
 	});
  ?>
