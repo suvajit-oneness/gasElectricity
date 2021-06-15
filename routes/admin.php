@@ -39,6 +39,26 @@
 
 		Route::post('/feature/{featureId}/delete','Admin\AdminController@deleteProductFeature')->name('admin.products.feature.delete');
 		/********** Product Features End ********/
+
+		/********** Product Momenta ********/
+		Route::get('{productId}/momenta','Admin\AdminController@productMomenta')->name('admin.product.momenta')->where('productId','[0-9]+');
+		
+		Route::post('/{productId}/momenta/save','Admin\AdminController@saveProductMomenta')->name('admin.products.momenta.save');
+
+		Route::post('{productId}/momenta/{momentaId}/update','Admin\AdminController@updateProductMomenta')->name('admin.product.momenta.update')->where('productId','[0-9]+')->where('momentaId','[0-9]+');
+
+		Route::post('/momenta/{momentaId}/delete','Admin\AdminController@deleteProductMomenta')->name('admin.products.momenta.delete');
+		/********** Product Momenta End ********/
+		
+		/********** Product Discount ********/
+		Route::get('{productId}/discount','Admin\AdminController@productDiscount')->name('admin.product.discount')->where('productId','[0-9]+');
+		
+		Route::post('/{productId}/discount/save','Admin\AdminController@saveProductDiscount')->name('admin.products.discount.save');
+
+		Route::post('{productId}/discount/{discountId}/update','Admin\AdminController@updateProductDiscount')->name('admin.product.discount.update')->where('productId','[0-9]+')->where('discountId','[0-9]+');
+
+		Route::post('/discount/{discountId}/delete','Admin\AdminController@deleteProductDiscount')->name('admin.products.discount.delete');
+		/********** Product Discount End ********/
 	});
 	
 	// States

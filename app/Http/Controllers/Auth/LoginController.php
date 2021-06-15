@@ -68,7 +68,8 @@ class LoginController extends Controller
                 }
                 if($userVerified){
                     auth()->login($user);
-                    return redirect('/home');
+                    // return redirect('/home');
+                    return redirect()->intended('/home');
                 }
             }else{
                 $errors['email'] = 'this account has been blocked';
