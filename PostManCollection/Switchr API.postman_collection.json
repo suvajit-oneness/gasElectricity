@@ -1,0 +1,205 @@
+{
+	"info": {
+		"_postman_id": "18a4c5e0-7ef6-47b0-be42-ddc24a4555e2",
+		"name": "Switchr API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Blog",
+			"item": [
+				{
+					"name": "Category",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{local_url}}/get/blog/category",
+							"host": [
+								"{{local_url}}"
+							],
+							"path": [
+								"get",
+								"blog",
+								"category"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "List by category",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{local_url}}/get/blog?categoryId=7",
+							"host": [
+								"{{local_url}}"
+							],
+							"path": [
+								"get",
+								"blog"
+							],
+							"query": [
+								{
+									"key": "categoryId",
+									"value": "7"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "State",
+			"item": [
+				{
+					"name": "List",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{local_url}}/get/state?countryId=1",
+							"host": [
+								"{{local_url}}"
+							],
+							"path": [
+								"get",
+								"state"
+							],
+							"query": [
+								{
+									"key": "countryId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User Point",
+			"item": [
+				{
+					"name": "Point Details",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjQ4Mzg5NjgzNmQ3NTY1ZDU2YzcyY2I3MzI1ZGRlMDgwNGE4M2Q4MTE3ZWNkOTdkZDM3ZjI1ZjY4N2FkYjQwZTBkZTk2NWE2MDkyMTIxNmYwIn0.eyJhdWQiOiIxIiwianRpIjoiNDgzODk2ODM2ZDc1NjVkNTZjNzJjYjczMjVkZGUwODA0YTgzZDgxMTdlY2Q5N2RkMzdmMjVmNjg3YWRiNDBlMGRlOTY1YTYwOTIxMjE2ZjAiLCJpYXQiOjE2MjM4NDg3MDEsIm5iZiI6MTYyMzg0ODcwMSwiZXhwIjoxNjU1Mzg0NzAxLCJzdWIiOiIzIiwic2NvcGVzIjpbXX0.agkG9l16Zs71scwc4Yak8dR0eFMlwX_rreqoZvJJdB8lIBQ_8bJ5eCHfbTjKl1qIlBxDeJ2xbiqD35C4FbUNysB5mY2e1mEFJnGcQbU8qrvk2jTzj6hELL4AG71Odis9gxpwxTlkuh3v9GQLlPf9NypUvUhpOBF0e6yQhvxR4BCagugqpYXQmjjY9N5_5jikc2gvwgJ4864yQoTt6WLQmEzuIke0uD8BwsLZadb9IHbHus-ffuKhKURDR7_wUYIPDBNOxWv1DFinl74SjQmvbeQsBOhKF8RR27pz1AKXEQT5o0Uq5CJWOcLVF4aTw8myPu_qQAOYBVbb02cxRCX0c12SrNSZAP5tIP2KWkray2cEz0YOX8F4rp5dtPNiIzGM49UYt148gzGYymJfZyIRpDo3jbzsD35nWW2sWz_esGUgFeIbznAzcN3g4OoPi5PbA9RjzrQ7I_jHE7WffLmuB6QR7iUf0oIYcBUSaJ_ldyM4nirtthajWCkedIZbfExqyQFBQMCFfw6NLGODBiGP4D0WO8LoFY21D2rz8cmYxQ-16Z-5Xd559VgCWvn7rcZharfyozEgBv_Ib2B0puKWkq9DIvKUtGjNoRK4PNC-2jigbvHrwmVCrV0aKGcAZ0nNKTHj7nVbaKRjw9lLXVbUDQ7K6XDqlYL_CXGKHIsLRZM",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{local_url}}/get/user/point",
+							"host": [
+								"{{local_url}}"
+							],
+							"path": [
+								"get",
+								"user",
+								"point"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Product",
+			"item": [
+				{
+					"name": "List",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{local_url}}/get/product?productId=1",
+							"host": [
+								"{{local_url}}"
+							],
+							"path": [
+								"get",
+								"product"
+							],
+							"query": [
+								{
+									"key": "productId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User Auth",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "email",
+									"value": "customer@customer.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "secret",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{local_url}}/login",
+							"host": [
+								"{{local_url}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjkwZDg0YmQ5NzIwZTExMTI4YThmZWRiZjkxOWM1ZTM3ZGJiYWYyNTRjNWUxYmQyOGI1ZWJlMTlmZTgyYTIxZGVmODY5ZDA0N2ZkZjIzMWU5In0.eyJhdWQiOiIxIiwianRpIjoiOTBkODRiZDk3MjBlMTExMjhhOGZlZGJmOTE5YzVlMzdkYmJhZjI1NGM1ZTFiZDI4YjVlYmUxOWZlODJhMjFkZWY4NjlkMDQ3ZmRmMjMxZTkiLCJpYXQiOjE2MjM4NDc4NzEsIm5iZiI6MTYyMzg0Nzg3MSwiZXhwIjoxNjU1MzgzODcxLCJzdWIiOiIxIiwic2NvcGVzIjpbXX0.PQ-WTKaBOlAoj5zXOdgwZy78Qvz8IuI9b_DWcvej2dJmC4vdlL3QHtUECP1b4gy-GFDEB0NHvGKgpeGVKoPb5lakQPUh3Dw67750Tz4kHMIkC6hqnrp-qAqfG1ixjT2OsyeV7evAL-ujfxNJzHjqu68_hwikG2-pI8ujlMKWxOUyVWJg7T-xQGtQfGCkN-oG4WVEN5zhL_rFEmon_BPvrKJi_lLoBjaBpZgFIhe49jigO-LZ3yfWpel_wXx8CdGUhlO7Ig9u1S120lTy3YfvP9zRrcxiWVJtvHZUYhW8dPX4l2cOxqiTeaVgSY05sswOEv1pa6ARK6uiq8S4CxFcZRfrS-3onlY6FekrTu4r7R--s5ZA3hg5u9Aq0GMaj0RQz7DhRQYPWjdcMwGAA86I6uNC_2c_g4tTuKIUAsAPVbdGLQlwx9kQTXkuxmKTggQE-PInQ7b36wpw4FNJTIIlqqCQMfGFCKbA1yTapNQfyQauBrI24AIYTjHz9n1VpvDs7Qxr8iw-voCfr5V7VNxown75CHGDDTGpcYWbdt4uAfdkF6Ksl9zx1QuZuSz1XoaikUihU5pBAsy34UoHsG3tNhzg0KsCoFtE1niGcPfH0S1Pu5os-zlcIm_IJd12up3It3zky5f8RMxTpWs_z10y6R7PaPgniQGz8C1Njf_R_K4",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{local_url}}/logout",
+							"host": [
+								"{{local_url}}"
+							],
+							"path": [
+								"logout"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

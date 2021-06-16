@@ -36,5 +36,25 @@ Route::group(['prefix' => 'import-export'],function(){
         Route::get('export/data','API\ImportExportController@exportCompanyWithData');
         Route::post('import/data','API\ImportExportController@importCompanyWithData');
     });
+});
 
+//api date: 16-06-2021
+Route::group(['prefix' => 'get'],function(){
+    //blog
+    Route::group(['prefix' => 'blog'], function(){
+        Route::get('/category','API\APIController@blogsCategory');
+        Route::get('{categoryId?}','API\APIController@blogList')->where('categoryId', '[0-9]+');
+    });
+    //state
+    Route::group(['prefix' => 'state'], function(){
+        Route::get('{countryId?}','API\APIController@getStates')->where('countryId', '[0-9]+');
+    });
+    //user point
+    Route::group(['prefix' => 'user/point', 'middleware' => 'auth:api'], function(){
+        Route::get('{userId?}','API\APIController@getUserPoints');
+    });
+    //product list
+    Route::group(['prefix' => 'product'], function(){
+        Route::get('{productId?}','API\APIController@productList')->where('productId', '[0-9]+');
+    });
 });
