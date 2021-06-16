@@ -200,7 +200,7 @@
 						@endforeach
 					</div>
 					<ul class="plan_pagination mx-auto">
-						{!!$productData->links()!!}
+						{!! $productData->appends(request()->query())->links() !!}
 					</ul>
 				</div>
 				<div class="important_note_wrap">

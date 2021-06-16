@@ -12,6 +12,7 @@ use App\Model\Membership;use App\Model\HowItWork;
 use App\Model\Company;use App\Model\Product;use App\Model\ProductRating;
 use App\Model\ProductFeature;use App\Model\ProductTating;
 use App\Model\ProductGas;use App\Model\ProductElectricity;
+use App\Model\ProductMomentum;use App\Model\ProductDiscount;
 
 class AdminController extends Controller
 {
@@ -903,6 +904,135 @@ class AdminController extends Controller
             	return successResponse('Feature Deleted Success');
             }
         	return errorResponse('Invalid Feature Id');
+        }
+        return errorResponse($validator->errors()->first());
+    }
+
+    /****************************** Product Momenta ******************************/
+	public function productMomenta(Request $req,$productId)
+	{
+        $product = Product::findOrFail($productId);
+        return view('product.momenta.index',compact('product'));
+	}
+
+    public function saveProductMomenta(Request $req,$productId)
+    {
+        $req->validate([
+            'title' => 'required|max:200',
+            'description' => 'nullable|string',
+        ]);
+        $momenta = new ProductMomentum();
+        $momenta->productId = $productId;
+        $momenta->title = $req->title;
+        $momenta->description = $req->description;
+        $random = randomGenerator();
+        if($req->hasFile('momenta_icon')){
+            $image = $req->file('momenta_icon');
+            $image->move('upload/products/momenta/image/',$random.'.'.$image->getClientOriginalExtension());
+            $imageurl = 'upload/products/momenta/image/'.$random.'.'.$image->getClientOriginalExtension();
+            $momenta->icon = $imageurl;
+        }
+        // $momenta->created_by = auth()->user()->id;
+        $momenta->save();
+        return redirect(route(urlPrefix().'.product.momenta',$productId))->with('Success','Product Momenta Added SuccessFully');
+        // return redirect(route('admin.product.feature',$productId))->with('Success','Product Feature Added SuccessFully');
+    }
+
+    public function updateProductMomenta(Request $req,$productId,$momentaId)
+    {
+        $req->validate([
+            'title' => 'required|max:200',
+            'description' => 'nullable|string',
+        ]);
+        $momenta = ProductMomentum::where('id',$momentaId)->where('productId',$productId)->first();
+        if($momenta){
+            $momenta->title = $req->title;
+            $momenta->description = $req->description;
+            $random = randomGenerator();
+            if($req->hasFile('momenta_icon')){
+                if($momenta->icon != '' && \File::exists($momenta->icon)){
+                    unlink($momenta->icon);
+                }
+                $image = $req->file('momenta_icon');
+                $image->move('upload/products/momenta/image/',$random.'.'.$image->getClientOriginalExtension());
+                $imageurl = 'upload/products/momenta/image/'.$random.'.'.$image->getClientOriginalExtension();
+                $momenta->icon = $imageurl;
+            }
+            $momenta->save();
+            return redirect(route(urlPrefix().'.product.momenta',$productId))->with('Success','Product Momenta Updated SuccessFully');
+            // return redirect(route('admin.product.feature',$productId))->with('Success','Product Feature Updated SuccessFully');
+        }
+    }
+    public function deleteProductMomenta(Request $req)
+    {
+        $rules = [
+            'productId' => 'required|min:1|numeric',
+            'momentaId' => 'required|min:1|numeric',
+        ];
+        $validator = validator()->make($req->all(),$rules);
+        if(!$validator->fails()){
+            $momenta = ProductMomentum::where('id',$req->momentaId)->where('productId',$req->productId)->first();
+            if($momenta){
+            	$momenta->delete();
+            	return successResponse('Momenta Deleted Success');
+            }
+        	return errorResponse('Invalid Momenta Id');
+        }
+        return errorResponse($validator->errors()->first());
+    }
+
+    /****************************** Product Discount ******************************/
+	public function productDiscount(Request $req,$productId)
+	{
+        $product = Product::findOrFail($productId);
+        return view('product.discount.index',compact('product'));
+	}
+
+    public function saveProductDiscount(Request $req,$productId)
+    {
+        $req->validate([
+            'title' => 'required|max:200',
+            'description' => 'nullable|string',
+        ]);
+        $discount = new ProductDiscount();
+        $discount->productId = $productId;
+        $discount->title = $req->title;
+        $discount->description = $req->description;
+        $discount->save();
+        return redirect(route(urlPrefix().'.product.discount',$productId))->with('Success','Product Discount Added SuccessFully');
+        // return redirect(route('admin.product.feature',$productId))->with('Success','Product Feature Added SuccessFully');
+    }
+
+    public function updateProductDiscount(Request $req,$productId,$discountId)
+    {
+        $req->validate([
+            'title' => 'required|max:200',
+            'description' => 'nullable|string',
+        ]);
+        $discount = ProductDiscount::where('id',$discountId)->where('productId',$productId)->first();
+        if($discount){
+            $discount->title = $req->title;
+            $discount->description = $req->description;
+            $discount->save();
+            return redirect(route(urlPrefix().'.product.discount',$productId))->with('Success','Product Discount Updated SuccessFully');
+            // return redirect(route('admin.product.feature',$productId))->with('Success','Product Feature Updated SuccessFully');
+        }
+    }
+
+    public function deleteProductDiscount(Request $req)
+    {
+        $rules = [
+            'productId' => 'required|min:1|numeric',
+            'discountId' => 'required|min:1|numeric',
+        ];
+        $validator = validator()->make($req->all(),$rules);
+        if(!$validator->fails()){
+            $discount = ProductDiscount::where('id',$req->discountId)->where('productId',$req->productId)->first();
+            if($discount){
+            	$discount->delete();
+            	return successResponse('Discount Deleted Success');
+            }
+        	return errorResponse('Invalid Discount Id');
         }
         return errorResponse($validator->errors()->first());
     }

@@ -128,10 +128,11 @@
 												</div>
 												<div class="price_amount">
 													<h2>$ {{moneyFormat($electricityData->price)}}</h2>
+													<a href="{{route('product.details',$product->id)}}" class="blue-btm">EXPLORE <span><i class="fas fa-arrow-circle-right"></i></span></a>
 												</div>
 											</div>
 										@endif
-										<a href="{{route('product.details',$product->id)}}" class="blue-btm">EXPLORE <span><i class="fas fa-arrow-circle-right"></i></span></a>
+										
 									</div>
 								</div>
 							@endif
@@ -139,7 +140,7 @@
 					</div>
 
 					<ul class="plan_pagination justify-content-end">
-						{!!$productData->links()!!}
+						{!! $productData->appends(request()->query())->links() !!}
 					</ul>
 				</div>
 				<div class="important_note_wrap">

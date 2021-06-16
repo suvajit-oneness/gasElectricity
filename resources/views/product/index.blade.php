@@ -22,6 +22,8 @@
                                     <th>Product Id</th>
                                     <th>Product Name</th>
                                     <th>Features</th>
+                                    <th>Momentum</th>
+                                    <th>Discounts</th>
                                     <th>Tag</th>
                                     <th>Tag Description</th>
                                     <th>Gas</th>
@@ -45,6 +47,24 @@
                                         <td>
                                             <a href="{{route(urlPrefix().'.product.feature',$product->id)}}">
                                                 @forelse ($product->feature as $item)
+                                                    <li>{{$item->title}}</li>
+                                                @empty
+                                                    N/A
+                                                @endforelse
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a href="{{route(urlPrefix().'.product.momenta',$product->id)}}">
+                                                @forelse ($product->product_momentum as $item)
+                                                    <li>{{$item->title}}</li>
+                                                @empty
+                                                    N/A
+                                                @endforelse
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a href="{{route(urlPrefix().'.product.discount',$product->id)}}">
+                                                @forelse ($product->product_discount as $item)
                                                     <li>{{$item->title}}</li>
                                                 @empty
                                                     N/A
