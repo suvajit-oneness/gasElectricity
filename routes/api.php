@@ -13,8 +13,13 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::any('login','API\LoginController@login');
+Route::group(['middleware' => 'auth:api'],function(){
+    Route::get('/user',function(Request $request){
+        return $request->user();
+    });
+    Route::any('logout','API\LoginController@logout');
+    Route::any('logout/all_device','API\LoginController@logoutFromAllDevice');
 });
 
 // Import-Export Apis
