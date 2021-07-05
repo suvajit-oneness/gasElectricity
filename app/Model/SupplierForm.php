@@ -24,6 +24,4 @@ class SupplierForm extends Model
             }
         }
     }
-
-    
 }

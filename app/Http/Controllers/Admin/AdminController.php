@@ -13,6 +13,7 @@ use App\Model\Company;use App\Model\Product;use App\Model\ProductRating;
 use App\Model\ProductFeature;use App\Model\ProductTating;
 use App\Model\ProductGas;use App\Model\ProductElectricity;
 use App\Model\ProductMomentum;use App\Model\ProductDiscount;
+use App\Model\State;use App\Model\Country;
 
 class AdminController extends Controller
 {
@@ -679,7 +680,6 @@ class AdminController extends Controller
             $logourl = url('upload/companies/'.$random.'.'.$logo->getClientOriginalExtension());
             $company->logo = $logourl;
         }
-        $company->updated_by = auth()->user()->id;
         $company->description = emptyCheck($req->description);
         $company->save();
         return redirect(route(urlPrefix().'.companies'))->with('Success','Company Updated SuccessFully');
@@ -710,6 +710,9 @@ class AdminController extends Controller
         $products = Product::select('*');
         if($productId > 0){
             $products = $products->where('id',$productId);
+        }
+        if(urlPrefix() != 'admin'){
+            $products = $products->where('created_by',auth()->user()->id);
         }
         $products = $products->get();
         return view('product.index',compact('products'));
@@ -751,7 +754,6 @@ class AdminController extends Controller
                 $electricity->title = $req->electricty_title;
                 $electricity->product_id = $product->id;
                 $electricity->price = $req->electricty_price;
-                $electricity->created_by = auth()->user()->id;
             $electricity->save();
             DB::commit();
             return redirect(route(urlPrefix().'.products'))->with('Success','Product Added SuccessFully');
@@ -790,17 +792,14 @@ class AdminController extends Controller
                 $product->company_id = $req->companyId;
                 $product->tag = $req->tag;
                 $product->tag_description = emptyCheck($req->tag_description);
-                $product->updated_by = auth()->user()->id;
             $product->save();
             $gas = ProductGas::where('product_id',$product->id)->first();
                 $gas->title = $req->gas_title;
                 $gas->price = $req->gas_price;
-                $gas->updated_by = auth()->user()->id;
             $gas->save();
             $electricity = ProductElectricity::where('product_id',$product->id)->first();
                 $electricity->title = $req->electricty_title;
                 $electricity->price = $req->electricty_price;
-                $electricity->updated_by = auth()->user()->id;
             $electricity->save();
             DB::commit();
             return redirect(route(urlPrefix().'.products'))->with('Success','Product Updated SuccessFully');
@@ -856,7 +855,6 @@ class AdminController extends Controller
         $feature->product_id = $productId;
         $feature->title = $req->title;
         $feature->description = emptyCheck($req->description);
-        $electricity->created_by = auth()->user()->id;
         $feature->save();
         return redirect(route(urlPrefix().'.product.feature',$productId))->with('Success','Product Feature Added SuccessFully');
         // return redirect(route('admin.product.feature',$productId))->with('Success','Product Feature Added SuccessFully');
@@ -882,7 +880,6 @@ class AdminController extends Controller
         if($feature){
             $feature->title = $req->title;
             $feature->description = emptyCheck($req->description);
-            $feature->updated_by = auth()->user()->id;
             $feature->save();
             return redirect(route(urlPrefix().'.product.feature',$productId))->with('Success','Product Feature Updated SuccessFully');
             // return redirect(route('admin.product.feature',$productId))->with('Success','Product Feature Updated SuccessFully');
@@ -932,7 +929,6 @@ class AdminController extends Controller
             $imageurl = 'upload/products/momenta/image/'.$random.'.'.$image->getClientOriginalExtension();
             $momenta->icon = $imageurl;
         }
-        // $momenta->created_by = auth()->user()->id;
         $momenta->save();
         return redirect(route(urlPrefix().'.product.momenta',$productId))->with('Success','Product Momenta Added SuccessFully');
         // return redirect(route('admin.product.feature',$productId))->with('Success','Product Feature Added SuccessFully');
@@ -1033,6 +1029,65 @@ class AdminController extends Controller
             	return successResponse('Discount Deleted Success');
             }
         	return errorResponse('Invalid Discount Id');
+        }
+        return errorResponse($validator->errors()->first());
+    }
+
+    /****************************** States ******************************/
+    public function states(Request $req)
+    {
+        $state = State::where('countryId',2)->get();
+        return view('supplier.state',compact('state'));
+    }
+
+    public function addOrUpdateState(Request $req)
+    {
+        $req->validate([
+            'form_type' => 'required|in:add,edit',
+            'country' => 'required|numeric|min:1',
+            'state' => 'required|string|max:200',
+        ]);
+        if($req->form_type == 'add'){
+            $checkState = State::where('countryId',$req->country)->where('name',$req->state)->first();
+            if(!$checkState){
+                $state = new State();
+                    $state->countryId = $req->country;
+                    $state->name = $req->state;
+                $state->save();
+                return back()->with('Success','State Added SuccessFully');
+            }
+            $error['state'] = 'This State is Already Exists';
+            return back()->withErrors($error)->withInput($req->all());
+        }else{
+            $req->validate([
+                'stateId' => 'required|numeric|min:1',
+            ]);
+            $checkState = State::where('id','!=',$req->stateId)->where('countryId',$req->country)->where('name',$req->state)->first();
+            if(!$checkState){
+                $state = State::where('id',$req->stateId)->first();
+                    $state->countryId = $req->country;
+                    $state->name = $req->state;
+                $state->save();
+                return back()->with('Success','State Updated SuccessFully');
+            }
+            $error['state'] = 'This State is Already Exists';
+            return back()->withErrors($error)->withInput($req->all());
+        }
+    }
+
+    public function deleteState(Request $req)
+    {
+        $rules = [
+            'stateId' => 'required|numeric|min:1',
+        ];
+        $validator = validator()->make($req->all(),$rules);
+        if(!$validator->fails()){
+            $state = State::find($req->stateId);
+            if($state){
+                $state->delete();
+                return successResponse('State Deleted Success'); 
+            }
+            return errorResponse('Invalid State Id');
         }
         return errorResponse($validator->errors()->first());
     }

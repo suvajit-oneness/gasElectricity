@@ -19,15 +19,14 @@ class CreateCompaniesTable extends Migration
             $table->longText('description');
             $table->string('logo', 500);
             $table->bigInteger('created_by')->comment('UserId');
-            $table->bigInteger('updated_by')->comment('UserId');
             $table->softDeletes();
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
         });
         $company = [
-            ['name' => 'Company A', 'description' => 'Company A Description', 'logo'=>'forntEnd/images/logo.png'],
-            ['name' => 'Company B', 'description' => 'Company B Description', 'logo'=>'forntEnd/images/logo.png'],
-            ['name' => 'Company C', 'description' => 'Company C Description', 'logo'=>'forntEnd/images/logo.png'],
+            ['name' => 'Company A', 'description' => 'Company A Description', 'logo'=>'forntEnd/images/logo.png','created_by' => 1],
+            ['name' => 'Company B', 'description' => 'Company B Description', 'logo'=>'forntEnd/images/logo.png','created_by' => 1],
+            ['name' => 'Company C', 'description' => 'Company C Description', 'logo'=>'forntEnd/images/logo.png','created_by' => 1],
         ];
         DB::table('companies')->insert($company);
     }

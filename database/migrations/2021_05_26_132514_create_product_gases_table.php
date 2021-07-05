@@ -18,8 +18,6 @@ class CreateProductGasesTable extends Migration
             $table->bigInteger('product_id');
             $table->longText('title');
             $table->float('price',8,2);
-            $table->bigInteger('created_by')->comment('UserId');
-            $table->bigInteger('updated_by')->comment('UserId');
             $table->softDeletes();
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
@@ -27,7 +25,7 @@ class CreateProductGasesTable extends Migration
 
         $gasData = [];
         for ($k=0; $k < 8; $k++) { 
-            $gasData[] = ['product_id' => $k+1,'title' => '17% less','price' => rand(1801,1999),'created_by' => 1];
+            $gasData[] = ['product_id' => $k+1,'title' => '17% less','price' => rand(1801,1999)];
         }
         DB::table('product_gases')->insert($gasData);
     }

@@ -4,6 +4,11 @@
 		return view('supplier.dashboard');
 	})->name('home');
 
+	// Pincode
+	Route::group(['prefix' => 'service/pincode'],function(){
+		Route::get('/','Supplier\SupplierController@supplierServicePincode')->name('supplier.service.pincode');
+	});
+
 	// Company
 	Route::group(['prefix'=>'companies'],function(){
 		Route::get('/{companyId?}','Admin\AdminController@companies')->name('supplier.companies')->where('companyId', '[0-9]+');
@@ -54,14 +59,6 @@
 
 		Route::post('/discount/{discountId}/delete','Admin\AdminController@deleteProductDiscount')->name('supplier.products.discount.delete');
 		/********** Product Discount End ********/
-	});
-
-	// States
-	Route::group(['prefix' => 'states'],function(){
-		Route::get('/','Supplier\SupplierController@states')->name('admin.states');
-		Route::post('/save','Supplier\SupplierController@addOrUpdateState')->name('admin.state.save');
-		Route::post('/update','Supplier\SupplierController@addOrUpdateState')->name('admin.state.update');
-		Route::get('{stateId}/delete','Supplier\SupplierController@deleteState')->name('admin.state.delete');
 	});
 
 	// Forms

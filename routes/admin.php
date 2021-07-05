@@ -4,6 +4,7 @@
 		return view('admin.dashboard');
 	})->name('home');
 
+	// Users
 	Route::group(['prefix'=>'users'],function(){
 		Route::get('/','Admin\AdminController@getUsers')->name('admin.users');
 		Route::get('/create','Admin\AdminController@createUser')->name('admin.user.create');
@@ -11,6 +12,7 @@
 		Route::post('/manage','Admin\AdminController@manageUser')->name('admin.user.manageUser');
 	});
 
+	// Company
 	Route::group(['prefix'=>'companies'],function(){
 		Route::get('/{companyId?}','Admin\AdminController@companies')->name('admin.companies')->where('companyId', '[0-9]+');
 		Route::get('/create','Admin\AdminController@createCompany')->name('admin.companies.create');
@@ -20,6 +22,7 @@
 		Route::post('/{id}/delete', 'Admin\AdminController@deleteCompany')->name('admin.companies.delete');
 	});
 	
+	// Products
 	Route::group(['prefix'=>'products'],function(){
 		Route::get('/{productId?}','Admin\AdminController@products')->name('admin.products')->where('productId', '[0-9]+');
 		Route::get('/create','Admin\AdminController@createProduct')->name('admin.products.create');
@@ -63,10 +66,10 @@
 	
 	// States
 	Route::group(['prefix' => 'states'],function(){
-		Route::get('/','Supplier\SupplierController@states')->name('admin.states');
-		Route::post('/save','Supplier\SupplierController@addOrUpdateState')->name('admin.state.save');
-		Route::post('/update','Supplier\SupplierController@addOrUpdateState')->name('admin.state.update');
-		Route::get('{stateId}/delete','Supplier\SupplierController@deleteState')->name('admin.state.delete');
+		Route::get('/','Admin\AdminController@states')->name('admin.states');
+		Route::post('/save','Admin\AdminController@addOrUpdateState')->name('admin.state.save');
+		Route::post('/update','Admin\AdminController@addOrUpdateState')->name('admin.state.update');
+		Route::get('{stateId}/delete','Admin\AdminController@deleteState')->name('admin.state.delete');
 	});
 
 	// Reports
@@ -75,6 +78,7 @@
 		Route::post('contact-us/remark/save','Admin\AdminController@saveRemarkOfContactUs')->name('admin.report.contactUsSaveRemark');
 	});
 
+	// Blog Category
 	Route::group(['prefix'=>'blog/category'],function(){
 		Route::get('/','Admin\AdminController@blogsCategory')->name('admin.blogs.category');
 		Route::post('/save','Admin\AdminController@saveBlogCategory')->name('admin.blogs.category.save');
@@ -82,6 +86,7 @@
 		Route::post('/{id}/delete', 'Admin\AdminController@deleteBlogCategory')->name('admin.blogs.category.delete');
 	});
 
+	// Blogs
 	Route::group(['prefix'=>'blogs'],function(){
 		Route::get('/create','Admin\AdminController@createBlog')->name('admin.blogs.create');
 		Route::post('/save','Admin\AdminController@saveBlog')->name('admin.blogs.save');
@@ -91,6 +96,7 @@
 		Route::post('/{id}/delete', 'Admin\AdminController@deleteBlog')->name('admin.blogs.delete');
 	});
 
+	// Testimonials
 	Route::group(['prefix'=>'testimonial'],function(){
 		Route::get('/','Admin\AdminController@testimonials')->name('admin.testimonial');
 		Route::get('/create','Admin\AdminController@createTestimonial')->name('admin.testimonial.create');
@@ -100,6 +106,7 @@
 		Route::post('/{id}/delete', 'Admin\AdminController@deleteTestimonial')->name('admin.testimonial.delete');
 	});
 
+	// Faq
 	Route::group(['prefix' => 'faq'],function(){
 		Route::get('/','Admin\AdminController@faq')->name('admin.faq');
 		Route::get('/create','Admin\AdminController@createFaq')->name('admin.faq.create');
@@ -109,6 +116,7 @@
 		Route::post('/{id}/delete', 'Admin\AdminController@deleteFaq')->name('admin.faq.delete');
 	});
 
+	// Setting
 	Route::group(['prefix'=>'setting'],function(){
 		Route::get('about-us','Admin\AdminController@aboutUs')->name('admin.setting.about_us');
 		Route::post('about-us','Admin\AdminController@saveaboutUs')->name('admin.setting.save_aboutUs');
@@ -120,6 +128,7 @@
 		Route::post('how-it-works','Admin\AdminController@updateHowItWorks')->name('admin.setting.updatehow_it_works');
 	});
 
+	// Membership
 	Route::group(['prefix'=>'membership'],function(){
 		Route::get('/','Admin\AdminController@membership')->name('admin.membership');
 		Route::get('/create','Admin\AdminController@createMembership')->name('admin.membership.create');

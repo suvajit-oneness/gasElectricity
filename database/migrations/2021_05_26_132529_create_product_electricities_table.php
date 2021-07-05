@@ -18,8 +18,6 @@ class CreateProductElectricitiesTable extends Migration
             $table->bigInteger('product_id');
             $table->longText('title');
             $table->float('price',8,2);
-            $table->bigInteger('created_by')->comment('UserId');
-            $table->bigInteger('updated_by')->comment('UserId');
             $table->softDeletes();
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
@@ -27,7 +25,7 @@ class CreateProductElectricitiesTable extends Migration
 
         $elecricityData = [];
         for ($k=0; $k < 8; $k++) {
-            $elecricityData[] = ['product_id' => $k+1,'title' => '15% less','price' => rand(1111,1469),'created_by' => 1];
+            $elecricityData[] = ['product_id' => $k+1,'title' => '15% less','price' => rand(1111,1469)];
         }
         DB::table('product_electricities')->insert($elecricityData);
     }

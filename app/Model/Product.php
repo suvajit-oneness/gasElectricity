@@ -43,4 +43,9 @@ class Product extends Model
     {
         return $this->hasMany('App\Model\ProductMomentum','productId','id');
     }
+
+    public function author()
+    {
+        return $this->belongsTo('App\User','created_by','id');
+    }
 }

@@ -28,6 +28,9 @@
                                     <th>Tag Description</th>
                                     <th>Gas</th>
                                     <th>Electricity</th>
+                                    @if(urlprefix() == 'admin')
+                                        <th>Created By</th>
+                                    @endif
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -95,6 +98,14 @@
                                                 {{('N/A')}}
                                             @endif
                                         </td>
+                                        @if(urlprefix() == 'admin')
+                                            <?php $author = $product->author;?>
+                                            <td><ul>
+                                                <li>UID : {{$author->id}}</li>
+                                                <li>Name : {{$author->name}}</li>
+                                                <li>Email : {{$author->email}}</li>
+                                            </ul></td>
+                                        @endif
                                         <td>
                                             <a href="{{route(urlPrefix().'.products.edit',$product->id)}}">Edit</a> | <a href="javascript:void(0)" class="deleteProduct text-danger" data-id="{{$product->id}}">Delete</a>
                                         </td>

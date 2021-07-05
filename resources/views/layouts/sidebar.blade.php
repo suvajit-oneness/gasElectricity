@@ -35,6 +35,9 @@
                         <!-- Main Section -->
                         <li class="nav-divider">Main</li>
                         <li class="nav-item">
+                            <a class="nav-link {{request()->routeIs('admin.states.*')?'active':''}}" href="{{route('admin.states')}}"><i class="fa fa-fw fa-user-circle"></i>State</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link {{request()->routeIs('admin.companies')?'active':''}}" href="{{route('admin.companies')}}"><i class="fa fa-fw fa-user-circle"></i>Companies</a>
                         </li>
                         <li class="nav-item">
@@ -81,7 +84,10 @@
                     <!-- Supplier Sidebar -->
                     @elseif(Auth::user()->user_type == 2)
                         <!-- Main Section -->
-                        <li class="nav-divider">Main</li>
+                        <li class="nav-divider">Features</li>
+                        <li class="nav-item">
+                            <a class="nav-link {{request()->routeIs('supplier.companies')?'active':''}}" href="{{route('supplier.service.pincode')}}"><i class="fa fa-fw fa-user-circle"></i>Pincode</a>
+                        </li>
                         <li class="nav-item">
                             <a class="nav-link {{request()->routeIs('supplier.companies')?'active':''}}" href="{{route('supplier.companies')}}"><i class="fa fa-fw fa-user-circle"></i>Companies</a>
                         </li>

@@ -21,7 +21,6 @@ class CreateProductsTable extends Migration
             $table->longText('tag_description');
             $table->string('terms_condition');
             $table->bigInteger('created_by')->comment('UserId');
-            $table->bigInteger('updated_by')->comment('UserId');
             $table->softDeletes();
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
