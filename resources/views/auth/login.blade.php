@@ -22,18 +22,14 @@
                                             <img src="{{asset('forntEnd/images/envelop-3.png')}}">
                                             <input type="email" name="email" class="custom_input @error('email'){{'is-invalid'}}@enderror" placeholder="EMAIL ADDRESS" value="{{old('email')}}">
                                             @error('email')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
+                                                <span class="invalid-feedback" role="alert">{{ $message }}</span>
                                             @enderror
                                         </div>
                                         <div class="form_group">
                                             <img src="{{asset('forntEnd/images/lock.png')}}">
                                             <input type="password" name="password" class="custom_input @error('password'){{'is-invalid'}}@enderror" placeholder="PASSWORD">
                                             @error('password')
-                                                <span class="invalid-feedback" role="alert">
-                                                    <strong>{{ $message }}</strong>
-                                                </span>
+                                                <span class="invalid-feedback" role="alert">{{ $message }}</span>
                                             @enderror
                                         </div>
                                         <div class="group_link">

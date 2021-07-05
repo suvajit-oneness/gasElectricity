@@ -95,7 +95,7 @@ class AdminController extends Controller
 /****************************** Contact Us ******************************/
 	public function contactUs(Request $req)
 	{
-		$contactUs = ContactUs::orderBy('contactedBy','ASC')->get();
+		$contactUs = ContactUs::where('type',2)->orderBy('contactedBy','ASC')->get();
 		return view('admin.reports.contact',compact('contactUs'));
 	}
 
