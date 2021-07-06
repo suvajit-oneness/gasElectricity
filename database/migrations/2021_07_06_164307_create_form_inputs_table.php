@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSupplierFormsTable extends Migration
+class CreateFormInputsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,19 +13,23 @@ class CreateSupplierFormsTable extends Migration
      */
     public function up()
     {
-        Schema::create('supplier_forms', function (Blueprint $table) {
+        Schema::create('form_inputs', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('companyId');
-            $table->string('form_label',150);
-            $table->string('form_key',100);
-            $table->string('form_type',20);
-            $table->tinyInteger('is_required')->default(1);
-            $table->tinyInteger('status')->default(1);
-            $table->bigInteger('created_by')->comment('UserId');
+            $table->string('input_type');
             $table->softDeletes();
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
         });
+        $data = [
+            ['input_type' => 'text'],
+            ['input_type' => 'radio'],
+            ['input_type' => 'checkbox'],
+            ['input_type' => 'email'],
+            ['input_type' => 'url'],
+            ['input_type' => 'file'],
+            ['input_type' => 'textarea'],
+        ];
+        DB::table('form_inputs')->insert($data);
     }
 
     /**
@@ -35,6 +39,6 @@ class CreateSupplierFormsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('supplier_forms');
+        Schema::dropIfExists('form_inputs');
     }
 }

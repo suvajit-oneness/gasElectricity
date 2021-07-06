@@ -20,13 +20,23 @@
 
 	function findAVG($ratingsList)
 	{
-		// dd($ratingsList);
 		$rating = 0;$counter = 1;
 		foreach($ratingsList as $key => $rate){
 			if($key != 0){$counter++;}
 			$rating += $rate->rating;
 		}
 		return number_format($rating/$counter,2);
+	}
+
+	function generateKeyForForm($string)
+	{
+		$key = '';
+		for($i= 0; $i < strlen($string); $i++){
+			if(!preg_match('/[^A-Za-z]+/', $string[$i])) {
+				$key .= strtolower($string[$i]);
+			}
+		}
+		return $key;
 	}
 
 	function randomGenerator()

@@ -4,7 +4,8 @@ namespace App\Http\Controllers\Supplier;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller,App\Model\SupplierPincode;
-use  App\Model\SupplierForm;use  App\Model\QuotationForm;
+use  App\Model\SupplierForm;use App\Model\FormInput;
+use  App\Model\SupplierFormOption;
 class SupplierController extends Controller
 {
     public function supplierServicePincode(Request $req)
@@ -63,21 +64,25 @@ class SupplierController extends Controller
 
     public function supplierForm(Request $req)
     {
-        SupplierForm::insertDataForSupplier(auth()->user()->id);
-        $forms = QuotationForm::with('supplierFormData')->get();
-        return view('supplier.setting.form',compact('forms'));
+        $formInput = FormInput::get();
+        $data = SupplierForm::get();
+        return view('supplier.setting.form',compact('formInput','data'));
     }
 
     public function updateSupplierForm(Request $req)
     {
-        foreach($req->formId as $key => $id){
-            $SupplierForm = SupplierForm::find($id);
-            $is_required = $SupplierForm->id.'_req';
-            $status = $SupplierForm->id.'_status';
-            $SupplierForm->is_required = $req->$is_required[0];
-            $SupplierForm->status = $req->$status[0];
-            $SupplierForm->save();
-        }
+        $req->validate([
+            'formInputId' => 'required|min:1|numeric|exists:form_inputs,id',
+            'label' => 'required|string|max:100',
+            'placeholder' => 'nullable|string|max:200',
+        ]);
+        $new = new SupplierForm();
+            $new->formInputId = $req->formInputId;
+            $new->userId = auth()->user()->id;
+            $new->key = generateKeyForForm($req->label);
+            $new->label = $req->label;
+            $new->placeholder = emptyCheck($req->placeholder);
+        $new->save();
         return back()->with('Success','Form Updated SuccessFully');
     }
 }
