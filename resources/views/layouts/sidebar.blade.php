@@ -86,7 +86,7 @@
                         <!-- Main Section -->
                         <li class="nav-divider">Features</li>
                         <li class="nav-item">
-                            <a class="nav-link {{request()->routeIs('supplier.companies')?'active':''}}" href="{{route('supplier.service.pincode')}}"><i class="fa fa-fw fa-user-circle"></i>Pincode</a>
+                            <a class="nav-link {{request()->routeIs('supplier.service.pincode')?'active':''}}" href="{{route('supplier.service.pincode')}}"><i class="fa fa-fw fa-user-circle"></i>Pincode</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link {{request()->routeIs('supplier.companies')?'active':''}}" href="{{route('supplier.companies')}}"><i class="fa fa-fw fa-user-circle"></i>Companies</a>

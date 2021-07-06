@@ -7,6 +7,8 @@
 	// Pincode
 	Route::group(['prefix' => 'service/pincode'],function(){
 		Route::get('/','Supplier\SupplierController@supplierServicePincode')->name('supplier.service.pincode');
+		Route::post('/save/update','Supplier\SupplierController@supplierServicePincodeSaveOrUpdate')->name('supplier.service.pincode.saveorupdate');
+		Route::post('/{id}/delete','Supplier\SupplierController@supplierServicePincodeDelete')->name('supplier.service.pincode.delete');
 	});
 
 	// Company

@@ -77,7 +77,7 @@ class AdminController extends Controller
             if($req->hasFile('image')){
                 $image = $req->file('image');
                 $image->move('upload/users/image/',$random.'.'.$image->getClientOriginalExtension());
-                $imageurl = url('upload/users/image/'.$random.'.'.$image->getClientOriginalExtension());
+                $imageurl = 'upload/users/image/'.$random.'.'.$image->getClientOriginalExtension();
                 $user->image = $imageurl;
             }
             $user->password = Hash::make($random);
@@ -210,7 +210,7 @@ class AdminController extends Controller
             $image = $req->file('image');
             $random = randomGenerator();
             $image->move('upload/admin/blogs/',$random.'.'.$image->getClientOriginalExtension());
-            $imageurl = url('upload/admin/blogs/'.$random.'.'.$image->getClientOriginalExtension());
+            $imageurl = 'upload/admin/blogs/'.$random.'.'.$image->getClientOriginalExtension();
             $blog->image = $imageurl;
         }
         $blog->description = emptyCheck($req->description);
@@ -243,7 +243,7 @@ class AdminController extends Controller
             $image = $req->file('image');
             $random = randomGenerator();
             $image->move('upload/admin/blogs/',$random.'.'.$image->getClientOriginalExtension());
-            $imageurl = url('upload/admin/blogs/'.$random.'.'.$image->getClientOriginalExtension());
+            $imageurl = 'upload/admin/blogs/'.$random.'.'.$image->getClientOriginalExtension();
             $blog->image = $imageurl;
         }
         $blog->description = emptyCheck($req->description);
@@ -298,7 +298,7 @@ class AdminController extends Controller
             $image = $req->file('image');
             $random = randomGenerator();
             $image->move('upload/admin/testimonial/',$random.'.'.$image->getClientOriginalExtension());
-            $imageurl = url('upload/admin/testimonial/'.$random.'.'.$image->getClientOriginalExtension());
+            $imageurl = 'upload/admin/testimonial/'.$random.'.'.$image->getClientOriginalExtension();
             $testimonial->image = $imageurl;
         }
         $testimonial->save();
@@ -330,7 +330,7 @@ class AdminController extends Controller
             $image = $req->file('image');
             $random = randomGenerator();
             $image->move('upload/admin/testimonial/',$random.'.'.$image->getClientOriginalExtension());
-            $imageurl = url('upload/admin/testimonial/'.$random.'.'.$image->getClientOriginalExtension());
+            $imageurl = 'upload/admin/testimonial/'.$random.'.'.$image->getClientOriginalExtension();
             $testimonial->image = $imageurl;
         }
         $testimonial->save();
@@ -387,7 +387,7 @@ class AdminController extends Controller
                     $image = $req->file('howitWorkImage')[$key];
                     $random = randomGenerator();
                     $image->move('upload/admin/howitworks/',$random.'.'.$image->getClientOriginalExtension());
-                    $imageurl = url('upload/admin/howitworks/'.$random.'.'.$image->getClientOriginalExtension());
+                    $imageurl = 'upload/admin/howitworks/'.$random.'.'.$image->getClientOriginalExtension();
                     $howitWork->image = $imageurl;
                 }elseif(!empty($req->old_howitWorkimage[$key])){
                     $howitWork->image = $req->old_howitWorkimage[$key];
@@ -435,7 +435,7 @@ class AdminController extends Controller
                 $image = $req->file('aboutusImage');
                 $random = randomGenerator();
                 $image->move('upload/admin/aboutus/',$random.'.'.$image->getClientOriginalExtension());
-                $imageurl = url('upload/admin/aboutus/'.$random.'.'.$image->getClientOriginalExtension());
+                $imageurl = 'upload/admin/aboutus/'.$random.'.'.$image->getClientOriginalExtension();
                 $about->image = $imageurl;
             }
             $about->save();
@@ -476,7 +476,7 @@ class AdminController extends Controller
                     $image = $req->file('whychooseimage')[$key];
                     $random = randomGenerator();
                     $image->move('upload/admin/whychooseus/',$random.'.'.$image->getClientOriginalExtension());
-                    $imageurl = url('upload/admin/whychooseus/'.$random.'.'.$image->getClientOriginalExtension());
+                    $imageurl = 'upload/admin/whychooseus/'.$random.'.'.$image->getClientOriginalExtension();
                     $whychoose->image = $imageurl;
                 }elseif(!empty($req->old_whychooseimage[$key])){
                     $whychoose->image = $req->old_whychooseimage[$key];
@@ -648,7 +648,7 @@ class AdminController extends Controller
             $logo = $req->file('logo');
             $random = randomGenerator();
             $logo->move('upload/companies/',$random.'.'.$logo->getClientOriginalExtension());
-            $logourl = url('upload/companies/'.$random.'.'.$logo->getClientOriginalExtension());
+            $logourl = 'upload/companies/'.$random.'.'.$logo->getClientOriginalExtension();
             $company->logo = $logourl;
         }
         $company->description = emptyCheck($req->description);
@@ -677,7 +677,7 @@ class AdminController extends Controller
             $logo = $req->file('logo');
             $random = randomGenerator();
             $logo->move('upload/companies/',$random.'.'.$logo->getClientOriginalExtension());
-            $logourl = url('upload/companies/'.$random.'.'.$logo->getClientOriginalExtension());
+            $logourl = 'upload/companies/'.$random.'.'.$logo->getClientOriginalExtension();
             $company->logo = $logourl;
         }
         $company->description = emptyCheck($req->description);
@@ -931,7 +931,6 @@ class AdminController extends Controller
         }
         $momenta->save();
         return redirect(route(urlPrefix().'.product.momenta',$productId))->with('Success','Product Momenta Added SuccessFully');
-        // return redirect(route('admin.product.feature',$productId))->with('Success','Product Feature Added SuccessFully');
     }
 
     public function updateProductMomenta(Request $req,$productId,$momentaId)

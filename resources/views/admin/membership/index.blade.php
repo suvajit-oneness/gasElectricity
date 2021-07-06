@@ -1,60 +1,6 @@
 @extends('layouts.master')
 @section('title','Membership')
 @section('content')
-<!-- <style type="text/css">
-    .toggle-button-cover {
-        display: block;
-        position: relative;
-        width: 100px;
-        height: 26px;
-        box-sizing: border-box;
-        /* margin: 0 auto; */
-    }
-    .button-cover, .knobs, .layer {
-        position: absolute;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
-    }
-    .button-cover {
-        height: 26px;
-        border-radius: 0px;
-    }
-    .button-togglr.b2 {
-        border-radius: 2px;
-    }
-    .button-togglr {
-        position: relative;
-        top: 50%;
-        width: 100px;
-        height: 28px;
-        margin: -14px auto 0 auto;
-        overflow: hidden;
-    }
-    .text-center {
-        text-align: center !important;
-    }
-    input[type="checkbox" i] {
-        background-color: initial;
-        cursor: default;
-        appearance: auto;
-        box-sizing: border-box;
-        margin: 3px 3px 3px 4px;
-        padding: initial;
-        border: initial;
-    }
-    .knobs {
-        z-index: 2;
-    }
-    .button-cover, .knobs, .layer {
-        position: absolute;
-        top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
-    }
-</style> -->
 <div class="container-fluid  dashboard-content">
     <div class="row">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">

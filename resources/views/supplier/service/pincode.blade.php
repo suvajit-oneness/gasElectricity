@@ -6,7 +6,7 @@
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
             <div class="card">
                 <div class="card-header">
-                    <h5 class="mb-0">Pincode
+                    <h5 class="mb-0">We served at Pincode
                         <a class="headerbuttonforAdd" id="addPincode">
                             <i class="fa fa-plus" aria-hidden="true"></i>Add Pincode
                         </a>
@@ -22,7 +22,12 @@
                                 </tr>
                             </thead>
                             <tbody>
-
+                                @foreach($pincode as $key => $pin)
+                                    <tr>
+                                        <td>{{$pin->pincode}}</td>
+                                        <td><a href="javascript:void(0)" class="editState" data-id="{{$pin->id}}" data-pincode="{{$pin->pincode}}">Edit</a> | <a href="javascript:void(0)" class="deletePincode text-danger" data-id="{{$pin->id}}">Delete</a></td>
+                                    </tr>
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -32,7 +37,7 @@
     </div>
 </div>
 
-<!-- Add State Modal -->
+<!-- Add Pincode Modal -->
 <div class="modal fade" id="addPincodeModal" tabindex="-1" role="dialog" aria-labelledby="addPincodeModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -42,22 +47,21 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form method="post" action="#">
+            <form method="post" action="{{route('supplier.service.pincode.saveorupdate')}}">
                 @csrf
                 <div class="modal-body">
                     <div class="row">
                         <input type="hidden" name="form_type" value="add">
-                        <div class="form-group">
-                            <label>State</label>
-                            <input type="text" name="state" class="form-control @error('state') is-invalid @enderror" required placeholder="State" value="{{old('state')}}">
-                            @error('state')
-                                <span class="text-danger">{{$message}}</span>
+                        <div class="form-group col-md-6">
+                            <label>Pincode</label>
+                            <input type="text" name="pincode" class="form-control @error('pincode') is-invalid @enderror" required placeholder="Pincode" value="{{old('pincode')}}">
+                            @error('pincode')
+                                <span class="text-danger errorMessage">{{$message}}</span>
                             @enderror
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">Add</button>
                 </div>
             </form>
@@ -75,23 +79,22 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form method="post" action="#">
+            <form method="post" action="{{route('supplier.service.pincode.saveorupdate')}}">
                 @csrf
                 <div class="modal-body">
                     <div class="row">
                         <input type="hidden" name="form_type" value="edit">
                         <input type="hidden" name="pincodeId" id="pincodeId" value="{{old('pincodeId')}}">
-                        <div class="form-group">
-                            <label>State</label>
-                            <input type="text" name="state" id="stateName" class="form-control @error('state') is-invalid @enderror" required placeholder="State" value="{{old('state')}}">
-                            @error('state')
-                                <span class="text-danger">{{$message}}</span>
+                        <div class="form-group col-md-6">
+                            <label>Pincode</label>
+                            <input type="text" name="pincode" id="pincodeValue" class="form-control @error('pincode') is-invalid @enderror" required placeholder="Pincode" value="{{old('pincode')}}">
+                            @error('pincode')
+                                <span class="text-danger errorMessage">{{$message}}</span>
                             @enderror
                         </div>
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary">Update</button>
                 </div>
             </form>
@@ -105,6 +108,9 @@
         });
 
         $(document).on('click','#addPincode',function(){
+            $('.errorMessage').remove();
+            $('#addPincodeModal input[name=pincode]').removeClass('is-invalid');
+            $('#addPincodeModal input[name=pincode]').val('');
             $('#addPincodeModal').modal('show');
         });
 
@@ -117,8 +123,11 @@
         @endif
 
         $(document).on('click','.editState',function(){
-            var Id = $(this).attr('data-id');
+            var Id = $(this).attr('data-id'),pincode = $(this).attr('data-pincode');
+            $('.errorMessage').remove();
+            $('#editPincodeModal input[name=pincode]').removeClass('is-invalid');
             $('#editPincodeModal #pincodeId').val(Id);
+            $('#editPincodeModal #pincodeValue').val(pincode);
             $('#editPincodeModal').modal('show');
         });
 
@@ -137,7 +146,7 @@
                     $.ajax({
                         type:'POST',
                         dataType:'JSON',
-                        url:"{{route(urlPrefix().'.state.delete',"+pincodeId+")}}",
+                        url:"{{route('supplier.service.pincode.delete',"+pincodeId+")}}",
                         data: {pincodeId:pincodeId,'_token': $('input[name=_token]').val()},
                         success:function(data){
                             if(data.error == false){
