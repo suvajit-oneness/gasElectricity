@@ -11,7 +11,7 @@
                 </div>
                 <div class="card-body">
                     <h3>Add New Form Data</h3>
-                    <form method="POST" action="{{route('supplier.setting.form.update')}}">
+                    <form method="POST" action="{{route('supplier.setting.form.add')}}">
                         @csrf
                         <div class="row">
                             <div class="form-group col-md-6">
@@ -56,11 +56,17 @@
                         <tbody>
                             @foreach($data as $key => $d)
                                 <tr>
-                                    <td>{{$d->input_type->input_type}}</td>
+                                    <?php $inputType = $d->input_type;?>
+                                    <td>{{$inputType->input_type}}</td>
                                     <td>{{$d->key}}</td>
                                     <td>{{$d->label}}</td>
                                     <td>{{$d->placeholder}}</td>
-                                    <td></td>
+                                    <td>
+                                        @if(formInputTypeCheck($inputType->input_type))
+                                            <?php $formOption = $d->form_option; ?>
+                                            <a class="optionView" href="javascript:void(0)" data-details="{{json_encode($formOption)}}">View</a>
+                                        @endif
+                                    </td>
                                     <td>
                                         <input type="checkbox" data-id="{{$d->id}}" class="form-control isRequired" @if($d->is_required == 1){{('checked')}}@endif>
                                     </td>
@@ -78,10 +84,120 @@
     </div>
 </div>
 
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Options</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <table class="table" style="width: 100% !important;">
+                    <thead>
+                        <tr>
+                            <th>Option</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody"></tbody>
+                </table>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 @endsection
 
 @section('script')
 <script>
+    $(document).on('click','.isRequired',function(){
+        var thisClicked = $(this);
+        var id = thisClicked.attr('data-id');
+        updateCheckBoxButton(id,'is_required',thisClicked);
+    });
 
+    $(document).on('click','.statusUpdate',function(){
+        var thisClicked = $(this);
+        var id = thisClicked.attr('data-id');
+        updateCheckBoxButton(id,'status',thisClicked);
+    });
+
+    function updateCheckBoxButton(supplierFormId,whatToDo,clickEvent) {
+        $('.loading-data').show();
+        $.ajax({
+            url : "{{route('supplier.setting.form.updatecheckbox')}}",
+            type: 'POST',
+            dataType : 'JSON',
+            data : {supplierFormId:supplierFormId,whatToDo:whatToDo,_token:'{{csrf_token()}}'},
+            success:function(response){
+                if(response.error == false){}
+                else{
+                    if(clickEvent.prop('checked')){
+                        clickEvent.prop('checked',false);
+                    }else{
+                        clickEvent.prop('checked',true);
+                    }
+                    swal('Error',response.message, 'error');
+                }
+                $('.loading-data').hide();
+            }
+        });
+    }
+
+    $(document).on('click','.optionView',function(){
+        var details = JSON.parse($(this).attr('data-details'));
+        var toAppendData = '';
+        if(details.length > 0){
+            var counter = 0;
+            $.each(details, function( index, value ) {
+                counter++;
+                toAppendData += '<tr><td>'+value.option+'</td>';
+                if(counter == details.length){
+                    toAppendData += '<td><a href="javascript:void(0)" class="addOption">+</a></td>';
+                }else{
+                    toAppendData += '<td><a href="javascript:void(0)" class="removeOption" data-id="'+value.id+'" data-form_id="'+value.supplierFormId+'">&#10006;</a></td>';
+                }
+                toAppendData += '</tr>';
+            });
+        }else{
+            toAppendData += '<td><input type="text" name="option" placeholder="Enter Option"></td><td><a href="javascript:void(0)" class="addOption">+</a></td>'
+        }
+        $('#tableBody').append(toAppendData);
+        console.log(details);
+        $('#exampleModal').modal('show');
+    });
+
+    $(document).on('click','.addOption',function(){
+        // add Code
+    });
+
+    $(document).on('click','.removeOption',function(){
+        var clickEvent = $(this);
+        var id = clickEvent.attr('data-id');
+        var formId = clickEvent.attr('data-form_id');
+        $('.loading-data').show();
+        $.ajax({
+            url : "{{route('supplier.setting.form.option.remove')}}",
+            type: 'POST',
+            dataType : 'JSON',
+            data : {formOptionId:id,formId:formId,_token:'{{csrf_token()}}'},
+            success:function(response){
+                if(response.error == false){
+                    clickEvent.closest('tr').remove();
+                }
+                else{
+                    swal('Error',response.message, 'error');
+                }
+                $('.loading-data').hide();
+            }
+        });
+    });
 </script>
 @endsection

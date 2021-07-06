@@ -78,6 +78,8 @@
 	// Forms
 	Route::group(['prefix' => 'setting/form'],function(){
 		Route::get('/','Supplier\SupplierController@supplierForm')->name('supplier.setting.form');
-		Route::post('/update','Supplier\SupplierController@updateSupplierForm')->name('supplier.setting.form.update');
+		Route::post('/add/new','Supplier\SupplierController@addSupplierForm')->name('supplier.setting.form.add');
+		Route::post('/update/status/or/is_required','Supplier\SupplierController@updateSupplierFormStatus')->name('supplier.setting.form.updatecheckbox');
+		Route::post('form/option/remove','Supplier\SupplierController@formOptionRemove')->name('supplier.setting.form.option.remove');
 	});
  ?>

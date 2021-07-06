@@ -65,11 +65,11 @@ class SupplierController extends Controller
     public function supplierForm(Request $req)
     {
         $formInput = FormInput::get();
-        $data = SupplierForm::get();
+        $data = SupplierForm::where('userId',auth()->user()->id)->get();
         return view('supplier.setting.form',compact('formInput','data'));
     }
 
-    public function updateSupplierForm(Request $req)
+    public function addSupplierForm(Request $req)
     {
         $req->validate([
             'formInputId' => 'required|min:1|numeric|exists:form_inputs,id',
@@ -84,5 +84,46 @@ class SupplierController extends Controller
             $new->placeholder = emptyCheck($req->placeholder);
         $new->save();
         return back()->with('Success','Form Updated SuccessFully');
+    }
+
+    public function formOptionRemove(Request $req)
+    {
+        $rules = [
+            'formId' => 'required|min:1|numeric',
+            'formOptionId' => 'required|min:1|numeric',
+        ];
+        $validator = validator()->make($req->all(),$rules);
+        if(!$validator->fails()){
+            $formOption = SupplierFormOption::where('id',$req->formOptionId)->where('supplierFormId',$req->formId)->first();
+            if($formOption){
+                $formOption->delete();
+                return successResponse('option deleted Success');
+            }
+            return errorResponse('Invalid Form option Id');
+        }
+        return errorResponse($validator->errors()->first());
+    }
+
+    public function updateSupplierFormStatus(Request $req)
+    {
+        $rules = [
+            'supplierFormId' => 'required|min:1|numeric',
+            'whatToDo' => 'required|in:is_required,status',
+        ];
+        $validator = validator()->make($req->all(),$rules);
+        if(!$validator->fails()){
+            $supplierForm = SupplierForm::where('id',$req->supplierFormId)->first();
+            if($supplierForm){
+                if($req->whatToDo == 'is_required'){
+                    $supplierForm->is_required = ($supplierForm->is_required) ? 0 : 1;
+                }elseif($req->whatToDo == 'status'){
+                    $supplierForm->status = ($supplierForm->status) ? 0 : 1;
+                }
+                $supplierForm->save();
+                return successResponse('Status Updated Success');
+            }
+            return errorResponse('Invalid Supplier Form Id');
+        }
+        return errorResponse($validator->errors()->first());
     }
 }

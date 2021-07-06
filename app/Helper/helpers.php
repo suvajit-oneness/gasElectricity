@@ -28,6 +28,16 @@
 		return number_format($rating/$counter,2);
 	}
 
+	function formInputTypeCheck($inputType)
+	{
+		$return = false;
+		switch ($inputType){
+            case 'radio' : $return = true;break;
+            case 'checkbox': $return = true;break;
+        }
+        return $return;
+	}
+
 	function generateKeyForForm($string)
 	{
 		$key = '';

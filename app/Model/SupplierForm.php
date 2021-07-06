@@ -13,4 +13,9 @@ class SupplierForm extends Model
     {
         return $this->belongsTo('App\Model\FormInput','formInputId','id');
     }
+
+    public function form_option()
+    {
+        return $this->hasMany('App\Model\SupplierFormOption','supplierFormId','id');
+    }
 }
