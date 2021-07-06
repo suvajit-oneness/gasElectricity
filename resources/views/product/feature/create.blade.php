@@ -7,7 +7,7 @@
             <div class="card">
                 <div class="card-header">
                     <h5 class="mb-0">Add New Feature ({{$product->id}} - {{$product->name}})
-                        <a class="headerbuttonforAdd" href="{{route(urlPrefix().'.product.feature',$product->id)}}"><i class="fa fa-step-backward" aria-hidden="true"></i>BACK</a>
+                        <a class="headerbuttonforAdd" href="{{route(urlPrefix().'.products.feature',$product->id)}}"><i class="fa fa-step-backward" aria-hidden="true"></i>BACK</a>
                     </h5>
                 </div>
                 <div class="card-body">

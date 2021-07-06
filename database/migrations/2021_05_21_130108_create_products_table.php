@@ -26,14 +26,14 @@ class CreateProductsTable extends Migration
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
         });
         $product = [
-            ['company_id' => 1,'name' => 'Everyday Rewards','tag' => 'Basic Plan Information','created_by' => 1],
-            ['company_id' => 1,'name' => 'Reamped Advance','tag' => 'Basic Plan Information','created_by' => 1],
-            ['company_id' => 1,'name' => 'Everyday Rewards','tag' => 'Basic Plan Information','created_by' => 1],
-            ['company_id' => 2,'name' => 'Everyday Rewards','tag' => 'Basic Plan Information','created_by' => 1],
-            ['company_id' => 2,'name' => 'Reamped Advance','tag' => 'Basic Plan Information','created_by' => 1],
-            ['company_id' => 2,'name' => 'Everyday Rewards','tag' => 'Basic Plan Information','created_by' => 1],
-            ['company_id' => 3,'name' => 'Everyday Rewards','tag' => 'Basic Plan Information','created_by' => 1],
-            ['company_id' => 3,'name' => 'Reamped Advance','tag' => 'Basic Plan Information','created_by' => 1],
+            ['company_id' => 1,'name' => 'Everyday Rewards','tag' => 'Basic Plan Information','created_by' => 2],
+            ['company_id' => 1,'name' => 'Reamped Advance','tag' => 'Basic Plan Information','created_by' => 2],
+            ['company_id' => 1,'name' => 'Everyday Rewards','tag' => 'Basic Plan Information','created_by' => 2],
+            ['company_id' => 2,'name' => 'Everyday Rewards','tag' => 'Basic Plan Information','created_by' => 2],
+            ['company_id' => 2,'name' => 'Reamped Advance','tag' => 'Basic Plan Information','created_by' => 2],
+            ['company_id' => 2,'name' => 'Everyday Rewards','tag' => 'Basic Plan Information','created_by' => 2],
+            ['company_id' => 3,'name' => 'Everyday Rewards','tag' => 'Basic Plan Information','created_by' => 2],
+            ['company_id' => 3,'name' => 'Reamped Advance','tag' => 'Basic Plan Information','created_by' => 2],
         ];
         DB::table('products')->insert($product);
     }

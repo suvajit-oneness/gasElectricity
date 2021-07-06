@@ -14,9 +14,120 @@ use App\Model\ProductFeature;use App\Model\ProductTating;
 use App\Model\ProductGas;use App\Model\ProductElectricity;
 use App\Model\ProductMomentum;use App\Model\ProductDiscount;
 use App\Model\State;use App\Model\Country;
+use App\Model\ProductRateDetails,App\Model\ProductPlanDetails;
 
 class AdminController extends Controller
 {
+
+/*************************** Product Rate Details ************************/
+    public function getproductRateDetails(Request $req,$productId)
+    {
+        $product = Product::findOrFail($productId);
+        return view('product.rate.index',compact('product'));
+    }
+
+    public function productRateDetailsSaveOrUpdate(Request $req,$productId)
+    {
+        $req->validate([
+            'form_type' => 'required|in:add,edit',
+            'productId' => 'required|min:1|numeric|in:'.$productId,
+            'type' => 'required|numeric|in:1,2,3',
+            'title' => 'required|string|max:100',
+            'description' => 'nullable|string',
+        ]);
+        if($req->form_type == 'add'){
+            $add = new ProductRateDetails();
+                $add->productId = $req->productId;
+                $add->type = $req->type;
+                $add->title = $req->title;
+                $add->description = $req->description;
+            $add->save();
+            return back()->with('Success','Product Rate Added SuccessFully');
+        }else{
+            $req->validate([
+                'rateId' => 'required|min:1|numeric',
+            ]);
+            $update = ProductRateDetails::where('id',$req->rateId)->where('productId',$req->productId)->first();
+                $update->type = $req->type;
+                $update->title = $req->title;
+                $update->description = $req->description;
+            $update->save();
+            return back()->with('Success','Product Rate Updated SuccessFully');
+        }
+    }
+
+    public function productRateDetailsDelete(Request $req,$productId)
+    {
+        $rules = [
+            'productId' => 'required|numeric|min:1',
+            'rateId' => 'required|numeric|min:1',
+        ];
+        $validator = validator()->make($req->all(),$rules);
+        if(!$validator->fails()){
+            $product_rate = ProductRateDetails::where('id',$req->rateId)->where('productId',$req->productId)->first();
+            if($product_rate){
+                $product_rate->delete();
+                return successResponse('Product Rate Deleted Success'); 
+            }
+            return errorResponse('Invalid Product Plan Id');
+        }
+        return errorResponse($validator->errors()->first());
+    }
+
+/*************************** Product Plan Details ************************/
+    public function getproductPlanDetails(Request $req,$productId)
+    {
+        $product = Product::findOrFail($productId);
+        return view('product.plan.index',compact('product'));
+    }
+
+    public function productPlanDetailsSaveOrUpdate(Request $req,$productId)
+    {
+        $req->validate([
+            'form_type' => 'required|in:add,edit',
+            'productId' => 'required|min:1|numeric|in:'.$productId,
+            'type' => 'required|numeric|in:1,2',
+            'title' => 'required|string|max:100',
+            'description' => 'nullable|string',
+        ]);
+        if($req->form_type == 'add'){
+            $add = new ProductPlanDetails();
+                $add->productId = $req->productId;
+                $add->type = $req->type;
+                $add->title = $req->title;
+                $add->description = $req->description;
+            $add->save();
+            return back()->with('Success','Product Plan Added SuccessFully');
+        }else{
+            $req->validate([
+                'planId' => 'required|min:1|numeric',
+            ]);
+            $update = ProductPlanDetails::where('id',$req->planId)->where('productId',$req->productId)->first();
+                $update->type = $req->type;
+                $update->title = $req->title;
+                $update->description = $req->description;
+            $update->save();
+            return back()->with('Success','Product Plan Updated SuccessFully');
+        }
+    }
+
+    public function productPlanDetailsDelete(Request $req,$productId)
+    {
+        $rules = [
+            'productId' => 'required|numeric|min:1',
+            'planId' => 'required|numeric|min:1',
+        ];
+        $validator = validator()->make($req->all(),$rules);
+        if(!$validator->fails()){
+            $product_plan = ProductPlanDetails::where('id',$req->planId)->where('productId',$req->productId)->first();
+            if($product_plan){
+                $product_plan->delete();
+                return successResponse('Product Plan Deleted Success'); 
+            }
+            return errorResponse('Invalid Product Plan Id');
+        }
+        return errorResponse($validator->errors()->first());
+    }
 
 /****************************** Users ******************************/
 	public function getUsers(Request $req)

@@ -61,7 +61,18 @@
 		Route::post('{productId}/discount/{discountId}/update','Admin\AdminController@updateProductDiscount')->name('admin.product.discount.update')->where('productId','[0-9]+')->where('discountId','[0-9]+');
 
 		Route::post('/discount/{discountId}/delete','Admin\AdminController@deleteProductDiscount')->name('admin.products.discount.delete');
-		/********** Product Discount End ********/
+		/********** Product Rate Details ********/
+		Route::group(['prefix' => '{productId}/rate/details'],function(){
+			Route::get('/','Admin\AdminController@getproductRateDetails')->name('admin.products.rate');
+			Route::post('/save/update','Admin\AdminController@productRateDetailsSaveOrUpdate')->name('admin.products.rate.saveorUpdate');
+			Route::post('/{rateId}/delete','Admin\AdminController@productRateDetailsDelete')->name('admin.products.rate.delete');
+		});
+		/********** Product Pan Details ********/
+		Route::group(['prefix' => '{productId}/plan/details'],function(){
+			Route::get('/','Admin\AdminController@getproductPlanDetails')->name('admin.products.plan');
+			Route::post('/save/update','Admin\AdminController@productPlanDetailsSaveOrUpdate')->name('admin.products.plan.saveorUpdate');
+			Route::post('/{planId}/delete','Admin\AdminController@productPlanDetailsDelete')->name('admin.products.plan.delete');
+		});
 	});
 	
 	// States

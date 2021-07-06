@@ -44,6 +44,16 @@ class Product extends Model
         return $this->hasMany('App\Model\ProductMomentum','productId','id');
     }
 
+    public function product_rates()
+    {
+        return $this->hasMany('App\Model\ProductRateDetails','productId','id');
+    }
+
+    public function product_plan()
+    {
+        return $this->hasMany('App\Model\ProductPlanDetails','productId','id');
+    }
+
     public function author()
     {
         return $this->belongsTo('App\User','created_by','id');

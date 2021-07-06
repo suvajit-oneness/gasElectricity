@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title','Product')
+@section('title','Product Discount')
 @section('content')
 <div class="container-fluid  dashboard-content">
     <div class="row">
@@ -85,7 +85,7 @@
                                                     </button>
                                                 </div>
                                                 <div class="modal-body">
-                                                    <form method="post" action="{{route(urlPrefix().'.product.discount.update',[$discount->productId,$discount->id])}}" enctype="multipart/form-data">
+                                                    <form method="post" action="{{route(urlPrefix().'.products.discount.update',[$discount->productId,$discount->id])}}" enctype="multipart/form-data">
                                                         @csrf
                                                         <div class="form-group">
                                                             <label for="title" class="col-form-label">Product Discount Title:</label>

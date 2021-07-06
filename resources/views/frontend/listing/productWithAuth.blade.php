@@ -175,6 +175,7 @@
 												</div>
 												<div class="price_amount">
 													<h2>$ {{moneyFormat($gasData->price)}}</h2>
+													<a href="{{route('product.details',$product->id)}}" class="blue-btm">EXPLORE <span><i class="fas fa-arrow-circle-right"></i></span></a>
 												</div>
 											</div>
 										@endif
@@ -187,10 +188,11 @@
 												</div>
 												<div class="price_amount">
 													<h2>${{moneyFormat($electricityData->price)}}</h2>
+													<a href="{{route('product.details',$product->id)}}" class="blue-btm">EXPLORE <span><i class="fas fa-arrow-circle-right"></i></span></a>
 												</div>
+
 											</div>
 										@endif
-										<a href="{{route('product.details',$product->id)}}" class="blue-btm">EXPLORE <span><i class="fas fa-arrow-circle-right"></i></span></a>
 									</div>
 									<div class="plan_info">
 										<p>{{$product->tag}} <img src="{{asset('forntEnd/images/question.png')}}"></p>

@@ -28,6 +28,8 @@
                                     <th>Tag Description</th>
                                     <th>Gas</th>
                                     <th>Electricity</th>
+                                    <th>Rates Details</th>
+                                    <th>Plan Details</th>
                                     @if(urlprefix() == 'admin')
                                         <th>Created By</th>
                                     @endif
@@ -35,7 +37,7 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($products as $product)
+                                @foreach($products as $key => $product)
                                     <tr>
                                         <td>
                                             <?php $company = $product->company; ?>
@@ -48,7 +50,7 @@
                                         <td>{{$product->id}}</td>
                                         <td>{{$product->name}}</td>
                                         <td>
-                                            <a href="{{route(urlPrefix().'.product.feature',$product->id)}}">
+                                            <a href="{{route(urlPrefix().'.products.feature',$product->id)}}">
                                                 @forelse ($product->feature as $item)
                                                     <li>{{$item->title}}</li>
                                                 @empty
@@ -57,7 +59,7 @@
                                             </a>
                                         </td>
                                         <td>
-                                            <a href="{{route(urlPrefix().'.product.momenta',$product->id)}}">
+                                            <a href="{{route(urlPrefix().'.products.momenta',$product->id)}}">
                                                 @forelse ($product->product_momentum as $item)
                                                     <li>{{$item->title}}</li>
                                                 @empty
@@ -66,7 +68,7 @@
                                             </a>
                                         </td>
                                         <td>
-                                            <a href="{{route(urlPrefix().'.product.discount',$product->id)}}">
+                                            <a href="{{route(urlPrefix().'.products.discount',$product->id)}}">
                                                 @forelse ($product->product_discount as $item)
                                                     <li>{{$item->title}}</li>
                                                 @empty
@@ -98,6 +100,10 @@
                                                 {{('N/A')}}
                                             @endif
                                         </td>
+                                        <td>
+                                            <a href="{{route(urlPrefix().'.products.rate',$product->id)}}" target="_blank">@if(count($product->product_rates) > 0){{('View')}}@else{{('N/A')}}@endif</a>
+                                        </td>
+                                        <td><a href="{{route(urlPrefix().'.products.plan',$product->id)}}" target="_blank">@if(count($product->product_plan) > 0){{('View')}}@else{{('N/A')}}@endif</a></td>
                                         @if(urlprefix() == 'admin')
                                             <?php $author = $product->author;?>
                                             <td><ul>
