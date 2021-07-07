@@ -27,6 +27,7 @@
                                     <th>Gas</th>
                                     <th>Electricity</th>
                                     <th>Terms and Condition</th>
+                                    <th>View Details</th>
                                     @if(urlprefix() == 'admin')
                                         <th>Created By</th>
                                     @endif
@@ -86,6 +87,7 @@
                                                 {{('N/A')}}
                                             @endif
                                         </td>
+                                        <td><a href="{{route('product.details',$product->id)}}" target="_blank">View</a></td>
                                         @if(urlprefix() == 'admin')
                                             <?php $author = $product->author;?>
                                             <td><ul>
