@@ -26,6 +26,9 @@
                                     <th>Discounts</th>
                                     <th>Rates Details</th>
                                     <th>Plan Details</th>
+                                    @if(urlprefix() == 'admin')
+                                        <th>Author</th>
+                                    @endif
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -57,7 +60,17 @@
                                         <td>
                                             <a href="{{route(urlPrefix().'.companies.rate',$company->id)}}" target="_blank">@if(count($company->company_rates) > 0){{('View')}}@else{{('N/A')}}@endif</a>
                                         </td>
-                                        <td><a href="{{route(urlPrefix().'.companies.plan',$company->id)}}" target="_blank">@if(count($company->company_plan) > 0){{('View')}}@else{{('N/A')}}@endif</a></td>
+                                        <td>
+                                            <a href="{{route(urlPrefix().'.companies.plan',$company->id)}}" target="_blank">@if(count($company->company_plan) > 0){{('View')}}@else{{('N/A')}}@endif</a>
+                                        </td>
+                                        @if(urlprefix() == 'admin')
+                                            <?php $author = $company->author;?>
+                                            <td><ul>
+                                                <li>UID : {{$author->id}}</li>
+                                                <li>Name : {{$author->name}}</li>
+                                                <li>Email : {{$author->email}}</li>
+                                            </ul></td>
+                                        @endif
                                         <td>
                                             <a href="{{route(urlPrefix().'.companies.edit',$company->id)}}">Edit</a> | <a href="javascript:void(0)" class="deletecompany text-danger" data-id="{{$company->id}}">Delete</a>
                                         </td>

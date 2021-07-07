@@ -61,14 +61,13 @@
 		Route::post('/{id}/delete', 'Admin\AdminController@deleteProduct')->name('supplier.products.delete');
 
 		/********** Product Momenta ********/
-		Route::get('{productId}/momenta','Admin\AdminController@productMomenta')->name('supplier.products.momenta')->where('productId','[0-9]+');
-		
-		Route::post('/{productId}/momenta/save','Admin\AdminController@saveProductMomenta')->name('supplier.products.momenta.save');
-
-		Route::post('{productId}/momenta/{momentaId}/update','Admin\AdminController@updateProductMomenta')->name('supplier.products.momenta.update');
-
-		Route::post('/momenta/{momentaId}/delete','Admin\AdminController@deleteProductMomenta')->name('supplier.products.momenta.delete');
-		/********** Product Momenta End ********/
+		/********** Product Momenta ********/
+		Route::group(['prefix' => '{productId}/momenta'],function(){
+			Route::get('/','Admin\AdminController@productMomenta')->name('supplier.products.momenta');
+			Route::post('/save','Admin\AdminController@saveProductMomenta')->name('supplier.products.momenta.save');
+			Route::post('/{momentaId}/update','Admin\AdminController@updateProductMomenta')->name('supplier.products.momenta.update')->where('productId','[0-9]+')->where('momentaId','[0-9]+');
+			Route::post('{momentaId}/delete','Admin\AdminController@deleteProductMomenta')->name('supplier.products.momenta.delete');
+		});
 	});
 
 	// Forms

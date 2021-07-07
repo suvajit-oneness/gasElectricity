@@ -25,6 +25,9 @@ class AdminController extends Controller
         if($companyId > 0){
             $companies = $companies->where('id',$companyId);
         }
+        if(auth()->user()->user_type == 2){
+            $companies = $companies->where('created_by',auth()->user()->id);
+        }
         $companies = $companies->get();
         return view('company.index',compact('companies'));
     }

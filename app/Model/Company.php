@@ -33,4 +33,9 @@ class Company extends Model
     {
         return $this->hasMany('App\Model\CompanyFeature','companyId','id');
     }
+
+    public function author()
+    {
+        return $this->belongsTo('App\User','created_by','id');
+    }
 }
