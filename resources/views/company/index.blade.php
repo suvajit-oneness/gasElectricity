@@ -27,7 +27,7 @@
                                     <th>Rates Details</th>
                                     <th>Plan Details</th>
                                     @if(urlprefix() == 'admin')
-                                        <th>Author</th>
+                                        <th>Created By</th>
                                     @endif
                                     <th>Action</th>
                                 </tr>

@@ -25,7 +25,7 @@ class AdminController extends Controller
         if($companyId > 0){
             $companies = $companies->where('id',$companyId);
         }
-        if(auth()->user()->user_type == 2){
+        if(urlPrefix() != 'admin'){
             $companies = $companies->where('created_by',auth()->user()->id);
         }
         $companies = $companies->get();
@@ -57,12 +57,11 @@ class AdminController extends Controller
         $company->description = emptyCheck($req->description);
         $company->save();
         return redirect(route(urlPrefix().'.companies'))->with('Success','Company Added SuccessFully');
-        // return redirect(route('admin.companies'))->with('Success','Company Added SuccessFully');
     }
 
-    public function editCompany(Request $req,$id)
+    public function editCompany(Request $req,$companyId)
     {
-        $company = Company::find($id);
+        $company = Company::findOrFail($companyId);
         return view('company.edit',compact('company'));
     }
 
@@ -74,7 +73,7 @@ class AdminController extends Controller
             'name' => 'required',
             'description' => '',
         ]);
-        $company = Company::find($req->companyId);
+        $company = Company::findOrFail($req->companyId);
         $company->name = $req->name;
         if($req->hasFile('logo')){
             $logo = $req->file('logo');
@@ -95,7 +94,7 @@ class AdminController extends Controller
         ];
         $validator = validator()->make($req->all(),$rules);
         if(!$validator->fails()){
-            $company = Company::find($req->id);
+            $company = Company::findOrFail($req->id);
             if($company){
                 // $company->delete();
                 return errorResponse('Something went wrong please try after sometime');
@@ -361,7 +360,7 @@ class AdminController extends Controller
 		];
 		$validator = validator()->make($req->all(),$rules);
 		if(!$validator->fails()){
-			$user = User::find($req->userId);
+			$user = User::findOrFail($req->userId);
 			if($user){
 				if($req->action == 'block'){
 					$user->status = 0;$user->save();
@@ -491,7 +490,7 @@ class AdminController extends Controller
         ];
         $validator = validator()->make($req->all(),$rules);
         if(!$validator->fails()){
-            $blogCategory = BlogCategory::find($req->id);
+            $blogCategory = BlogCategory::findOrFail($req->id);
             if($blogCategory){
                 Blog::where('blogCategoryId',$blogCategory->id)->update(['blogCategoryId'=>0]);
                 $blogCategory->delete();
@@ -547,7 +546,7 @@ class AdminController extends Controller
 
     public function editBlog(Request $req,$id)
     {
-        $blog = Blog::find($id);
+        $blog = Blog::findOrFail($id);
         $category = BlogCategory::get();
         return view('admin.blogs.edit',compact('blog','category'));
     }
@@ -561,7 +560,7 @@ class AdminController extends Controller
             'description' => '',
             'category' => '',
         ]);
-        $blog = Blog::find($req->blogId);
+        $blog = Blog::findOrFail($req->blogId);
         $blog->title = $req->title;
         if(!empty($req->category)){
             $blog->blogCategoryId = $req->category;
@@ -585,7 +584,7 @@ class AdminController extends Controller
         ];
         $validator = validator()->make($req->all(),$rules);
         if(!$validator->fails()){
-            $blog = Blog::find($req->id);
+            $blog = Blog::findOrFail($req->id);
             if($blog){
             	$blog->delete();
             	return successResponse('Blog Deleted Success');	
@@ -648,7 +647,7 @@ class AdminController extends Controller
             'quote' => 'required',
             'image' => '',
         ]);
-        $testimonial = Testimonials::find($req->testimonialId);
+        $testimonial = Testimonials::findOrFail($req->testimonialId);
         $testimonial->name = $req->name;
         $testimonial->title = $req->title;
         $testimonial->designation = $req->designation;
@@ -671,7 +670,7 @@ class AdminController extends Controller
         ];
         $validator = validator()->make($req->all(),$rules);
         if(!$validator->fails()){
-            $testimonial = Testimonials::find($req->id);
+            $testimonial = Testimonials::findOrFail($req->id);
             if($testimonial){
             	$testimonial->delete();
             	return successResponse('Testimonial Deleted Success');	
@@ -866,7 +865,7 @@ class AdminController extends Controller
             'title' => 'required|max:200',
             'description' => 'required',
         ]);
-        $faq = Faq::find($req->faqId);
+        $faq = Faq::findOrFail($req->faqId);
         $faq->title = $req->title;
         $faq->description = $req->description;
         $faq->save();
@@ -880,7 +879,7 @@ class AdminController extends Controller
         ];
         $validator = validator()->make($req->all(),$rules);
         if(!$validator->fails()){
-            $faq = Faq::find($req->id);
+            $faq = Faq::findOrFail($req->id);
             if($faq){
                 $faq->delete();
                 return successResponse('Faq Deleted Success');  
@@ -961,7 +960,11 @@ class AdminController extends Controller
 
     public function createProduct()
     {
-        $companies = Company::get();
+        $companies = Company::select('*');
+        if(urlPrefix() != 'admin'){
+            $companies = $companies->where('created_by',auth()->user()->id);
+        }
+        $companies = $companies->get();
         return view('product.create', compact('companies'));
     }
 
@@ -1008,8 +1011,12 @@ class AdminController extends Controller
 
     public function editProduct(Request $req,$productId)
     {
-        $product = Product::find($productId);
-        $companies = Company::get();
+        $product = Product::findOrFail($productId);
+        $companies = Company::select('*');
+        if(urlPrefix() != 'admin'){
+            $companies = $companies->where('created_by',auth()->user()->id);
+        }
+        $companies = $companies->get();
         return view('product.edit',compact('product', 'companies'));
     }
 
@@ -1059,7 +1066,7 @@ class AdminController extends Controller
         ];
         $validator = validator()->make($req->all(),$rules);
         if(!$validator->fails()){
-            $product = Product::find($req->productId);
+            $product = Product::findOrFail($req->productId);
             if($product){
                 ProductRating::where('product_id',$product->id)->delete();
                 ProductGas::where('product_id',$product->id)->delete();
@@ -1191,7 +1198,7 @@ class AdminController extends Controller
         ];
         $validator = validator()->make($req->all(),$rules);
         if(!$validator->fails()){
-            $state = State::find($req->stateId);
+            $state = State::findOrFail($req->stateId);
             if($state){
                 $state->delete();
                 return successResponse('State Deleted Success'); 
