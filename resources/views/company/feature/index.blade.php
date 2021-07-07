@@ -1,15 +1,15 @@
 @extends('layouts.master')
-@section('title','Product Feature')
+@section('title','Company Feature')
 @section('content')
 <div class="container-fluid  dashboard-content">
     <div class="row">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
             <div class="card">
                 <div class="card-header">
-                    <h5 class="mb-0">Feature ({{$product->id}} - {{$product->name}})
-                        <a class="headerbuttonforAdd" href="{{route(urlPrefix().'.products')}}"><i class="fa fa-step-backward" aria-hidden="true"></i>BACK</a>
-                        <a class="headerbuttonforAdd" href="{{route(urlPrefix().'.products.feature.create',$product->id)}}">
-                            <i class="fa fa-plus" aria-hidden="true"></i>Add Product Feature
+                    <h5 class="mb-0">Feature ({{$company->id}} - {{$company->name}})
+                        <a class="headerbuttonforAdd" href="{{route(urlPrefix().'.companies')}}"><i class="fa fa-step-backward" aria-hidden="true"></i>BACK</a>
+                        <a class="headerbuttonforAdd" href="{{route(urlPrefix().'.companies.feature.create',$company->id)}}">
+                            <i class="fa fa-plus" aria-hidden="true"></i>Add Company Feature
                         </a>
                     </h5>
                 </div>
@@ -24,12 +24,12 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($product->feature as $feature)
+                                @foreach($company->feature as $feature)
                                     <tr>
                                         <td>{{$feature->title}}</td>
                                         <td>{!!$feature->description!!}</td>
                                         <td>
-                                            <a href="{{route(urlPrefix().'.product.feature.edit',[$product->id,$feature->id])}}">Edit</a> | <a href="javascript:void(0)" class="deleteproductfeature text-danger" data-feature_id="{{$feature->id}}">Delete</a>
+                                            <a href="{{route(urlPrefix().'.companies.feature.edit',[$company->id,$feature->id])}}">Edit</a> | <a href="javascript:void(0)" class="deleteCompanyfeature text-danger" data-feature_id="{{$feature->id}}">Delete</a>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -47,12 +47,12 @@
             $('#example4').DataTable();
         });
 
-        $(document).on('click','.deleteproductfeature',function(){
-            var deleteproductfeature = $(this);
+        $(document).on('click','.deleteCompanyfeature',function(){
+            var deleteCompanyfeature = $(this);
             var featureId = $(this).attr('data-feature_id');
             swal({
                 title: "Are you sure?",
-                text: "Once deleted, you will not be able to recover this product!",
+                text: "Once deleted, you will not be able to recover this Feature!",
                 icon: "warning",
                 buttons: true,
                 dangerMode: true,
@@ -62,12 +62,12 @@
                     $.ajax({
                         type:'POST',
                         dataType:'JSON',
-                        url:"{{route(urlPrefix().'.products.feature.delete',"+featureId+")}}",
-                        data: {productId:'{{$product->id}}',featureId:featureId,_token:'{{csrf_token()}}'},
+                        url:"{{route(urlPrefix().'.companies.feature.delete',[$company->id,"+featureId+"])}}",
+                        data: {companyId:'{{$company->id}}',featureId:featureId,_token:'{{csrf_token()}}'},
                         success:function(data){
                             if(data.error == false){
-                                deleteproductfeature.closest('tr').remove();
-                                swal('Success',"Poof! Product feature has been deleted!", 'success');
+                                deleteCompanyfeature.closest('tr').remove();
+                                swal('Success',"Poof! Feature has been deleted!", 'success');
                             }else{
                                 swal('Error',data.message);
                             }

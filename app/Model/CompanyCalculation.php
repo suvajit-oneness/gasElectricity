@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Model;
+namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class SupplierPincode extends Model
+class CompanyCalculation extends Model
 {
     use SoftDeletes;
 }

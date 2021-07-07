@@ -22,6 +22,10 @@
                                     <th>Logo</th>
                                     <th>Name</th>
                                     <th>Description</th>
+                                    <th>Features</th>
+                                    <th>Discounts</th>
+                                    <th>Rates Details</th>
+                                    <th>Plan Details</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -32,6 +36,28 @@
                                         <td style="height: 100px; width: 100px"><img height="100px" width="100px" src="{{asset($company->logo)}}"></td>
                                         <td>{{$company->name}}</td>
                                         <td>{!! $company->description !!}</td>
+                                        <td>
+                                            <a href="{{route(urlPrefix().'.companies.feature',$company->id)}}">
+                                                @forelse ($company->feature as $item)
+                                                    <li>{{$item->title}}</li>
+                                                @empty
+                                                    N/A
+                                                @endforelse
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a href="{{route(urlPrefix().'.companies.discount',$company->id)}}">
+                                                @forelse ($company->company_discount as $item)
+                                                    <li>{{$item->title}}</li>
+                                                @empty
+                                                    N/A
+                                                @endforelse
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a href="{{route(urlPrefix().'.companies.rate',$company->id)}}" target="_blank">@if(count($company->company_rates) > 0){{('View')}}@else{{('N/A')}}@endif</a>
+                                        </td>
+                                        <td><a href="{{route(urlPrefix().'.companies.plan',$company->id)}}" target="_blank">@if(count($company->company_plan) > 0){{('View')}}@else{{('N/A')}}@endif</a></td>
                                         <td>
                                             <a href="{{route(urlPrefix().'.companies.edit',$company->id)}}">Edit</a> | <a href="javascript:void(0)" class="deletecompany text-danger" data-id="{{$company->id}}">Delete</a>
                                         </td>

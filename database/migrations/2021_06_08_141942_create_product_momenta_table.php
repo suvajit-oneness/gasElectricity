@@ -24,10 +24,11 @@ class CreateProductMomentaTable extends Migration
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
         });
         $momentum = [];
-        for ($i=0; $i < 8; $i++) { 
-            $momentum[] = ['productId' => $i+1,'title' => 'No confusing discounts. Just great rates.','icon' => 'forntEnd/images/gear.png'];
-            $momentum[] = ['productId' => $i+1,'title' => '100% Australian owned','icon' => 'forntEnd/images/gear.png'];
-            $momentum[] = ['productId' => $i+1,'title' => 'Award Winning Customer Service','icon' => 'forntEnd/images/gear.png'];
+        $products = DB::table('products')->get();
+        foreach ($products as $key => $value) {
+            $momentum[] = ['productId' => $value->id,'title' => 'No confusing discounts. Just great rates.','icon' => 'forntEnd/images/gear.png'];
+            $momentum[] = ['productId' => $value->id,'title' => '100% Australian owned','icon' => 'forntEnd/images/gear.png'];
+            $momentum[] = ['productId' => $value->id,'title' => 'Award Winning Customer Service','icon' => 'forntEnd/images/gear.png'];
         }
         DB::table('product_momenta')->insert($momentum);
     }

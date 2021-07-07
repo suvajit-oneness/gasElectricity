@@ -13,11 +13,6 @@ class Product extends Model
     {
     	return $this->belongsTo('App\Model\Company','company_id','id');
     }
-    
-    public function feature()
-    {
-    	return $this->hasMany('App\Model\ProductFeature','product_id','id');
-    }
 
     public function product_gas()
     {
@@ -34,24 +29,9 @@ class Product extends Model
         return $this->hasMany('App\Model\ProductRating','product_id','id');
     }
 
-    public function product_discount()
-    {
-        return $this->hasMany('App\Model\ProductDiscount','productId','id');
-    }
-
     public function product_momentum()
     {
         return $this->hasMany('App\Model\ProductMomentum','productId','id');
-    }
-
-    public function product_rates()
-    {
-        return $this->hasMany('App\Model\ProductRateDetails','productId','id');
-    }
-
-    public function product_plan()
-    {
-        return $this->hasMany('App\Model\ProductPlanDetails','productId','id');
     }
 
     public function author()

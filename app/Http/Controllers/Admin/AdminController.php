@@ -4,127 +4,340 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Model\Blog;use App\Model\UserType;
-use App\User;use App\Model\ContactUs;use DB;
-use App\Model\Testimonials;use App\Model\Faq;
-use Hash;use App\Model\BlogCategory;use App\Model\Setting;
-use App\Model\Membership;use App\Model\HowItWork;
-use App\Model\Company;use App\Model\Product;use App\Model\ProductRating;
-use App\Model\ProductFeature;use App\Model\ProductTating;
-use App\Model\ProductGas;use App\Model\ProductElectricity;
-use App\Model\ProductMomentum;use App\Model\ProductDiscount;
-use App\Model\State;use App\Model\Country;
-use App\Model\ProductRateDetails,App\Model\ProductPlanDetails;
+use App\Model\Blog,App\Model\UserType;
+use App\User,App\Model\ContactUs,DB;
+use App\Model\Testimonials,App\Model\Faq;
+use Hash,App\Model\BlogCategory,App\Model\Setting;
+use App\Model\Membership,App\Model\Company;
+use App\Model\Product,App\Model\ProductRating;
+use App\Model\CompanyFeature;
+use App\Model\ProductGas,App\Model\ProductElectricity;
+use App\Model\ProductMomentum,App\Model\CompanyDiscount;
+use App\Model\State,App\Model\Country,App\Model\CompanyCalculation;
+use App\Model\CompanyRateDetails,App\Model\CompanyPlanDetails;
 
 class AdminController extends Controller
 {
-
-/*************************** Product Rate Details ************************/
-    public function getproductRateDetails(Request $req,$productId)
+/****************************** Company ******************************/
+    public function companies(Request $req,$companyId = 0)
     {
-        $product = Product::findOrFail($productId);
-        return view('product.rate.index',compact('product'));
+        $companies = Company::select('*');
+        if($companyId > 0){
+            $companies = $companies->where('id',$companyId);
+        }
+        $companies = $companies->get();
+        return view('company.index',compact('companies'));
     }
 
-    public function productRateDetailsSaveOrUpdate(Request $req,$productId)
+    public function createCompany()
+    {
+        return view('company.create');
+    }
+
+    public function saveCompany(Request $req)
+    {
+        $req->validate([
+            'logo' => '',
+            'name' => 'required|max:200|string',
+            'description' => '',
+        ]);
+        $company = new Company();
+        $company->name = $req->name;
+        $company->created_by = auth()->user()->id;
+        if($req->hasFile('logo')){
+            $logo = $req->file('logo');
+            $random = randomGenerator();
+            $logo->move('upload/companies/',$random.'.'.$logo->getClientOriginalExtension());
+            $logourl = 'upload/companies/'.$random.'.'.$logo->getClientOriginalExtension();
+            $company->logo = $logourl;
+        }
+        $company->description = emptyCheck($req->description);
+        $company->save();
+        return redirect(route(urlPrefix().'.companies'))->with('Success','Company Added SuccessFully');
+        // return redirect(route('admin.companies'))->with('Success','Company Added SuccessFully');
+    }
+
+    public function editCompany(Request $req,$id)
+    {
+        $company = Company::find($id);
+        return view('company.edit',compact('company'));
+    }
+
+    public function updateCompany(Request $req)
+    {
+        $req->validate([
+            'companyId' => 'required|min:1|numeric',
+            'logo' => '',
+            'name' => 'required',
+            'description' => '',
+        ]);
+        $company = Company::find($req->companyId);
+        $company->name = $req->name;
+        if($req->hasFile('logo')){
+            $logo = $req->file('logo');
+            $random = randomGenerator();
+            $logo->move('upload/companies/',$random.'.'.$logo->getClientOriginalExtension());
+            $logourl = 'upload/companies/'.$random.'.'.$logo->getClientOriginalExtension();
+            $company->logo = $logourl;
+        }
+        $company->description = emptyCheck($req->description);
+        $company->save();
+        return redirect(route(urlPrefix().'.companies'))->with('Success','Company Updated SuccessFully');
+    }
+
+    public function deleteCompany(Request $req)
+    {
+        $rules = [
+            'id' => 'required',
+        ];
+        $validator = validator()->make($req->all(),$rules);
+        if(!$validator->fails()){
+            $company = Company::find($req->id);
+            if($company){
+                // $company->delete();
+                return errorResponse('Something went wrong please try after sometime');
+                return successResponse('Company Deleted Success');
+            }
+            return errorResponse('Invalid Company Id');
+        }
+        return errorResponse($validator->errors()->first());
+    }
+
+/****************************** Product Feature ******************************/
+    public function companyFeature(Request $req,$companyId)
+    {
+        $company = Company::findOrFail($companyId);
+        return view('company.feature.index',compact('company'));
+    }
+
+    public function createCompanyFeature(Request $req,$companyId)
+    {
+        $company = Company::findOrFail($companyId);
+        return view('company.feature.create', compact('company'));
+    }
+
+    public function saveCompanyFeature(Request $req,$companyId)
+    {
+        $req->validate([
+            'companyId' => 'required|min:1|numeric|in:'.$companyId,
+            'title' => 'required|max:200',
+            'description' => 'nullable|string',
+        ]);
+        $feature = new CompanyFeature();
+        $feature->companyId = $companyId;
+        $feature->title = $req->title;
+        $feature->description = emptyCheck($req->description);
+        $feature->save();
+        return redirect(route(urlPrefix().'.companies.feature',$companyId))->with('Success','Company Feature Added SuccessFully');
+    }
+
+    public function editCompanyFeature(Request $req,$companyId,$featureId)
+    {
+        $feature = CompanyFeature::where('id',$featureId)->where('companyId',$companyId)->first();
+        if($feature){
+            return view('company.feature.edit',compact('feature'));
+        }
+        return redirect(route(urlPrefix().'.companies.feature',$companyId))->with('Errors','Something went wrong please try after sometime');
+    }
+
+    public function updateCompanyFeature(Request $req,$companyId,$featureId)
+    {
+        $req->validate([
+            'companyId' => 'required|min:1|numeric|in:'.$companyId,
+            'featureId' => 'required|min:1|numeric|in:'.$featureId,
+            'title' => 'required|max:200',
+            'description' => 'nullable|string',
+        ]);
+        $feature = CompanyFeature::where('id',$featureId)->where('companyId',$companyId)->first();
+        if($feature){
+            $feature->title = $req->title;
+            $feature->description = emptyCheck($req->description);
+            $feature->save();
+            return redirect(route(urlPrefix().'.companies.feature',$companyId))->with('Success','Company Feature Updated SuccessFully');
+        }
+        return back()->with('Errors','Something went wrong please try after sometime');
+    }
+
+    public function deleteCompanyFeature(Request $req,$companyId)
+    {
+        $rules = [
+            'companyId' => 'required|min:1|numeric|in:'.$companyId,
+            'featureId' => 'required|min:1|numeric',
+        ];
+        $validator = validator()->make($req->all(),$rules);
+        if(!$validator->fails()){
+            $feature = CompanyFeature::where('id',$req->featureId)->where('companyId',$req->companyId)->first();
+            if($feature){
+                $feature->delete();
+                return successResponse('Feature Deleted Success');
+            }
+            return errorResponse('Invalid Feature Id');
+        }
+        return errorResponse($validator->errors()->first());
+    }
+
+/*************************** Company Rate Details ************************/
+    public function getCompanyRateDetails(Request $req,$companyId)
+    {
+        $company = Company::findOrFail($companyId);
+        return view('company.rate.index',compact('company'));
+    }
+
+    public function companyRateDetailsSaveOrUpdate(Request $req,$companyId)
     {
         $req->validate([
             'form_type' => 'required|in:add,edit',
-            'productId' => 'required|min:1|numeric|in:'.$productId,
+            'companyId' => 'required|min:1|numeric|in:'.$companyId,
             'type' => 'required|numeric|in:1,2,3',
             'title' => 'required|string|max:100',
             'description' => 'nullable|string',
         ]);
         if($req->form_type == 'add'){
-            $add = new ProductRateDetails();
-                $add->productId = $req->productId;
+            $add = new CompanyRateDetails();
+                $add->companyId = $req->companyId;
                 $add->type = $req->type;
                 $add->title = $req->title;
                 $add->description = $req->description;
             $add->save();
-            return back()->with('Success','Product Rate Added SuccessFully');
+            return back()->with('Success','Company Rate Added SuccessFully');
         }else{
             $req->validate([
                 'rateId' => 'required|min:1|numeric',
             ]);
-            $update = ProductRateDetails::where('id',$req->rateId)->where('productId',$req->productId)->first();
+            $update = CompanyRateDetails::where('id',$req->rateId)->where('companyId',$req->companyId)->first();
                 $update->type = $req->type;
                 $update->title = $req->title;
                 $update->description = $req->description;
             $update->save();
-            return back()->with('Success','Product Rate Updated SuccessFully');
+            return back()->with('Success','Company Rate Updated SuccessFully');
         }
     }
 
-    public function productRateDetailsDelete(Request $req,$productId)
+    public function companyRateDetailsDelete(Request $req,$companyId)
     {
         $rules = [
-            'productId' => 'required|numeric|min:1',
+            'companyId' => 'required|numeric|min:1',
             'rateId' => 'required|numeric|min:1',
         ];
         $validator = validator()->make($req->all(),$rules);
         if(!$validator->fails()){
-            $product_rate = ProductRateDetails::where('id',$req->rateId)->where('productId',$req->productId)->first();
-            if($product_rate){
-                $product_rate->delete();
-                return successResponse('Product Rate Deleted Success'); 
+            $company_rate = CompanyRateDetails::where('id',$req->rateId)->where('companyId',$req->companyId)->first();
+            if($company_rate){
+                $company_rate->delete();
+                return successResponse('Company Rate Deleted Success'); 
             }
-            return errorResponse('Invalid Product Plan Id');
+            return errorResponse('Invalid Company Plan Id');
         }
         return errorResponse($validator->errors()->first());
     }
 
-/*************************** Product Plan Details ************************/
-    public function getproductPlanDetails(Request $req,$productId)
+/*************************** Company Plan Details ************************/
+    public function getCompanyPlanDetails(Request $req,$companyId)
     {
-        $product = Product::findOrFail($productId);
-        return view('product.plan.index',compact('product'));
+        $company = Company::findOrFail($companyId);
+        return view('company.plan.index',compact('company'));
     }
 
-    public function productPlanDetailsSaveOrUpdate(Request $req,$productId)
+    public function companyPlanDetailsSaveOrUpdate(Request $req,$companyId)
     {
         $req->validate([
             'form_type' => 'required|in:add,edit',
-            'productId' => 'required|min:1|numeric|in:'.$productId,
+            'companyId' => 'required|min:1|numeric|in:'.$companyId,
             'type' => 'required|numeric|in:1,2',
             'title' => 'required|string|max:100',
             'description' => 'nullable|string',
         ]);
         if($req->form_type == 'add'){
-            $add = new ProductPlanDetails();
-                $add->productId = $req->productId;
+            $add = new CompanyPlanDetails();
+                $add->companyId = $req->companyId;
                 $add->type = $req->type;
                 $add->title = $req->title;
                 $add->description = $req->description;
             $add->save();
-            return back()->with('Success','Product Plan Added SuccessFully');
+            return back()->with('Success','Company Plan Added SuccessFully');
         }else{
             $req->validate([
                 'planId' => 'required|min:1|numeric',
             ]);
-            $update = ProductPlanDetails::where('id',$req->planId)->where('productId',$req->productId)->first();
+            $update = CompanyPlanDetails::where('id',$req->planId)->where('companyId',$req->companyId)->first();
                 $update->type = $req->type;
                 $update->title = $req->title;
                 $update->description = $req->description;
             $update->save();
-            return back()->with('Success','Product Plan Updated SuccessFully');
+            return back()->with('Success','Company Plan Updated SuccessFully');
         }
     }
 
-    public function productPlanDetailsDelete(Request $req,$productId)
+    public function companyPlanDetailsDelete(Request $req,$companyId)
     {
         $rules = [
-            'productId' => 'required|numeric|min:1',
+            'companyId' => 'required|numeric|min:1',
             'planId' => 'required|numeric|min:1',
         ];
         $validator = validator()->make($req->all(),$rules);
         if(!$validator->fails()){
-            $product_plan = ProductPlanDetails::where('id',$req->planId)->where('productId',$req->productId)->first();
-            if($product_plan){
-                $product_plan->delete();
-                return successResponse('Product Plan Deleted Success'); 
+            $company_plan = CompanyPlanDetails::where('id',$req->planId)->where('companyId',$req->companyId)->first();
+            if($company_plan){
+                $company_plan->delete();
+                return successResponse('Company Plan Deleted Success'); 
             }
-            return errorResponse('Invalid Product Plan Id');
+            return errorResponse('Invalid Company Plan Id');
+        }
+        return errorResponse($validator->errors()->first());
+    }
+
+/****************************** Company Discount ******************************/
+    public function companyDiscount(Request $req,$companyId)
+    {
+        $company = Company::findOrFail($companyId);
+        return view('company.discount.index',compact('company'));
+    }
+
+    public function saveCompanyDiscount(Request $req,$companyId)
+    {
+        $req->validate([
+            'title' => 'required|max:200',
+            'description' => 'nullable|string',
+        ]);
+        $discount = new CompanyDiscount();
+        $discount->companyId = $companyId;
+        $discount->title = $req->title;
+        $discount->description = $req->description;
+        $discount->save();
+        return back()->with('Success','Company Discount Added SuccessFully');
+    }
+
+    public function updateCompanyDiscount(Request $req,$companyId,$discountId)
+    {
+        $req->validate([
+            'title' => 'required|max:200',
+            'description' => 'nullable|string',
+        ]);
+        $discount = CompanyDiscount::where('id',$discountId)->where('companyId',$companyId)->first();
+        if($discount){
+            $discount->title = $req->title;
+            $discount->description = $req->description;
+            $discount->save();
+            return back()->with('Success','Company Discount Updated SuccessFully');
+        }
+        return back()->with('Errors','Something went wrong Please try after some time')->withInput($req->all());
+
+    }
+
+    public function deleteCompanyDiscount(Request $req)
+    {
+        $rules = [
+            'companyId' => 'required|min:1|numeric',
+            'discountId' => 'required|min:1|numeric',
+        ];
+        $validator = validator()->make($req->all(),$rules);
+        if(!$validator->fails()){
+            $discount = CompanyDiscount::where('id',$req->discountId)->where('companyId',$req->companyId)->first();
+            if($discount){
+                $discount->delete();
+                return successResponse('Discount Deleted Success');
+            }
+            return errorResponse('Invalid Discount Id');
         }
         return errorResponse($validator->errors()->first());
     }
@@ -729,92 +942,6 @@ class AdminController extends Controller
         return errorResponse($validator->errors()->first());
     }
 
-/****************************** Company ******************************/
-	public function companies(Request $req,$companyId = 0)
-	{
-        $companies = Company::select('*');
-        if($companyId > 0){
-            $companies = $companies->where('id',$companyId);
-        }
-        $companies = $companies->get();
-        return view('company.index',compact('companies'));
-	}
-
-    public function createCompany()
-    {
-        return view('company.create');
-    }
-
-    public function saveCompany(Request $req)
-    {
-        $req->validate([
-            'logo' => '',
-            'name' => 'required|max:200|string',
-            'description' => '',
-        ]);
-        $company = new Company();
-        $company->name = $req->name;
-        $company->created_by = auth()->user()->id;
-        if($req->hasFile('logo')){
-            $logo = $req->file('logo');
-            $random = randomGenerator();
-            $logo->move('upload/companies/',$random.'.'.$logo->getClientOriginalExtension());
-            $logourl = 'upload/companies/'.$random.'.'.$logo->getClientOriginalExtension();
-            $company->logo = $logourl;
-        }
-        $company->description = emptyCheck($req->description);
-        $company->save();
-        return redirect(route(urlPrefix().'.companies'))->with('Success','Company Added SuccessFully');
-        // return redirect(route('admin.companies'))->with('Success','Company Added SuccessFully');
-    }
-
-    public function editCompany(Request $req,$id)
-    {
-        $company = Company::find($id);
-        return view('company.edit',compact('company'));
-    }
-
-    public function updateCompany(Request $req)
-    {
-        $req->validate([
-            'companyId' => 'required|min:1|numeric',
-            'logo' => '',
-            'name' => 'required',
-            'description' => '',
-        ]);
-        $company = Company::find($req->companyId);
-        $company->name = $req->name;
-        if($req->hasFile('logo')){
-            $logo = $req->file('logo');
-            $random = randomGenerator();
-            $logo->move('upload/companies/',$random.'.'.$logo->getClientOriginalExtension());
-            $logourl = 'upload/companies/'.$random.'.'.$logo->getClientOriginalExtension();
-            $company->logo = $logourl;
-        }
-        $company->description = emptyCheck($req->description);
-        $company->save();
-        return redirect(route(urlPrefix().'.companies'))->with('Success','Company Updated SuccessFully');
-        // return redirect(route('admin.companies'))->with('Success','Company Updated SuccessFully');
-    }
-
-    public function deleteCompany(Request $req)
-    {
-        $rules = [
-            'id' => 'required',
-        ];
-        $validator = validator()->make($req->all(),$rules);
-        if(!$validator->fails()){
-            $company = Company::find($req->id);
-            if($company){
-            	// $company->delete();
-                return errorResponse('Something went wrong please try after sometime');
-            	return successResponse('Company Deleted Success');
-            }
-        	return errorResponse('Invalid Company Id');
-        }
-        return errorResponse($validator->errors()->first());
-    }
-
 /****************************** Product ******************************/
 	public function products($productId = 0)
 	{
@@ -931,7 +1058,6 @@ class AdminController extends Controller
         if(!$validator->fails()){
             $product = Product::find($req->productId);
             if($product){
-                ProductFeature::where('product_id',$product->id)->delete();
                 ProductRating::where('product_id',$product->id)->delete();
                 ProductGas::where('product_id',$product->id)->delete();
                 ProductElectricity::where('product_id',$product->id)->delete();
@@ -939,79 +1065,6 @@ class AdminController extends Controller
             	return successResponse('Product Deleted Success');	
             }
         	return errorResponse('Invalid Product Id');
-        }
-        return errorResponse($validator->errors()->first());
-    }
-
-/****************************** Product Feature ******************************/
-	public function productFeature(Request $req,$productId)
-	{
-        $product = Product::findOrFail($productId);
-        return view('product.feature.index',compact('product'));
-	}
-
-    public function createProductFeature(Request $req,$productId)
-    {
-        $product = Product::findOrFail($productId);
-        return view('product.feature.create', compact('product'));
-    }
-
-    public function saveProductFeature(Request $req,$productId)
-    {
-        $req->validate([
-            'title' => 'required|max:200',
-            'description' => 'nullable|string',
-        ]);
-        $feature = new ProductFeature();
-        $feature->product_id = $productId;
-        $feature->title = $req->title;
-        $feature->description = emptyCheck($req->description);
-        $feature->save();
-        return redirect(route(urlPrefix().'.product.feature',$productId))->with('Success','Product Feature Added SuccessFully');
-        // return redirect(route('admin.product.feature',$productId))->with('Success','Product Feature Added SuccessFully');
-    }
-
-    public function editProductFeature(Request $req,$productId,$featureId)
-    {
-        $feature = ProductFeature::where('id',$featureId)->where('product_id',$productId)->first();
-        if($feature){
-            return view('product.feature.edit',compact('feature'));
-        }
-        return redirect(route(urlPrefix().'.product.feature',$productId))->with('Errors','Something went wrong please try after sometime');
-        // return redirect(route('admin.product.feature',$productId))->with('Errors','Something went wrong please try after sometime');
-    }
-
-    public function updateProductFeature(Request $req,$productId,$featureId)
-    {
-        $req->validate([
-            'title' => 'required|max:200',
-            'description' => 'nullable|string',
-        ]);
-        $feature = ProductFeature::where('id',$featureId)->where('product_id',$productId)->first();
-        if($feature){
-            $feature->title = $req->title;
-            $feature->description = emptyCheck($req->description);
-            $feature->save();
-            return redirect(route(urlPrefix().'.product.feature',$productId))->with('Success','Product Feature Updated SuccessFully');
-            // return redirect(route('admin.product.feature',$productId))->with('Success','Product Feature Updated SuccessFully');
-        }
-        return back()->with('Errors','Something went wrong please try after sometime');
-    }
-
-    public function deleteProductFeature(Request $req)
-    {
-        $rules = [
-            'productId' => 'required|min:1|numeric',
-            'featureId' => 'required|min:1|numeric',
-        ];
-        $validator = validator()->make($req->all(),$rules);
-        if(!$validator->fails()){
-            $feature = ProductFeature::where('id',$req->featureId)->where('product_id',$req->productId)->first();
-            if($feature){
-            	$feature->delete();
-            	return successResponse('Feature Deleted Success');
-            }
-        	return errorResponse('Invalid Feature Id');
         }
         return errorResponse($validator->errors()->first());
     }
@@ -1041,7 +1094,7 @@ class AdminController extends Controller
             $momenta->icon = $imageurl;
         }
         $momenta->save();
-        return redirect(route(urlPrefix().'.product.momenta',$productId))->with('Success','Product Momenta Added SuccessFully');
+        return redirect(route(urlPrefix().'.products.momenta',$productId))->with('Success','Product Momenta Added SuccessFully');
     }
 
     public function updateProductMomenta(Request $req,$productId,$momentaId)
@@ -1065,8 +1118,7 @@ class AdminController extends Controller
                 $momenta->icon = $imageurl;
             }
             $momenta->save();
-            return redirect(route(urlPrefix().'.product.momenta',$productId))->with('Success','Product Momenta Updated SuccessFully');
-            // return redirect(route('admin.product.feature',$productId))->with('Success','Product Feature Updated SuccessFully');
+            return redirect(route(urlPrefix().'.products.momenta',$productId))->with('Success','Product Momenta Updated SuccessFully');
         }
     }
     public function deleteProductMomenta(Request $req)
@@ -1083,62 +1135,6 @@ class AdminController extends Controller
             	return successResponse('Momenta Deleted Success');
             }
         	return errorResponse('Invalid Momenta Id');
-        }
-        return errorResponse($validator->errors()->first());
-    }
-
-    /****************************** Product Discount ******************************/
-	public function productDiscount(Request $req,$productId)
-	{
-        $product = Product::findOrFail($productId);
-        return view('product.discount.index',compact('product'));
-	}
-
-    public function saveProductDiscount(Request $req,$productId)
-    {
-        $req->validate([
-            'title' => 'required|max:200',
-            'description' => 'nullable|string',
-        ]);
-        $discount = new ProductDiscount();
-        $discount->productId = $productId;
-        $discount->title = $req->title;
-        $discount->description = $req->description;
-        $discount->save();
-        return redirect(route(urlPrefix().'.product.discount',$productId))->with('Success','Product Discount Added SuccessFully');
-        // return redirect(route('admin.product.feature',$productId))->with('Success','Product Feature Added SuccessFully');
-    }
-
-    public function updateProductDiscount(Request $req,$productId,$discountId)
-    {
-        $req->validate([
-            'title' => 'required|max:200',
-            'description' => 'nullable|string',
-        ]);
-        $discount = ProductDiscount::where('id',$discountId)->where('productId',$productId)->first();
-        if($discount){
-            $discount->title = $req->title;
-            $discount->description = $req->description;
-            $discount->save();
-            return redirect(route(urlPrefix().'.product.discount',$productId))->with('Success','Product Discount Updated SuccessFully');
-            // return redirect(route('admin.product.feature',$productId))->with('Success','Product Feature Updated SuccessFully');
-        }
-    }
-
-    public function deleteProductDiscount(Request $req)
-    {
-        $rules = [
-            'productId' => 'required|min:1|numeric',
-            'discountId' => 'required|min:1|numeric',
-        ];
-        $validator = validator()->make($req->all(),$rules);
-        if(!$validator->fails()){
-            $discount = ProductDiscount::where('id',$req->discountId)->where('productId',$req->productId)->first();
-            if($discount){
-            	$discount->delete();
-            	return successResponse('Discount Deleted Success');
-            }
-        	return errorResponse('Invalid Discount Id');
         }
         return errorResponse($validator->errors()->first());
     }

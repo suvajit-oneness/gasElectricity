@@ -24,8 +24,9 @@ class CreateProductElectricitiesTable extends Migration
         });
 
         $elecricityData = [];
-        for ($k=0; $k < 8; $k++) {
-            $elecricityData[] = ['product_id' => $k+1,'title' => '15% less','price' => rand(1111,1469)];
+        $products = DB::table('products')->get();
+        foreach ($products as $key => $value) {
+            $elecricityData[] = ['product_id' => $value->id,'title' => '15% less','price' => rand(1111,1469)];
         }
         DB::table('product_electricities')->insert($elecricityData);
     }

@@ -24,8 +24,9 @@ class CreateProductRatingsTable extends Migration
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
         });
         $rating = [];
-        for ($j=0; $j < 50; $j++) {
-            $rating[] = ['product_id' => rand(1,8),'user_id' => rand(1,3),'rating' => rand(1,5),'comment'=>'Testing'];
+        $products = DB::table('products')->get();
+        foreach ($products as $key => $value) {
+            $rating[] = ['product_id' => $value->id,'user_id' => rand(1,3),'rating' => rand(1,5),'comment'=>'Testing By Migration'];
         }
         DB::table('product_ratings')->insert($rating);
     }

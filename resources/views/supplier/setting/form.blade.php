@@ -55,7 +55,7 @@
                         </thead>
                         <tbody>
                             @foreach($data as $key => $d)
-                                <tr>
+                                <tr id="tableDataTr_{{$d->id}}">
                                     <?php $inputType = $d->input_type;?>
                                     <td>{{$inputType->input_type}}</td>
                                     <td>{{$d->key}}</td>
@@ -64,7 +64,7 @@
                                     <td>
                                         @if(formInputTypeCheck($inputType->input_type))
                                             <?php $formOption = $d->form_option; ?>
-                                            <a class="optionView" href="javascript:void(0)" data-details="{{json_encode($formOption)}}">View</a>
+                                            <a class="optionView" href="javascript:void(0)" data-details="{{json_encode($d)}}">View</a>
                                         @endif
                                     </td>
                                     <td>
@@ -94,21 +94,24 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
-                <table class="table" style="width: 100% !important;">
-                    <thead>
-                        <tr>
-                            <th>Option</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tableBody"></tbody>
-                </table>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
+            <form method="post" action="{{route('supplier.setting.form.option.save')}}">
+                @csrf
+                <div class="modal-body">
+                    <table class="table" style="width: 100% !important;" id="MyTable">
+                        <thead>
+                            <tr>
+                                <th>Option</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tableBody"></tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
@@ -153,51 +156,58 @@
 
     $(document).on('click','.optionView',function(){
         var details = JSON.parse($(this).attr('data-details'));
-        var toAppendData = '';
-        if(details.length > 0){
+        var toAppendData = '<tr><td><input type="hidden" name="formSupplierId" value="'+details.id+'"></td><td></td></tr>';
+        if(details.form_option.length > 0){
             var counter = 0;
-            $.each(details, function( index, value ) {
+            $.each(details.form_option, function( index, value ) {
                 counter++;
                 toAppendData += '<tr><td>'+value.option+'</td>';
-                if(counter == details.length){
-                    toAppendData += '<td><a href="javascript:void(0)" class="addOption">+</a></td>';
+                if(counter == details.form_option.length){
+                    toAppendData += '<td><a href="javascript:void(0)" class="actionbtn addOption" data-id="'+value.id+'" data-form_id="'+value.supplierFormId+'">+</a></td>';
                 }else{
-                    toAppendData += '<td><a href="javascript:void(0)" class="removeOption" data-id="'+value.id+'" data-form_id="'+value.supplierFormId+'">&#10006;</a></td>';
+                    toAppendData += '<td><a href="javascript:void(0)" class="actionbtn removeOption" data-id="'+value.id+'" data-form_id="'+value.supplierFormId+'">&#10006;</a></td>';
                 }
                 toAppendData += '</tr>';
             });
         }else{
-            toAppendData += '<td><input type="text" name="option" placeholder="Enter Option"></td><td><a href="javascript:void(0)" class="addOption">+</a></td>'
+            toAppendData += '<tr><td><input type="text" name="option[]" placeholder="Enter Option" required></td><td><a href="javascript:void(0)" class="actionbtn addOption">+</a></td></tr>';
         }
-        $('#tableBody').append(toAppendData);
+        $('#tableBody').empty().append(toAppendData);
         console.log(details);
         $('#exampleModal').modal('show');
     });
 
     $(document).on('click','.addOption',function(){
-        // add Code
+        $('.actionbtn').removeClass('addOption').addClass('removeOption');
+        $('.removeOption').empty().append('<span class="text-danger">&#10006;</span>');
+        var toAppendData = '<tr><td><input type="text" name="option[]" placeholder="Enter Option" required></td><td><a href="javascript:void(0)" class="actionbtn addOption">+</a></td></tr>';
+        $('#MyTable tr:last').after(toAppendData);
     });
 
     $(document).on('click','.removeOption',function(){
         var clickEvent = $(this);
         var id = clickEvent.attr('data-id');
         var formId = clickEvent.attr('data-form_id');
-        $('.loading-data').show();
-        $.ajax({
-            url : "{{route('supplier.setting.form.option.remove')}}",
-            type: 'POST',
-            dataType : 'JSON',
-            data : {formOptionId:id,formId:formId,_token:'{{csrf_token()}}'},
-            success:function(response){
-                if(response.error == false){
-                    clickEvent.closest('tr').remove();
+        if(id != undefined || formId != undefined){
+            $('.loading-data').show();
+            $.ajax({
+                url : "{{route('supplier.setting.form.option.remove')}}",
+                type: 'POST',
+                dataType : 'JSON',
+                data : {formOptionId:id,formId:formId,_token:'{{csrf_token()}}'},
+                success:function(response){
+                    if(response.error == false){
+                        clickEvent.closest('tr').remove();
+                    }
+                    else{
+                        swal('Error',response.message, 'error');
+                    }
+                    $('.loading-data').hide();
                 }
-                else{
-                    swal('Error',response.message, 'error');
-                }
-                $('.loading-data').hide();
-            }
-        });
+            });
+        }else{
+            clickEvent.closest('tr').remove();
+        }
     });
 </script>
 @endsection

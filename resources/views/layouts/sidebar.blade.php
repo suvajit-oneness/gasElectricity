@@ -89,7 +89,7 @@
                             <a class="nav-link {{request()->routeIs('supplier.service.pincode')?'active':''}}" href="{{route('supplier.service.pincode')}}"><i class="fa fa-fw fa-user-circle"></i>Pincode</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {{request()->routeIs('supplier.companies')?'active':''}}" href="{{route('supplier.companies')}}"><i class="fa fa-fw fa-user-circle"></i>Companies</a>
+                            <a class="nav-link {{request()->routeIs('supplier.companie*')?'active':''}}" href="{{route('supplier.companies')}}"><i class="fa fa-fw fa-user-circle"></i>Companies</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link {{request()->routeIs('supplier.product*')?'active':''}}" href="{{route('supplier.products')}}"><i class="fa fa-fw fa-user-circle"></i>Products</a>

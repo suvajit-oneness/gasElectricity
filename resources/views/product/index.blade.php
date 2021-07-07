@@ -21,15 +21,11 @@
                                     <th>Company</th>
                                     <th>Product Id</th>
                                     <th>Product Name</th>
-                                    <th>Features</th>
                                     <th>Momentum</th>
-                                    <th>Discounts</th>
                                     <th>Tag</th>
                                     <th>Tag Description</th>
                                     <th>Gas</th>
                                     <th>Electricity</th>
-                                    <th>Rates Details</th>
-                                    <th>Plan Details</th>
                                     @if(urlprefix() == 'admin')
                                         <th>Created By</th>
                                     @endif
@@ -50,26 +46,8 @@
                                         <td>{{$product->id}}</td>
                                         <td>{{$product->name}}</td>
                                         <td>
-                                            <a href="{{route(urlPrefix().'.products.feature',$product->id)}}">
-                                                @forelse ($product->feature as $item)
-                                                    <li>{{$item->title}}</li>
-                                                @empty
-                                                    N/A
-                                                @endforelse
-                                            </a>
-                                        </td>
-                                        <td>
                                             <a href="{{route(urlPrefix().'.products.momenta',$product->id)}}">
                                                 @forelse ($product->product_momentum as $item)
-                                                    <li>{{$item->title}}</li>
-                                                @empty
-                                                    N/A
-                                                @endforelse
-                                            </a>
-                                        </td>
-                                        <td>
-                                            <a href="{{route(urlPrefix().'.products.discount',$product->id)}}">
-                                                @forelse ($product->product_discount as $item)
                                                     <li>{{$item->title}}</li>
                                                 @empty
                                                     N/A
@@ -100,10 +78,6 @@
                                                 {{('N/A')}}
                                             @endif
                                         </td>
-                                        <td>
-                                            <a href="{{route(urlPrefix().'.products.rate',$product->id)}}" target="_blank">@if(count($product->product_rates) > 0){{('View')}}@else{{('N/A')}}@endif</a>
-                                        </td>
-                                        <td><a href="{{route(urlPrefix().'.products.plan',$product->id)}}" target="_blank">@if(count($product->product_plan) > 0){{('View')}}@else{{('N/A')}}@endif</a></td>
                                         @if(urlprefix() == 'admin')
                                             <?php $author = $product->author;?>
                                             <td><ul>

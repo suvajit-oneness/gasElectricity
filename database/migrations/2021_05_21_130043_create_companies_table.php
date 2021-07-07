@@ -24,9 +24,9 @@ class CreateCompaniesTable extends Migration
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
         });
         $company = [
-            ['name' => 'Company A', 'description' => 'Company A Description', 'logo'=>'forntEnd/images/logo.png','created_by' => 1],
-            ['name' => 'Company B', 'description' => 'Company B Description', 'logo'=>'forntEnd/images/logo.png','created_by' => 1],
-            ['name' => 'Company C', 'description' => 'Company C Description', 'logo'=>'forntEnd/images/logo.png','created_by' => 1],
+            ['name' => 'Alinta Energy', 'description' => 'Home Deal plan - Simple, competitive rate only products', 'logo'=>'forntEnd/images/logo.png','created_by' => 2],
+            ['name' => 'Alinta Energy 2', 'description' => 'Home Deal plan - Simple, competitive rate only products', 'logo'=>'forntEnd/images/logo.png','created_by' => 2],
+            ['name' => 'Alinta Energy 3', 'description' => 'Home Deal plan - Simple, competitive rate only products', 'logo'=>'forntEnd/images/logo.png','created_by' => 2],
         ];
         DB::table('companies')->insert($company);
     }

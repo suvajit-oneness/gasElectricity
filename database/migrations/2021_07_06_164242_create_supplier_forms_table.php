@@ -63,7 +63,6 @@ class CreateSupplierFormsTable extends Migration
                 'placeholder' => 'Communication Address',
             ]
         ];
-
         DB::table('supplier_forms')->insert($data);
     }
 

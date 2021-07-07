@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Supplier;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller,App\Model\SupplierPincode;
-use  App\Model\SupplierForm;use App\Model\FormInput;
+use  App\Model\SupplierForm,App\Model\FormInput;
 use  App\Model\SupplierFormOption;
 class SupplierController extends Controller
 {
@@ -99,7 +99,7 @@ class SupplierController extends Controller
                 $formOption->delete();
                 return successResponse('option deleted Success');
             }
-            return errorResponse('Invalid Form option Id');
+            return errorResponse('Invalid Form option Id or this is already removed kindly refresh the web page');
         }
         return errorResponse($validator->errors()->first());
     }
@@ -125,5 +125,21 @@ class SupplierController extends Controller
             return errorResponse('Invalid Supplier Form Id');
         }
         return errorResponse($validator->errors()->first());
+    }
+
+    public function formOptionAddNew(Request $req)
+    {
+        $req->validate([
+            'formSupplierId' => 'required|numeric|min:1',
+            'option' => 'required|array',
+            'option.*' => 'required|string|max:200',
+        ]);
+        foreach ($req->option as $key => $request) {
+            $new = new SupplierFormOption();
+                $new->supplierFormId = $req->formSupplierId;
+                $new->option = $request;
+            $new->save();
+        }
+        return back()->with('Success','Form Option added SuccessFully');
     }
 }

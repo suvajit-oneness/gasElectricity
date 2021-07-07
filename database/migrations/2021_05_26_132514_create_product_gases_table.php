@@ -24,8 +24,9 @@ class CreateProductGasesTable extends Migration
         });
 
         $gasData = [];
-        for ($k=0; $k < 8; $k++) { 
-            $gasData[] = ['product_id' => $k+1,'title' => '17% less','price' => rand(1801,1999)];
+        $products = DB::table('products')->get();
+        foreach ($products as $key => $value) {
+            $gasData[] = ['product_id' => $value->id,'title' => '17% less','price' => rand(1801,1999)];
         }
         DB::table('product_gases')->insert($gasData);
     }

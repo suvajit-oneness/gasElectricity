@@ -5,12 +5,12 @@ namespace App\Model;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class ProductFeature extends Model
+class CompanyFeature extends Model
 {
     use SoftDeletes;
 
-    public function product()
+    public function company()
     {
-    	return $this->belongsTo('App\Model\Product','product_id','id');
+        return $this->belongsTo('App\Model\Company','companyId','id');
     }
 }

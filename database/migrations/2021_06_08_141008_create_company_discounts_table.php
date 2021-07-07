@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateProductDiscountsTable extends Migration
+class CreateCompanyDiscountsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class CreateProductDiscountsTable extends Migration
      */
     public function up()
     {
-        Schema::create('product_discounts', function (Blueprint $table) {
+        Schema::create('company_discounts', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('productId');
+            $table->bigInteger('companyId');
             $table->string('title');
             $table->string('description');
             $table->softDeletes();
@@ -23,12 +23,13 @@ class CreateProductDiscountsTable extends Migration
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
         });
         $discount = [];
-        for ($i=0; $i < 8; $i++) { 
-            $discount[] = ['productId' => $i+1,'title' => 'Contract Exit Fee','description' => 'No Exit Fees.'];
-            $discount[] = ['productId' => $i+1,'title' => 'Dishonoured Payment Fee','description' => 'Nil.'];
-            $discount[] = ['productId' => $i+1,'title' => 'Card Payment Fee','description' => 'No Credit Card Fees.'];
+        $company = DB::table('companies')->get();
+        foreach ($company as $key => $value) {
+            $discount[] = ['companyId' => $value->id,'title' => 'Contract Exit Fee','description' => 'No Exit Fees.'];
+            $discount[] = ['companyId' => $value->id,'title' => 'Dishonoured Payment Fee','description' => 'Nil.'];
+            $discount[] = ['companyId' => $value->id,'title' => 'Card Payment Fee','description' => 'No Credit Card Fees.'];
         }
-        DB::table('product_discounts')->insert($discount);
+        DB::table('company_discounts')->insert($discount);
     }
 
     /**
@@ -38,6 +39,6 @@ class CreateProductDiscountsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('product_discouts');
+        Schema::dropIfExists('company_discounts');
     }
 }
