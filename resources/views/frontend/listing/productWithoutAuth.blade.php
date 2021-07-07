@@ -91,7 +91,7 @@
 									<div class="list_container_first wid-pad">
 										<h4>{{$product->name}}</h4>
 										<ul class="reward_facilities">
-											@forelse ($product->feature as $featureData)
+											@forelse ($product->company->feature as $featureData)
 												<li>{{$featureData->title}}</li>
 											@empty
 												<li>N/A</li>

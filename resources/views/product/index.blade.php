@@ -26,6 +26,7 @@
                                     <th>Tag Description</th>
                                     <th>Gas</th>
                                     <th>Electricity</th>
+                                    <th>Terms and Condition</th>
                                     @if(urlprefix() == 'admin')
                                         <th>Created By</th>
                                     @endif
@@ -74,6 +75,13 @@
                                                     <li>Title : {{$electricityData->title}}</li>
                                                     <li>Price : {{moneyFormat($electricityData->price)}}</li>
                                                 </ul>
+                                            @else
+                                                {{('N/A')}}
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if($product->terms_condition != '')
+                                                <a href="{{$product->terms_condition}}" target="_blank">Click Here</a>
                                             @else
                                                 {{('N/A')}}
                                             @endif

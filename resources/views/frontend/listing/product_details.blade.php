@@ -14,7 +14,7 @@
 				<h2 class="feature_heading text-center">{{$productData->name}}</h2>
 				<h4 class="feature_subheading text-center">Features</h4>
 				<ul class="feature_list">
-					@foreach($productData->feature as $feature)
+					@foreach($productData->company->feature as $feature)
 						<li>
 							<h6>{{$feature->title}}</h6>
 							<p>{{$feature->description}}</p>
@@ -56,7 +56,7 @@
 				</li>
 				<li class="plan_price_info">
 					<ul>
-						@foreach($productData->product_discount as $discount)
+						@foreach($productData->company->company_discount as $discount)
 							<li><p>{{$discount->title}}</p></li>
 							<li><p>{{$discount->description}}</p></li>
 						@endforeach

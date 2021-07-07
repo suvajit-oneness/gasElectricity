@@ -98,6 +98,17 @@
                                 @enderror
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="form-group col-md-12">
+                                <label for="terms_condition" class="col-form-label">Terms and Condition Link:</label>
+                                <input type="url" class="form-control @error('terms_condition') is-invalid @enderror" id="terms_condition" name="terms_condition" placeholder="Terms and Condition Link" value="{{old('terms_condition')}}">
+                                @error('terms_condition')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                        </div>
 
                         <div class="form-group">
                             <button type="submit" class="btn btn-primary">Add</button>

@@ -138,9 +138,7 @@
 					</div>
 					<div class="plan_wraper">
 						@foreach($productData as $product)
-							<?php 
-								// $gasData = $product->product_gas;
-								// $electricityData = $product->product_electricty;
+							<?php
 								$gasData = (!empty($request['eneryType']) && ($request['eneryType'] == 'gas' || $request['eneryType'] == 'gas_electricity')) ? $product->product_gas : [];
 								$electricityData = (!empty($request['eneryType']) && $request['eneryType'] == 'gas_electricity') ? $product->product_electricty : [];
 							?>
@@ -154,7 +152,7 @@
 									<div class="list_container_first ">
 										<h4>{{$product->name}} <!-- <a href="javascript:void(0)"><i class="fas fa-share"></i></a> --></h4>
 										<ul class="reward_facilities">
-											@forelse ($product->feature as $featureData)
+											@forelse ($product->company->feature as $featureData)
 												<li>{{$featureData->title}}</li>
 											@empty
 												<li>N/A</li>
