@@ -1,9 +1,23 @@
 @extends('frontend.layouts.master')
 @section('title','Product Details')
-@section('content')
-	
-<section class="state_banner">
+@section('content')	
+<section class="state_banner"><div class="container"></div></section>
+
+<section class="momentum_wrap">
 	<div class="container">
+		<div class="row">
+			<div class="col-12">
+				<h4 class="momentum_title">Why Momentum?</h4>
+				<ul class="momentum_list">
+					@foreach($productData->product_momentum as $momentum)
+						<li>
+							<img src="{{asset($momentum->icon)}}">
+							{{$momentum->title}}
+						</li>
+					@endforeach
+				</ul>
+			</div>
+		</div>
 	</div>
 </section>
 
@@ -17,25 +31,7 @@
 					@foreach($productData->company->feature as $feature)
 						<li>
 							<h6>{{$feature->title}}</h6>
-							<p>{{$feature->description}}</p>
-						</li>
-					@endforeach
-				</ul>
-			</div>
-		</div>
-	</div>
-</section>
-
-<section class="momentum_wrap">
-	<div class="container">
-		<div class="row">
-			<div class="col-12">
-				<h4 class="momentum_title">Why Momentum?</h4>
-				<ul class="momentum_list">
-					@foreach($productData->product_momentum as $momentum)
-						<li>
-							<img src="{{asset($momentum->icon)}}">
-							{{$momentum->title}}
+							<p>{!! $feature->description !!}</p>
 						</li>
 					@endforeach
 				</ul>
@@ -125,7 +121,7 @@
 	</div>
 </section>
 
-<section class="apply_wrap">
+<!-- <section class="apply_wrap">
 	<div class="container">
 		<div class="row justify-content-center">
 			<div class="col-12 col-md-8 d-flex flex-column flex-md-row align-items-center justify-content-around">
@@ -134,7 +130,7 @@
 			</div>
 		</div>
 	</div>
-</section>
+</section> -->
 
 @if($productData->terms_condition != '')
 	<section class="terms_condition_wrap">

@@ -119,7 +119,9 @@ class WelcomeController extends Controller
     public function productDetails(Request $req,$planId)
     {
         $productData = Product::findOrFail($planId);
-        return view('frontend.listing.product_details', compact('productData'));
+        $data = (object)[];
+        $data->faq = Faq::get();
+        return view('frontend.listing.product_details', compact('productData','data'));
     }
 
     public function electricityForm(Request $req)
