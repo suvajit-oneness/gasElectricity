@@ -80,18 +80,17 @@
 					<div class="plan_wraper">
 						@foreach ($productData as $key => $product)
 							<?php 
-								// $gasData = $product->product_gas;
-								// $electricityData = $product->product_electricty;
 								$gasData = (!empty($request['eneryType']) && ($request['eneryType'] == 'gas' || $request['eneryType'] == 'gas_electricity')) ? $product->product_gas : [];
 								$electricityData = (!empty($request['eneryType']) && $request['eneryType'] == 'gas_electricity') ? $product->product_electricty : [];
 							?>
 							@if($gasData || $electricityData)
+								<?php $companyData = $product->company;?>
 								<div class="plane_list_wrapper">
 									<div class="res-planheading"><h5>Plan <span>and highlights</span></h5></div>
 									<div class="list_container_first wid-pad">
 										<h4>{{$product->name}}</h4>
 										<ul class="reward_facilities">
-											@forelse ($product->company->feature as $featureData)
+											@forelse ($companyData->feature as $featureData)
 												<li>{{$featureData->title}}</li>
 											@empty
 												<li>N/A</li>
@@ -103,7 +102,6 @@
 									</div>
 									<div class="plan_value">
 										<h4>Rating <span>({{findAVG($product->product_rating)}} out of 5)</span></h4>
-										<!-- <img src="{{asset('forntEnd/images/rating.png')}}"> -->
 									</div>
 
 									<div class="res-planheading"><h5>Price/year <span>(estimated^)</span></h5></div>
@@ -116,7 +114,7 @@
 												</div>
 												<div class="price_amount">
 													<h2>$ {{moneyFormat($gasData->price)}}</h2>
-													<!-- <a href="{{route('product.details',$product->id)}}" class="blue-btm">EXPLORE <span><i class="fas fa-arrow-circle-right"></i></span></a> -->
+													<a href="{{route('company.supplier.form',$companyData->id)}}" class="blue-btm">EXPLORE <span><i class="fas fa-arrow-circle-right"></i></span></a>
 												</div>
 											</div>
 										@endif
@@ -129,7 +127,7 @@
 												</div>
 												<div class="price_amount">
 													<h2>$ {{moneyFormat($electricityData->price)}}</h2>
-													<!-- <a href="{{route('product.details',$product->id)}}" class="blue-btm">EXPLORE <span><i class="fas fa-arrow-circle-right"></i></span></a> -->
+													<a href="{{route('company.supplier.form',$companyData->id)}}" class="blue-btm">EXPLORE <span><i class="fas fa-arrow-circle-right"></i></span></a>
 												</div>
 											</div>
 										@endif

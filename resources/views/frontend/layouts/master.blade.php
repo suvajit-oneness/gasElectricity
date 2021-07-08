@@ -29,6 +29,7 @@
 	<script src="{{asset('forntEnd/js/popper.min.js')}}"></script>
 	<script src="{{asset('forntEnd/js/bootstrap.min.js')}}"></script>
 	<script src="{{asset('forntEnd/js/custome.js')}}"></script>
+	<script type="text/javascript" src="{{asset('design/js/sweetalert.min.js')}}"></script>
 	<script type="text/javascript" src="{{asset('forntEnd/js/slick.min.js')}}"></script>
 
 	<script type="text/javascript">
@@ -114,6 +115,12 @@
 			    }
 			});
 		});
+
+		@if(Session::has('Success'))
+            swal('Success','{{Session::get('Success')}}', 'success');
+        @elseif(Session::has('Errors'))
+            swal('Error','{{Session::get('Errors')}}', 'error');
+        @endif
 
 		function isNumberKey(evt){  
             if(evt.charCode >= 48 && evt.charCode <= 57){  

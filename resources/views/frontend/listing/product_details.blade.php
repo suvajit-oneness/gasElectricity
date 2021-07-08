@@ -21,9 +21,79 @@
 	</div>
 </section>
 
-<section class="feature-part">
-	<div class="container-fluid">
-		<div class="bs-example">
+<section class="plan_listing_wraper">
+	<div class="container">
+		<div class="row">
+			<div class="col-12">
+				<div class="plan_listing_items">
+					<div class="plan_wraper">
+						<?php
+							$gasData = $productData->product_gas;
+							$electricityData = $productData->product_electricty;
+						?>
+						@if($gasData || $electricityData)
+							<?php $companyData = $productData->company;?>
+							<div class="plane_list_wrapper">
+								<div class="res-planheading"><h5>Plan <span>and highlights</span></h5></div>
+								@guest
+								@else
+									<div class="plan_icon_wrap">
+										<img src="{{asset($companyData->logo)}}">
+										<h6>{{$companyData->name}}</h6>
+									</div>
+								@endguest
+								<div class="list_container_first ">
+									<h4>{{$productData->name}}</h4>
+									<ul class="reward_facilities">
+										@forelse ($companyData->feature as $featureData)
+											<li>{{$featureData->title}}</li>
+										@empty
+											<li>N/A</li>
+										@endforelse
+									</ul>
+								</div>
+								<div class="plan_value">
+									<h4>Rating <span>({{findAVG($productData->product_rating)}} out of 5)</span></h4>
+								</div>
+								<div class="res-planheading"><h5>Price/year <span>(estimated^)</span></h5></div>
+								<div class="list_amount">
+									@if($gasData)
+										<div class="list_amount_inner">
+											<div class="price_compare">
+												<span><img src="{{asset('forntEnd/images/fire-icon.png')}}">Gas</span>
+												<h2>{{$gasData->title}}</h2>
+											</div>
+											<div class="price_amount">
+												<h2>$ {{moneyFormat($gasData->price)}}</h2>
+												<a href="{{route('company.supplier.form',$companyData->id)}}" class="blue-btm">EXPLORE <span><i class="fas fa-arrow-circle-right"></i></span></a>
+											</div>
+										</div>
+									@endif
+									@if($electricityData)
+										<div class="list_amount_inner">
+											<div class="price_compare">
+												<span><img src="{{asset('forntEnd/images/lightbulb.png')}}">ELECTRICITY</span>
+												<h2>{{$electricityData->title}}</h2>
+												<p>than reference price</p>
+											</div>
+											<div class="price_amount">
+												<h2>${{moneyFormat($electricityData->price)}}</h2>
+												<a href="{{route('company.supplier.form',$companyData->id)}}" class="blue-btm">EXPLORE <span><i class="fas fa-arrow-circle-right"></i></span></a>
+											</div>
+										</div>
+									@endif
+								</div>
+								<div class="plan_info">
+									<p>{{$productData->tag}} <img src="{{asset('forntEnd/images/question.png')}}"></p>
+								</div>
+							</div>
+						@endif
+					</div>
+				</div>
+			</div>
+		</div>
+		<hr>
+		<div class="bs-example feature-part">
 		    <div class="accordion" id="accordionExample">
 		    	<!-- Product Company Feature -->
 		        <div class="card">

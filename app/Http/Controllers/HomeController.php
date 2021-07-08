@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Auth;use Hash;
-use App\Model\Master;
+use Illuminate\Http\Request,DB;
+use Auth,Hash,App\Model\Company;
+use App\Model\Master,App\Model\SupplierForm;
+use App\Model\UserFilledSupplierForm;
+use App\Model\UserFilledSupplierFormDetails;
 
 class HomeController extends Controller
 {
@@ -34,6 +36,85 @@ class HomeController extends Controller
                 return redirect('customer/dashboard');break;
             default:
                 return view('home');break;
+        }
+    }
+
+    public function supplierFormToShowUser(Request $req,$companyId)
+    {
+        $data = (object)[];
+        $data->company = Company::where('id',$companyId)->first();
+        if($data->company){
+            $data->supplierForm = SupplierForm::where('userId',$data->company->created_by)->where('status',1)->get();
+            if(count($data->supplierForm) > 0){
+                return view('frontend.forms.suppliersFormInput',compact('data'));
+            }
+        }
+        return response()->json(['error' => true,'message' => 'something went wront please try after some time']);
+    }
+
+    public function supplierFormToShowUserSave(Request $req,$companyId,$supplierId)
+    {
+        $req->validate([
+            'companyId' => 'required|min:1|numeric|in:'.$companyId,
+            'supplierId' => 'required|min:1|numeric|in:'.$supplierId,
+        ]);
+        $supplierForm = SupplierForm::where('userId',$supplierId)->where('status',1)->get();
+        foreach($supplierForm as $index => $form){
+            $formInput = $form->input_type;
+            if($formInput->input_type == 'text' || $formInput->input_type == 'email' || $formInput->input_type == 'url'){
+                $rule = '';
+                if($form->is_required){
+                    $rule .= 'required';
+                }
+                $rules[$form->key] = $rule.'|max:200|string';
+            }elseif($formInput->input_type == 'radio'){
+                $rule = '';
+                if($form->is_required){
+                    $rule .= 'required';
+                }
+                $rules[$form->key] = $rule.'|string';
+            }elseif($formInput->input_type == 'checkbox'){
+                $rule = '';
+                if($form->is_required){
+                    $rule .= 'required';
+                }
+                $rules[$form->key] = $rule.'|array';
+                $rules[$form->key.'.*'] = $rule.'|string';
+            }elseif($formInput->input_type == 'textarea'){
+                $rule = '';
+                if($form->is_required){
+                    $rule .= 'required';
+                }
+                $rules[$form->key] = $rule.'|string';
+            }
+        }
+        $req->validate($rules);
+        // the Provided Form is Successfully validated
+        DB::beginTransaction();
+        try{
+            $userFormData = $req->except(['_token','companyId','supplierId']);
+            $newUserFormSubmitted = new UserFilledSupplierForm();
+                $newUserFormSubmitted->userId = auth()->user()->id;
+                $newUserFormSubmitted->companyId = $req->companyId;
+                $newUserFormSubmitted->supplierId = $req->supplierId;
+            $newUserFormSubmitted->save();
+            foreach($userFormData as $key => $value){
+                $formDetails = new UserFilledSupplierFormDetails();
+                    $formDetails->userFilledSupplierFormId = $newUserFormSubmitted->id;
+                    $formDetails->userId = $newUserFormSubmitted->userId;
+                    $formDetails->companyId = $newUserFormSubmitted->companyId;
+                    $formDetails->supplierId = $newUserFormSubmitted->supplierId;
+                    $formDetails->key = $key;
+                    $formDetails->value = (is_array($value) ? 'Hockey,Football' : $value);
+                $formDetails->save();
+            }
+            DB::commit();
+            $error['success'] = 'Form Submitted Success';
+            return back()->withErrors($error);
+        }catch(Exception $e){
+            DB::rollback();
+            $error['submit'] = 'Something went wrong please try after some time';
+            return back()->withErrors($error)->withInput($req->all());
         }
     }
 

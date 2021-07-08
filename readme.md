@@ -5,8 +5,8 @@
 	<li><h5>Step 2: Setup Env</h5></li>
 	<li><h5>Step 3: run the Following Commands</h5>
 		<ul>
-			<li><h5>i)   : php artisan migrate</h5></li>
-			<li><h5>ii)  : php artisan passport:install --force</h5></li>
+			<li><h5>i)  : php artisan migrate</h5></li>
+			<li><h5>ii) : php artisan passport:install --force</h5></li>
 		</ul>
 	</li>
 	<li>Notes to Make model,controller,middleware,migrations</li>

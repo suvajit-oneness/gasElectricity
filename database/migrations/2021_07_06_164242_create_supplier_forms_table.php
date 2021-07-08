@@ -58,7 +58,7 @@ class CreateSupplierFormsTable extends Migration
             [
                 'formInputId' => 7,
                 'userId' => 2,
-                'key' => 'Address',
+                'key' => 'address',
                 'label' => 'Communication Address',
                 'placeholder' => 'Communication Address',
             ]

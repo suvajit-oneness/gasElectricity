@@ -9,7 +9,6 @@
 
 <section class="contact_wraper bac-white">
 	<div class="container">
-		 
 		<div class="electric-head">
 			<h2 class="heading text-center"> Your Usage </h2>
 			<p class="text-center">To find you a great plan we need to collect some details about you.</p>
