@@ -21,116 +21,188 @@
 	</div>
 </section>
 
-<section class="feature_list_wrap">
-	<div class="container">
-		<div class="row">
-			<div class="col-12">
-				<h2 class="feature_heading text-center">{{$productData->name}}</h2>
-				<h4 class="feature_subheading text-center">Features</h4>
-				<ul class="feature_list">
-					@foreach($productData->company->feature as $feature)
-						<li>
-							<h6>{{$feature->title}}</h6>
-							<p>{!! $feature->description !!}</p>
-						</li>
-					@endforeach
-				</ul>
-			</div>
-		</div>
-	</div>
-</section>
-
-<section class="elctricity_bill_wrap">
-	<div class="container">
-		<div class="row">
-		<div class="col-12">
-			<ul class="plan_details_wrap">
-				<li class="electricity_plan_info_wrap">
-					<h4>Electricity details</h4>
-					<a href="javascript:void(0)">Plan details</a>
-					<h3>Discounts and fees</h3>
-				</li>
-				<li class="plan_price_info">
-					<ul>
-						@foreach($productData->company->company_discount as $discount)
-							<li><p>{{$discount->title}}</p></li>
-							<li><p>{{$discount->description}}</p></li>
-						@endforeach
-					</ul>
-				</li>
-			</ul>
-			<div class="amount_details_wrap">
-				<h3 class="rate_title semibold">Rates details</h3>
-				<p class="rate_sub_content">The price you pay for energy services includes tariff and other feeds and charges. The rates applicable to your address is dependent on your distribution area and meter type, which you should be able to find on your energy bills. The meter number (10 to 11 digits  usually found on back of the bill) is  used to identify the type of meter.</p>
-
-				<div class="load_consumption">
-					<nav>
-					  	<div class="nav nav-tabs" id="nav-tab" role="tablist">
-					    	<a class="nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-single-rate" role="tab" aria-controls="nav-single-rate" aria-selected="true">Single rate</a>
-					    	<a class="nav-link" id="nav-controlled-load" data-toggle="tab" href="#nav-controlled-load" role="tab" aria-controls="nav-controlled-load" aria-selected="false">Controlled Load</a>
-					  	</div>
-					</nav>
-					<div class="tab-content" id="nav-tabContent">
-					  	<div class="tab-pane fade show active" id="nav-single-rate" role="tabpanel" aria-labelledby="nav-single-rate">
-					  		<div class="load_details">
-					  			<p><span>Network area <span>:</span></span>Energex</p>
-					  			<p><span>Effective from <span>:</span></span>28/01/2021</p>
-					  			<p><span>Connection Fee <span>:</span></span>$54.00 - Inclusive of GST (Distributor PassThrough Charge)</p>
-					  			<p><span>Tariff Description <span>:</span></span>Electricity charges - 8400/Peak Anytime/RESI</p>
-					  		</div>
-					  		<div class="usage_wrap">
-								<ul class="usage_price_info">
-									<li></li>
-									<li>Price (Excl GST)</li>
-									<li>Price (Incl GST)</li>
-								</ul>
-								<ul class="usage_price_info_content">
-									<li>Daily supply charge</li>
-									<li>85.43 cents per day</li>
-									<li>93.973 cents per day</li>
-								</ul>
-								<ul class="usage_price_info_content">
-									<li>Usage</li>
-									<li>17.62 cents per kWh</li>
-									<li>19.382 cents per kWh</li>
-								</ul>
+<section class="feature-part">
+	<div class="container-fluid">
+		<div class="bs-example">
+		    <div class="accordion" id="accordionExample">
+		    	<!-- Product Company Feature -->
+		        <div class="card">
+		            <div class="card-header" id="headingTwo">
+		                <h2 class="mb-0">
+		                    <button type="button" class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo"> Features <i class="fa fa-plus"></i></button>
+		                </h2>
+		            </div>
+		            <div id="collapseTwo" class="collapse show" aria-labelledby="headingTwo" data-parent="#accordionExample">
+		                <div class="card-body features">
+		                	@foreach($productData->company->feature as $feature)
+			                	<strong>{{$feature->title}} :</strong>
+			                    <p>{!! $feature->description !!}</p>
+		                	@endforeach
+		                </div>
+		            </div>
+		        </div>
+		        <!-- Product Company Plan Details-->
+		        <div class="card">
+		            <div class="card-header" id="headingOne">
+		                <h2 class="mb-0">
+		                    <button type="button" class="btn btn-link" data-toggle="collapse" data-target="#collapseOne">Plan Details <i class="fa fa-plus"></i></button>									
+		                </h2>
+		            </div>
+		            <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+		                <div class="card-body">
+		                	<table>
+		                		<tbody>
+									<?php $companyPlan = $productData->company->company_plan; ?>
+									<tr>
+		                				<td colspan="2"><h4>Bonuses and Fees</h4></td>
+		                			</tr>
+		                			@foreach($companyPlan as $key => $plan)
+			                			@if($plan->type == 1)
+				                			<tr>
+				                				<td>{{$plan->title}}</td>
+				                				<td>{!! $plan->description !!}</td>
+				                			</tr>
+			                			@endif
+		                			@endforeach
+		                			<tr>
+		                				<td colspan="2"><h4>Other details</h4></td>
+		                			</tr>
+		                			@foreach($companyPlan as $key => $plan)
+			                			@if($plan->type == 2)
+				                			<tr>
+				                				<td>{{$plan->title}}</td>
+				                				<td>{!! $plan->description !!}</td>
+				                			</tr>
+			                			@endif
+		                			@endforeach
+		                		</tbody>
+		                	</table>
+		                </div>
+		            </div>
+		        </div>
+		        <!-- Product Company Rate Details -->
+		        <div class="card">
+		            <div class="card-header" id="headingThree">
+		                <h2 class="mb-0">
+		                    <button type="button" class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree"> Rates Details <i class="fa fa-plus"></i></button>                     
+		                </h2>
+		            </div>
+		            <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+		                <div class="card-body">
+							<ul class="nav nav-tabs gapbott" id="myTab" role="tablist">
+								<li class="nav-item" role="presentation">
+									<a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Single Rate </a>
+								</li>
+								<li class="nav-item" role="presentation">
+									<a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Single + Controlled load </a>
+								</li>
+								<li class="nav-item" role="presentation">
+									<a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Time of use </a>
+								</li>
+							</ul>
+							<?php $rateDetails = $productData->company->company_rates; ?>
+							<div class="tab-content" id="myTabContent">
+								<div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+									<table>
+										<tbody>
+											@foreach($rateDetails as $key => $rate)
+												@if($rate->type == 1)
+													<tr>
+														<td>{{ $rate->title }}</td>
+														<td>{!! $rate->description !!}</td>
+													</tr>
+												@endif
+											@endforeach
+										</tbody>
+									</table>
+									<p>The rates shown are indicative prices based on the rates our participating providers have given us, your postcode and information provided by you. Your chosen supplier will inform you of the rates which will apply depending on the network and meter type configuration at your property. If your chosen supplier determines that your property is serviced by a different meter type or network than shown above your rates may be different. You will be advised of this by your chosen supplier.</p>
+								</div>
+								<div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+									<table class="mb-3">
+										<tbody>
+											@foreach($rateDetails as $key => $rate)
+												@if($rate->type == 2)
+													<tr>
+														<td>{{ $rate->title }}</td>
+														<td>{!! $rate->description !!}</td>
+													</tr>
+												@endif
+											@endforeach
+										</tbody>
+									</table>
+									<p>The rates shown are indicative prices based on the rates our participating providers have given us, your postcode and information provided by you. Your chosen supplier will inform you of the rates which will apply depending on the network and meter type configuration at your property. If your chosen supplier determines that your property is serviced by a different meter type or network than shown above your rates may be different. You will be advised of this by your chosen supplier.</p>
+								</div>
+								<div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab"> 
+									<table class="mb-3">
+										<tbody>
+											@foreach($rateDetails as $key => $rate)
+												@if($rate->type == 3)
+													<tr>
+														<td>{{ $rate->title }}</td>
+														<td>{!! $rate->description !!}</td>
+													</tr>
+												@endif
+											@endforeach
+										</tbody>
+									</table>
+									<p>The rates shown are indicative prices based on the rates our participating providers have given us, your postcode and information provided by you. Your chosen supplier will inform you of the rates which will apply depending on the network and meter type configuration at your property. If your chosen supplier determines that your property is serviced by a different meter type or network than shown above your rates may be different. You will be advised of this by your chosen supplier.</p>
+								</div>
 							</div>
-					  	</div>
-					  <div class="tab-pane fade" id="nav-controlled-load" role="tabpanel" aria-labelledby="nav-controlled-load">...</div>
-					</div>
-				</div>
-				<div class="rate_details_wrap">
-					<h4>Rates details</h4>
-					<ul class="rate_details_content">
-						<li>Feed in tariff type	</li>
-						<li>Applicable Feed-In Tariff</li>
-					</ul>
-					<ul class="rate_details_content">
-						<li>Feed in tariff</li>
-						<li>7.0c</li>
-					</ul>
-					<ul class="rate_details_content">
-						<li>Tariff Description</li>
-						<li>Available to Queensland residents and small to medium businesses depending on generating capacity. Terms and conditions apply.</li>
-					</ul>
-				</div>
-				<p class="state_content">Please be advised that by signing up to this product, your Feed-in Tariff may be different from what you are currently receiving. If you are eligible for a different feed in tariff type or are uncertain of your feed in tariff please contact out energy consultants on 13 19 20.Any pricing we display is indicative based on the rates our providers have given us and information provided by you. Any energy plan and network presented will be based on the postcode you have provided and you will be advised by the retailer if your rates subsequently differ due to a different meter type or network.</p>
-			</div>
+		                </div>
+		            </div>
+		        </div>
+		        <!-- Product Company Calculation Details -->
+		        <div class="card">
+		            <div class="card-header" id="headingFour">
+		                <h2 class="mb-0">
+		                    <button type="button" class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseFour"> Calculation Details <i class="fa fa-plus"></i></button>                     
+		                </h2>
+		            </div>
+		            <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
+		                <div class="card-body">
+		                	<div class="tab-listing-green">
+		                		<?php $companyCalculation = $productData->company->company_calculation;?>
+			                    <p>For Movers</p>
+			                    <ul>
+			                    	@foreach($companyCalculation as $key => $calculation)
+				                    	@if($calculation->type == 1)
+					                    	<li>{!! $calculation->details !!}</li>
+				                    	@endif
+			                    	@endforeach
+			                    </ul>
+			                    <p>For Switchers (when usage details are provided)</p>
+			                    <ul>
+			                     	@foreach($companyCalculation as $key => $calculation)
+				                    	@if($calculation->type == 2)
+					                    	<li>{!! $calculation->details !!}</li>
+				                    	@endif
+			                    	@endforeach
+			                    </ul>
+			                    <p>For Switchers (when usage details are not-provided)</p>
+			                    <ul>
+				                    @foreach($companyCalculation as $key => $calculation)
+				                    	@if($calculation->type == 3)
+					                    	<li>{!! $calculation->details !!}</li>
+				                    	@endif
+			                    	@endforeach
+				                </ul>
+				                <p>All estimates</p>
+				                <ul>
+				                 	@foreach($companyCalculation as $key => $calculation)
+				                    	@if($calculation->type == 4)
+					                    	<li>{!! $calculation->details !!}</li>
+				                    	@endif
+			                    	@endforeach
+				                </ul>
+				                <p>For more information about rates and fees, check plan details and retailers energy fact sheet (for VIC) or BPID (for NSW, QLD & SA). Additional charges may also apply. You may also be eligible for a state-government concession or rebate on your bill.</p>
+			                </div>
+			            </div>
+		            </div>
+		        </div>
+		    </div>
 		</div>
-	</div>
 	</div>
 </section>
-
-<!-- <section class="apply_wrap">
-	<div class="container">
-		<div class="row justify-content-center">
-			<div class="col-12 col-md-8 d-flex flex-column flex-md-row align-items-center justify-content-around">
-				<a href="#" class="green-btn">apply now <span><i class="fas fa-arrow-circle-right"></i></span></a>
-				<a href="tel:800-600-700" class="call_btn"><span><i class="fas fa-phone-alt"></i></span> 800-600-700</a>
-			</div>
-		</div>
-	</div>
-</section> -->
 
 @if($productData->terms_condition != '')
 	<section class="terms_condition_wrap">

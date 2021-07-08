@@ -11,7 +11,7 @@ class Company extends Model
 
     public function company_rates()
     {
-        return $this->hasMany('App\Model\CompanyRateDetails','companyId','id');
+        return $this->hasMany('App\Model\CompanyRateDetails','companyId','id')->orderBy('type','ASC');
     }
 
     public function company_discount()
@@ -21,12 +21,12 @@ class Company extends Model
 
     public function company_plan()
     {
-        return $this->hasMany('App\Model\CompanyPlanDetails','companyId','id');
+        return $this->hasMany('App\Model\CompanyPlanDetails','companyId','id')->orderBy('type','ASC');
     }
 
     public function company_calculation()
     {
-        return $this->hasMany('App\Model\CompanyCalculation','companyId','id');
+        return $this->hasMany('App\Model\CompanyCalculation','companyId','id')->orderBy('type','ASC');
     }
 
     public function feature()

@@ -5224,3 +5224,111 @@ footer {
     padding: 12px 12px 0px 12px;
 }
 /***************** Sweet Alert Design END **********************/
+.feature-part 
+{
+    margin-top: 80px;
+}
+.feature-part table 
+{
+    width: 100%;
+    margin-bottom: 20px;
+}
+.feature-part table, .feature-part th, .feature-part td {
+  border: 1px solid #41825a;
+    border-collapse: collapse;
+    padding: 10px;
+    background: #e4ffee;
+    font-weight: 500;
+}
+.bg-green-deep td 
+{
+    background: #b9ffd5;
+}
+.feature-part .card-header
+{
+    padding: 0;
+    background: #1b7d42;
+}
+.feature-part .card-header h2 button {
+    color: #FFF;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    text-decoration: none;
+    font-weight: 600;
+}
+.features strong 
+{
+    font-size: 16px;
+}
+.energy-text {
+    font-size: 20px;
+    font-weight: 600;
+    color: #1b7d42;
+}
+.check-right li {
+    position: relative;
+    color: #000;
+    line-height: 1.9;
+    padding-left: 25px;
+}
+.check-right li::before {
+    content: '\f00c';
+    position: absolute;
+    font-family: fontawesome;
+    left: 0;
+    color: #1b7d42;
+}
+.feature-part .card-body table h4 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #000;
+    margin: 0;
+}
+.feature-part .card-body
+.feature-part .card-body .nav-tabs
+{
+    margin-bottom: 10px;
+}
+.feature-part .nav-tabs .nav-item.show .nav-link, .feature-part .nav-tabs .nav-link.active {
+    color: #000000;
+    background-color: transparent;
+    border-color: transparent;
+    border: none;
+    font-size: 15px;
+    border-bottom: 1px solid #1b7d42;
+}
+.feature-part .nav-tabs .nav-link {     
+    color: #000;
+    font-weight: 600;
+}
+.gapbott 
+{
+    margin-bottom: 10px;
+}
+.tab-listing-green p  
+{
+    margin-bottom: 5px;
+}
+
+.tab-listing-green ul 
+{
+    margin-bottom: 15px;
+}
+.tab-listing-green ul li {
+    position: relative;
+    left: 0;
+    color: #000;
+    line-height: 1.8;
+    padding-left: 25px;
+}
+.tab-listing-green ul li::before {
+    content: '\f111';
+    position: absolute;
+    font-family: fontawesome;
+    left: 8px;
+    top: 3px;
+    color: #000000;
+    font-size: 11px;
+}
