@@ -151,7 +151,6 @@
         $(document).on('click','.getReferredByDetails',function(){
             var details = JSON.parse($(this).attr('data-details'));
             console.log(details);
-
             var data = '<h3>Name : '+details.name+'</h3>';
             data += '<h3>Email : '+details.email+'</h3>';
             data += '<h3>Phone : '+details.mobile+'</h3>';

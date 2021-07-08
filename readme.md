@@ -19,7 +19,6 @@
 	</ul>
 </ul>
 
-
 <h1>Git Command</h1>
 
 <ul>

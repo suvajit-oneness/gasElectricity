@@ -73,7 +73,7 @@
 	</div>
 </section>
 
-<section class="energy_savings_plan_wrap">
+<!-- <section class="energy_savings_plan_wrap">
 	<div class="container">
 		<div class="row">
 			<div class="col-12">
@@ -91,7 +91,7 @@
 			</div>
 		</div>
 	</div>
-</section>
+</section> -->
 
 @section('script')
     <script type="text/javascript">

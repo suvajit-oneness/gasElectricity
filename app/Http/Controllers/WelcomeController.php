@@ -8,6 +8,7 @@ use App\Model\Faq;use App\Model\Blog;use Auth;
 use App\Model\ContactUs;use App\Model\Membership;
 use App\Model\UserMembership;use App\Model\Setting;
 use App\Model\Product;use App\Model\State;
+use App\Model\SupplierPincode;
 
 class WelcomeController extends Controller
 {
@@ -86,15 +87,20 @@ class WelcomeController extends Controller
 
     public function productListing(Request $req)
     {
-        if(auth()->user())
-            return $this->productListingwithAuth($req);
-        else
-            return $this->productListingwithoutAuth($req);
+        $supplierId = SupplierPincode::where('pincode','like',"%$req->search%")->orwhere('landmark','like',"%$req->search%")->groupBy('userId')->pluck('userId')->toArray();
+        if(count($supplierId) > 0){
+            if(auth()->user())
+                return $this->productListingwithAuth($req,$supplierId);
+            else
+                return $this->productListingwithoutAuth($req,$supplierId);
+        }
+        $error['search'] = 'We donot provide the service at given pincode';
+        return back()->withErrors($error)->withInput($req->all());
     }
 
-    public function getPlanlistingData(Request $req)
+    public function getPlanlistingData(Request $req,$supplierId)
     {
-        $productData = Product::select('*');
+        $productData = Product::select('*')->whereIn('created_by',$supplierId);
         if(!empty($req->productId)){
             $productData = $productData->where('id',$req->productId);
         }
@@ -102,16 +108,16 @@ class WelcomeController extends Controller
         return $productData;
     }
 
-    public function productListingwithAuth(Request $req)
+    public function productListingwithAuth(Request $req,$supplierId)
     {
-        $productData = $this->getPlanlistingData($req);
+        $productData = $this->getPlanlistingData($req,$supplierId);
         $request = $req->all();
         return view('frontend.listing.productWithAuth', compact('productData','request'));
     }
 
-    public function productListingwithoutAuth(Request $req)
+    public function productListingwithoutAuth(Request $req,$supplierId)
     {
-        $productData = $this->getPlanlistingData($req);
+        $productData = $this->getPlanlistingData($req,$supplierId);
         $request = $req->all();
         return view('frontend.listing.productWithoutAuth', compact('productData','request'));
     }

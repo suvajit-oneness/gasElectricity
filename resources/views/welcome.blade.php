@@ -21,7 +21,38 @@
 	</ul>
 </div>
 
-<section class="banner">
+<section class="banner gas-electricity-banner">
+	<div class="container">
+		<div class="banner-caption">
+			<h1 class="banner-heading"> <span> Compare, Switch, Save & </span> <br> POSTCODE </h1>
+				<div class="text-center white-para">
+				 <p>If you’re a savvy bargain hunter like us at Econnex, you’ll love saving on your energy bills. Compare energy plans, sign up, and start saving!</p>
+				</div>
+			<div class="location-search-section">
+				<form action="{{route('product.listing')}}">
+					<div class="search-form">
+						@error('eneryType')<span class="text-danger">{{$message}}</span>@enderror
+						@error('search')<span class="text-danger">{{$message}}</span>@enderror
+						<label>Where are you located?</label>
+						<input type="hidden" name="eneryType" value="gas_electricity">
+						<input type="text" name="search" id="search" placeholder="Enter your postcode or suburb..." required="" value="{{old('search')}}">
+						<div class="button">
+							<input type="submit" id="" value="compare now">
+							<i class="fas fa-arrow-circle-right"></i>
+						</div>
+					</div>
+				</form>
+				<p>Currently available in 
+					@foreach($data->state as $state)
+						<a href="{{route('electricityform')}}" style="color:ffffff">{{$state->name}}</a> , 
+					@endforeach
+				</p>
+			</div>
+		</div>
+	</div> 
+</section>
+
+<!-- <section class="banner">
 	<div class="container">
 		<div class="banner-caption">
 			<h1 class="banner-heading">LOREM IPSUM <span>DOLOR SIT AMET</span> <br> <span> IS A DUMMY TEXT</span></h1>
@@ -43,9 +74,11 @@
 				<h3>Compare, Switch, Save & postcode </h3>
 				<form action="{{route('product.listing')}}">
 					<div class="search-form">
+						@error('eneryType')<span class="text-danger">{{$message}}</span>@enderror
+						@error('search')<span class="text-danger">{{$message}}</span>@enderror
 						<label>Where are you located?</label>
 						<input type="hidden" name="eneryType" value="gas_electricity">
-						<input type="text" id="searchCompareNow" name="search" placeholder="Enter your postcode or suburb...">
+						<input type="text" id="searchCompareNow" name="search" placeholder="Enter your postcode or suburb..." required value="{{old('search')}}">
 						<div class="button">
 							<input type="submit" id="searchBtnCompareNow" value="compare now">
 							<i class="fas fa-arrow-circle-right"></i>
@@ -59,7 +92,7 @@
 	<div class="machine-image">
 		<img src="{{asset('forntEnd/images/machine.png')}}">
 	</div>
-</section>
+</section> -->
 
 @if(count($data->compareallSupplier) > 0)
 <section class="logo-slider">

@@ -947,6 +947,14 @@ footer {
     padding: 13px;
     box-sizing: border-box;
 }
+.company-details-anchor{
+    padding: 4px;
+    border: 2px solid;
+    border-radius: 8px;
+    background-color: #fff;
+    color: blue;
+    font-size: 16px;
+}
 .intro_img_wrap img {
     max-width: 100%;
     width: 100%;

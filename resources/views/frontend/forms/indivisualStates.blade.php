@@ -12,9 +12,11 @@
 			<div class="location-search-section">
 				<form action="{{route('product.listing')}}">
 					<div class="search-form">
+						@error('eneryType')<span class="text-danger">{{$message}}</span>@enderror
+						@error('search')<span class="text-danger">{{$message}}</span>@enderror
 						<label>Where are you located?</label>
 						<input type="hidden" name="eneryType" value="gas_electricity">
-						<input type="text" name="search" id="search" placeholder="Enter your postcode or suburb...">
+						<input type="text" name="search" id="search" placeholder="Enter your postcode or suburb..." required="" value="{{old('search')}}">
 						<div class="button">
 							<input type="submit" id="" value="compare now">
 							<i class="fas fa-arrow-circle-right"></i>
@@ -71,14 +73,14 @@
 						<div class="row">
 							<div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
 								<div class="custom-control custom-radio autowidth">
-								  	<input type="radio" id="customRadio1" checked="" name="eneryType" value="gas_electricity" class="custom-control-input">
+								  	<input type="radio" id="customRadio1" name="eneryType" value="gas_electricity" class="custom-control-input" @if(old('eneryType') == 'gas_electricity'){{('checked')}}@elseif(old('eneryType') == 'gas')@else{{('checked')}}@endif>
 								  	<label class="custom-control-label" for="customRadio1">Gas &amp; Electricity</label>
 								</div>
 							</div>
 
 							<div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
 								<div class="custom-control custom-radio autowidth gas-icon white-bg">
-								  	<input type="radio" id="customRadio3" name="eneryType" value="gas" class="custom-control-input">
+								  	<input type="radio" id="customRadio3" name="eneryType" value="gas" class="custom-control-input" @if(old('eneryType') == 'gas'){{('checked')}}@endif>
 								  	<label class="custom-control-label" for="customRadio3">Gas </label>
 								</div>
 							</div>
@@ -95,12 +97,14 @@
 					</div>
 				</div>
 				<div class="search-form">
+					@error('eneryType')<span class="text-danger">{{$message}}</span>@enderror
+					@error('search')<span class="text-danger">{{$message}}</span>@enderror
 					<label>Enter your suburb or postcode</label>
-					<input type="text" name="search" id="postcodesearch" placeholder="Enter your postcode or suburb...">
+					<input type="text" name="search" id="postcodesearch" placeholder="Enter your postcode or suburb..." required value="{{old('search')}}">
 				</div>
 				<div class="ccheckandbtn">
 					<div class="custom-control custom-checkbox custom-control-mod">
-					    <input type="checkbox" name="referral_partner" value="true" class="custom-control-input" id="customControl2">
+					    <input type="checkbox" name="referral_partner" value="true" class="custom-control-input" id="customControl2" @if(old('referral_partner')){{('checked')}}@endif>
 					    <label class="custom-control-label" for="customControl2">Just compare plans which link to a Referral Partner.</label>
 					</div>
 					<button class="blue-btm">COMPARE <span><i class="fas fa-arrow-circle-right"></i></span></button>

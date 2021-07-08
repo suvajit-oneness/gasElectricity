@@ -19,6 +19,7 @@ class SupplierController extends Controller
         $req->validate([
             'form_type' => 'required|in:add,edit',
             'pincode' => 'required|numeric|max:999999',
+            'landmark' => 'nullable|string|max:200',
         ]);
         if($req->form_type == 'add'){
             $pincode = SupplierPincode::where('pincode',$req->pincode)->where('userId',auth()->user()->id)->first();
@@ -26,6 +27,7 @@ class SupplierController extends Controller
                 $new = new SupplierPincode();
                 $new->pincode = $req->pincode;
                 $new->userId = auth()->user()->id;
+                $new->landmark = emptyCheck($req->landmark);
                 $new->save();
                 return back()->with('Success','Pincode Saved SuccessFully');
             }
@@ -37,6 +39,7 @@ class SupplierController extends Controller
             if(!$pincode){
                 $update = SupplierPincode::where('id',$req->pincodeId)->where('userId',auth()->user()->id)->first();
                 $update->pincode = $req->pincode;
+                $update->landmark = emptyCheck($req->landmark);
                 $update->save();
                 return back()->with('Success','Pincode Updated SuccessFully');
             }

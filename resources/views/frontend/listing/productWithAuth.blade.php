@@ -148,6 +148,7 @@
 									<div class="plan_icon_wrap">
 										<img src="{{$product->company->logo}}">
 										<h6>{{$product->company->name}}</h6>
+										<a href="{{route('product.details',$product->id)}}" class="company-details-anchor">Details</a>
 									</div>
 									<div class="list_container_first ">
 										<h4>{{$product->name}} <!-- <a href="javascript:void(0)"><i class="fas fa-share"></i></a> --></h4>
@@ -173,7 +174,7 @@
 												</div>
 												<div class="price_amount">
 													<h2>$ {{moneyFormat($gasData->price)}}</h2>
-													<a href="{{route('product.details',$product->id)}}" class="blue-btm">EXPLORE <span><i class="fas fa-arrow-circle-right"></i></span></a>
+													<!-- <a href="#" class="blue-btm">EXPLORE <span><i class="fas fa-arrow-circle-right"></i></span></a> -->
 												</div>
 											</div>
 										@endif
@@ -186,7 +187,7 @@
 												</div>
 												<div class="price_amount">
 													<h2>${{moneyFormat($electricityData->price)}}</h2>
-													<a href="{{route('product.details',$product->id)}}" class="blue-btm">EXPLORE <span><i class="fas fa-arrow-circle-right"></i></span></a>
+													<!-- <a href="#" class="blue-btm">EXPLORE <span><i class="fas fa-arrow-circle-right"></i></span></a> -->
 												</div>
 
 											</div>

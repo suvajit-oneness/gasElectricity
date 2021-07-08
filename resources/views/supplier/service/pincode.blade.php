@@ -18,6 +18,7 @@
                             <thead>
                                 <tr>
                                     <th>Pincode</th>
+                                    <th>Landmark</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -25,7 +26,8 @@
                                 @foreach($pincode as $key => $pin)
                                     <tr>
                                         <td>{{$pin->pincode}}</td>
-                                        <td><a href="javascript:void(0)" class="editState" data-id="{{$pin->id}}" data-pincode="{{$pin->pincode}}">Edit</a> | <a href="javascript:void(0)" class="deletePincode text-danger" data-id="{{$pin->id}}">Delete</a></td>
+                                        <td>{{$pin->landmark}}</td>
+                                        <td><a href="javascript:void(0)" class="editState" data-id="{{$pin->id}}" data-pincode="{{$pin->pincode}}" data-landmark="{{$pin->landmark}}">Edit</a> | <a href="javascript:void(0)" class="deletePincode text-danger" data-id="{{$pin->id}}">Delete</a></td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -56,6 +58,13 @@
                             <label>Pincode</label>
                             <input type="text" name="pincode" class="form-control @error('pincode') is-invalid @enderror" required placeholder="Pincode" value="{{old('pincode')}}">
                             @error('pincode')
+                                <span class="text-danger errorMessage">{{$message}}</span>
+                            @enderror
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label>Landmark</label>
+                            <input type="text" name="landmark" class="form-control @error('landmark') is-invalid @enderror" placeholder="Landmark" value="{{old('landmark')}}">
+                            @error('landmark')
                                 <span class="text-danger errorMessage">{{$message}}</span>
                             @enderror
                         </div>
@@ -92,6 +101,13 @@
                                 <span class="text-danger errorMessage">{{$message}}</span>
                             @enderror
                         </div>
+                        <div class="form-group col-md-6">
+                            <label>Landmark</label>
+                            <input type="text" name="landmark" id="landMarkValue" class="form-control @error('landmark') is-invalid @enderror" placeholder="Landmark" value="{{old('landmark')}}">
+                            @error('landmark')
+                                <span class="text-danger errorMessage">{{$message}}</span>
+                            @enderror
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -123,11 +139,12 @@
         @endif
 
         $(document).on('click','.editState',function(){
-            var Id = $(this).attr('data-id'),pincode = $(this).attr('data-pincode');
+            var Id = $(this).attr('data-id'),pincode = $(this).attr('data-pincode'),landmark = $(this).attr('data-landmark');
             $('.errorMessage').remove();
             $('#editPincodeModal input[name=pincode]').removeClass('is-invalid');
             $('#editPincodeModal #pincodeId').val(Id);
             $('#editPincodeModal #pincodeValue').val(pincode);
+            $('#editPincodeModal #landMarkValue').val(landmark);
             $('#editPincodeModal').modal('show');
         });
 

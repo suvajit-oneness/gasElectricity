@@ -55,53 +55,9 @@
 		</div>
 		@endif
 	@endforeach
-	<!-- <div class="feature_wrap_list" style="background-color: #f4f4f4;">
-		<div class="feature_wrap_list_grid_img">
-			<img src="{{asset('forntEnd/images/payment.png')}}">
-		</div>
-		<div class="feature_wrap_list_grid_content_wrap">
-			<div class="feature_wrap_list_grid_content">
-				<h3>Provide details and scan your bill</h3>
-				<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets.</p>
-			</div>
-		</div>
-	</div>
-	<div class="feature_wrap_list feature_wrap_list-mod">
-		<div class="feature_wrap_list_grid_content_wrap">
-			<div class="feature_wrap_list_grid_content content_right">
-				<h3>Our algorithms work out the comparisons for you</h3>
-				<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets.</p>
-			</div>
-		</div>
-		<div class="feature_wrap_list_grid_img">
-			<img src="{{asset('forntEnd/images/illustration-weighing-scale.png')}}">
-		</div>
-	</div>
-	<div class="feature_wrap_list" style="background-color: #f4f4f4;">
-		<div class="feature_wrap_list_grid_img">
-			<img src="{{asset('forntEnd/images/best-price.png')}}">
-		</div>
-		<div class="feature_wrap_list_grid_content_wrap">
-			<div class="feature_wrap_list_grid_content">
-				<h3>We present you with your best prices</h3>
-				<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets.</p>
-			</div>
-		</div>
-	</div>
-	<div class="feature_wrap_list">
-		<div class="feature_wrap_list_grid_content_wrap">
-			<div class="feature_wrap_list_grid_content content_right">
-				<h3>You save</h3>
-				<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets.</p>
-			</div>
-		</div>
-		<div class="feature_wrap_list_grid_img">
-			<img src="{{asset('forntEnd/images/savings.png')}}">
-		</div>
-	</div> -->
 </section>
 
-<section class="energy_savings_plan_wrap">
+<!-- <section class="energy_savings_plan_wrap">
 	<div class="container">
 		<div class="row">
 			<div class="col-12">
@@ -119,7 +75,7 @@
 			</div>
 		</div>
 	</div>
-</section>
+</section> -->
 
 @section('script')
 	<script type="text/javascript">

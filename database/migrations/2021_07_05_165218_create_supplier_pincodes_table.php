@@ -17,10 +17,20 @@ class CreateSupplierPincodesTable extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('userId');
             $table->string('pincode',10)->index();
+            $table->string('landmark');
             $table->softDeletes();
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
         });
+        $data = [];
+        for ($i=0; $i < 50; $i++) { 
+            $data[] = [
+                'userId' => 2,
+                'pincode' => rand(1111,9999),
+                'landmark' => 'landmark '.($i+1),
+            ];
+        }
+        DB::table('supplier_pincodes')->insert($data);
     }
 
     /**
