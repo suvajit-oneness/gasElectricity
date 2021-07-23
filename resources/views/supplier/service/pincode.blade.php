@@ -17,6 +17,7 @@
                         <table id="example4" class="table table-striped table-bordered" style="width:100%">
                             <thead>
                                 <tr>
+                                    <th>State</th>
                                     <th>Pincode</th>
                                     <th>Landmark</th>
                                     <th>Action</th>
@@ -25,9 +26,10 @@
                             <tbody>
                                 @foreach($pincode as $key => $pin)
                                     <tr>
+                                        <td>{{$pin->state->name}}</td>
                                         <td>{{$pin->pincode}}</td>
                                         <td>{{$pin->landmark}}</td>
-                                        <td><a href="javascript:void(0)" class="editState" data-id="{{$pin->id}}" data-pincode="{{$pin->pincode}}" data-landmark="{{$pin->landmark}}">Edit</a> | <a href="javascript:void(0)" class="deletePincode text-danger" data-id="{{$pin->id}}">Delete</a></td>
+                                        <td><a href="javascript:void(0)" class="editState" data-id="{{$pin->id}}" data-state="{{$pin->stateId}}" data-pincode="{{$pin->pincode}}" data-landmark="{{$pin->landmark}}">Edit</a> | <a href="javascript:void(0)" class="deletePincode text-danger" data-id="{{$pin->id}}">Delete</a></td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -54,6 +56,19 @@
                 <div class="modal-body">
                     <div class="row">
                         <input type="hidden" name="form_type" value="add">
+                        <div class="form-group col-md-6">
+                            <label>State</label>
+                            <select name="state" class="form-control @error('state') is-invalid @enderror" required>
+                                <option selected="" value="" hidden="">Select State</option>
+                                @foreach($states as $key => $state)
+                                    <option value="{{$state->id}}" @if(old('state') == $state->id){{('selected')}}@endif>{{$state->name}}</option>
+                                @endforeach
+                            </select>
+                            @error('state')
+                                <span class="text-danger errorMessage">{{$message}}</span>
+                            @enderror
+                        </div>
+
                         <div class="form-group col-md-6">
                             <label>Pincode</label>
                             <input type="text" name="pincode" class="form-control @error('pincode') is-invalid @enderror" required placeholder="Pincode" value="{{old('pincode')}}">
@@ -95,6 +110,18 @@
                         <input type="hidden" name="form_type" value="edit">
                         <input type="hidden" name="pincodeId" id="pincodeId" value="{{old('pincodeId')}}">
                         <div class="form-group col-md-6">
+                            <label>State</label>
+                            <select name="state" id="stateValue" class="form-control @error('state') is-invalid @enderror" required>
+                                <option selected="" value="" hidden="">Select State</option>
+                                @foreach($states as $key => $state)
+                                    <option value="{{$state->id}}" @if(old('state') == $state->id){{('selected')}}@endif>{{$state->name}}</option>
+                                @endforeach
+                            </select>
+                            @error('state')
+                                <span class="text-danger errorMessage">{{$message}}</span>
+                            @enderror
+                        </div>
+                        <div class="form-group col-md-6">
                             <label>Pincode</label>
                             <input type="text" name="pincode" id="pincodeValue" class="form-control @error('pincode') is-invalid @enderror" required placeholder="Pincode" value="{{old('pincode')}}">
                             @error('pincode')
@@ -127,6 +154,10 @@
             $('.errorMessage').remove();
             $('#addPincodeModal input[name=pincode]').removeClass('is-invalid');
             $('#addPincodeModal input[name=pincode]').val('');
+            $('#addPincodeModal input[name=landmark]').removeClass('is-invalid');
+            $('#addPincodeModal input[name=landmark]').val('');
+            $('#addPincodeModal select[name=state]').removeClass('is-invalid');
+            $('#addPincodeModal select[name=state]').val('');
             $('#addPincodeModal').modal('show');
         });
 
@@ -139,10 +170,11 @@
         @endif
 
         $(document).on('click','.editState',function(){
-            var Id = $(this).attr('data-id'),pincode = $(this).attr('data-pincode'),landmark = $(this).attr('data-landmark');
+            var Id = $(this).attr('data-id'),pincode = $(this).attr('data-pincode'),landmark = $(this).attr('data-landmark'),state = $(this).attr('data-state');
             $('.errorMessage').remove();
             $('#editPincodeModal input[name=pincode]').removeClass('is-invalid');
             $('#editPincodeModal #pincodeId').val(Id);
+            $('#editPincodeModal #stateValue').val(state);
             $('#editPincodeModal #pincodeValue').val(pincode);
             $('#editPincodeModal #landMarkValue').val(landmark);
             $('#editPincodeModal').modal('show');

@@ -28,40 +28,47 @@ class CreateSupplierFormsTable extends Migration
         });
         $data = [
             [
-                'formInputId' => 1,
+                'formInputId' => 2,
                 'userId' => 2,
-                'key' => 'name',
-                'label' => 'Full Name',
-                'placeholder' => 'Full Name',
+                'key' => generateKeyForForm('What type of property'),
+                'label' => 'What type of property?',
+                'placeholder' => '',
             ],
             [
                 'formInputId' => 2,
                 'userId' => 2,
-                'key' => 'gender',
-                'label' => 'Gender',
+                'key' => generateKeyForForm('Do you own or rent the property'),
+                'label' => 'Do you own or rent the property?',
                 'placeholder' => '',
             ],
             [
-                'formInputId' => 3,
+                'formInputId' => 2,
                 'userId' => 2,
-                'key' => 'interest',
-                'label' => 'Interest',
+                'key' => generateKeyForForm('Are you moving into this property'),
+                'label' => 'Are you moving into this property?',
                 'placeholder' => '',
             ],
             [
-                'formInputId' => 4,
+                'formInputId' => 2,
                 'userId' => 2,
-                'key' => 'email',
-                'label' => 'Email Address',
-                'placeholder' => 'Email Address',
+                'key' => generateKeyForForm('Do you also need to connect a broadband or home entertainment service'),
+                'label' => 'Do you also need to connect a broadband or home entertainment service?',
+                'placeholder' => '',
             ],
             [
-                'formInputId' => 7,
+                'formInputId' => 2,
                 'userId' => 2,
-                'key' => 'address',
-                'label' => 'Communication Address',
-                'placeholder' => 'Communication Address',
-            ]
+                'key' => generateKeyForForm('Do you have gas connection to the property'),
+                'label' => 'Do you have gas connection to the property?',
+                'placeholder' => '',
+            ],
+            [
+                'formInputId' => 2,
+                'userId' => 2,
+                'key' => generateKeyForForm('What level best describes your typical electricity usage'),
+                'label' => 'What level best describes your typical electricity usage?',
+                'placeholder' => '',
+            ],
         ];
         DB::table('supplier_forms')->insert($data);
     }

@@ -21,6 +21,10 @@ class WelcomeController extends Controller
         $data->state = State::where('countryId',2)->get();
         $data->compareallSupplier = Setting::where('key','wecomparealloftheseenegysupplier')->get();
         $data->whatWeProvide = Setting::where('key','whatweprovide')->get();
+        $data->pincode = SupplierPincode::select('*')->groupBy('pincode')->orderBy('stateId')->get();
+        foreach ($data->pincode as $key => $pincode) {
+            $pincode->autocomplete = $pincode->pincode.', '.$pincode->landmark.' , '.$pincode->state->name;
+        }
     	return view('welcome',compact('data'));
     }
 
@@ -87,14 +91,24 @@ class WelcomeController extends Controller
 
     public function productListing(Request $req)
     {
-        $supplierId = SupplierPincode::where('pincode','like',"%$req->search%")->orwhere('landmark','like',"%$req->search%")->groupBy('userId')->pluck('userId')->toArray();
+        $supplierId = SupplierPincode::select('userId');
+        if(!empty($req->stateId)){
+            $error['state'] = 'We donot provide the service at given State';
+            $stateId = base64_decode($req->stateId);
+            $supplierId = $supplierId->where('stateId',$stateId);
+        }
+        if(!empty($req->search)){
+            $error['search'] = 'We donot provide the service at given pincode';
+            $search = explode(',',$req->search)[0];
+            $supplierId = $supplierId->where('pincode','like',"%$search%")->orwhere('landmark','like',"%$req->search%");
+        }
+        $supplierId = $supplierId->groupBy('userId')->pluck('userId')->toArray();
         if(count($supplierId) > 0){
             if(auth()->user())
                 return $this->productListingwithAuth($req,$supplierId);
             else
                 return $this->productListingwithoutAuth($req,$supplierId);
         }
-        $error['search'] = 'We donot provide the service at given pincode';
         return back()->withErrors($error)->withInput($req->all());
     }
 
@@ -132,7 +146,7 @@ class WelcomeController extends Controller
 
     public function electricityForm(Request $req)
     {
-        return view('frontend.forms.electricityForm');
+        return view('frontend.forms.electricityForm',compact('req'));
     }
 
     public function indivisualStates(Request $req)
@@ -141,6 +155,10 @@ class WelcomeController extends Controller
         $data->whychooseus = Setting::where('key','whychooseus')->get();
         $data->compareallSupplier = Setting::where('key','wecomparealloftheseenegysupplier')->get();
         $data->state = State::where('countryId',2)->get();
+        $data->pincode = SupplierPincode::select('*')->groupBy('pincode')->orderBy('stateId')->get();
+        foreach ($data->pincode as $key => $pincode) {
+            $pincode->autocomplete = $pincode->pincode.', '.$pincode->landmark.' , '.$pincode->state->name;
+        }
         return view('frontend.forms.indivisualStates',compact('data'));
     }
 

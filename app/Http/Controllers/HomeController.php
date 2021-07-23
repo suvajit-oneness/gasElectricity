@@ -46,7 +46,13 @@ class HomeController extends Controller
         if($data->company){
             $data->supplierForm = SupplierForm::where('userId',$data->company->created_by)->where('status',1)->get();
             if(count($data->supplierForm) > 0){
-                return view('frontend.forms.suppliersFormInput',compact('data'));
+                $user = auth()->user();$latestSupplierFormForUser = $user->latestSupplierForm;
+                $user->formData = [];
+                if($latestSupplierFormForUser){
+                    $user->formData = UserFilledSupplierFormDetails::select('key','value')->where('userId',$user->id)->where('userFilledSupplierFormId',$latestSupplierFormForUser->id)->where('companyId',$data->company->id)->where('supplierId',$data->company->created_by)->get();
+                }
+                return view('frontend.forms.electricityForm',compact('data','user','req'));
+                // return view('frontend.forms.suppliersFormInput',compact('data'));
             }
         }
         return response()->json(['error' => true,'message' => 'something went wront please try after some time']);
@@ -57,6 +63,10 @@ class HomeController extends Controller
         $req->validate([
             'companyId' => 'required|min:1|numeric|in:'.$companyId,
             'supplierId' => 'required|min:1|numeric|in:'.$supplierId,
+            'stateId' => 'nullable|min:1|numeric',
+            'eneryType' => 'required|in:gas_electricity,gas',
+            'approve' => 'required',
+            'termsandconsition' => 'required',
         ]);
         $supplierForm = SupplierForm::where('userId',$supplierId)->where('status',1)->get();
         foreach($supplierForm as $index => $form){
@@ -91,8 +101,9 @@ class HomeController extends Controller
         $req->validate($rules);
         // the Provided Form is Successfully validated
         DB::beginTransaction();
+        // UserFilledSupplierForm::truncate();UserFilledSupplierFormDetails::truncate();
         try{
-            $userFormData = $req->except(['_token','companyId','supplierId']);
+            $userFormData = $req->except(['_token','companyId','supplierId','approve','termsandconsition','eneryType','stateId']);
             $newUserFormSubmitted = new UserFilledSupplierForm();
                 $newUserFormSubmitted->userId = auth()->user()->id;
                 $newUserFormSubmitted->companyId = $req->companyId;
@@ -105,12 +116,15 @@ class HomeController extends Controller
                     $formDetails->companyId = $newUserFormSubmitted->companyId;
                     $formDetails->supplierId = $newUserFormSubmitted->supplierId;
                     $formDetails->key = $key;
-                    $formDetails->value = (is_array($value) ? 'Hockey,Football' : $value);
+                    $formDetails->value = (is_array($value) ? implode(',', $value) : $value);
                 $formDetails->save();
             }
             DB::commit();
-            $error['success'] = 'Form Submitted Success';
-            return back()->withErrors($error);
+            $url = '';
+            if(!empty($req->stateId)){
+                $url = '&stateId='.base64_encode($req->stateId);
+            }
+            return redirect(route('product.listing').'?eneryType='.$req->eneryType.''.$url);
         }catch(Exception $e){
             DB::rollback();
             $error['submit'] = 'Something went wrong please try after some time';

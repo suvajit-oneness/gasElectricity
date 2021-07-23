@@ -10,13 +10,18 @@
 				 <p>If you’re a savvy bargain hunter like us at Econnex, you’ll love saving on your energy bills. Compare energy plans, sign up, and start saving!</p>
 				</div>
 			<div class="location-search-section">
-				<form action="{{route('product.listing')}}">
+				<form action="{{route('product.listing')}}" method="get" autocomplete="off">
+					<datalist id="suppliersPincode">
+						@foreach($data->pincode as $key => $pincde)
+							<option value="{{$pincde->autocomplete}}">
+						@endforeach
+					</datalist>
 					<div class="search-form">
 						@error('eneryType')<span class="text-danger">{{$message}}</span>@enderror
 						@error('search')<span class="text-danger">{{$message}}</span>@enderror
 						<label>Where are you located?</label>
 						<input type="hidden" name="eneryType" value="gas_electricity">
-						<input type="text" name="search" id="search" placeholder="Enter your postcode or suburb..." required="" value="{{old('search')}}">
+						<input type="text" name="search" id="search" placeholder="Enter your postcode or suburb..." required="" value="{{old('search')}}" list="suppliersPincode">
 						<div class="button">
 							<input type="submit" id="" value="compare now">
 							<i class="fas fa-arrow-circle-right"></i>
@@ -25,7 +30,8 @@
 				</form>
 				<p>Currently available in 
 					@foreach($data->state as $state)
-						<a href="{{route('electricityform')}}" style="color:ffffff">{{$state->name}}</a> , 
+						<a href="{{route('product.listing')}}?eneryType=gas_electricity&stateId={{base64_encode($state->id)}}" style="color:ffffff">{{$state->name}}</a> ,
+						<!-- <a href="{{route('electricityform')}}?stateId={{base64_encode($state->id)}}" style="color:ffffff">{{$state->name}}</a> ,  -->
 					@endforeach
 				</p>
 			</div>
@@ -66,7 +72,7 @@
 			<p>Easily compare, select and save on your energy plans</p>
 		</div>
 		<div class="energy_select_box block-display">
-			<form action="{{route('product.listing')}}">
+			<form action="{{route('product.listing')}}" method="get" autocomplete="off">
 				<div class="row">
 					<div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
 					<p>Energy type</p>
@@ -90,17 +96,24 @@
 						<div class="text-center">
 							<p>Do you have a recent bill?</p>
 							<div class="yes-no-btn">
-								<a href="javascript:void(0)">Yes</a>
-								<a class="active" href="javascript:void(0)">No</a>
+								<input type="radio" name="recentbill" value="yes" @if(old('recentbill') == 'yes'){{('checked')}}@endif>Yes
+								<input type="radio" name="recentbill" value="no" @if(old('recentbill') == 'no'){{('checked')}}@elseif(old('recentbill') == 'yes')@else{{('checked')}}@endif>No
+								<!-- <a href="javascript:void(0)">Yes</a>
+								<a class="active" href="javascript:void(0)">No</a> -->
 							</div>
 						</div>
 					</div>
 				</div>
 				<div class="search-form">
+					<datalist id="suppliersPincode">
+						@foreach($data->pincode as $key => $pincde)
+							<option value="{{$pincde->autocomplete}}">
+						@endforeach
+					</datalist>
 					@error('eneryType')<span class="text-danger">{{$message}}</span>@enderror
 					@error('search')<span class="text-danger">{{$message}}</span>@enderror
 					<label>Enter your suburb or postcode</label>
-					<input type="text" name="search" id="postcodesearch" placeholder="Enter your postcode or suburb..." required value="{{old('search')}}">
+					<input type="text" name="search" id="postcodesearch" placeholder="Enter your postcode or suburb..." required value="{{old('search')}}" list="suppliersPincode">
 				</div>
 				<div class="ccheckandbtn">
 					<div class="custom-control custom-checkbox custom-control-mod">

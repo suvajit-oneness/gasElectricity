@@ -4,14 +4,22 @@ namespace App\Http\Controllers\Supplier;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller,App\Model\SupplierPincode;
-use  App\Model\SupplierForm,App\Model\FormInput;
-use  App\Model\SupplierFormOption;
+use  App\Model\SupplierForm,App\Model\FormInput,App\Model\State;
+use  App\Model\SupplierFormOption,App\Model\UserFilledSupplierForm;
 class SupplierController extends Controller
 {
+    public function reportSupplierFormFilledByUser(Request $req)
+    {
+        $info = UserFilledSupplierForm::where('supplierId',auth()->user()->id)->get();
+        $supplierForm = SupplierForm::where('userId',auth()->user()->id)->where('status',1)->get();
+        return view('supplier.reports.userFilledForm',compact('info','supplierForm'));
+    }
+
     public function supplierServicePincode(Request $req)
     {
         $pincode = SupplierPincode::where('userId',auth()->user()->id)->get();
-        return view('supplier.service.pincode',compact('pincode'));
+        $states = State::where('countryId',2)->get();
+        return view('supplier.service.pincode',compact('pincode','states'));
     }
 
     public function supplierServicePincodeSaveOrUpdate(Request $req)

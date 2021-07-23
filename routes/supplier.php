@@ -78,4 +78,12 @@
 		Route::post('form/option/remove','Supplier\SupplierController@formOptionRemove')->name('supplier.setting.form.option.remove');
 		Route::post('form/option/add/new','Supplier\SupplierController@formOptionAddNew')->name('supplier.setting.form.option.save');
 	});
+
+	// Reports
+	Route::group(['prefix' => 'reports'],function(){
+		// Form Filled By the User
+		Route::group(['prefix' => 'supplier/forms'],function(){
+			Route::get('/','Supplier\SupplierController@reportSupplierFormFilledByUser')->name('supplier.reports.form.filledbyuser');
+		});
+	});
  ?>

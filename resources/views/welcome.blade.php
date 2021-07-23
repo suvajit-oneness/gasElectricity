@@ -29,13 +29,18 @@
 				 <p>If you’re a savvy bargain hunter like us at Econnex, you’ll love saving on your energy bills. Compare energy plans, sign up, and start saving!</p>
 				</div>
 			<div class="location-search-section">
-				<form action="{{route('product.listing')}}">
+				<form action="{{route('product.listing')}}" autocomplete="off">
 					<div class="search-form">
+						<datalist id="suppliersPincode">
+							@foreach($data->pincode as $key => $pincde)
+								<option value="{{$pincde->autocomplete}}">
+							@endforeach
+						</datalist>
 						@error('eneryType')<span class="text-danger">{{$message}}</span>@enderror
 						@error('search')<span class="text-danger">{{$message}}</span>@enderror
 						<label>Where are you located?</label>
 						<input type="hidden" name="eneryType" value="gas_electricity">
-						<input type="text" name="search" id="search" placeholder="Enter your postcode or suburb..." required="" value="{{old('search')}}">
+						<input type="text" name="search" id="search" placeholder="Enter your postcode or suburb..." required="" value="{{old('search')}}" list="suppliersPincode">
 						<div class="button">
 							<input type="submit" id="" value="compare now">
 							<i class="fas fa-arrow-circle-right"></i>

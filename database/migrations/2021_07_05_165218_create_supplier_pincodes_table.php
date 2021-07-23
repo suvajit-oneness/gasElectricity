@@ -16,21 +16,26 @@ class CreateSupplierPincodesTable extends Migration
         Schema::create('supplier_pincodes', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('userId');
+            $table->bigInteger('stateId');
             $table->string('pincode',10)->index();
             $table->string('landmark');
             $table->softDeletes();
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
         });
-        $data = [];
-        for ($i=0; $i < 50; $i++) { 
-            $data[] = [
-                'userId' => 2,
-                'pincode' => rand(1111,9999),
-                'landmark' => 'landmark '.($i+1),
-            ];
+
+        $data = [];$states = DB::table('states')->where('countryId',2)->get();
+        foreach ($states as $key => $state) {
+            for ($i=0; $i < 5; $i++) {
+                $data[] = [
+                    'userId' => 2,
+                    'stateId' => $state->id,
+                    'pincode' => rand(1111,9999),
+                    'landmark' => 'landmark '.($key+$i),
+                ];
+            }
         }
-        DB::table('supplier_pincodes')->insert($data);
+        DB::table('supplier_pincodes')->insert($data);        
     }
 
     /**

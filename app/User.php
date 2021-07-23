@@ -59,4 +59,9 @@ class User extends Authenticatable
     {
         return $this->belongsTo('App\Model\Membership','membershipId','id');
     }
+
+    public function latestSupplierForm()
+    {
+        return $this->hasOne('App\Model\UserFilledSupplierForm','userId','id')->latest();
+    }
 }

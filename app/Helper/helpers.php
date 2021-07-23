@@ -49,6 +49,33 @@
 		return $key;
 	}
 
+	function checkUserOldForm($key,$value,$objects)
+	{
+		$response = false;
+		foreach($objects as $obj){
+			if($obj->key == $key && $obj->value == $value){
+				return true;
+			}
+		}
+		return $response;
+	}
+
+	function getFormHistoryInfo($allObject,$userFilledData)
+	{
+		$data = [];
+		foreach($userFilledData as $index => $userForm){
+			foreach ($allObject as $key => $object) {
+				if($userForm->key == $object->key){
+					$data[] = [
+						'label' => $object->label,
+						'value' => $userForm->value,
+					];
+				}
+			}
+		}
+		return $data;
+	}
+
 	function randomGenerator()
 	{
 		return uniqid().''.date('ymdhis').''.uniqid();

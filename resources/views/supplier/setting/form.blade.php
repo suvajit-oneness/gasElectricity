@@ -18,9 +18,10 @@
                                 <label>Form Input Type</label>
                                 <select class="form-control col-md-6 @error('formInputId'){{('is-invalid')}}@enderror" id="selectInputType" name="formInputId">
                                     <option value="">Select Input Type</option>
-                                    @foreach($formInput as $input)
+                                    <option value="2">Radio</option>
+                                    <!-- @foreach($formInput as $input)
                                         <option value="{{$input->id}}" @if(old('formInputId') == $input->id){{('selected')}}@endif>{{$input->input_type}}</option>
-                                    @endforeach
+                                    @endforeach -->
                                 </select>
                                 @error('formInputId')<span class="text-danger">{{$message}}</span>@enderror
                             </div>
@@ -45,11 +46,11 @@
                         <thead>
                             <tr>
                                 <th>Input Type</th>
-                                <th>Key</th>
-                                <th>Label</th>
+                                <!-- <th>Key</th> -->
+                                <th>Heading</th>
                                 <th>Placeholder</th>
                                 <th>Options</th>
-                                <th>Required</th>
+                                <!-- <th>Required</th> -->
                                 <th>Status</th>
                             </tr>
                         </thead>
@@ -58,18 +59,18 @@
                                 <tr id="tableDataTr_{{$d->id}}">
                                     <?php $inputType = $d->input_type;?>
                                     <td>{{$inputType->input_type}}</td>
-                                    <td>{{$d->key}}</td>
+                                    <!-- <td>{{$d->key}}</td> -->
                                     <td>{{$d->label}}</td>
-                                    <td>{{$d->placeholder}}</td>
+                                    <td>{{($d->placeholder != '' ? $d->placeholder : 'N/A')}}</td>
                                     <td>
                                         @if(formInputTypeCheck($inputType->input_type))
                                             <?php $formOption = $d->form_option; ?>
                                             <a class="optionView" href="javascript:void(0)" data-details="{{json_encode($d)}}">View</a>
                                         @endif
                                     </td>
-                                    <td>
+                                    <!-- <td>
                                         <input type="checkbox" data-id="{{$d->id}}" class="form-control isRequired" @if($d->is_required == 1){{('checked')}}@endif>
-                                    </td>
+                                    </td> -->
                                     <td>
                                         <input type="checkbox" data-id="{{$d->id}}" class="form-control statusUpdate" @if($d->status == 1){{('checked')}}@endif>
                                     </td>

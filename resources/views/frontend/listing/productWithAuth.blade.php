@@ -143,7 +143,16 @@
 								$electricityData = (!empty($request['eneryType']) && $request['eneryType'] == 'gas_electricity') ? $product->product_electricty : [];
 							?>
 							@if($gasData || $electricityData)
-								<?php $companyData = $product->company;?>
+								<?php $companyData = $product->company;
+									$otherURL = '?';
+									if(!empty($request['eneryType'])){
+										$otherURL .= 'eneryType='.$request['eneryType'].'&';
+									}
+									if(!empty($request['stateId'])){
+										$otherURL .= 'stateId='.$request['stateId'];
+									}
+								?>
+
 								<div class="plane_list_wrapper">
 									<div class="res-planheading"><h5>Plan <span>and highlights</span></h5></div>
 									<div class="plan_icon_wrap">
@@ -175,7 +184,7 @@
 												</div>
 												<div class="price_amount">
 													<h2>$ {{moneyFormat($gasData->price)}}</h2>
-													<a href="{{route('company.supplier.form',$companyData->id)}}" class="blue-btm">EXPLORE <span><i class="fas fa-arrow-circle-right"></i></span></a>
+													<a href="{{route('company.supplier.form',$companyData->id)}}{{$otherURL}}" class="blue-btm">EXPLORE <span><i class="fas fa-arrow-circle-right"></i></span></a>
 												</div>
 											</div>
 										@endif
@@ -188,7 +197,7 @@
 												</div>
 												<div class="price_amount">
 													<h2>${{moneyFormat($electricityData->price)}}</h2>
-													<a href="{{route('company.supplier.form',$companyData->id)}}" class="blue-btm">EXPLORE <span><i class="fas fa-arrow-circle-right"></i></span></a>
+													<a href="{{route('company.supplier.form',$companyData->id)}}{{$otherURL}}" class="blue-btm">EXPLORE <span><i class="fas fa-arrow-circle-right"></i></span></a>
 												</div>
 
 											</div>
