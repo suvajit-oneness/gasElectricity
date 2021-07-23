@@ -49,7 +49,8 @@
 				</form>
 				<p>Currently available in 
 					@foreach($data->state as $state)
-						<a href="{{route('electricityform')}}" style="color:ffffff">{{$state->name}}</a> , 
+						<a href="{{route('product.listing')}}?eneryType=gas_electricity&stateId={{base64_encode($state->id)}}" style="color:ffffff">{{$state->name}}</a> ,
+						<!-- <a href="{{route('electricityform')}}" style="color:ffffff">{{$state->name}}</a> ,  -->
 					@endforeach
 				</p>
 			</div>

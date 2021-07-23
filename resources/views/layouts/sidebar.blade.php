@@ -105,7 +105,7 @@
                             </div>
                         </li>
 
-                        <!-- <li class="nav-item">
+                        <li class="nav-item">
                             <a class="nav-link" href="javascript:void(0)" data-toggle="collapse" aria-expanded="{{request()->routeIs('supplier.reports.*')?'true':'false'}}" data-target="#supplierReports-1" aria-controls="supplierReports-1"><i class="fas fa-fw fa-file"></i> Reports </a>
                             <div id="supplierReports-1" class="collapse submenu {{request()->routeIs('supplier.reports.*')?'show':''}}">
                                 <ul class="nav flex-column">
@@ -114,7 +114,7 @@
                                     </li>
                                 </ul>
                             </div>
-                        </li> -->
+                        </li>
                     <!-- Supplier Sidebar End-->
                     <!-- Customer Sidebar -->
                     @elseif(Auth::user()->user_type == 3)
