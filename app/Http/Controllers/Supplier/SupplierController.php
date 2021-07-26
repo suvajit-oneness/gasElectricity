@@ -17,7 +17,7 @@ class SupplierController extends Controller
 
     public function supplierServicePincode(Request $req)
     {
-        $pincode = SupplierPincode::where('userId',auth()->user()->id)->get();
+        $pincode = SupplierPincode::where('userId',auth()->user()->id)->orderBy('id','DESC')->get();
         $states = State::where('countryId',2)->get();
         return view('supplier.service.pincode',compact('pincode','states'));
     }
@@ -28,11 +28,13 @@ class SupplierController extends Controller
             'form_type' => 'required|in:add,edit',
             'pincode' => 'required|numeric|max:999999',
             'landmark' => 'nullable|string|max:200',
+            'state' => 'required|numeric|min:1',
         ]);
         if($req->form_type == 'add'){
             $pincode = SupplierPincode::where('pincode',$req->pincode)->where('userId',auth()->user()->id)->first();
             if(!$pincode){
                 $new = new SupplierPincode();
+                $new->stateId = $req->state;
                 $new->pincode = $req->pincode;
                 $new->userId = auth()->user()->id;
                 $new->landmark = emptyCheck($req->landmark);
@@ -47,6 +49,7 @@ class SupplierController extends Controller
             if(!$pincode){
                 $update = SupplierPincode::where('id',$req->pincodeId)->where('userId',auth()->user()->id)->first();
                 $update->pincode = $req->pincode;
+                $update->stateId = $req->state;
                 $update->landmark = emptyCheck($req->landmark);
                 $update->save();
                 return back()->with('Success','Pincode Updated SuccessFully');
