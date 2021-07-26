@@ -207,7 +207,8 @@
 				<ul>
 					@foreach($data->state as $state)
 						<li>
-							<a href="{{route('electricityform')}}">Energy Comparison – {{$state->name}}</a>
+							<a href="{{route('product.listing')}}?eneryType=gas_electricity&stateId={{base64_encode($state->id)}}" style="color:ffffff">Energy Comparison – {{$state->name}}</a> ,
+							<!-- <a href="{{route('electricityform')}}"></a> -->
 						</li>
 					@endforeach
 				</ul>
