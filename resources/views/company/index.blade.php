@@ -7,9 +7,11 @@
             <div class="card">
                 <div class="card-header">
                     <h5 class="mb-0">Companies
-                        <a class="headerbuttonforAdd" href="{{route(urlPrefix().'.companies.create')}}">
-                            <i class="fa fa-plus" aria-hidden="true"></i>Add Company
-                        </a>
+                        @if(urlprefix() != 'admin')
+                            <a class="headerbuttonforAdd" href="{{route(urlPrefix().'.companies.create')}}">
+                                <i class="fa fa-plus" aria-hidden="true"></i>Add Company
+                            </a>
+                        @endif
                     </h5>
                     <!-- <p>This example shows FixedHeader being styled by the Bootstrap 4 CSS framework.</p> -->
                 </div>
@@ -29,7 +31,9 @@
                                     @if(urlprefix() == 'admin')
                                         <th>Created By</th>
                                     @endif
-                                    <th>Action</th>
+                                    @if(urlprefix() != 'admin')
+                                        <th>Action</th>
+                                    @endif
                                 </tr>
                             </thead>
                             <tbody>
@@ -71,9 +75,11 @@
                                                 <li>Email : {{$author->email}}</li>
                                             </ul></td>
                                         @endif
-                                        <td>
-                                            <a href="{{route(urlPrefix().'.companies.edit',$company->id)}}">Edit</a> | <a href="javascript:void(0)" class="deletecompany text-danger" data-id="{{$company->id}}">Delete</a>
-                                        </td>
+                                        @if(urlprefix() != 'admin')
+                                            <td>
+                                                <a href="{{route(urlPrefix().'.companies.edit',$company->id)}}">Edit</a> | <a href="javascript:void(0)" class="deletecompany text-danger" data-id="{{$company->id}}">Delete</a>
+                                            </td>
+                                        @endif
                                     </tr>
                                 @endforeach
                             </tbody>

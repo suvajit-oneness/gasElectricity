@@ -172,7 +172,7 @@
                     $.ajax({
                         type:'POST',
                         dataType:'JSON',
-                        url:"{{route(urlPrefix().'.products.momenta.delete',"+momentaId+")}}",
+                        url:"{{route(urlPrefix().'.products.momenta.delete',[$product->id,"+momentaId+"])}}",
                         data: {productId:'{{$product->id}}',momentaId:momentaId,_token:'{{csrf_token()}}'},
                         success:function(data){
                             console.log(data);

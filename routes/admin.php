@@ -15,10 +15,10 @@
 	// Company
 	Route::group(['prefix'=>'companies'],function(){
 		Route::get('/{companyId?}','Admin\AdminController@companies')->name('admin.companies')->where('companyId', '[0-9]+');
-		Route::get('/create','Admin\AdminController@createCompany')->name('admin.companies.create');
-		Route::post('/save','Admin\AdminController@saveCompany')->name('admin.companies.save');
-		Route::get('/{id}/edit','Admin\AdminController@editCompany')->name('admin.companies.edit')->where('id', '[0-9]+');
-		Route::post('/update','Admin\AdminController@updateCompany')->name('admin.companies.update');
+		// Route::get('/create','Admin\AdminController@createCompany')->name('admin.companies.create');
+		// Route::post('/save','Admin\AdminController@saveCompany')->name('admin.companies.save');
+		// Route::get('/{id}/edit','Admin\AdminController@editCompany')->name('admin.companies.edit')->where('id', '[0-9]+');
+		// Route::post('/update','Admin\AdminController@updateCompany')->name('admin.companies.update');
 		Route::post('/{id}/delete', 'Admin\AdminController@deleteCompany')->name('admin.companies.delete');
 		/********** Company Discount ********/
 		Route::group(['prefix' => '{companyId}/discount'],function(){
@@ -53,10 +53,10 @@
 	// Products
 	Route::group(['prefix'=>'products'],function(){
 		Route::get('/{productId?}','Admin\AdminController@products')->name('admin.products')->where('productId', '[0-9]+');
-		Route::get('/create','Admin\AdminController@createProduct')->name('admin.products.create');
-		Route::post('/save','Admin\AdminController@saveProduct')->name('admin.products.save');
-		Route::get('/{productId}/edit','Admin\AdminController@editProduct')->name('admin.products.edit')->where('productId', '[0-9]+');
-		Route::post('{productId}/update','Admin\AdminController@updateProduct')->name('admin.products.update')->where('productId', '[0-9]+');
+		// Route::get('/create','Admin\AdminController@createProduct')->name('admin.products.create');
+		// Route::post('/save','Admin\AdminController@saveProduct')->name('admin.products.save');
+		// Route::get('/{productId}/edit','Admin\AdminController@editProduct')->name('admin.products.edit')->where('productId', '[0-9]+');
+		// Route::post('{productId}/update','Admin\AdminController@updateProduct')->name('admin.products.update')->where('productId', '[0-9]+');
 		Route::post('/{id}/delete', 'Admin\AdminController@deleteProduct')->name('admin.products.delete');
 
 		/********** Product Momenta ********/
