@@ -62,4 +62,14 @@
         </div>
     </div>
 </div>
+    @section('script')
+        <script type="text/javascript">
+            $(document).ready(function() {
+                $(document).on('submit', 'form', function() {
+                    $('button').attr('disabled', 'disabled');
+                    $('.loading-data').show();
+                });
+            });
+        </script>
+    @stop
 @endsection

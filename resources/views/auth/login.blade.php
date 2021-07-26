@@ -49,7 +49,7 @@
                                             <a href="{{route('register')}}" class="white-btm">+ Create an Account</a>
                                         @endif
                                     </form>
-                                    <div class="social_group">
+                                    <!-- <div class="social_group">
                                         <p>Or you can join with</p>
                                         <ul>
                                             <li>
@@ -62,7 +62,7 @@
                                                 <a href="#"><img src="{{asset('forntEnd/images/google-plus.png')}}"></a>
                                             </li>
                                         </ul>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
                         </div>
@@ -72,9 +72,5 @@
         </div>
     </div>
 </section>
-
-@section('script')
-    <script type="text/javascript"></script>
-@stop
 @endsection
 

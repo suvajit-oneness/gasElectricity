@@ -37,6 +37,10 @@
     <script type="text/javascript">
         $(document).ready(function() {
             $('.loading-data').hide();
+            $(document).on('submit', 'form', function() {
+                $('button').attr('disabled', 'disabled');
+                $('.loading-data').show();
+            });
         });
         @if(Session::has('Success'))
             swal('Success','{{Session::get('Success')}}', 'success');

@@ -114,6 +114,10 @@
 			        $('.dropdown-inner').not($(this).next()).slideUp('600');
 			    }
 			});
+			$(document).on('submit', 'form', function() {
+                $('button').attr('disabled', 'disabled');
+                $('.loading-data').show();
+            });
 		});
 
 		@if(Session::has('Success'))
