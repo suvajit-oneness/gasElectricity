@@ -37,6 +37,13 @@ class Controller extends BaseController
             $user->save();
             $this->setReferralCode($user,$userData->referral);
             DB::commit();
+            $data = [
+                'name' => $user->name,
+                'email' => $user->email,
+                'password' => $userData->password,
+                'content' => 'Please use the Provided password below to login',
+            ];
+            sendMail($data,'emails/userRegistration',$user->email,'Congratulation - Successful Registration !!!');
             return $user;
         }catch (Exception $e) {
             DB::rollback();
@@ -69,6 +76,11 @@ class Controller extends BaseController
         $newPoint->points = $points;
         $newPoint->remarks = $remark;
         $newPoint->save();
+        $data = [
+            'name' => $user->name,
+            'content' => 'Congratulation, you got Point '. $points .' as '.$remark,
+        ];
+        sendMail($data,'emails/userPointEmail',$user->email,'Congratulation - Point Added!!!');
         return $newPoint;
     }
 }

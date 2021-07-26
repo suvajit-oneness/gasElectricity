@@ -410,7 +410,13 @@ class AdminController extends Controller
             $user->save();
             $this->setReferralCode($user,$req->referral);
             DB::commit();
-            // sendMail();
+            $data = [
+                'name' => $user->name,
+                'email' => $user->email,
+                'password' => $random,
+                'content' => 'Please use the Provided password below to login',
+            ];
+            sendMail($data,'emails/userRegistration',$user->email,'Congratulation - Successful Registration !!!');
             return redirect(route('admin.users'))->with('Success','User Added SuccessFully');
         } catch (Exception $e) {
             DB::rollback();

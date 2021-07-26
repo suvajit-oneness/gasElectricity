@@ -103,16 +103,20 @@
         return Str::words($value, $words, $end);
     }
     
-    function sendMail($data , $template)
+    function sendMail($data,$template,$to,$subject)
     {
-		$toEmail = $data['to'];
-		$toName = $data['name'];
-		$sub = $data['subject'];
-        Mail::send($template, compact('data'), function ($message) use ($toName, $toEmail, $sub) {
-            $message->to($toEmail, $toName);
-			$message->subject($sub);
-            $message->from('support@seitcher.com', 'switcher');
-        });
+	    Mail::send($template, $data, function($message)use ($data,$to,$subject) {
+	        $message->to($to, $data['name'])->subject($subject);
+	        $message->from('onenesstechsolution@gmail.com','Switcher');
+	    });
+		// $toEmail = $data['to'];
+		// $toName = $data['name'];
+		// $sub = $data['subject'];
+		// Mail::send($template, compact('data'), function ($message) use ($toName, $toEmail, $sub) {
+		    // $message->to($toEmail, $toName);
+			// 	$message->subject($sub);
+		    // $message->from('support@seitcher.com', 'switcher');
+	    // });
     }
 
     function sendTwilioMessage($to,$message)

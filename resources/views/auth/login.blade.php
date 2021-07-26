@@ -41,9 +41,9 @@
                                                 <a href="{{ route('password.request') }}">Forgot Password?</a>
                                             @endif
                                         </div>
-                                        <div class="">
+                                        <!-- <div class="">
                                             <img src="{{asset('forntEnd/images/verify-robot.png')}}">
-                                        </div>
+                                        </div> -->
                                         <button class="blue-btm blue-btm-mod mr-md-3" type="submit">Login Now</button>
                                         @if (Route::has('register'))
                                             <a href="{{route('register')}}" class="white-btm">+ Create an Account</a>
