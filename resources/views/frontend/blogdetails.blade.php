@@ -165,7 +165,16 @@
 
 					<div id="commentLogs">
 						@foreach($blogComments as $comment)
-							<p>{{$comment->comment}} by {{$comment->user->name}}</p><hr>
+						<div class="d-flex">
+							<div class="comment-img"><img src="../defaultUser.jpg" alt=""></div>
+							<div>
+								<h5>Aron Alvarado</h5>
+								<time datetime="2020-01-01">01 Jan, 2020</time>
+								<p>{{$comment->comment}} by {{$comment->user->name}}</p>
+							</div>
+						</div>
+						<!--@foreach($blogComments as $comment)
+							<p>{{$comment->comment}} by {{$comment->user->name}}</p><hr>-->
 						@endforeach
 					</div>
 				</div>

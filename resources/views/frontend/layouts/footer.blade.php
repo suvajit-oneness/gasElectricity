@@ -74,7 +74,7 @@
 						<img src="{{asset('forntEnd/images/cyber-agency.png')}}">
 					</li>
 				</ul>
-				<p class="text-right copyright_text">© Connex 2021. All rights reserved.</p>
+				<p class="text-right copyright_text">© SwitchR 2021. All rights reserved.</p>
 			</div>
 		</div>
 	</div>
