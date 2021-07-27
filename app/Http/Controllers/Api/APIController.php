@@ -71,19 +71,20 @@ class APIController extends Controller
         ];
         $validate = validator()->make($req->all(),$rules);
         if(!$validate->fails()){
-            $whattodo = 1;
+            $count = 0;
             $like = BlogLike::where('blogId',$req->blogId)->where('userId',$req->userId)->first();
             if(!$like){
+                $count = 1;
                 $like = new BlogLike();
                 $like->blogId = $req->blogId;
                 $like->userId = $req->userId;
             }
             $like->save();
             if($req->like == 0){
-                $whattodo = -1;
+                $count = -1;
                 $like->delete();
             }
-            return successResponse('Blog Like Saved ',['like' => $whattodo]);
+            return successResponse('Blog Like Saved ',['count' => $count]);
         }
         return errorResponse($validate->errors()->first());
     }

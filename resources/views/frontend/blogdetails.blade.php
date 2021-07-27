@@ -118,17 +118,19 @@
 								<li><a href="#"><i class="fab fa-google-plus-g"></i></a></li>
 							</ul>
 						</div> -->
-						<?php $blogComments = $data->blogs->comment;?>
+						<?php $blogComments = $data->blogs->comment;
+							$blogLikes = $data->blogs->likes;
+						?>
 						<div class="social_count_wrap">
 							<ul>
 								<li>
 									<a href="javascript:void(0)" class="likeMainButton">
-										<img src="{{asset('forntEnd/images/like.png')}}"><span id="countBlogsLike">{{count($data->blogs->likes)}}</span>&nbsp;&nbsp;Likes <i class="fas fa-chevron-down"></i>
+										<img src="{{asset('forntEnd/images/like.png')}}"><span id="countBlogsLike">{{count($blogLikes)}}</span>&nbsp;&nbsp;Likes <i class="fas fa-chevron-down"></i>
 									</a>
 								</li>
 								<li>
 									<a href="javascript:void(0)">
-										<img src="{{asset('forntEnd/images/chat.png')}}"><span id="countBlogsComments">{{count($blogComments)}} &nbsp;</span> Comments
+										<img src="{{asset('forntEnd/images/chat.png')}}"><span id="countBlogsComments">{{count($blogComments)}}</span>&nbsp; Comments
 									</a>
 								</li>
 							</ul>
@@ -152,7 +154,7 @@
 							<form onsubmit="return false" id="blogCommentFrom">
 								<div class="form-row">
 									<div class="col-12">
-										<textarea class="custom_textarea" name="commentMessage" id="commentMessage" placeholder="Comments" required></textarea>
+										<textarea class="custom_textarea" name="commentMessage" id="commentMessage" placeholder="Please type your comment" required></textarea>
 									</div>
 								</div>
 								<button class="blue-btm leaveComment">LEAVE A COMMENT <span><i class="fas fa-arrow-circle-right"></i></span></button>
@@ -202,8 +204,13 @@
 					data : {blogId: '{{$data->blogs->id}}', userId: '{{auth()->user()->id}}',like: status},
 					success:function(response){
 						if(response.error == false){
+							console.log(response);
 							var nowLike = $('#countBlogsLike').text();
-							nowLike = parseInt(nowLike) + 1;
+							if(parseInt(nowLike) != 0){
+								nowLike = parseInt(nowLike) + parseInt(response.data.count);
+							}else{
+								nowLike = 0;
+							}
 							$('#countBlogsLike').text(nowLike);
 						}
 					}
@@ -218,6 +225,7 @@
 					data : {blogId : '{{$data->blogs->id}}', userId:'{{auth()->user()->id}}',comment : comment},
 					success:function(res){
 						$('.loading-data').hide();
+						$('button').attr('disabled', false);
 						if(res.error == false){
 							$('#commentMessage').val('');
 							var nowCount = $('#countBlogsComments').text();
