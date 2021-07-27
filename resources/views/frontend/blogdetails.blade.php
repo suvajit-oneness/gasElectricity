@@ -22,11 +22,12 @@
 					</ul>
 				</div>
 			</div>
-			@if($data->blogs->posted)
+			<?php $blogAuthor = $data->blogs->posted; ?>
+			@if($blogAuthor)
 				<div class="col-12 text-right">
 					<div class="blog_author_box">
-						<img src="{{asset($data->blogs->posted->image)}}">
-						<p>{{$data->blogs->posted->name}}</p>
+						<img src="{{asset($blogAuthor->image)}}">
+						<p>{{$blogAuthor->name}}</p>
 					</div>
 				</div>
 			@endif
@@ -82,7 +83,7 @@
 			<div class="col-12 col-lg-9 col-md-12">
 				<div class="blog_details_container">
 					<div class="blog_title_wrap">
-						<img src="{{$data->blogs->image}}">
+						<img src="{{asset($data->blogs->image)}}">
 						<div class="content_title">
 							<h2>{{$data->blogs->title}}</h2>
 							<!-- <h2>Lorem Ipsum is <span>simply dummy text</span></h2> -->

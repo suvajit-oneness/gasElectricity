@@ -63,7 +63,7 @@
 						<ul>
 							@foreach($data->blogs as $key => $blog)
 								<li>
-									<img src="{{$blog->image}}">
+									<img src="{{asset($blog->image)}}">
 									<div class="blog_info">
 										<p class="publist_date">{{date('l, M d, Y',strtotime($blog->created_at))}}</p>
 										<h5>{!! $blog->title !!}</h5>
