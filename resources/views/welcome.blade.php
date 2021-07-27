@@ -40,9 +40,9 @@
 						@error('search')<span class="text-danger">{{$message}}</span>@enderror
 						<label>Where are you located?</label>
 						<input type="hidden" name="eneryType" value="gas_electricity">
-						<input type="text" name="search" id="search" placeholder="Enter your postcode or suburb..." required="" value="{{old('search')}}" list="suppliersPincode">
+						<input type="text" class="postCodeSearch" name="search" id="search" placeholder="Enter your postcode or suburb..." required="" value="{{old('search')}}" list="suppliersPincode">
 						<div class="button">
-							<input type="submit" id="" value="compare now">
+							<button type="submit">compare now</button>
 							<i class="fas fa-arrow-circle-right"></i>
 						</div>
 					</div>

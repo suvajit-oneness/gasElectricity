@@ -12,7 +12,7 @@
 						<li class="{{request()->routeIs('aboutus')?'active':''}}"><a href="{{route('aboutus')}}">About Us</a></li>
 						<li class="{{request()->routeIs('contact-us')?'active':''}}"><a href="{{route('contact-us')}}">Contact</a></li>
 						<li class="{{request()->routeIs('indivisual.state')?'active':''}}"><a href="{{route('indivisual.state')}}">Individual State</a></li>
-						<li><a href="#">Individual Utility </a></li>
+						<li class="{{request()->routeIs('indivisual.utility')?'active':''}}"><a href="{{route('indivisual.utility')}}">Individual Utility </a></li>
 						<li class="{{request()->routeIs('blogs')?'active':''}}"><a href="{{route('blogs')}}">Blog</a></li>
 						<li class="{{request()->routeIs('how-it-works')?'active':''}}"><a href="{{route('how-it-works')}}">How It Works? </a></li>
 					</ul>

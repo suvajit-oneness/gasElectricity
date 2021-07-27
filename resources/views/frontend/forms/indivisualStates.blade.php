@@ -21,9 +21,9 @@
 						@error('search')<span class="text-danger">{{$message}}</span>@enderror
 						<label>Where are you located?</label>
 						<input type="hidden" name="eneryType" value="gas_electricity">
-						<input type="text" name="search" id="search" placeholder="Enter your postcode or suburb..." required="" value="{{old('search')}}" list="suppliersPincode">
+						<input type="text" class="postCodeSearch" name="search" id="search" placeholder="Enter your postcode or suburb..." required="" value="{{old('search')}}" list="suppliersPincode">
 						<div class="button">
-							<input type="submit" id="" value="compare now">
+							<button type="submit">compare now</button>
 							<i class="fas fa-arrow-circle-right"></i>
 						</div>
 					</div>
@@ -31,7 +31,6 @@
 				<p>Currently available in 
 					@foreach($data->state as $state)
 						<a href="{{route('product.listing')}}?eneryType=gas_electricity&stateId={{base64_encode($state->id)}}" style="color:ffffff">{{$state->name}}</a> ,
-						<!-- <a href="{{route('electricityform')}}?stateId={{base64_encode($state->id)}}" style="color:ffffff">{{$state->name}}</a> ,  -->
 					@endforeach
 				</p>
 			</div>
@@ -113,14 +112,14 @@
 					@error('eneryType')<span class="text-danger">{{$message}}</span>@enderror
 					@error('search')<span class="text-danger">{{$message}}</span>@enderror
 					<label>Enter your suburb or postcode</label>
-					<input type="text" name="search" id="postcodesearch" placeholder="Enter your postcode or suburb..." required value="{{old('search')}}" list="suppliersPincode">
+					<input type="text" class="postCodeSearch" name="search" id="postcodesearch" placeholder="Enter your postcode or suburb..." required value="{{old('search')}}" list="suppliersPincode">
 				</div>
 				<div class="ccheckandbtn">
 					<div class="custom-control custom-checkbox custom-control-mod">
 					    <input type="checkbox" name="referral_partner" value="true" class="custom-control-input" id="customControl2" @if(old('referral_partner')){{('checked')}}@endif>
 					    <label class="custom-control-label" for="customControl2">Just compare plans which link to a Referral Partner.</label>
 					</div>
-					<button class="blue-btm">COMPARE <span><i class="fas fa-arrow-circle-right"></i></span></button>
+					<button type="submit" class="blue-btm">COMPARE <span><i class="fas fa-arrow-circle-right"></i></span></button>
 				</div>
 			</form>
 		</div>

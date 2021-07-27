@@ -292,7 +292,7 @@ header {
     border-bottom-right-radius: 9px;
 }
 
-.search-form input[type="submit"] {
+.search-form button[type="submit"] {
     background: #8de4af;
     height: 53px;
     border: 1px solid #8de4af;

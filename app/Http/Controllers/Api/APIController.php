@@ -4,9 +4,10 @@ namespace App\Http\Controllers\API;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Carbon\Carbon;use App\Model\Product;
-use App\Model\BlogCategory;use App\Model\Blog;
-use App\Model\State;use App\Model\UserPoints;
+use Carbon\Carbon,App\Model\Product;
+use App\Model\BlogCategory,App\Model\Blog;
+use App\Model\State,App\Model\UserPoints;
+use App\Model\BlogComment,App\Model\BlogLike;
 
 class APIController extends Controller
 {
@@ -40,6 +41,51 @@ class APIController extends Controller
         } else {
             return successResponse('No blogs found');
         }
+    }
+
+    public function saveBlogComment(Request $req)
+    {
+        $rules = [
+            'blogId' => 'required|min:1|numeric',
+            'userId' => 'required|min:1|numeric',
+            'comment' => 'required|string',
+        ];
+        $validate = validator()->make($req->all(),$rules);
+        if(!$validate->fails()){
+            $newComment = new BlogComment();
+            $newComment->blogId = $req->blogId;
+            $newComment->userId = $req->userId;
+            $newComment->comment = $req->comment;
+            $newComment->save();
+            return successResponse('Blog Comment Saved ',$newComment);
+        }
+        return errorResponse($validate->errors()->first());
+    }
+
+    public function saveBlogLikeorUnlike(Request $req)
+    {
+        $rules = [
+            'blogId' => 'required|min:1|numeric',
+            'userId' => 'required|min:1|numeric',
+            'like' => 'required|numeric|in:1,0',
+        ];
+        $validate = validator()->make($req->all(),$rules);
+        if(!$validate->fails()){
+            $whattodo = 1;
+            $like = BlogLike::where('blogId',$req->blogId)->where('userId',$req->userId)->first();
+            if(!$like){
+                $like = new BlogLike();
+                $like->blogId = $req->blogId;
+                $like->userId = $req->userId;
+            }
+            $like->save();
+            if($req->like == 0){
+                $whattodo = -1;
+                $like->delete();
+            }
+            return successResponse('Blog Like Saved ',['like' => $whattodo]);
+        }
+        return errorResponse($validate->errors()->first());
     }
 
     // **************************** State ********************************

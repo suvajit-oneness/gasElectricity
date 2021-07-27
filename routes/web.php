@@ -31,6 +31,7 @@ Route::post('contact-us','WelcomeController@saveContactUs')->name('contactus.sav
 Route::get('product-listing','WelcomeController@productListing')->name('product.listing');
 Route::get('product/{productId}/company/details','WelcomeController@productDetails')->name('product.details');
 Route::get('indivisual-states','WelcomeController@indivisualStates')->name('indivisual.state');
+Route::get('indivisual-utility','WelcomeController@indivisualUtilities')->name('indivisual.utility');
 Route::get('electricity-form','WelcomeController@electricityForm')->name('electricityform');
 Route::get('membership','WelcomeController@membership')->name('membership');
 Route::get('membership/purchase/{membershipId}','WelcomeController@purchaseMembership')->name('user.membership.purchase');

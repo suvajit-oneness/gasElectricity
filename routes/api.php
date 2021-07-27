@@ -22,6 +22,9 @@ Route::group(['middleware' => 'auth:api'],function(){
     Route::any('logout/all_device','API\LoginController@logoutFromAllDevice');
 });
 
+Route::post('blog/comment_post','API\APIController@saveBlogComment')->name('api.blog.comment.post');
+Route::post('blog/like_or_unlike_post','API\APIController@saveBlogLikeorUnlike')->name('api.blog.like_or_unlike');
+
 // Import-Export Apis
 Route::group(['prefix' => 'import-export'],function(){
     // Membership

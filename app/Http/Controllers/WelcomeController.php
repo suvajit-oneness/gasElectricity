@@ -21,11 +21,17 @@ class WelcomeController extends Controller
         $data->state = State::where('countryId',2)->get();
         $data->compareallSupplier = Setting::where('key','wecomparealloftheseenegysupplier')->get();
         $data->whatWeProvide = Setting::where('key','whatweprovide')->get();
-        $data->pincode = SupplierPincode::select('*')->groupBy('pincode')->orderBy('stateId')->get();
-        foreach ($data->pincode as $key => $pincode) {
+        $data->pincode = $this->getPincodeList();
+    	return view('welcome',compact('data'));
+    }
+
+    public function getPincodeList()
+    {
+        $pincodes = SupplierPincode::select('*')->groupBy('pincode')->orderBy('stateId')->get();
+        foreach ($pincodes as $key => $pincode) {
             $pincode->autocomplete = $pincode->pincode.', '.$pincode->landmark.' , '.$pincode->state->name;
         }
-    	return view('welcome',compact('data'));
+        return $pincodes;
     }
 
     public function aboutUs(Request $req)
@@ -34,6 +40,14 @@ class WelcomeController extends Controller
         $data->aboutus = Setting::where('key','about_us')->first();
         $data->whychooseus = Setting::where('key','whychooseus')->get();
     	return view('frontend.about-us',compact('data'));
+    }
+
+    public function indivisualUtilities(Request $req)
+    {
+        $data = (object)[];
+        $data->pincode = $this->getPincodeList();
+        $data->whychooseus = Setting::where('key','whychooseus')->get();
+        return view('frontend.indivisualUtilities',compact('data'));
     }
 
     public function howItWorks(Request $req)
@@ -59,7 +73,7 @@ class WelcomeController extends Controller
     {
         $data = new WelcomeController();
         $data->category = BlogCategory::get();
-        $data->blogs = Blog::where('id',$blogId)->with('posted')->first();
+        $data->blogs = Blog::where('id',$blogId)->with('category')->with('posted')->first();
         return view('frontend.blogdetails',compact('data'));
     }
 
@@ -155,10 +169,7 @@ class WelcomeController extends Controller
         $data->whychooseus = Setting::where('key','whychooseus')->get();
         $data->compareallSupplier = Setting::where('key','wecomparealloftheseenegysupplier')->get();
         $data->state = State::where('countryId',2)->get();
-        $data->pincode = SupplierPincode::select('*')->groupBy('pincode')->orderBy('stateId')->get();
-        foreach ($data->pincode as $key => $pincode) {
-            $pincode->autocomplete = $pincode->pincode.', '.$pincode->landmark.' , '.$pincode->state->name;
-        }
+        $data->pincode = $this->getPincodeList();
         return view('frontend.forms.indivisualStates',compact('data'));
     }
 
