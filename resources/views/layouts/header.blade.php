@@ -1,7 +1,6 @@
 <div class="dashboard-header">
     <nav class="navbar navbar-expand-lg fixed-top">
-        <!--<a class="navbar-brand" href="javascript:void(0)">{{config('app.name', 'Laravel')}}</a>-->
-        <a class="navbar-brand" href="javascript:void(0)"><img src="../forntEnd/images/logo.png" width="140px"></a>
+        <a class="navbar-brand" href="javascript:void(0)"><img src="{{asset('forntEnd/images/logo.png')}}" width="140px"></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
