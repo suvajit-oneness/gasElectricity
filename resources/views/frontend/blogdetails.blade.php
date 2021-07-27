@@ -201,7 +201,7 @@
 					url : '{{route("user.blog.like_or_unlike")}}',
 					type : 'POST',
 					dataType : 'JSON',
-					data : {blogId: '{{$data->blogs->id}}', userId: '{{auth()->user()->id}}',like: status,_token:'{{csrf_token()}}'},
+					data : {blogId: '{{$data->blogs->id}}', userId: '{{auth()->user()->id}}',like: status},
 					success:function(response){
 						if(response.error == false){
 							console.log(response);
@@ -222,8 +222,9 @@
 					url : "{{route('user.blog.comment.post')}}",
 					type : 'POST',
 					dataType : 'JSON',
-					data : {blogId : '{{$data->blogs->id}}', userId:'{{auth()->user()->id}}',comment : comment,_token:'{{csrf_token()}}'},
+					data : {blogId : '{{$data->blogs->id}}', userId:'{{auth()->user()->id}}',comment : comment},
 					success:function(res){
+						console.log(res);
 						$('.loading-data').hide();
 						$('button').attr('disabled', false);
 						if(res.error == false){
