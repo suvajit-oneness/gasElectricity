@@ -199,8 +199,7 @@
 			{
 				$.ajax({
 					url : '{{route("user.blog.like_or_unlike")}}',
-					type : 'POST',
-					dataType : 'JSON',
+					type : 'post',
 					data : {blogId: '{{$data->blogs->id}}', userId: '{{auth()->user()->id}}',like: status},
 					success:function(response){
 						if(response.error == false){
@@ -220,8 +219,7 @@
 	    	{
 	    		$.ajax({
 					url : "{{route('user.blog.comment.post')}}",
-					type : 'POST',
-					dataType : 'JSON',
+					type : 'post',
 					data : {blogId : '{{$data->blogs->id}}', userId:'{{auth()->user()->id}}',comment : comment},
 					success:function(res){
 						console.log(res);
