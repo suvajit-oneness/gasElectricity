@@ -5332,3 +5332,22 @@ footer {
     color: #000000;
     font-size: 11px;
 }
+
+.comment-img img {
+    width: 60px;
+	margin-right:15px;
+}
+#commentLogs h5{
+    font-weight: bold;
+    transition: 0.3s;
+	font-size:16px;
+}
+#commentLogs time {
+    display: block;
+    font-size: 12px;
+    color: #b7b7b7;
+    margin-bottom: 5px;
+}
+#commentLogs .border-bottom{
+	border-bottom:1px solid rgba(0,0,0,.1) !important;
+}
