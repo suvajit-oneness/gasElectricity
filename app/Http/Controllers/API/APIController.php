@@ -57,6 +57,7 @@ class APIController extends Controller
             $newComment->userId = $req->userId;
             $newComment->comment = $req->comment;
             $newComment->save();
+            $newComment->time = date('d M, Y H:i:A');
             return successResponse('Blog Comment Saved ',$newComment);
         }
         return errorResponse($validate->errors()->first());
@@ -68,6 +69,7 @@ class APIController extends Controller
             'blogId' => 'required|min:1|numeric',
             'userId' => 'required|min:1|numeric',
             'like' => 'required|numeric|in:1,0',
+            'rating' => 'nullable',
         ];
         $validate = validator()->make($req->all(),$rules);
         if(!$validate->fails()){
@@ -79,6 +81,7 @@ class APIController extends Controller
                 $like->blogId = $req->blogId;
                 $like->userId = $req->userId;
             }
+            $like->rating = 5;
             $like->save();
             if($req->like == 0){
                 $count = -1;

@@ -165,18 +165,16 @@
 
 					<div id="commentLogs" class="mt-5">
 						@foreach($blogComments as $comment)
-						<div class="d-flex border-bottom mb-4">
-							<div class="comment-img"><img src="../../defaultUser.jpg" alt=""></div>
-							<div>
-								<h5>Aron Alvarado</h5>
-								<time datetime="2020-01-01">01 Jan, 2020</time>
-								<p>{{$comment->comment}} by {{$comment->user->name}}</p>
+							<?php $commentUser = $comment->user;?>
+							<div class="d-flex border-bottom mb-4">
+								<div class="comment-img"><img src="{{asset($commentUser->image)}}"></div>
+								<div>
+									<h5>Posted By : {{ucfirst($commentUser->name)}}</h5>
+									<time datetime="2020-01-01">Posted at : {{date('d M, Y H:i:A',strtotime($comment->created_at))}}</time>
+									<p>Comment : {{$comment->comment}}</p>
+								</div>
 							</div>
-						</div>
 						@endforeach
-						<!--@foreach($blogComments as $comment)
-							<p>{{$comment->comment}} by {{$comment->user->name}}</p><hr>
-						@endforeach-->
 					</div>
 				</div>
 			</div>
@@ -215,16 +213,18 @@
 						if(response.error == false){
 							console.log(response);
 							var nowLike = $('#countBlogsLike').text();
-							if(parseInt(nowLike) != 0){
-								nowLike = parseInt(nowLike) + parseInt(response.data.count);
-							}else{
-								nowLike = 0;
+							if(response.data.count != 0){
+								if(response.data.count == -1 && parseInt(nowLike) == 0){}
+								else{
+									nowLike = parseInt(nowLike) + parseInt(response.data.count);
+								}
 							}
 							$('#countBlogsLike').text(nowLike);
 						}
 					}
 				});
 			}
+
 	    	function blogCommentSave(comment)
 	    	{
 	    		$.ajax({
@@ -240,7 +240,7 @@
 							var nowCount = $('#countBlogsComments').text();
 							nowCount = parseInt(nowCount) + 1;
 							$('#countBlogsComments').text(nowCount);
-							$('#commentLogs').prepend('<p>'+res.data.comment+' by '+'{{auth()->user()->name}}'+'</p>');
+							$('#commentLogs').prepend('<div class="d-flex border-bottom mb-4"><div class="comment-img"><img src="{{asset(auth()->user()->image)}}"></div><div><h5>Posted By : {{ucfirst(auth()->user()->name)}}</h5><time datetime="2020-01-01">Posted at : '+res.data.time+'</time><p>Comment : '+res.data.comment+'</p></div></div>');
 						}
 					}
 	    		});

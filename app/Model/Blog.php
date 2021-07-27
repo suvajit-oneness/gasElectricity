@@ -21,11 +21,11 @@ class Blog extends Model
 
     public function likes()
     {
-    	return $this->hasMany('App\Model\BlogLike','blogId','id');
+    	return $this->hasMany('App\Model\BlogLike','blogId','id')->orderBy('id','DESC');
     }
 
     public function comment()
     {
-    	return $this->hasMany('App\Model\BlogComment','blogId','id');
+    	return $this->hasMany('App\Model\BlogComment','blogId','id')->orderBy('id','DESC');
     }
 }
