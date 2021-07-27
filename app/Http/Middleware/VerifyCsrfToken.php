@@ -19,6 +19,6 @@ class VerifyCsrfToken extends Middleware
      * @var array
      */
     protected $except = [
-        'user/blog/comment_post','user/blog/like_or_unlike_post',
+        
     ];
 }

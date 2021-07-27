@@ -48,9 +48,6 @@ Route::group(['middleware' => 'auth'],function(){
 	Route::post('/explore/company/{companyId}/supplier/{supplierId}/form/save','HomeController@supplierFormToShowUserSave')->name('company.supplier.form.save');
 });
 
-Route::post('user/blog/comment_post','API\APIController@saveBlogComment')->name('user.blog.comment.post');
-Route::post('user/blog/like_or_unlike_post','API\APIController@saveBlogLikeorUnlike')->name('user.blog.like_or_unlike');
-
 /************************** Laravel Testing Routes *************************/
 
 Route::get('mail',function(){

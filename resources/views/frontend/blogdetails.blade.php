@@ -198,7 +198,7 @@
 			function likeAddOrRemove(status)
 			{
 				$.ajax({
-					url : '{{route("user.blog.like_or_unlike")}}',
+					url : '{{route("api.blog.like_or_unlike")}}',
 					type : 'post',
 					data : {blogId: '{{$data->blogs->id}}', userId: '{{auth()->user()->id}}',like: status},
 					success:function(response){
@@ -218,7 +218,7 @@
 	    	function blogCommentSave(comment)
 	    	{
 	    		$.ajax({
-					url : "{{route('user.blog.comment.post')}}",
+					url : "{{route('api.blog.comment.post')}}",
 					type : 'post',
 					data : {blogId : '{{$data->blogs->id}}', userId:'{{auth()->user()->id}}',comment : comment},
 					success:function(res){
