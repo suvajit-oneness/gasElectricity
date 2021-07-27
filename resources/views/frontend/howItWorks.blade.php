@@ -17,9 +17,12 @@
 		<div class="row align-items-center">
 			<div class="col-12">
 				<div class="intro_content">
-					<h2 class="text-center">Switchr makes it easier than ever to <br> compare the energy market</h2>
+					<!-- <h2 class="text-center">Switchr makes it easier than ever to <br> compare the energy market</h2>
 					<h6 class="semibold green f-20 text-center">Compare Electricity and Gas Plans, Find a Deal, Sign Up On The Spot! Comparing electricity and gas rates on Econnex means you never hit the call wall! Electricity Comparison is easy with Econnex.</h6>
-					<p class="text-center">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p>
+					<p class="text-center">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p> -->
+					<h2 class="text-center">It’s never been easier to switch your energy plan!</h2>
+					<h6 class="semibold green f-20 text-center">Find the cheapest gas and electricity deals where you live with SwitchR! Sign up and save today!</h6>
+					<p class="text-center">SwitchR takes the hassle out of switching your energy plan! In just a few steps, you can discover whether you’re paying more for your gas and electricity than you should be, and quickly switch to a better deal if there’s one available. With access to the best energy plans from all of Australia’s leading energy providers, why not sign up and save money today with SwitchR?!</p>
 				</div>
 			</div>
 		</div>
