@@ -25,7 +25,7 @@
 			@if($data->blogs->posted)
 				<div class="col-12 text-right">
 					<div class="blog_author_box">
-						<img src="{{$data->blogs->posted->image}}">
+						<img src="{{asset($data->blogs->posted->image)}}">
 						<p>{{$data->blogs->posted->name}}</p>
 					</div>
 				</div>
