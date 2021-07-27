@@ -198,10 +198,10 @@
 			function likeAddOrRemove(status)
 			{
 				$.ajax({
-					url : '{{route("api.blog.like_or_unlike")}}',
+					url : '{{route("user.blog.like_or_unlike")}}',
 					type : 'POST',
 					dataType : 'JSON',
-					data : {blogId: '{{$data->blogs->id}}', userId: '{{auth()->user()->id}}',like: status},
+					data : {blogId: '{{$data->blogs->id}}', userId: '{{auth()->user()->id}}',like: status,_token:'{{csrf_token()}}'},
 					success:function(response){
 						if(response.error == false){
 							console.log(response);
@@ -219,10 +219,10 @@
 	    	function blogCommentSave(comment)
 	    	{
 	    		$.ajax({
-					url : "{{route('api.blog.comment.post')}}",
+					url : "{{route('user.blog.comment.post')}}",
 					type : 'POST',
 					dataType : 'JSON',
-					data : {blogId : '{{$data->blogs->id}}', userId:'{{auth()->user()->id}}',comment : comment},
+					data : {blogId : '{{$data->blogs->id}}', userId:'{{auth()->user()->id}}',comment : comment,_token:'{{csrf_token()}}'},
 					success:function(res){
 						$('.loading-data').hide();
 						$('button').attr('disabled', false);
