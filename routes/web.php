@@ -46,8 +46,8 @@ Route::group(['middleware' => 'auth'],function(){
 	Route::get('user/points','HomeController@userPoints')->name('user.points');
 	Route::get('/explore/company/{companyId}/supplier/form','HomeController@supplierFormToShowUser')->name('company.supplier.form');
 	Route::post('/explore/company/{companyId}/supplier/{supplierId}/form/save','HomeController@supplierFormToShowUserSave')->name('company.supplier.form.save');
-	Route::post('blog/comment_post','API\APIController@saveBlogComment')->name('user.blog.comment.post');
-	Route::post('blog/like_or_unlike_post','API\APIController@saveBlogLikeorUnlike')->name('user.blog.like_or_unlike');
+	Route::post('user/blog/comment_post','API\APIController@saveBlogComment')->name('user.blog.comment.post');
+	Route::post('user/blog/like_or_unlike_post','API\APIController@saveBlogLikeorUnlike')->name('user.blog.like_or_unlike');
 });
 
 /************************** Laravel Testing Routes *************************/
