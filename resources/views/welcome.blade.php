@@ -218,14 +218,24 @@
 </section>
 @endif
 <!-- Blogs -->
-@if(count($data->blogs) > 0)
+<?php $totalBlogs = $data->blogs; ?>
+@if(count($totalBlogs) > 0)
 <section class="blog_wraper">
 	<div class="container">
 		<h2 class="heading text-center">latest blog</h2>
 		<div class="blog_container text-center">
 			<ul class="blog-list">
-				@foreach($data->blogs as $index => $blog)
-					<li>
+			    @php $blogCounter = 0; @endphp
+				@foreach($totalBlogs as $index => $blog)
+    				@php $className = 'blog_design_1';
+        				switch(count($totalBlogs)){
+            				case 1: $className = 'blog_design_1';break;
+            				case 2: $className = 'blog_design_2';break;
+            				case 3: $className = 'blog_design_3';break;
+            				case 4: $className = 'blog_design_4';break;
+            			}
+    				@endphp
+    				<li class="{{$className}}">
 						<div class="inner-box" style="background:url({{asset($blog->image)}}) no-repeat center center; background-size: cover;">
 							<div class="grid-content">
 								<a href="{{route('blog.detail',$blog->id)}}" class="date">{{date('M, d Y H:i A',strtotime($blog->created_at))}}</a>
@@ -233,6 +243,7 @@
 							</div>
 						</div>
 					</li>
+					@php $blogCounter++; @endphp
 				@endforeach
 			</ul>
 			<a href="{{route('blogs')}}" class="blue-btm">view all <span><i class="fas fa-arrow-circle-right"></i></span></a>
