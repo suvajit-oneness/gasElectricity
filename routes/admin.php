@@ -1,8 +1,10 @@
 <?php 
 
-	Route::get('dashboard',function(){
-		return view('admin.dashboard');
-	})->name('home');
+	// Route::get('dashboard',function(){
+	// 	return view('admin.dashboard');
+	// })->name('home');
+
+	Route::get('dashboard','Admin\AdminController@adminDashboard')->name('home');
 
 	// Users
 	Route::group(['prefix'=>'users'],function(){

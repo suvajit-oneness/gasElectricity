@@ -19,6 +19,14 @@ use App\Model\CompanyRateDetails,App\Model\CompanyPlanDetails;
 class AdminController extends Controller
 {
 
+    public function adminDashboard(Request $req)
+    {
+        $data = (object)[];
+        $data->customer = User::where('user_type',3)->get();
+        $data->supplier = User::where('user_type',2)->get();
+        return view('admin.dashboard',compact('data'));
+    }
+
     public function settingPoints(Request $req)
     {
         $master = Master::first();
@@ -371,8 +379,16 @@ class AdminController extends Controller
 	public function getUsers(Request $req)
 	{
 		$users = User::select('*');
+        if(!empty($req->userType)){
+            if($req->userType == 2){
+                $users = $users->where('user_type',2);
+            }
+            if($req->userType == 3){
+                $users = $users->where('user_type',3);
+            }
+        }
         $users = $users->orderBy('users.id','DESC')->get();
-		return view('admin.user.index',compact('users'));
+		return view('admin.user.index',compact('users','req'));
 	}
 
 	public function manageUser(Request $req)
