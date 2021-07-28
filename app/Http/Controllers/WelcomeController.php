@@ -59,9 +59,9 @@ class WelcomeController extends Controller
 
     public function getBlogs(Request $req)
     {
-        $data = new WelcomeController();
+        $data = (object)[];
         $data->category = BlogCategory::get();
-        $data->blogs = Blog::with('posted')->with('likes')->with('comment');
+        $data->blogs = Blog::select('*');
         if(!empty($req->category)){
             $data->blogs = $data->blogs->where('blogCategoryId',base64_decode($req->category));    
         }
@@ -71,9 +71,9 @@ class WelcomeController extends Controller
 
     public function blogDetails(Request $req,$blogId)
     {
-        $data = new WelcomeController();
+        $data = (object)[];
+        $data->blogs = Blog::findOrfail($blogId);
         $data->category = BlogCategory::get();
-        $data->blogs = Blog::where('id',$blogId)->with('category')->with('posted')->first();
         return view('frontend.blogdetails',compact('data'));
     }
 
