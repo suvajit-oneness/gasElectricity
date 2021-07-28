@@ -227,12 +227,12 @@
 			<ul class="blog-list">
 			    @php $blogCounter = 0; @endphp
 				@foreach($totalBlogs as $index => $blog)
-    				@php $className = 'blog_design_1';
+    				@php $className = 'blog_design_one';
         				switch(count($totalBlogs)){
-            				case 1: $className = 'blog_design_1';break;
-            				case 2: $className = 'blog_design_2';break;
-            				case 3: $className = 'blog_design_3';break;
-            				case 4: $className = 'blog_design_4';break;
+            				case 1: $className = 'blog_design_one';break;
+            				case 2: $className = 'blog_design_two';break;
+            				case 3: $className = 'blog_design_three';break;
+            				case 4: $className = 'blog_design_four';break;
             			}
     				 @endphp
     				<li class="{{$className}}">
