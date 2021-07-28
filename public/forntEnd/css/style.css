@@ -5351,3 +5351,9 @@ footer {
 #commentLogs .border-bottom{
 	border-bottom:1px solid rgba(0,0,0,.1) !important;
 }
+.comment_scroll{
+    height: 440px;
+    overflow-y: auto;
+    overflow-x:hidden;
+}
+}

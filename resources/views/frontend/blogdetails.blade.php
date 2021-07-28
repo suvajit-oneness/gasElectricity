@@ -163,7 +163,7 @@
 						</div>
 					</div>
 
-					<div id="commentLogs" class="mt-5">
+					<div id="commentLogs" class="mt-5 comment_scroll">
 						@foreach($blogComments as $comment)
 							<?php $commentUser = $comment->user;?>
 							<div class="d-flex border-bottom mb-4">
