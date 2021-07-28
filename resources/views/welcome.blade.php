@@ -224,7 +224,6 @@
 		<h2 class="heading text-center">latest blog</h2>
 		<div class="blog_container text-center">
 			<ul class="blog-list">
-			    @php $blogCounter = 0; @endphp
 				@foreach($totalBlogs as $index => $blog)
     				@php $className = 'blog_design_one';
         				switch(count($totalBlogs)){
@@ -242,7 +241,6 @@
 							</div>
 						</div>
 					</li>
-					@php $blogCounter++; @endphp
 				@endforeach
 			</ul>
 			<a href="{{route('blogs')}}" class="blue-btm">view all <span><i class="fas fa-arrow-circle-right"></i></span></a>
