@@ -10,7 +10,7 @@ use App\Model\Testimonials,App\Model\Faq;
 use Hash,App\Model\BlogCategory,App\Model\Setting;
 use App\Model\Membership,App\Model\Company;
 use App\Model\Product,App\Model\ProductRating;
-use App\Model\CompanyFeature;
+use App\Model\CompanyFeature,App\Model\Master;
 use App\Model\ProductGas,App\Model\ProductElectricity;
 use App\Model\ProductMomentum,App\Model\CompanyDiscount;
 use App\Model\State,App\Model\Country,App\Model\CompanyCalculation;
@@ -18,6 +18,29 @@ use App\Model\CompanyRateDetails,App\Model\CompanyPlanDetails;
 
 class AdminController extends Controller
 {
+
+    public function settingPoints(Request $req)
+    {
+        $master = Master::first();
+        return view('admin.setting.pointToDeliver',compact('master'));
+    }
+
+    public function settingPointsUpdate(Request $req,$masterId)
+    {
+        $req->validate([
+            'masterId' => 'required|min:1|numeric|in:'.$masterId,
+            'point_equals' => 'required|numeric',
+            'referral_bonus' => 'required|numeric|min:1',
+            'joining_bonus' => 'required|numeric|min:1',
+        ]);
+        $master = Master::where('id',$masterId)->first();
+            $master->onepoint_equals = $req->point_equals;
+            $master->referral_bonus = $req->referral_bonus;
+            $master->joining_bonus = $req->joining_bonus;
+        $master->save();
+        return back()->with('Success','Point Setting Updated SuccessFully');
+    }
+
 /****************************** Company ******************************/
     public function companies(Request $req,$companyId = 0)
     {
@@ -347,8 +370,8 @@ class AdminController extends Controller
 /****************************** Users ******************************/
 	public function getUsers(Request $req)
 	{
-		$users = User::select('*')->where('user_type','!=',1);
-        $users = $users->orderBy('users.id','desc')->get();
+		$users = User::select('*');
+        $users = $users->orderBy('users.id','DESC')->get();
 		return view('admin.user.index',compact('users'));
 	}
 

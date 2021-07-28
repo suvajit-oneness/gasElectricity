@@ -6,18 +6,18 @@
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
             <div class="card">
                 <div class="card-header">
-                    <h5 class="mb-0">User List
+                    <h5 class="mb-0">All User List
                         <a class="headerbuttonforAdd" href="{{route('admin.user.create')}}">
                             <i class="fa fa-plus" aria-hidden="true"></i>Add User
                         </a>
                     </h5>
-                    <!-- <p>This example shows FixedHeader being styled by the Bootstrap 4 CSS framework.</p> -->
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
                         <table id="example4" class="table table-striped table-bordered" style="width:100%">
                             <thead>
                                 <tr>
+                                    <th>User Type</th>
                                     <th>Image</th>
                                     <th>Name</th>
                                     <th>Email</th>
@@ -32,45 +32,54 @@
                             </thead>
                             <tbody>
                                 @foreach($users as $user)
-                                    @if($user->user_type != 1)
-                                        <tr>
-                                            <td style="height: 100px; width: 100px"><img height="100px" width="100px" src="{{$user->image}}"></td>
-                                            <td>{{$user->name}}</td>
-                                            <td>{{$user->email}}</td>
-                                            <td>{{$user->mobile}}</td>
-                                            <td>{{($user->membership ? $user->membership->title : 'N/A')}}</td>
-                                            <td>{{$user->referral_code}}</td>
-                                            <td>
-                                                @if($user->referred_through)
-                                                    <a href="javascript:void(0)" class="getReferredByDetails" data-details="{{json_encode($user->referred_through)}}">view</a>
-                                                @else
-                                                    {{('N/A')}}
-                                                @endif
-                                            </td>
-                                            <td>
-                                                @if(count($user->referred_to) > 0)
-                                                    <a href="{{route('admin.referral.referred_to',$user->id)}}">{{count($user->referred_to)}}</a>
-                                                @else
-                                                    {{('N/A')}}
-                                                @endif
-                                            </td>
-                                            <td>
-                                                <a href="{{route('admin.user.points',$user->id)}}">{{getSumOfPoints($user->user_points)}}</a>
-                                            </td>
-                                            @if($user->user_type == 1)
-                                                <td></td>
+                                    <tr>
+                                        <td>
+                                            @php
+                                                $userType = 'User';
+                                                switch($user->user_type){
+                                                    case 1 : $userType = 'Admin';break;
+                                                    case 2 : $userType = 'Supplier';break;
+                                                    case 3 : $userType = 'Customer';break;
+                                                }
+                                            @endphp
+                                            {{$userType}}
+                                        </td>
+                                        <td style="height: 100px; width: 100px"><img height="100px" width="100px" src="{{$user->image}}"></td>
+                                        <td>{{$user->name}}</td>
+                                        <td>{{$user->email}}</td>
+                                        <td>{{$user->mobile}}</td>
+                                        <td>{{($user->membership ? $user->membership->title : 'N/A')}}</td>
+                                        <td>{{$user->referral_code}}</td>
+                                        <td>
+                                            @if($user->referred_through)
+                                                <a href="javascript:void(0)" class="getReferredByDetails" data-details="{{json_encode($user->referred_through)}}">view</a>
                                             @else
-                                                <td>
-                                                    <?php $action = 'Block';
-                                                        if($user->status != 1){
-                                                            $action = 'Unblock';
-                                                        }
-                                                    ?>
-                                                    <a href="javascript:void(0)" class="blockUnblock" data-id="{{$user->id}}">{{$action}}</a> | <a href="javascript:void(0)" class="text-danger userDelete" data-id="{{$user->id}}">Delete</a>
-                                                </td>
+                                                {{('N/A')}}
                                             @endif
-                                        </tr>
-                                    @endif
+                                        </td>
+                                        <td>
+                                            @if(count($user->referred_to) > 0)
+                                                <a href="{{route('admin.referral.referred_to',$user->id)}}">{{count($user->referred_to)}}</a>
+                                            @else
+                                                {{('N/A')}}
+                                            @endif
+                                        </td>
+                                        <td>
+                                            <a href="{{route('admin.user.points',$user->id)}}">{{getSumOfPoints($user->user_points)}}</a>
+                                        </td>
+                                        @if($user->user_type == 1)
+                                            <td></td>
+                                        @else
+                                            <td>
+                                                <?php $action = 'Block';
+                                                    if($user->status != 1){
+                                                        $action = 'Unblock';
+                                                    }
+                                                ?>
+                                                <a href="javascript:void(0)" class="blockUnblock" data-id="{{$user->id}}">{{$action}}</a> | <a href="javascript:void(0)" class="text-danger userDelete" data-id="{{$user->id}}">Delete</a>
+                                            </td>
+                                        @endif
+                                    </tr>
                                 @endforeach
                             </tbody>
                         </table>

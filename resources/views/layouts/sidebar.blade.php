@@ -25,9 +25,9 @@
 
                     <!-- Admin Sidebar -->
                     @if(Auth::user()->user_type == 1)
-                        <li class="nav-item">
+                        <!-- <li class="nav-item">
                             <a class="nav-link {{request()->routeIs('admin.membership')?'active':''}}" href="{{route('admin.membership')}}"><i class="fa fa-fw fa-user-circle"></i>Membership</a>
-                        </li>
+                        </li> -->
 
                         <li class="nav-item">
                             <a class="nav-link {{request()->routeIs('admin.users')?'active':''}}" href="{{route('admin.users')}}"><i class="fa fa-fw fa-user-circle"></i>Users</a>
@@ -67,6 +67,9 @@
                             <a class="nav-link" href="javascript:void(0)" data-toggle="collapse" aria-expanded="{{request()->routeIs('admin.setting.*')?'true':'false'}}" data-target="#submenu-6" aria-controls="submenu-6"><i class="fas fa-fw fa-file"></i> Settings </a>
                             <div id="submenu-6" class="collapse submenu {{request()->routeIs('admin.setting.*')?'show':''}}">
                                 <ul class="nav flex-column">
+                                    <li class="nav-item {{request()->routeIs('admin.setting.points')?'active':''}}">
+                                        <a class="nav-link" href="{{route('admin.setting.points')}}">Points</a>
+                                    </li>
                                     <li class="nav-item {{request()->routeIs('admin.setting.about_us')?'active':''}}">
                                         <a class="nav-link" href="{{route('admin.setting.about_us')}}">About us</a>
                                     </li>
@@ -76,7 +79,6 @@
                                     <li class="nav-item {{request()->routeIs('admin.setting.how_it_works')?'active':''}}">
                                         <a class="nav-link" href="{{route('admin.setting.how_it_works')}}">How it works</a>
                                     </li>
-                                    
                                 </ul>
                             </div>
                         </li>

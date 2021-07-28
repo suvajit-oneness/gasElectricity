@@ -122,6 +122,8 @@
 
 	// Setting
 	Route::group(['prefix'=>'setting'],function(){
+		Route::get('points','Admin\AdminController@settingPoints')->name('admin.setting.points');
+		Route::post('{masterId}/points','Admin\AdminController@settingPointsUpdate')->name('admin.setting.points.update');
 		Route::get('about-us','Admin\AdminController@aboutUs')->name('admin.setting.about_us');
 		Route::post('about-us','Admin\AdminController@saveaboutUs')->name('admin.setting.save_aboutUs');
 		Route::get('why-choose-us','Admin\AdminController@whyChooseUs')->name('admin.setting.whychooseus');

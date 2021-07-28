@@ -53,20 +53,21 @@ class Controller extends BaseController
 
     public function setReferralCode($user,$referalCode='')
     {
+        $master = Master::first();
         $referral = $this->generateUniqueReferral();
         $user->referral_code = $referral->code;
         if($referalCode != ''){
             $referralFind = Referral::where('code',$referalCode)->first();
             if($referralFind){
                 $referredBy = User::find($referralFind->userId);
-                $this->addNewPointTotheUser($referredBy,50,'Referred Bonus for Joining '.$user->email);
+                $this->addNewPointTotheUser($referredBy,$master->referral_bonus,'Referred Bonus for Joining '.$user->email);
                 $user->referred_by = $referredBy->id;
             }
         }
         $user->save();
         $referral->userId = $user->id;
         $referral->save();
-        $this->addNewPointTotheUser($user,50,'Joining Bonus');
+        $this->addNewPointTotheUser($user,$master->joining_bonus,'Joining Bonus');
     }
 
     public function addNewPointTotheUser($user,$points,$remark='')
