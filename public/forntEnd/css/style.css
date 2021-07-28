@@ -680,28 +680,29 @@ header {
 .blog-list {
     display: flex;
     justify-content: space-between;
-    flex-wrap: wrap;
+    /*flex-wrap: wrap;*/
     position: relative;
     margin: 20px 0 70px;
-    min-height: 500px;
+    min-height: 380px;
 }
 .blog-list>li {
     padding: 12px 12px;
 }
-.blog-list .blog_design_1>li{
+.blog-list .blog_design_one{
     max-width: 100%;
     flex: 0 0 100%;
-    min-height: 500px;
 }
-.blog-list .blog_design_2>li{
+.blog-list .blog_design_two{
     max-width: 50%;
     flex: 0 0 50%;
-    min-height: 500px;
 }
-.blog-list .blog_design_3>li{
+.blog-list .blog_design_three{
     max-width: 33%;
     flex: 0 0 33%;
-    min-height: 350px;
+}
+.blog-list .blog_design_four{
+    max-width: 25%;
+    flex: 0 0 25%;
 }
 .blog-list>li .inner-box {
     position: relative;
