@@ -39,17 +39,17 @@
                 $('button').attr('disabled', 'disabled');
                 $('.loading-data').show();
             });
-            var datalist = document.querySelector("datalist");
-            datalist.id = "";
-            $(document).on('input','.postCodeSearch',function(e){
-            	var input = $(this).val(), datalist = document.querySelector("datalist");
-            	if (input != '' && input.length > 1) {
-					datalist.id = "suppliersPincode";
-				} else {
-					datalist.id = "";
-				}
-				console.log($(this).val());
-            });
+    //         var datalist = document.querySelector("datalist");
+    //         datalist.id = "";
+    //         $(document).on('input','.postCodeSearch',function(e){
+    //         	var input = $(this).val();
+    //         	if (input != '' && input.length > 1) {
+				// 	datalist.id = "suppliersPincode";
+				// } else {
+				// 	datalist.id = "";
+				// }
+				// console.log($(this).val());
+    //         });
         });
 		$('.slide-logo').slick({
 		  dots: false,
