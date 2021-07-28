@@ -10,12 +10,12 @@
 				 <p>If you’re a savvy bargain hunter like us at Econnex, you’ll love saving on your energy bills. Compare energy plans, sign up, and start saving!</p>
 				</div>
 			<div class="location-search-section">
+				<datalist id="suppliersPincode">
+					@foreach($data->pincode as $key => $pincde)
+						<option value="{{$pincde->autocomplete}}"></option>
+					@endforeach
+				</datalist>
 				<form action="{{route('product.listing')}}" method="get" autocomplete="off">
-					<datalist id="suppliersPincode">
-						@foreach($data->pincode as $key => $pincde)
-							<option value="{{$pincde->autocomplete}}">
-						@endforeach
-					</datalist>
 					<div class="search-form">
 						@error('eneryType')<span class="text-danger">{{$message}}</span>@enderror
 						@error('search')<span class="text-danger">{{$message}}</span>@enderror
@@ -104,11 +104,6 @@
 					</div>
 				</div>
 				<div class="search-form">
-					<datalist id="suppliersPincode">
-						@foreach($data->pincode as $key => $pincde)
-							<option value="{{$pincde->autocomplete}}">
-						@endforeach
-					</datalist>
 					@error('eneryType')<span class="text-danger">{{$message}}</span>@enderror
 					@error('search')<span class="text-danger">{{$message}}</span>@enderror
 					<label>Enter your suburb or postcode</label>

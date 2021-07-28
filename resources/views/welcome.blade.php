@@ -33,7 +33,7 @@
 					<div class="search-form">
 						<datalist id="suppliersPincode">
 							@foreach($data->pincode as $key => $pincde)
-								<option value="{{$pincde->autocomplete}}">
+								<option value="{{$pincde->autocomplete}}"></option>
 							@endforeach
 						</datalist>
 						@error('eneryType')<span class="text-danger">{{$message}}</span>@enderror
@@ -225,14 +225,14 @@
 		<div class="blog_container text-center">
 			<ul class="blog-list">
 				@foreach($data->blogs as $index => $blog)
-				<li>
-					<div class="inner-box" style="background:url({{asset($blog->image)}}) no-repeat center center; background-size: cover;">
-						<div class="grid-content">
-							<a href="javascript:void(0)" class="date">{{date('M, d Y',strtotime($blog->created_at))}}</a>
-							<a href="javascript:void(0)" class="blog-heading">{{$blog->title}}</a>
+					<li>
+						<div class="inner-box" style="background:url({{asset($blog->image)}}) no-repeat center center; background-size: cover;">
+							<div class="grid-content">
+								<a href="{{route('blog.detail',$blog->id)}}" class="date">{{date('M, d Y',strtotime($blog->created_at))}}</a>
+								<a href="{{route('blog.detail',$blog->id)}}" class="blog-heading">{{$blog->title}}</a>
+							</div>
 						</div>
-					</div>
-				</li>
+					</li>
 				@endforeach
 			</ul>
 			<a href="{{route('blogs')}}" class="blue-btm">view all <span><i class="fas fa-arrow-circle-right"></i></span></a>
