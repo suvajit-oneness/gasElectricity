@@ -129,13 +129,18 @@ header {
 }
 .sticky_social_icon {
     position: fixed;
-    width: 50px;
-    height: auto;
+    width: 47px;
+    height: 140px;
     /* max-width: 1400px; */
     margin: 0 auto;
     box-sizing: border-box;
     top: 40%;
     left: 1%;
+    background: #fff;
+    left: 0;
+    padding: 6px 4px;
+    border-radius: 0 8px 8px 0;
+    z-index:22;
     /* right: 0;*/
 }
 .sticky_social_icon ul li a {
