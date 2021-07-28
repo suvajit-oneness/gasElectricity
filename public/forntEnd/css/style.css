@@ -688,10 +688,20 @@ header {
 .blog-list>li {
     padding: 12px 12px;
 }
-.blog-list>li:first-child {
+.blog-list .blog_design_1>li{
+    max-width: 100%;
+    flex: 0 0 100%;
+    min-height: 500px;
+}
+.blog-list .blog_design_2>li{
     max-width: 50%;
     flex: 0 0 50%;
     min-height: 500px;
+}
+.blog-list .blog_design_3>li{
+    max-width: 33%;
+    flex: 0 0 33%;
+    min-height: 350px;
 }
 .blog-list>li .inner-box {
     position: relative;
@@ -731,7 +741,7 @@ header {
     font-size: 15px;
     margin-bottom: 10px;
 }
-.blog-list>li:nth-child(2), .blog-list>li:nth-child(3), .blog-list>li:nth-child(4), .blog-list>li:last-child {
+/*blog-list>li:nth-child(2), .blog-list>li:nth-child(3), .blog-list>li:nth-child(4){
     position: absolute;
     top:0;
     right:0;
@@ -746,7 +756,7 @@ header {
     top: 250px;
     right: 0;
     max-width: 50%;
-}
+}*/
 
 .grid-content {
     display: block;
