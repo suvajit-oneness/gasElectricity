@@ -17,7 +17,7 @@ class WelcomeController extends Controller
         $data = (object)[];
         $data->testimonials = Testimonials::get();
         $data->faq = Faq::get();
-        $data->blogs = Blog::limit(5)->get();
+        $data->blogs = Blog::orderBy('id','DESC')->limit(5)->get();
         $data->state = State::where('countryId',2)->get();
         $data->compareallSupplier = Setting::where('key','wecomparealloftheseenegysupplier')->get();
         $data->whatWeProvide = Setting::where('key','whatweprovide')->get();

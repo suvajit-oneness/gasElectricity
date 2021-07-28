@@ -228,7 +228,7 @@
 					<li>
 						<div class="inner-box" style="background:url({{asset($blog->image)}}) no-repeat center center; background-size: cover;">
 							<div class="grid-content">
-								<a href="{{route('blog.detail',$blog->id)}}" class="date">{{date('M, d Y',strtotime($blog->created_at))}}</a>
+								<a href="{{route('blog.detail',$blog->id)}}" class="date">{{date('M, d Y H:i A',strtotime($blog->created_at))}}</a>
 								<a href="{{route('blog.detail',$blog->id)}}" class="blog-heading">{{$blog->title}}</a>
 							</div>
 						</div>
