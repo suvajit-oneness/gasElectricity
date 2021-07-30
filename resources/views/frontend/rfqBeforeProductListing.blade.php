@@ -15,6 +15,9 @@
 				<h2 class="heading text-center">Describe Your Usage </h2>
 				<p class="text-center">To find you a great plan we need to collect some details about you.</p>
 			</div>
+			@foreach($requestedData as $key => $value)
+				<input type="hidden" name="otherPageRequest[{{$key}}]" value="{{$value}}">
+			@endforeach
 			<div class="energy_select_box block-display elect-form">
 				<p>What are you looking to compare? <span class="orange-color">*</span></p>
 				<div class="row">
@@ -200,7 +203,7 @@
 						<li>
 							<div class="energy_select_box block-display">
 								<div class="custom-control custom-radio autowidth">
-									<input type="radio" id="low" name="electricity_usage" value="low" class="custom-control-input">
+									<input type="radio" id="low" name="electricity_usage" value="low" class="custom-control-input" @if(old('electricity_usage') == 'low'){{('checked')}}@endif>
 									<label class="custom-control-label" for="low"> Low </label>
 								</div>
 							</div>
@@ -214,7 +217,7 @@
 						<li>
 							<div class="energy_select_box block-display">
 								<div class="custom-control custom-radio autowidth">
-									<input type="radio" id="Medium" name="electricity_usage" value="medium" class="custom-control-input">
+									<input type="radio" id="Medium" name="electricity_usage" value="medium" class="custom-control-input" @if(old('electricity_usage') == 'medium'){{('checked')}}@endif>
 									<label class="custom-control-label" for="Medium"> Medium </label>
 								</div>
 							</div>
@@ -228,7 +231,7 @@
 						<li>
 							<div class="energy_select_box block-display">
 								<div class="custom-control custom-radio autowidth">
-									<input type="radio" id="High" name="electricity_usage" value="high" class="custom-control-input">
+									<input type="radio" id="High" name="electricity_usage" value="high" class="custom-control-input" @if(old('electricity_usage') == 'high'){{('checked')}}@endif>
 									<label class="custom-control-label" for="High">  High </label>
 								</div>
 							</div>
@@ -252,14 +255,61 @@
 					        <input type="checkbox" class="custom-control-input" name="termsandconsition" value="1" id="customControl2" checked>
 					        <label class="custom-control-label" for="customControl2"><b>  I have read, understood and accept the</b><span> Terms and Conditions </span> <b>&</b> <span> Privacy Collection Notice. </span></label>
 					    </div>
-					    <button type="submit" class="blue-btm top-gap30">Apply Now <span><i class="fas fa-arrow-circle-right"></i></span></button>
+					    <button @guest type="button" data-toggle="modal" data-target="#userInformationModal" @else type="submit" @endguest class="blue-btm top-gap30">Apply Now <span><i class="fas fa-arrow-circle-right"></i></span></button>
 					</div>
 				</div>
 	 		</div>
+
+			@guest
+		 		<div class="modal fade" id="userInformationModal" tabindex="-1" role="dialog" aria-labelledby="userInformationLabel" aria-hidden="true">
+					<div class="modal-dialog" role="document">
+					    <div class="modal-content">
+						    <div class="modal-header">
+						        <h5 class="modal-title" id="userInformationLabel">Your Information</h5>
+						        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							        <span aria-hidden="true">&times;</span>
+						        </button>
+						    </div>
+						    <div class="modal-body">
+						    	<div class="form-group">
+						    		<label>Your Name</label>
+						    		<input type="text" name="user_name" class="form-control @error('user_name') is-invalid @enderror" placeholder="Your name" required maxlength="200" value="{{old('user_name')}}">
+						    		@error('user_name')<span class="text-danger">{{$message}}</span>@enderror
+						    	</div>
+						    	<div class="form-group">
+						    		<label>Email</label>
+						    		<input type="email" name="user_email" class="form-control @error('user_email') is-invalid @enderror" placeholder="Email id" value="{{old('user_email')}}">
+						    		@error('user_email')<span class="text-danger">{{$message}}</span>@enderror
+						    	</div>
+						    	<div class="form-group">
+						    		<label>Phone</label>
+						    		<input type="text" name="user_mobile" class="form-control @error('user_mobile') is-invalid @enderror" placeholder="Phone Number" required maxlength="10" onkeypress="return isNumberKey(event);" value="{{old('user_mobile')}}">
+						    		@error('user_mobile')<span class="text-danger">{{$message}}</span>@enderror
+						    	</div>
+						    </div>
+						    <div class="modal-footer">
+						        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+						        <button type="submit" class="btn btn-primary">Next</button>
+						    </div>
+					    </div>
+					</div>
+				</div>
+			@endguest
 	 	</form>
 	</div>
 </section>
 @section('script')
-    <script type="text/javascript"></script>
+    <script type="text/javascript">
+    	@error('user_name')
+	    	$('#userInformationModal').modal('show');
+    	@enderror
+    	@error('user_email')
+	    	$('#userInformationModal').modal('show');
+    	@enderror
+    	@error('user_mobile')
+	    	$('#userInformationModal').modal('show');
+    	@enderror
+    	
+    </script>
 @stop
 @endsection

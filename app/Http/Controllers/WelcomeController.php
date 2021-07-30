@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Model\Testimonials,App\Model\BlogCategory;
-use App\Model\Faq,App\Model\Blog,Auth;
+use App\Model\Faq,App\Model\Blog,Auth,App\User;
 use App\Model\ContactUs,App\Model\Membership;
 use App\Model\UserMembership,App\Model\Setting;
 use App\Model\Product,App\Model\State,DB;
@@ -128,7 +128,8 @@ class WelcomeController extends Controller
             $error['search'] = 'We donot provide the service at given pincode';
         }
         if(count($suppliers) > 0){
-            return view('frontend.rfqBeforeProductListing',compact('req'));
+            $requestedData = $req->all();
+            return view('frontend.rfqBeforeProductListing',compact('requestedData'));
         }
         return back()->withErrors($error)->withInput($req->all());
     }
@@ -140,18 +141,40 @@ class WelcomeController extends Controller
             "type_of_property" => "required|string|in:home,business",
             "property_type" => "required|string|in:own,rent",
             "areyoumovingintothisproperty" => "required|string|in:yes,no",
-            // "moving_date" => "2021-07-29",
+            "moving_date" => "nullable|date",
             "entertainment_service" => "required|string|in:yes,no",
             "gas_connection" => "required|string|in:yes,no,donotknow",
             "electricity_usage" => "required|string|in:low,medium,high",
             "understand" => "required|in:1",
             "termsandconsition" => "required|in:1",
+            'otherPageRequest' => '',
         ]);
         DB::beginTransaction();
         try{
             $newRfq = new Rfq;
                 if(auth()->user()){
                     $newRfq->userId = auth()->user()->id;
+                }else{
+                    $req->validate([
+                        'user_name' => 'required|string|max:200',
+                        'user_email' => 'required|email|string',
+                        'user_mobile' => 'required|numeric|digits:10',
+                        'referral' => ['nullable','string','exists:referrals,code'],
+                    ]);
+                    $user = User::where('email',$req->user_email)->first();
+                    if(!$user){
+                        $data = [
+                            'name' => $req->user_name,
+                            'email' => $req->user_email,
+                            'mobile' => $req->user_mobile,
+                            'password' => generateUniqueAlphaNumeric(8),
+                            'referral' => emptyCheck($req->referral),
+                            'user_type' => 3,
+                        ];
+                        $userObject = (object)$data;
+                        $user = $this->createNewUser($userObject);
+                        if($user){$newRfq->userId = $user->id;}
+                    }
                 }
                 $newRfq->energy_type = $req->energy_type;
                 $newRfq->type_of_property = $req->type_of_property;
@@ -165,7 +188,13 @@ class WelcomeController extends Controller
                 $newRfq->termsandconsition = $req->termsandconsition;
             $newRfq->save();
             DB::commit();
-            dd($newRfq);
+            $url = 'rfqId='.$newRfq->id.'&eneryType='.$newRfq->energy_type.'&';
+            if(!empty($req->otherPageRequest)){
+                foreach ($req->otherPageRequest as $key => $value) {
+                    $url .= $key.'='.$value.'&';
+                }
+            }
+            return redirect(route('product.listing').'?'.$url);
         }catch(Exception $e){
             DB::rollback();
             $errors['termsandconsition'] = 'Something went wrong please try after sometime';

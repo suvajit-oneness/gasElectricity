@@ -123,6 +123,11 @@
                         <!-- Supplier Sidebar End-->
                         <!-- Customer Sidebar -->
                         @elseif(Auth::user()->user_type == 3)
+                            <li class="nav-divider">Enquiry</li>
+                            <li class="nav-item">
+                                <a class="nav-link {{request()->routeIs('customer.enquiry.rfq')?'active':''}}" href="{{route('customer.enquiry.rfq')}}"><i class="fa fa-fw fa-user-circle"></i>Your Enquiry</a>
+                            </li>
+                        
                         @endif
                     </ul>
                 </div>

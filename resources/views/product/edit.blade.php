@@ -14,20 +14,37 @@
                     <form method="post" action="{{route(urlPrefix().'.products.update',$product->company_id)}}" enctype="multipart/form-data">
                         @csrf
                         <input type="hidden" name="productId" value="{{$product->id}}">
-                        <div class="form-group">
-                            <label for="company_id" class="col-form-label">Company</label>
-                            <select name="companyId" class="form-control @error('companyId') is-invalid @enderror" id="company_id">
-                                <option value="">Select Company</option>
-                                @foreach($companies as $item)
-                                    <option value="{{$item->id}}" @if($product->company_id == $item->id){{('selected')}}@endif>{{$item->name}}</option>
-                                @endforeach
-                            </select>
-                            @error('companyId')
-                                <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label for="company_id" class="col-form-label">Company</label>
+                                <select name="companyId" class="form-control @error('companyId') is-invalid @enderror" id="company_id">
+                                    <option value="">Select Company</option>
+                                    @foreach($companies as $item)
+                                        <option value="{{$item->id}}" @if($product->company_id == $item->id){{('selected')}}@endif>{{$item->name}}</option>
+                                    @endforeach
+                                </select>
+                                @error('companyId')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                @php $productFor = explode(',',$product->product_for); @endphp
+                                <label for="product_for" class="col-form-label">Product For</label>
+                                <select name="product_for[]" class="form-control multipleSelect" id="product_for" multiple>
+                                    <option value="home" @if(in_array('home',$productFor)){{('selected')}}@endif>Home</option>
+                                    <option value="business" @if(in_array('business',$productFor)){{('selected')}}@endif>Business</option>
+                                </select>
+                                @error('product_for')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
                         </div>
+                        
                         <div class="row">
                             <div class="form-group col-md-6">
                                 <label for="name" class="col-form-label">Product Name:</label>

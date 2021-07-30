@@ -35,6 +35,10 @@ class UpdateMasterTableOn28July2021053455PM extends Migration
      */
     public function down()
     {
-        //
+        Schema::table('masters', function (Blueprint $table) {
+            $table->dropColumn('onepoint_equals');
+            $table->dropColumn('referral_bonus');
+            $table->dropColumn('joining_bonus');
+        });
     }
 }

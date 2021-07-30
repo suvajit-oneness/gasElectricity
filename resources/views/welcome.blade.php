@@ -36,10 +36,10 @@
 								<option value="{{$pincde->autocomplete}}"></option>
 							@endforeach
 						</datalist>
-						@error('eneryType')<span class="text-danger">{{$message}}</span>@enderror
+						<!-- @error('eneryType')<span class="text-danger">{{$message}}</span>@enderror -->
 						@error('search')<span class="text-danger">{{$message}}</span>@enderror
 						<label>Where are you located?</label>
-						<input type="hidden" name="eneryType" value="gas_electricity">
+						<!-- <input type="hidden" name="eneryType" value="gas_electricity"> -->
 						<input type="text" class="postCodeSearch" name="search" id="search" placeholder="Enter your postcode or suburb..." required="" value="{{old('search')}}" list="suppliersPincode">
 						<div class="button">
 							<button type="submit">compare now</button>
@@ -49,56 +49,13 @@
 				</form>
 				<p>Currently available in 
 					@foreach($data->state as $state)
-						<a href="{{route('product.listing')}}?eneryType=gas_electricity&stateId={{base64_encode($state->id)}}" style="color:ffffff">{{$state->name}}</a> ,
-						<!-- <a href="{{route('electricityform')}}" style="color:ffffff">{{$state->name}}</a> ,  -->
+						<a href="{{route('rfq.product.listing')}}?stateId={{base64_encode($state->id)}}" style="color:ffffff">{{$state->name}}</a> ,
 					@endforeach
 				</p>
 			</div>
 		</div>
 	</div> 
 </section>
-
-<!-- <section class="banner">
-	<div class="container">
-		<div class="banner-caption">
-			<h1 class="banner-heading">LOREM IPSUM <span>DOLOR SIT AMET</span> <br> <span> IS A DUMMY TEXT</span></h1>
-			<ul class="button-list">
-				<li>
-					<a href="javascript:void(0)" class="blue-btm">Explore now 
-						<span><i class="fas fa-arrow-circle-right"></i></span>
-					</a>
-				</li>
-				@guest
-					<li>
-						<a href="{{url('login')}}" class="login-btm">Login 
-							<span><i class="fas fa-user-circle"></i></span>
-						</a>
-					</li>
-				@endguest
-			</ul>
-			<div class="location-search-section">
-				<h3>Compare, Switch, Save & postcode </h3>
-				<form action="{{route('product.listing')}}">
-					<div class="search-form">
-						@error('eneryType')<span class="text-danger">{{$message}}</span>@enderror
-						@error('search')<span class="text-danger">{{$message}}</span>@enderror
-						<label>Where are you located?</label>
-						<input type="hidden" name="eneryType" value="gas_electricity">
-						<input type="text" id="searchCompareNow" name="search" placeholder="Enter your postcode or suburb..." required value="{{old('search')}}">
-						<div class="button">
-							<input type="submit" id="searchBtnCompareNow" value="compare now">
-							<i class="fas fa-arrow-circle-right"></i>
-						</div>
-					</div>
-				</form>
-				<p>Currently available in NSW, ACT, SA, VIC, parts of QLD, TAS & WA (only Gas). Not available in Ergon Area (QLD), NT and embedded networks or non-quotable meters.</p>
-			</div>
-		</div>
-	</div>
-	<div class="machine-image">
-		<img src="{{asset('forntEnd/images/machine.png')}}">
-	</div>
-</section> -->
 
 @if(count($data->compareallSupplier) > 0)
 <section class="logo-slider">
@@ -140,38 +97,6 @@
 	</div>
 </section>
 @endif
-<!-- <section class="gray-section section-border">
-	<div class="container">
-		<h2 class="heading text-center heading-center-border">What we provide</h2>
-		<p class="text-center sub-content">It’s never been simpler to switch energy providers and save.</p>
-		<ul class="step-list">
-			<li>
-				<div class="box">
-					<span class="count">01</span>
-					<h3>Share few details</h3>
-					<p>Share few details like your postcode, type of energy plan, typical usage rates and if you have solar power.</p>
-					<a href="javascript:void(0)" class="arrow-btm"><i class="fas fa-arrow-right"></i></a>
-				</div>
-			</li>
-			<li>
-				<div class="box">
-					<span class="count">02</span>
-					<h3>Compare Rates & Tariffs</h3>
-					<p>Shop around for the right plan using our constantly updated database of all the competitive energy plans and rates.</p>
-					<a href="javascript:void(0)" class="arrow-btm"><i class="fas fa-arrow-right"></i></a>
-				</div>
-			</li>
-			<li>
-				<div class="box">
-					<span class="count">03</span>
-					<h3>Pick Your Energy Plan</h3>
-					<p>Like what you see? Pick your cheaper plan and we do the rest. No calls, no fuss, no worries, just a better deal on your electricity and gas bill!</p>
-					<a href="javascript:void(0)" class="arrow-btm"><i class="fas fa-arrow-right"></i></a>
-				</div>
-			</li>
-		</ul>
-	</div>
-</section> -->
 
 <!-- Testimonial Section -->
 @if(count($data->testimonials) > 0)
@@ -206,8 +131,7 @@
 				<ul>
 					@foreach($data->state as $state)
 						<li>
-							<a href="{{route('rfq.product.listing')}}?eneryType=gas_electricity&stateId={{base64_encode($state->id)}}" style="color:ffffff">Energy Comparison – {{$state->name}}</a> ,
-							<!-- <a href="{{route('electricityform')}}"></a> -->
+							<a href="{{route('rfq.product.listing')}}?stateId={{base64_encode($state->id)}}" style="color:ffffff">Energy Comparison – {{$state->name}}</a> ,
 						</li>
 					@endforeach
 				</ul>
@@ -273,12 +197,6 @@
 @endif
 
 @section('script')
-    <script type="text/javascript">
-    	// $(document).on('click','#searchBtnCompareNow',function(){
-    	// 	var URL = "{{route('product.listing')}}",keyword = $('#searchCompareNow').val();
-    	// 	var redirectURL = URL+'?search='+keyword;
-    	// 	window.location.href = redirectURL;
-    	// });
-    </script>
+    <script type="text/javascript"></script>
 @stop
 @endsection

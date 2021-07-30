@@ -23,6 +23,7 @@
                                     <th>Company</th>
                                     <th>Product Id</th>
                                     <th>Product Name</th>
+                                    <th>Product For</th>
                                     <th>Momentum</th>
                                     <th>Tag</th>
                                     <th>Tag Description</th>
@@ -51,13 +52,14 @@
                                         </td>
                                         <td>{{$product->id}}</td>
                                         <td>{{$product->name}}</td>
+                                        <td>{{strtoupper($product->product_for)}}</td>
                                         <td>
                                             <a href="{{route(urlPrefix().'.products.momenta',$product->id)}}">
-                                                @forelse ($product->product_momentum as $item)
-                                                    <li>{{$item->title}}</li>
-                                                @empty
-                                                    N/A
-                                                @endforelse
+                                                @if(count($product->product_momentum) > 0)
+                                                    {{('View')}}
+                                                @else
+                                                    {{('N/A')}}
+                                                @endif
                                             </a>
                                         </td>
                                         <td>{{$product->tag}}</td>
@@ -65,10 +67,8 @@
                                         <td>
                                             <?php $gasData = $product->product_gas; ?>
                                             @if($gasData)
-                                                <ul>
-                                                    <li>Title : {{$gasData->title}}</li>
-                                                    <li>Price : {{moneyFormat($gasData->price)}}</li>
-                                                </ul>
+                                                <li>Title : {{$gasData->title}}</li>
+                                                <li>Price : {{moneyFormat($gasData->price)}}</li>
                                             @else
                                                 {{('N/A')}}
                                             @endif
@@ -76,10 +76,8 @@
                                         <td>
                                             <?php $electricityData = $product->product_electricty; ?>
                                             @if($electricityData)
-                                                <ul>
-                                                    <li>Title : {{$electricityData->title}}</li>
-                                                    <li>Price : {{moneyFormat($electricityData->price)}}</li>
-                                                </ul>
+                                                <li>Title : {{$electricityData->title}}</li>
+                                                <li>Price : {{moneyFormat($electricityData->price)}}</li>
                                             @else
                                                 {{('N/A')}}
                                             @endif

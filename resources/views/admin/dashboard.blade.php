@@ -69,6 +69,20 @@
                                    </div>
                                 </div>
                             </div>
+                            <div class="col-12 col-md-3 mb-3">
+                                <div class="card shadow-sm border-0">
+                                   <div class="card-body">
+                                        <a href="{{route('admin.report.rfqs')}}" class="gpcVCf">
+                                            <div class="icon-sec w-25">
+                                                <img src="{{asset('image/rfq.png')}}" height="40" width="40">
+                                            </div>
+                                            <div class="text-sec">
+                                                <h3>{{count($data->rfqs)}} <span>Total RFQ</span></h3>
+                                            </div>
+                                        </a>
+                                   </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

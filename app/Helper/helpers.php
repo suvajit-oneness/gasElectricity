@@ -109,14 +109,6 @@
 	        $message->to($to, $data['name'])->subject($subject);
 	        $message->from('onenesstechsolution@gmail.com','Switcher');
 	    });
-		// $toEmail = $data['to'];
-		// $toName = $data['name'];
-		// $sub = $data['subject'];
-		// Mail::send($template, compact('data'), function ($message) use ($toName, $toEmail, $sub) {
-		    // $message->to($toEmail, $toName);
-			// 	$message->subject($sub);
-		    // $message->from('support@seitcher.com', 'switcher');
-	    // });
     }
 
     function sendTwilioMessage($to,$message)

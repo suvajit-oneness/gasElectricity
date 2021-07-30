@@ -6,8 +6,8 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
-use App\Model\Referral;use DB;use App\User;use Hash;
-use App\Model\UserPoints;
+use App\Model\Referral,DB,App\User,Hash;
+use App\Model\UserPoints,App\Model\Master;
 
 class Controller extends BaseController
 {
@@ -34,6 +34,12 @@ class Controller extends BaseController
             $user->name = $userData->name;
             $user->email = $userData->email;
             $user->password = Hash::make($userData->password);
+            if(!empty($userData->user_type) && is_numeric($userData->user_type)){
+                $user->user_type = $userData->user_type;
+            }
+            if(!empty($userData->mobile) && is_numeric($userData->mobile)){
+                $user->mobile = $userData->mobile;
+            }
             $user->save();
             $this->setReferralCode($user,$userData->referral);
             DB::commit();

@@ -4,8 +4,13 @@ namespace App\Http\Controllers\Customer;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Model\Rfq;
 
 class CustomerController extends Controller
 {
-    //
+    public function rfqEnquiry(Request $req)
+    {
+        $rfqs = Rfq::where('userId',auth()->user()->id)->orderBy('resolved_by','ASC')->get();
+        return view('customer.enquiry.rfqReport',compact('rfqs'));
+    }
 }

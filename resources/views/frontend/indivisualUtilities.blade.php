@@ -42,30 +42,10 @@
 					<input type="text" name="search" class="postCodeSearch" id="postcodesearch" placeholder="Enter your postcode or suburb..." required value="{{old('search')}}" list="suppliersPincode">
 				</div>
 				<div class="ccheckandbtn">
-					<!-- <div class="custom-control custom-checkbox custom-control-mod">
-					    <input type="checkbox" name="referral_partner" value="true" class="custom-control-input" id="customControl2" @if(old('referral_partner')){{('checked')}}@endif>
-					    <label class="custom-control-label" for="customControl2">Just compare plans which link to a Referral Partner.</label>
-					</div> -->
 					<button type="submit" class="blue-btm">COMPARE <span><i class="fas fa-arrow-circle-right"></i></span></button>
 				</div>
 			</form>
 		</div>
-		<!-- <div class="important_note_wrap margin-top0">
-			<div class="note_title">
-				<div class="trigger">+</div>
-				<div class="note_title_head">
-					<p>IMPORTANT NOTES</p>
-				</div>
-			</div>
-			<div class="note_content">
-				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-				tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-				quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-				consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-				cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-				proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-			</div>
-		</div> -->
 	</div>
 </section>
 

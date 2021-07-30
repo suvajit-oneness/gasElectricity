@@ -24,6 +24,7 @@ class AdminController extends Controller
         $data = (object)[];
         $data->customer = User::where('user_type',3)->get();
         $data->supplier = User::where('user_type',2)->get();
+        $data->rfqs = Rfq::select('*')->get();
         return view('admin.dashboard',compact('data'));
     }
 
@@ -1036,6 +1037,8 @@ class AdminController extends Controller
     {
         $req->validate([
             'company_id' => 'required|min:1|numeric|exists:companies,id',
+            'product_for' => 'required|array',
+            'product_for.*' => 'required|string',
             'name' => 'required|max:200|string',
             'tag' => 'required|max:200|string',
             'tag_description' => 'nullable|string',
@@ -1049,6 +1052,7 @@ class AdminController extends Controller
         try {
             $product = new Product();
                 $product->name = $req->name;
+                $product->product_for = implode(',',$req->product_for);
                 $product->company_id = $req->company_id;
                 $product->tag = $req->tag;
                 $product->created_by = auth()->user()->id;
@@ -1067,7 +1071,6 @@ class AdminController extends Controller
             $electricity->save();
             DB::commit();
             return redirect(route(urlPrefix().'.products'))->with('Success','Product Added SuccessFully');
-            // return redirect(route('admin.products'))->with('Success','Product Added SuccessFully');
         } catch (Exception $e) {
             DB::rollback();
             $errors['company_id'] = 'Something went wrong please try after sometime!';
@@ -1091,6 +1094,8 @@ class AdminController extends Controller
         $req->validate([
             'productId' => 'required|min:1|numeric',
             'companyId' => 'required|min:1|numeric|exists:companies,id',
+            'product_for' => 'required|array',
+            'product_for.*' => 'required|string',
             'name' => 'required|max:200|string',
             'tag' => 'required|max:200|string',
             'tag_description' => 'nullable|string',
@@ -1104,6 +1109,7 @@ class AdminController extends Controller
         try {
             $product = Product::findOrFail($req->productId);
                 $product->name = $req->name;
+                $product->product_for = implode(',',$req->product_for);
                 $product->company_id = $req->companyId;
                 $product->tag = $req->tag;
                 $product->tag_description = emptyCheck($req->tag_description);
@@ -1119,7 +1125,6 @@ class AdminController extends Controller
             $electricity->save();
             DB::commit();
             return redirect(route(urlPrefix().'.products'))->with('Success','Product Updated SuccessFully');
-            // return redirect(route('admin.products'))->with('Success','Product Updated SuccessFully');
         }catch(Exception $e) {
             DB::rollback();
             $errors['company_id'] = 'Something went wrong please try after sometime!';

@@ -15,16 +15,36 @@
                     <form method="post" action="{{route(urlPrefix().'.products.save')}}" enctype="multipart/form-data">
                         @csrf
 
-                        <div class="form-group">
-                            <label for="company_id" class="col-form-label">Company</label>
-                            <select name="company_id" class="form-control" id="company_id">
-                                <option value="">Select Company</option>
-                                @foreach($companies as $item)
-                                    <option value="{{$item->id}}" @if(old('company_id') == $item->id){{('selected')}}@endif>{{$item->name}}</option>
-                                @endforeach
-                            </select>
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label for="company_id" class="col-form-label">Company</label>
+                                <select name="company_id" class="form-control" id="company_id">
+                                    <option value="">Select Company</option>
+                                    @foreach($companies as $item)
+                                        <option value="{{$item->id}}" @if(old('company_id') == $item->id){{('selected')}}@endif>{{$item->name}}</option>
+                                    @endforeach
+                                </select>
+                                @error('company_id')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
+                            @php $productFor = (old('product_for')) ? old('product_for') : []; @endphp
+                            <div class="form-group col-md-6">
+                                <label for="product_for" class="col-form-label">Product For</label>
+                                <select name="product_for[]" class="form-control multipleSelect" id="product_for" multiple>
+                                    <option value="home" @if(in_array('home',$productFor)){{('selected')}}@endif>Home</option>
+                                    <option value="business" @if(in_array('business',$productFor)){{('selected')}}@endif>Business</option>
+                                </select>
+                                @error('product_for')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div>
                         </div>
-
+                        
                         <div class="row">
                             <div class="form-group col-md-6">
                                 <label for="name" class="col-form-label">Product Name:</label>
