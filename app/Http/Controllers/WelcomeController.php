@@ -3,12 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Model\Testimonials;use App\Model\BlogCategory;
-use App\Model\Faq;use App\Model\Blog;use Auth;
-use App\Model\ContactUs;use App\Model\Membership;
-use App\Model\UserMembership;use App\Model\Setting;
-use App\Model\Product;use App\Model\State;
-use App\Model\SupplierPincode;
+use App\Model\Testimonials,App\Model\BlogCategory;
+use App\Model\Faq,App\Model\Blog,Auth;
+use App\Model\ContactUs,App\Model\Membership;
+use App\Model\UserMembership,App\Model\Setting;
+use App\Model\Product,App\Model\State,DB;
+use App\Model\SupplierPincode,App\Model\Rfq;
 
 class WelcomeController extends Controller
 {
@@ -103,25 +103,90 @@ class WelcomeController extends Controller
         return back()->withErrors($sucess);
     }
 
-    public function productListing(Request $req)
+    public function getSuppliersBySearch($request)
     {
         $supplierId = SupplierPincode::select('userId');
+        if(!empty($request->stateId)){
+            $stateId = base64_decode($request->stateId);
+            $supplierId = $supplierId->where('stateId',$stateId);
+        }
+        if(!empty($request->search)){
+            $search = explode(',',$request->search)[0];
+            $supplierId = $supplierId->where('pincode','like',"%$search%")->orwhere('landmark','like',"%$request->search%");
+        }
+        $supplierId = $supplierId->groupBy('userId')->pluck('userId')->toArray();
+        return $supplierId;
+    }
+
+    public function rfqBeforeProductListing(Request $req)
+    {
+        $suppliers = $this->getSuppliersBySearch($req);$error = [];
+        if(!empty($request->stateId)){
+            $error['state'] = 'We donot provide the service at selected State';
+        }
+        if(!empty($request->search)){
+            $error['search'] = 'We donot provide the service at given pincode';
+        }
+        if(count($suppliers) > 0){
+            return view('frontend.rfqBeforeProductListing',compact('req'));
+        }
+        return back()->withErrors($error)->withInput($req->all());
+    }
+
+    public function rfqSaveBeforeProductListing(Request $req)
+    {
+        $req->validate([
+            "energy_type" => "required|string|in:gas_electricity,gas,electricity",
+            "type_of_property" => "required|string|in:home,business",
+            "property_type" => "required|string|in:own,rent",
+            "areyoumovingintothisproperty" => "required|string|in:yes,no",
+            // "moving_date" => "2021-07-29",
+            "entertainment_service" => "required|string|in:yes,no",
+            "gas_connection" => "required|string|in:yes,no,donotknow",
+            "electricity_usage" => "required|string|in:low,medium,high",
+            "understand" => "required|in:1",
+            "termsandconsition" => "required|in:1",
+        ]);
+        DB::beginTransaction();
+        try{
+            $newRfq = new Rfq;
+                if(auth()->user()){
+                    $newRfq->userId = auth()->user()->id;
+                }
+                $newRfq->energy_type = $req->energy_type;
+                $newRfq->type_of_property = $req->type_of_property;
+                $newRfq->property_type = $req->property_type;
+                $newRfq->areyoumovingintothisproperty = $req->areyoumovingintothisproperty;
+                $newRfq->moving_date = emptyCheck($req->moving_date,true);
+                $newRfq->entertainment_service = $req->entertainment_service;
+                $newRfq->gas_connection = $req->gas_connection;
+                $newRfq->electricity_usage = $req->electricity_usage;
+                $newRfq->understand = $req->understand;
+                $newRfq->termsandconsition = $req->termsandconsition;
+            $newRfq->save();
+            DB::commit();
+            dd($newRfq);
+        }catch(Exception $e){
+            DB::rollback();
+            $errors['termsandconsition'] = 'Something went wrong please try after sometime';
+            return back()->withErrors($errors)->withInput($req->all());
+        }
+    }
+
+    public function productListing(Request $req)
+    {
+        $suppliers = $this->getSuppliersBySearch($req);$error = [];
         if(!empty($req->stateId)){
             $error['state'] = 'We donot provide the service at given State';
-            $stateId = base64_decode($req->stateId);
-            $supplierId = $supplierId->where('stateId',$stateId);
         }
         if(!empty($req->search)){
             $error['search'] = 'We donot provide the service at given pincode';
-            $search = explode(',',$req->search)[0];
-            $supplierId = $supplierId->where('pincode','like',"%$search%")->orwhere('landmark','like',"%$req->search%");
         }
-        $supplierId = $supplierId->groupBy('userId')->pluck('userId')->toArray();
-        if(count($supplierId) > 0){
+        if(count($suppliers) > 0){
             if(auth()->user())
-                return $this->productListingwithAuth($req,$supplierId);
+                return $this->productListingwithAuth($req,$suppliers);
             else
-                return $this->productListingwithoutAuth($req,$supplierId);
+                return $this->productListingwithoutAuth($req,$suppliers);
         }
         return back()->withErrors($error)->withInput($req->all());
     }

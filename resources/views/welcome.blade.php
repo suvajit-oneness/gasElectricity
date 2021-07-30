@@ -29,7 +29,7 @@
 				 <p>If you’re a savvy bargain hunter like us at Econnex, you’ll love saving on your energy bills. Compare energy plans, sign up, and start saving!</p>
 				</div>
 			<div class="location-search-section">
-				<form action="{{route('product.listing')}}" autocomplete="off">
+				<form action="{{route('rfq.product.listing')}}" autocomplete="off">
 					<div class="search-form">
 						<datalist id="suppliersPincode">
 							@foreach($data->pincode as $key => $pincde)
@@ -206,7 +206,7 @@
 				<ul>
 					@foreach($data->state as $state)
 						<li>
-							<a href="{{route('product.listing')}}?eneryType=gas_electricity&stateId={{base64_encode($state->id)}}" style="color:ffffff">Energy Comparison – {{$state->name}}</a> ,
+							<a href="{{route('rfq.product.listing')}}?eneryType=gas_electricity&stateId={{base64_encode($state->id)}}" style="color:ffffff">Energy Comparison – {{$state->name}}</a> ,
 							<!-- <a href="{{route('electricityform')}}"></a> -->
 						</li>
 					@endforeach

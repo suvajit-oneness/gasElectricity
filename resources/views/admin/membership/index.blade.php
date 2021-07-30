@@ -55,10 +55,6 @@
 </div>
 @section('script')
     <script type="text/javascript">
-        $(document).ready(function() {
-            $('#example4').DataTable();
-        });
-
         $('input[id="toggle-block"]').change(function() {
             var membership_id = $(this).data('member_id');
             var CSRF_TOKEN = '{{csrf_token()}}';

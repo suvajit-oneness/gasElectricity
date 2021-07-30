@@ -125,10 +125,6 @@
 </div>
 @section('script')
     <script type="text/javascript">
-        $(document).ready(function() {
-            $('#example4').DataTable();
-        });
-
         $(document).on('click','.deleteCompanydiscount',function(){
             var deleteCompanydiscount = $(this);
             var discountId = $(this).attr('data-discount_id');

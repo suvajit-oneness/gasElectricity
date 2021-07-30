@@ -1,12 +1,12 @@
 @extends('layouts.master')
-@section('title','Contact Us')
+@section('title','RFQ')
 @section('content')
 <div class="container-fluid  dashboard-content">
     <div class="row">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
             <div class="card">
                 <div class="card-header">
-                    <h5 class="mb-0">Contact Us List</h5>
+                    <h5 class="mb-0">RFQ List</h5>
                     <!-- <p>This example shows FixedHeader being styled by the Bootstrap 4 CSS framework.</p> -->
                 </div>
                 <div class="card-body">
@@ -17,29 +17,44 @@
                                     <th>Name</th>
                                     <th>Email</th>
                                     <th>Phone</th>
-                                    <th>Message</th>
-                                    <th>Contact at</th>
+                                    <th>Looking to Compare</th>
+                                    <th>Type of Property</th>
+                                    <th>Rent / OWN</th>
+                                    <th>Moving Into Property</th>
+                                    <th>Moving Date</th>
+                                    <th>Entertainment Service</th>
+                                    <th>Gas Connection</th>
+                                    <th>Electricity Usage</th>
                                     <th>Contacted By</th>
                                     <th>Remark</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($contactUs as $contact)
+                                @foreach($rfqs as $rfq)
+                                    @php
+                                        $user = $rfq->user;
+                                        $resolvedBy = $rfq->contacted_by;
+                                    @endphp
                                     <tr>
-                                        <td>{{$contact->name}}</td>
-                                        <td>{{$contact->email}}</td>
-                                        <td>{{$contact->phone}}</td>
-                                        <td>{{$contact->description}}</td>
-                                        <td>{{$contact->created_at->diffForHumans()}}</td>
+                                        <td>{{($user) ? $user->name : 'N/A'}}</td>
+                                        <td>{{($user) ? $user->email : 'N/A'}}</td>
+                                        <td>{{($user) ? $user->mobile : 'N/A'}}</td>
+                                        <td>{{strtoupper($rfq->energy_type)}}</td>
+                                        <td>{{strtoupper($rfq->type_of_property)}}</td>
+                                        <td>{{strtoupper($rfq->property_type)}}</td>
+                                        <td>{{strtoupper($rfq->areyoumovingintothisproperty)}}</td>
+                                        <td>{{($rfq->moving_date == '0000-00-00') ? 'N/A' : date('d M, Y',strtotime($rfq->moving_date))}}</td>
+                                        <td>{{strtoupper($rfq->entertainment_service)}}</td>
+                                        <td>{{strtoupper($rfq->gas_connection)}}</td>
+                                        <td>{{strtoupper($rfq->electricity_usage)}}</td>
                                         <td>
-                                            <?php $contactBy = $contact->contactBy;?>
-                                            @if($contactBy)
-                                                <a href="javascript:void(0)" class="seeDetails" data-id="{{$contactBy->id}}" data-name="{{$contactBy->name}}" data-email="{{$contactBy->email}}" data-mobile="{{$contactBy->mobile}}">{{$contactBy->name}}</a>
+                                            @if($resolvedBy)
+                                                <a href="javascript:void(0)" class="seeDetails" data-id="{{$resolvedBy->id}}" data-name="{{$resolvedBy->name}}" data-email="{{$resolvedBy->email}}" data-mobile="{{$resolvedBy->mobile}}">{{$resolvedBy->name}}</a>
                                             @else
-                                                <a href="javascript:void(0)" class="contactUpdate" data-id="{{$contact->id}}">N/A</a>
+                                                <a href="javascript:void(0)" class="contactUpdate" data-id="{{$rfq->id}}">N/A</a>
                                             @endif
                                         </td>
-                                        <td>{{$contact->remarks}}</td>
+                                        <td>{{$rfq->remarks}}</td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -51,7 +66,7 @@
     </div>
 </div>
 
-<!-- See Details of Contacted By -->
+<!-- See Details of Resolved By -->
 <div class="modal" id="seeDetails" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -93,13 +108,13 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form method="post" action="{{route('admin.report.contactUsSaveRemark')}}">
+            <form method="post" action="{{route('admin.report.rfqSaveRemark')}}">
                 @csrf
                 <div class="modal-body">
-                    <input type="hidden" name="contactUsId" value="">
+                    <input type="hidden" name="rfqId" value="">
                     <div class="form-group">
-                        <label for="remark">Remark</label>
-                        <input type="text" name="remark" class="form-control" id="remark" placeholder="Your remark" required>
+                        <label for="remarks">Remarks</label>
+                        <input type="text" name="remarks" class="form-control" id="remarks" placeholder="Your remark" required>
                     </div>
                 </div>
                 <div class="modal-footer">
@@ -121,8 +136,8 @@
         });
         $(document).on('click','.contactUpdate',function(){
             var id = $(this).attr('data-id');
-            $('#submitContact input[name=contactUsId]').val(id);
-            $('#submitContact #remark').val('');
+            $('#submitContact input[name=rfqId]').val(id);
+            $('#submitContact #remarks').val('');
             $('#submitContact').modal('show');
         });
     </script>

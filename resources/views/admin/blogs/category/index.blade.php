@@ -109,10 +109,6 @@
 
 @section('script')
     <script type="text/javascript">
-        $(document).ready(function() {
-            $('#example4').DataTable();
-        });
-
         @error('name')
             $('#addBlogCategoryModal').modal('show');
         @enderror

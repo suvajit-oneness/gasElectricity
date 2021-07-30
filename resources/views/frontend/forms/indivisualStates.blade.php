@@ -15,7 +15,7 @@
 						<option value="{{$pincde->autocomplete}}"></option>
 					@endforeach
 				</datalist>
-				<form action="{{route('product.listing')}}" method="get" autocomplete="off">
+				<form action="{{route('rfq.product.listing')}}" method="get" autocomplete="off">
 					<div class="search-form">
 						@error('eneryType')<span class="text-danger">{{$message}}</span>@enderror
 						@error('search')<span class="text-danger">{{$message}}</span>@enderror
@@ -71,7 +71,7 @@
 			<p>Easily compare, select and save on your energy plans</p>
 		</div>
 		<div class="energy_select_box block-display">
-			<form action="{{route('product.listing')}}" method="get" autocomplete="off">
+			<form action="{{route('rfq.product.listing')}}" method="get" autocomplete="off">
 				<div class="row">
 					<div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
 					<p>Energy type</p>

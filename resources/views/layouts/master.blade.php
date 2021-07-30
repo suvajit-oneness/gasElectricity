@@ -41,6 +41,7 @@
                 $('button').attr('disabled', 'disabled');
                 $('.loading-data').show();
             });
+            $('#example4').DataTable();
         });
         @if(Session::has('Success'))
             swal('Success','{{Session::get('Success')}}', 'success');

@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Model\Blog,App\Model\UserType;
-use App\User,App\Model\ContactUs,DB;
+use App\User,App\Model\ContactUs,DB,App\Model\Rfq;
 use App\Model\Testimonials,App\Model\Faq;
 use Hash,App\Model\BlogCategory,App\Model\Setting;
 use App\Model\Membership,App\Model\Company;
@@ -25,6 +25,25 @@ class AdminController extends Controller
         $data->customer = User::where('user_type',3)->get();
         $data->supplier = User::where('user_type',2)->get();
         return view('admin.dashboard',compact('data'));
+    }
+
+    public function rfqDetails(Request $req)
+    {
+        $rfqs = Rfq::select('*')->orderBy('created_at','DESC')->get();
+        return view('admin.reports.rfqDetails',compact('rfqs'));
+    }
+
+    public function saveRemarkOfRfqs(Request $req)
+    {
+        $req->validate([
+            'rfqId' => 'required|min:1|numeric',
+            'remarks' => 'required|max:200|string',
+        ]);
+        $Rfq = Rfq::where('id',$req->rfqId)->first();
+        $Rfq->resolved_by = auth()->user()->id;
+        $Rfq->remarks = $req->remarks;
+        $Rfq->save();
+        return back()->with('Success','Remarks Saved Success');
     }
 
     public function settingPoints(Request $req)

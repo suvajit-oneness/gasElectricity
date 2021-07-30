@@ -49,6 +49,9 @@
                             <li class="nav-item">
                                 <a class="nav-link {{request()->routeIs('admin.report.contactus')?'active':''}}" href="{{route('admin.report.contactus')}}"><i class="fa fa-fw fa-user-circle"></i>Contact us</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link {{request()->routeIs('admin.report.rfqs')?'active':''}}" href="{{route('admin.report.rfqs')}}"><i class="fa fa-fw fa-user-circle"></i>RFQs</a>
+                            </li>
                             <!-- Crud Operation Section -->
                             <li class="nav-divider">Features</li>
                             <li class="nav-item">

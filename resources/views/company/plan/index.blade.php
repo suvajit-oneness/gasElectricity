@@ -146,10 +146,7 @@
     <script type="text/javascript">
         CKEDITOR.replace('description');
         var editor = CKEDITOR.replace('description2ForUpdate');
-        $(document).ready(function() {
-            $('#example4').DataTable();
-        });
-
+        
         @if(old('form_type') == 'add')
             $('#exampleModalAdd').modal('show');
         @endif

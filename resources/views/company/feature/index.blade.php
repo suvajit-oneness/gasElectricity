@@ -43,10 +43,6 @@
 </div>
 @section('script')
     <script type="text/javascript">
-        $(document).ready(function() {
-            $('#example4').DataTable();
-        });
-
         $(document).on('click','.deleteCompanyfeature',function(){
             var deleteCompanyfeature = $(this);
             var featureId = $(this).attr('data-feature_id');

@@ -52,10 +52,6 @@
 </div>
 @section('script')
     <script type="text/javascript">
-        $(document).ready(function() {
-            $('#example4').DataTable();
-        });
-
         $(document).on('click','.deleteBlog',function(){
             var deleteBlog = $(this);
             var blogId = $(this).attr('data-id');

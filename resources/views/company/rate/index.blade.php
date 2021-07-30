@@ -147,10 +147,6 @@
     <script type="text/javascript">
         CKEDITOR.replace('description');CKEDITOR.replace('description2');
 
-        $(document).ready(function() {
-            $('#example4').DataTable();
-        });
-
         @if(old('form_type') == 'add')
             $('#exampleModalAdd').modal('show');
         @endif

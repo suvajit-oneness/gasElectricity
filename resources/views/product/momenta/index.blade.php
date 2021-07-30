@@ -153,10 +153,6 @@
 </div>
 @section('script')
     <script type="text/javascript">
-        $(document).ready(function() {
-            $('#example4').DataTable();
-        });
-
         $(document).on('click','.deleteproductmomenta',function(){
             var deleteproductmomenta = $(this);
             var momentaId = $(this).attr('data-momenta_id');

@@ -13,7 +13,7 @@
 	function emptyCheck($string,$date=false)
 	{
 		if($date){
-			return !empty($string) ? $string : '0000-00-00';
+			return !empty($string) ? date('Y-m-d',strtotime($string)) : '0000-00-00';
 		}
 		return !empty($string) ? $string : '';
 	}

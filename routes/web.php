@@ -28,6 +28,10 @@ Route::get('blogs','WelcomeController@getBlogs')->name('blogs');
 Route::get('blog/{blogId}/details','WelcomeController@blogDetails')->name('blog.detail');
 Route::get('contact-us','WelcomeController@contactUs')->name('contact-us');
 Route::post('contact-us','WelcomeController@saveContactUs')->name('contactus.save');
+
+Route::get('rfq/product/listing','WelcomeController@rfqBeforeProductListing')->name('rfq.product.listing');
+Route::post('electricity_form/rfq/save','WelcomeController@rfqSaveBeforeProductListing')->name('elecricity.form.rfq.save');
+
 Route::get('product-listing','WelcomeController@productListing')->name('product.listing');
 Route::get('product/{productId}/company/details','WelcomeController@productDetails')->name('product.details');
 Route::get('indivisual-states','WelcomeController@indivisualStates')->name('indivisual.state');
