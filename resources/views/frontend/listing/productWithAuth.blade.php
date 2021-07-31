@@ -43,7 +43,7 @@
 	<div class="container">
 		<div class="row align-items-center">
 			<div class="col-12">
-				<h2 class="listing_wrap_title">Compare Electricity Plans: <span>{{$productData->count}}</span> {{($state) ? 'In "'.$state->name.'"' : ''}}</h2>
+				<h2 class="listing_wrap_title">Compare Electricity Plans: <br><span>Total Product : {{$productData->count}}</span> {{($state) ? 'In "'.$state->name.'"' : ''}}</h2>
 				<div class="your-search">
 					<!-- <div class="top-panel-search">
 						<h4>Your Search</h4>
@@ -126,7 +126,7 @@
 			<div class="col-12">
 				<div class="plan_listing_items">
 					<div class="plan_listing_header">
-						<p>Based on the general usage^ in the Energex network the AER reference price is: <span>$1,508 / year</span></p>
+						<!-- <p>Based on the general usage^ in the Energex network the AER reference price is: <span>$1,508 / year</span></p> -->
 					</div>
 					<div class="plan_title_wrap">
 						<h5>Plan <span>and highlights</span></h5>
