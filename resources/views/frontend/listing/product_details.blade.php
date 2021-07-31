@@ -84,7 +84,7 @@
 									@endif
 								</div>
 								<div class="plan_info">
-									<p>{{$productData->tag}} <img src="{{asset('forntEnd/images/question.png')}}"></p>
+									<p>{{$productData->tag}} <img src="{{asset('forntEnd/images/question.png')}}" data-toggle="tooltip" data-placement="bottom" title="{!! $product->tag_description !!}"></p>
 								</div>
 							</div>
 						@endif
