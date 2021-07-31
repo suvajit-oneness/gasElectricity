@@ -43,19 +43,19 @@
 	<div class="container">
 		<div class="row align-items-center">
 			<div class="col-12">
-				<h2 class="listing_wrap_title">Compare Electricity Plans: 4000 QLD</h2>
+				<h2 class="listing_wrap_title">Compare Electricity Plans: <span>{{$productData->count}}</span> {{($state) ? 'In "'.$state->name.'"' : ''}}</h2>
 				<div class="your-search">
-					<div class="top-panel-search">
+					<!-- <div class="top-panel-search">
 						<h4>Your Search</h4>
 						<div class="right-toggle">
 							<p>*Product info updated frequently</p>
 							<span>^ See Important Notes</span>
 						</div>
-					</div>
+					</div> -->
 					<div class="search-panel">
 						<p>The below offers are based on a residential customer who consumes <span> 4,600 kWh / year </span> on a single rate tariff in the <span> SWITCHR </span> network. The lowest annual price is displayed for each offer. Your bill will differ, based on your actual usage.</p>
-						<a href="javascript:void(0)" class="toggle_down">Edit your postcode/suburb, distributor and controlled load <span><img src="{{asset('forntEnd/images/arrow-down.png')}}"></span></a>
-						<div class="select-four">
+						<!-- <a href="javascript:void(0)" class="toggle_down">Edit your postcode/suburb, distributor and controlled load <span><img src="{{asset('forntEnd/images/arrow-down.png')}}"></span></a> -->
+						<!-- <div class="select-four">
 							<div class="select-box-one">
 								<select name="option">
 									<option value="">Don't mind</option>
@@ -96,11 +96,11 @@
 								</div>
 								<img src="{{asset('forntEnd/images/double-arrow-down.png')}}">
 							</div>
-						</div>
+						</div> -->
 					</div>
 				</div>
 			</div>
-			<div class="col-12 col-md-7">
+			<!-- <div class="col-12 col-md-7">
 				<div class="custom-control custom-checkbox custom-control-mod">
 			        <input type="checkbox" class="custom-control-input" id="customControlAutosizing" name="referral_partner" value="true">
 			        <label class="custom-control-label" for="customControlAutosizing">Just compare plans which link to a Referral Partner's website.</label>
@@ -120,7 +120,7 @@
 					  	</div>
 					</div>
 				</div>
-			</div>
+			</div> -->
 		</div>
 		<div class="row">
 			<div class="col-12">
@@ -141,7 +141,6 @@
 							<?php
 								$gasData = (!empty($request['eneryType']) && ($request['eneryType'] == 'gas' || $request['eneryType'] == 'gas_electricity')) ? $product->product_gas : [];
 								$electricityData = (!empty($request['eneryType']) && ($request['eneryType'] == 'electricity' || $request['eneryType'] == 'gas_electricity')) ? $product->product_electricty : [];
-								// $electricityData = (!empty($request['eneryType']) && $request['eneryType'] == 'gas_electricity') ? $product->product_electricty : [];
 							?>
 							@if($gasData || $electricityData)
 								<?php $companyData = $product->company;
@@ -215,7 +214,7 @@
 						{!! $productData->appends(request()->query())->links() !!}
 					</ul>
 				</div>
-				<div class="important_note_wrap">
+				<!-- <div class="important_note_wrap">
 					<div class="note_title">
 						<div class="trigger">+</div>
 						<div class="note_title_head">
@@ -230,7 +229,7 @@
 						cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
 						proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 					</div>
-				</div>
+				</div> -->
 			</div>
 		</div>
 	</div>

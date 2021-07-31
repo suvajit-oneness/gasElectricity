@@ -40,7 +40,7 @@
 @section('content')
 <section class="plan_listing_wraper">
 	<div class="container">
-		<div class="row align-items-center">
+		<!-- <div class="row align-items-center">
 			<div class="col-12 col-md-7">
 				<div class="custom-control custom-checkbox custom-control-mod">
 			        <input type="checkbox" class="custom-control-input" id="customControlAutosizing" name="referral_partner" value="true">
@@ -62,17 +62,17 @@
 					</div>
 				</div>
 			</div>
-		</div>
+		</div> -->
 		<div class="row">
 			<div class="col-12">
 				<div class="plan_listing_items">
-					<div class="plan_listing_header">
+					<!-- <div class="plan_listing_header">
 						<p>Based on the general usage^ in the Energex network the AER reference price is: <span>$1,508 / year</span></p>
 					</div>
 					<div class="plan_title_wrap">
 						<h5>Plan <span>and highlights</span></h5>
 						<h5>Price/year <span>(estimated^)</span></h5>
-					</div>
+					</div> -->
 					<div class="plan_tab">
 						<h5>Sponsored</h5>
 						<a href="javascript:void(0)" class="close-panel">CLOSE</a>
@@ -82,7 +82,6 @@
 							<?php 
 								$gasData = (!empty($request['eneryType']) && ($request['eneryType'] == 'gas' || $request['eneryType'] == 'gas_electricity')) ? $product->product_gas : [];
 								$electricityData = (!empty($request['eneryType']) && ($request['eneryType'] == 'electricity' || $request['eneryType'] == 'gas_electricity')) ? $product->product_electricty : [];
-								// $electricityData = (!empty($request['eneryType']) && $request['eneryType'] == 'gas_electricity') ? $product->product_electricty : [];
 							?>
 							@if($gasData || $electricityData)
 								<?php $companyData = $product->company;
@@ -106,7 +105,7 @@
 											@endforelse
 										</ul>
 										<div class="plan_info">
-											<p>{{$product->tag}} <img src="{{asset('forntEnd/images/question.png')}}"></p>
+											<p>{{$product->tag}} <img src="{{asset('forntEnd/images/question.png')}}" data-toggle="tooltip" data-placement="bottom" title="{!! $product->tag_description !!}"></p>
 										</div>
 									</div>
 									<div class="plan_value">
@@ -151,7 +150,7 @@
 						{!! $productData->appends(request()->query())->links() !!}
 					</ul>
 				</div>
-				<div class="important_note_wrap">
+				<!-- <div class="important_note_wrap">
 					<div class="note_title">
 						<div class="trigger">+</div>
 						<div class="note_title_head">
@@ -166,7 +165,7 @@
 						cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
 						proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 					</div>
-				</div>
+				</div> -->
 			</div>
 		</div>
 	</div>

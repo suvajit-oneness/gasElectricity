@@ -105,17 +105,17 @@ class WelcomeController extends Controller
 
     public function getSuppliersBySearch($request)
     {
-        $supplierId = SupplierPincode::select('userId');
+        $suppliers = SupplierPincode::select('userId');
         if(!empty($request->stateId)){
             $stateId = base64_decode($request->stateId);
-            $supplierId = $supplierId->where('stateId',$stateId);
+            $suppliers = $suppliers->where('stateId',$stateId);
         }
         if(!empty($request->search)){
             $search = explode(',',$request->search)[0];
-            $supplierId = $supplierId->where('pincode','like',"%$search%")->orwhere('landmark','like',"%$request->search%");
+            $suppliers = $suppliers->where('pincode','like',"%$search%")->orwhere('landmark','like',"%$request->search%");
         }
-        $supplierId = $supplierId->groupBy('userId')->pluck('userId')->toArray();
-        return $supplierId;
+        $suppliers = $suppliers->groupBy('userId')->pluck('userId')->toArray();
+        return $suppliers;
     }
 
     public function rfqBeforeProductListing(Request $req)
@@ -173,8 +173,8 @@ class WelcomeController extends Controller
                         ];
                         $userObject = (object)$data;
                         $user = $this->createNewUser($userObject);
-                        if($user){$newRfq->userId = $user->id;}
                     }
+                    if($user){$newRfq->userId = $user->id;}
                 }
                 $newRfq->energy_type = $req->energy_type;
                 $newRfq->type_of_property = $req->type_of_property;
@@ -188,7 +188,7 @@ class WelcomeController extends Controller
                 $newRfq->termsandconsition = $req->termsandconsition;
             $newRfq->save();
             DB::commit();
-            $url = 'rfqId='.$newRfq->id.'&eneryType='.$newRfq->energy_type.'&';
+            $url = 'rfqId='.$newRfq->id.'&eneryType='.$newRfq->energy_type.'&property_type='.$newRfq->type_of_property.'&';
             if(!empty($req->otherPageRequest)){
                 foreach ($req->otherPageRequest as $key => $value) {
                     $url .= $key.'='.$value.'&';
@@ -226,15 +226,23 @@ class WelcomeController extends Controller
         if(!empty($req->productId)){
             $productData = $productData->where('id',$req->productId);
         }
-        $productData = $productData->paginate(3);
+        if(!empty($req->property_type)){
+            $productData = $productData->whereRaw('FIND_IN_SET("'.$req->property_type.'",product_for)');
+        }
+        $count = $productData->count();
+        $productData = $productData->paginate(5);
+        $productData->count = $count;
         return $productData;
     }
 
     public function productListingwithAuth(Request $req,$supplierId)
     {
         $productData = $this->getPlanlistingData($req,$supplierId);
-        $request = $req->all();
-        return view('frontend.listing.productWithAuth', compact('productData','request'));
+        $request = $req->all();$state = [];
+        if(!empty($req->stateId)){
+            $state = State::where('id',base64_decode($req->stateId))->first();
+        }
+        return view('frontend.listing.productWithAuth', compact('productData','state','request'));
     }
 
     public function productListingwithoutAuth(Request $req,$supplierId)
