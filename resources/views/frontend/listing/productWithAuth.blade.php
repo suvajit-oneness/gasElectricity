@@ -43,7 +43,7 @@
 	<div class="container">
 		<div class="row align-items-center">
 			<div class="col-12">
-				<h2 class="listing_wrap_title">Compare Electricity Plans: <br><span>Total Product : {{$productData->count}}</span> {{($state) ? 'In "'.$state->name.'"' : ''}}</h2>
+				<h2 class="listing_wrap_title">Compare Electricity Plans: <br><span>Total : {{$productData->count}}</span> {{($state) ? 'In "'.$state->name.'"' : ''}}</h2>
 				<div class="your-search">
 					<!-- <div class="top-panel-search">
 						<h4>Your Search</h4>
