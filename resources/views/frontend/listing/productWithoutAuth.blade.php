@@ -122,7 +122,7 @@
 												</div>
 												<div class="price_amount">
 													<h2>$ {{moneyFormat($gasData->price)}}</h2>
-													<a href="{{route('company.supplier.form',$companyData->id)}}{{$otherURL}}" class="blue-btm">EXPLORE <span><i class="fas fa-arrow-circle-right"></i></span></a>
+													<!-- <a href="{{route('company.supplier.form',$companyData->id)}}{{$otherURL}}" class="blue-btm">EXPLORE <span><i class="fas fa-arrow-circle-right"></i></span></a> -->
 												</div>
 											</div>
 										@endif
@@ -135,7 +135,7 @@
 												</div>
 												<div class="price_amount">
 													<h2>$ {{moneyFormat($electricityData->price)}}</h2>
-													<a href="{{route('company.supplier.form',$companyData->id)}}{{$otherURL}}" class="blue-btm">EXPLORE <span><i class="fas fa-arrow-circle-right"></i></span></a>
+													<!-- <a href="{{route('company.supplier.form',$companyData->id)}}{{$otherURL}}" class="blue-btm">EXPLORE <span><i class="fas fa-arrow-circle-right"></i></span></a> -->
 												</div>
 											</div>
 										@endif
