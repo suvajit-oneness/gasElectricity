@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateEmailTariffsTable extends Migration
+class CreateTariffTypesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateEmailTariffsTable extends Migration
      */
     public function up()
     {
-        Schema::create('email_tariffs', function (Blueprint $table) {
+        Schema::create('tariff_types', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('companyId');
             $table->tinyInteger('type')->comment('1: Electricty,2:Gas')->default(1);
@@ -93,7 +93,7 @@ class CreateEmailTariffsTable extends Migration
                 'title' => 'gas peak offpeak',
                 'link' => 'https://www.energymadeeasy.gov.au/plan?id=ALI13114MRG&utm_source=Alinta%20Energy&utm_campaign=bpi-retailer&utm_medium=retailer"><a href="https://www.energymadeeasy.gov.au/plan?id=ALI13114MRG&utm_source=Alinta%20Energy&utm_campaign=bpi-retailer&utm_medium=retailer',
             ];
-            DB::table('email_tariffs')->insert($data);
+            DB::table('tariff_types')->insert($data);
         }
     }
 
@@ -104,6 +104,6 @@ class CreateEmailTariffsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('email_tariffs');
+        Schema::dropIfExists('tariff_types');
     }
 }
