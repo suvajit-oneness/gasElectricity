@@ -23,4 +23,14 @@ class UserFilledSupplierForm extends Model
     {
         return $this->hasMany('App\Model\UserFilledSupplierFormDetails','userFilledSupplierFormId','id');
     }
+
+    public function product()
+    {
+        return $this->belongsTo('App\Model\Product','productId','id');
+    }
+
+    public function rfq_details()
+    {
+        return $this->belongsTo('App\Model\Rfq','rfqId','id');
+    }
 }
