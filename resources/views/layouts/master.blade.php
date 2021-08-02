@@ -36,6 +36,9 @@
     <script src="{{asset('design/vendor/slimscroll/jquery.slimscroll.js')}}"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.23/js/dataTables.bootstrap4.min.js"></script>
+    <!-- <script src="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.js"></script> -->
+    <!-- <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.css"> -->
+
     <script type="text/javascript">
         $(document).ready(function() {
             $('.loading-data').hide();
@@ -43,7 +46,9 @@
                 $('button').attr('disabled', 'disabled');
                 $('.loading-data').show();
             });
-            $('#example4').DataTable();
+            $('#example4').DataTable({
+                ordering: false
+            });
             $('.multipleSelect').SumoSelect();
         });
         @if(Session::has('Success'))

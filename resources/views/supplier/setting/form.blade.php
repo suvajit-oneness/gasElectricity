@@ -18,10 +18,9 @@
                                 <label>Form Input Type</label>
                                 <select class="form-control col-md-6 @error('formInputId'){{('is-invalid')}}@enderror" id="selectInputType" name="formInputId">
                                     <option value="">Select Input Type</option>
-                                    <option value="2">Radio</option>
-                                    <!-- @foreach($formInput as $input)
+                                    @foreach($formInput as $input)
                                         <option value="{{$input->id}}" @if(old('formInputId') == $input->id){{('selected')}}@endif>{{$input->input_type}}</option>
-                                    @endforeach -->
+                                    @endforeach
                                 </select>
                                 @error('formInputId')<span class="text-danger">{{$message}}</span>@enderror
                             </div>

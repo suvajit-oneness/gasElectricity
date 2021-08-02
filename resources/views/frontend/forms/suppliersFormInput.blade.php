@@ -9,18 +9,31 @@
                 <div class="card-header">
                     <h5 class="mb-0">Form</h5>
                 </div>
+                @if ($errors->any())
+                     @foreach ($errors->all() as $error)
+                         <div>{{$error}}</div>
+                     @endforeach
+                 @endif
                 <div class="card-body">
-                    <form method="post" action="{{route('company.supplier.form.save',[$data->company->id,$data->company->created_by])}}" enctype="multipart/form-data">
+                    <form method="post" action="{{route('company.supplier.form.save')}}" enctype="multipart/form-data">
                         @csrf
                         @error('success')
                             <span class="text-success" role="alert"><strong>{{ $message }}</strong></span>
                         @enderror
+                        <input type="hidden" name="productId" value="{{$product->id}}">
                         <input type="hidden" name="companyId" value="{{$data->company->id}}">
                         <input type="hidden" name="supplierId" value="{{$data->company->created_by}}">
+                        <input type="hidden" name="rfqId" value="{{$rfq->id}}">
+                        @error('productId')
+                            <span class="text-danger" role="alert">{{ $message }}</span>
+                        @enderror
                         @error('companyId')
                             <span class="text-danger" role="alert">{{ $message }}</span>
                         @enderror
                         @error('supplierId')
+                            <span class="text-danger" role="alert">{{ $message }}</span>
+                        @enderror
+                        @error('rfqId')
                             <span class="text-danger" role="alert">{{ $message }}</span>
                         @enderror
                         @foreach($data->supplierForm as $key => $form)

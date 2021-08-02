@@ -64,4 +64,9 @@ class User extends Authenticatable
     {
         return $this->hasOne('App\Model\UserFilledSupplierForm','userId','id')->latest();
     }
+
+    public function latestrfq_form()
+    {
+        return $this->hasOne('App\Model\Rfq','userId','id')->latest();
+    }
 }

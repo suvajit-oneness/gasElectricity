@@ -24,60 +24,24 @@ class CreateSupplierFormOptionsTable extends Migration
 
         $data = [
             [
-                'supplierFormId' => 1,
-                'option' => 'My Home',
-            ],
-            [
-                'supplierFormId' => 1,
-                'option' => 'My Business',
+                'supplierFormId' => 2,
+                'option' => 'Male',
             ],
             [
                 'supplierFormId' => 2,
-                'option' => 'Own',
+                'option' => 'Female',
             ],
             [
                 'supplierFormId' => 2,
-                'option' => 'Rent',
+                'option' => 'Other',
             ],
             [
                 'supplierFormId' => 3,
-                'option' => 'Yes',
+                'option' => 'Hocky',
             ],
             [
                 'supplierFormId' => 3,
-                'option' => 'No',
-            ],
-            [
-                'supplierFormId' => 4,
-                'option' => 'Yes',
-            ],
-            [
-                'supplierFormId' => 4,
-                'option' => 'No',
-            ],
-            [
-                'supplierFormId' => 5,
-                'option' => 'Yes',
-            ],
-            [
-                'supplierFormId' => 5,
-                'option' => 'No',
-            ],
-            [
-                'supplierFormId' => 5,
-                'option' => "Don`t Know",
-            ],
-            [
-                'supplierFormId' => 6,
-                'option' => 'Low',
-            ],
-            [
-                'supplierFormId' => 6,
-                'option' => 'Medium',
-            ],
-            [
-                'supplierFormId' => 6,
-                'option' => "High",
+                'option' => 'Football',
             ],
         ];
 

@@ -9,9 +9,117 @@ use App\Model\ContactUs,App\Model\Membership;
 use App\Model\UserMembership,App\Model\Setting;
 use App\Model\Product,App\Model\State,DB;
 use App\Model\SupplierPincode,App\Model\Rfq;
+use App\Model\UserFilledSupplierFormDetails,App\Model\Company;
+use App\Model\SupplierForm,App\Model\UserFilledSupplierForm;
 
 class WelcomeController extends Controller
 {
+    public function supplierFormToShowUser(Request $req)
+    {
+        $rules = [
+            'productId' => 'required|min:1|numeric',
+            'rfqId' => 'required|min:1|numeric',
+        ];
+        $validate = validator()->make($req->all(),$rules);
+        if(!$validate->fails()){
+            $product = Product::where('id',$req->productId)->first();
+            if($product){
+                $rfq = Rfq::where('id',$req->rfqId)->first();
+                if($rfq){
+                    $data = (object)[];
+                    $data->company = Company::where('id',$product->company_id)->first();
+                    if($data->company){
+                        $data->supplierForm = SupplierForm::where('userId',$data->company->created_by)->where('status',1)->get();
+                        if(count($data->supplierForm) > 0){
+                            $user = $rfq->user;$latestSupplierFormForUser = $user->latestSupplierForm;
+                            $user->formData = [];
+                            if($latestSupplierFormForUser){
+                                $user->formData = UserFilledSupplierFormDetails::select('key','value')->where('userId',$user->id)->where('userFilledSupplierFormId',$latestSupplierFormForUser->id)->where('companyId',$data->company->id)->where('supplierId',$data->company->created_by)->get();
+                            }
+                            return view('frontend.forms.suppliersFormInput',compact('data','product','rfq','user','req'));
+                            // return view('frontend.forms.electricityForm',compact('data','user','req'));
+                        }
+                    }
+                }
+            }
+        }
+        return response()->json(['error' => true,'message' => 'something went wront please try after some time']);
+    }
+
+    public function supplierFormToShowUserSave(Request $req)
+    {
+        $req->validate([
+            'productId' => 'required|min:1|numeric',
+            'companyId' => 'required|min:1|numeric',
+            'supplierId' => 'required|min:1|numeric',
+            'rfqId' => 'required|min:1|numeric',
+            'stateId' => 'nullable|min:1|numeric',
+        ]);
+        $supplierForm = SupplierForm::where('userId',$req->supplierId)->where('status',1)->get();
+        foreach($supplierForm as $index => $form){
+            $formInput = $form->input_type;
+            if($formInput->input_type == 'text' || $formInput->input_type == 'email' || $formInput->input_type == 'url'){
+                $rule = '';
+                if($form->is_required){
+                    $rule .= 'required';
+                }
+                $rules[$form->key] = $rule.'|max:200|string';
+            }elseif($formInput->input_type == 'radio'){
+                $rule = '';
+                if($form->is_required){
+                    $rule .= 'required';
+                }
+                $rules[$form->key] = $rule.'|string';
+            }elseif($formInput->input_type == 'checkbox'){
+                $rule = '';
+                if($form->is_required){
+                    $rule .= 'required';
+                }
+                $rules[$form->key] = $rule.'|array';
+                $rules[$form->key.'.*'] = $rule.'|string';
+            }elseif($formInput->input_type == 'textarea'){
+                $rule = '';
+                if($form->is_required){
+                    $rule .= 'required';
+                }
+                $rules[$form->key] = $rule.'|string';
+            }
+        }
+        $req->validate($rules);
+        // the Provided Form is Successfully validated
+        DB::beginTransaction();
+        // UserFilledSupplierForm::truncate();UserFilledSupplierFormDetails::truncate();
+        try{
+            $userFormData = $req->except(['_token','companyId','supplierId','approve','termsandconsition','eneryType','stateId']);
+            $rfq = Rfq::where('id',$req->rfqId)->first();
+            $newUserFormSubmitted = new UserFilledSupplierForm();
+                $newUserFormSubmitted->userId = $rfq->userId;
+                $newUserFormSubmitted->rfqId = $req->rfqId;
+                $newUserFormSubmitted->productId = $req->productId;
+                $newUserFormSubmitted->companyId = $req->companyId;
+                $newUserFormSubmitted->supplierId = $req->supplierId;
+            $newUserFormSubmitted->save();
+            foreach($userFormData as $key => $value){
+                $formDetails = new UserFilledSupplierFormDetails();
+                    $formDetails->userFilledSupplierFormId = $newUserFormSubmitted->id;
+                    $formDetails->key = $key;
+                    $formDetails->value = (is_array($value) ? implode(',', $value) : $value);
+                $formDetails->save();
+            }
+            DB::commit();
+            $url = '';
+            if(!empty($req->stateId)){
+                $url = '&stateId='.base64_encode($req->stateId);
+            }
+            dd('Form Saved',$url);
+            // return redirect(route('product.listing').'?eneryType='.$req->eneryType.''.$url);
+        }catch(Exception $e){
+            DB::rollback();
+            $error['submit'] = 'Something went wrong please try after some time';
+            return back()->withErrors($error)->withInput($req->all());
+        }
+    }
+
     public function index(Request $req)
     {
         $data = (object)[];
@@ -212,10 +320,11 @@ class WelcomeController extends Controller
             $error['search'] = 'We donot provide the service at given pincode';
         }
         if(count($suppliers) > 0){
-            if(auth()->user())
-                return $this->productListingwithAuth($req,$suppliers);
-            else
-                return $this->productListingwithoutAuth($req,$suppliers);
+            return $this->productListingwithAuth($req,$suppliers);
+            // if(auth()->user())
+            //     return $this->productListingwithAuth($req,$suppliers);
+            // else
+            //     return $this->productListingwithoutAuth($req,$suppliers);
         }
         return back()->withErrors($error)->withInput($req->all());
     }
@@ -245,24 +354,54 @@ class WelcomeController extends Controller
         return view('frontend.listing.productWithAuth', compact('productData','state','request'));
     }
 
-    public function productListingwithoutAuth(Request $req,$supplierId)
-    {
-        $productData = $this->getPlanlistingData($req,$supplierId);
-        $request = $req->all();
-        return view('frontend.listing.productWithoutAuth', compact('productData','request'));
-    }
+    // public function productListingwithoutAuth(Request $req,$supplierId)
+    // {
+    //     $productData = $this->getPlanlistingData($req,$supplierId);
+    //     $request = $req->all();
+    //     return view('frontend.listing.productWithoutAuth', compact('productData','request'));
+    // }
 
     public function productDetails(Request $req,$planId)
     {
         $productData = Product::findOrFail($planId);
         $data = (object)[];
         $data->faq = Faq::get();
-        return view('frontend.listing.product_details', compact('productData','data'));
+        return view('frontend.listing.product_details', compact('productData','data','req'));
     }
 
-    public function electricityForm(Request $req)
+    public function emailPlanDetails(Request $req)
     {
-        return view('frontend.forms.electricityForm',compact('req'));
+        $rules = [
+            'rfqId' => 'required|min:1|numeric',
+            'productId' => 'required|min:1|numeric',
+        ];
+        $validate = validator()->make($req->all(),$rules);
+        if(!$validate->fails()){
+            $rfq = Rfq::where('id',$req->rfqId)->first();
+            if($rfq){
+                $product = Product::where('id',$req->productId)->first();
+                if($product){
+                    $data = [
+                        'name' => $rfq->user->name,
+                        'content1' => 'Thanks for choosing us to help you find an Electricity & Gas plan that suits you.',
+                        'content2' => 'Please follow the link to the product information (Please note this is a system generated quote and not an actual transfer request. If you are interested in switching to this offer please click on the link below or email us at email@test.com):',
+                        'provider' => $product->company->name,
+                        'electricty_plan_name' => $product->name,
+                        'elecrticty_plan_tariff_details' => '',
+                        'gas_plan_name' => $product->name,
+                        'gas_plan_tariff_details' => 'Available On Request',
+                        'providers_terms_and_conditon' => $product->terms_condition,
+                    ];
+                    sendMail($data,'emails/emailPlanDetails',$rfq->user->email,'Your Requested Plan Details');
+                    // $data['name'] => $rfq->user->name.' has requested to email plan details',
+                    // sendMail($data,'emails/emailPlanDetails',$product->author->email,$rfq->user->email.' Requested Plan Details');
+                    return successResponse('An email has been sent to '.$rfq->user->email.' with the plan details',$req->all());
+                }
+            }
+            return errorResponse('Something went wrong please try after some time');
+            
+        }
+        return errorResponse($validate->errors()->first());
     }
 
     public function indivisualStates(Request $req)

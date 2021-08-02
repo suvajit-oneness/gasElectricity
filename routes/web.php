@@ -28,41 +28,32 @@ Route::get('blogs','WelcomeController@getBlogs')->name('blogs');
 Route::get('blog/{blogId}/details','WelcomeController@blogDetails')->name('blog.detail');
 Route::get('contact-us','WelcomeController@contactUs')->name('contact-us');
 Route::post('contact-us','WelcomeController@saveContactUs')->name('contactus.save');
-
-Route::get('rfq/product/listing','WelcomeController@rfqBeforeProductListing')->name('rfq.product.listing');
-Route::post('electricity_form/rfq/save','WelcomeController@rfqSaveBeforeProductListing')->name('elecricity.form.rfq.save');
-
-Route::get('product-listing','WelcomeController@productListing')->name('product.listing');
-Route::get('product/{productId}/company/details','WelcomeController@productDetails')->name('product.details');
 Route::get('indivisual-states','WelcomeController@indivisualStates')->name('indivisual.state');
 Route::get('indivisual-utility','WelcomeController@indivisualUtilities')->name('indivisual.utility');
-Route::get('electricity-form','WelcomeController@electricityForm')->name('electricityform');
-Route::get('membership','WelcomeController@membership')->name('membership');
-Route::get('membership/purchase/{membershipId}','WelcomeController@purchaseMembership')->name('user.membership.purchase');
-Route::get('membership/claimed/success/{membershipId}','WelcomeController@membershipSuccessFullPurchase')->name('membership.claimed.success');
+Route::get('rfq/product/listing','WelcomeController@rfqBeforeProductListing')->name('rfq.product.listing');
+Route::post('electricity_form/rfq/product/listing/save','WelcomeController@rfqSaveBeforeProductListing')->name('elecricity.form.rfq.save');
+
+// Route::get('electricity-form','WelcomeController@electricityForm')->name('electricityform');
+// Route::get('membership','WelcomeController@membership')->name('membership');
+// Route::get('membership/purchase/{membershipId}','WelcomeController@purchaseMembership')->name('user.membership.purchase');
+// Route::get('membership/claimed/success/{membershipId}','WelcomeController@membershipSuccessFullPurchase')->name('membership.claimed.success');
+
+// Route::group(['middleware' => 'rfq_filled'],function(){
+	
+
+	Route::get('product-listing','WelcomeController@productListing')->name('product.listing');
+	Route::get('product/{productId}/company/details','WelcomeController@productDetails')->name('product.details');
+	Route::post('email/plan_details','WelcomeController@emailPlanDetails')->name('rfq.email.plan.details');
+	Route::get('company/supplier/form','WelcomeController@supplierFormToShowUser')->name('company.supplier.form');
+	Route::post('company/supplier/form_post_save','WelcomeController@supplierFormToShowUserSave')->name('company.supplier.form.save');
+// });
 
 // Common Auth Routes
 Route::group(['middleware' => 'auth'],function(){
 	Route::get('user/profile','HomeController@userProfile')->name('user.profile');
 	Route::post('user/profile','HomeController@userProfileSave')->name('user.profile.save');
-	// Route::get('user/change/password','HomeController@changePassword')->name('user.changepassword');
 	Route::post('user/change/password','HomeController@updateUserPassword')->name('user.changepassword.save');
 	Route::get('user/points','HomeController@userPoints')->name('user.points');
-	Route::get('/explore/company/{companyId}/supplier/form','HomeController@supplierFormToShowUser')->name('company.supplier.form');
-	Route::post('/explore/company/{companyId}/supplier/{supplierId}/form/save','HomeController@supplierFormToShowUserSave')->name('company.supplier.form.save');
-});
-
-/************************** Laravel Testing Routes *************************/
-
-Route::get('mail',function(){
-	$data = [
-			'to'=>'arpan@onenesstechs.in', 
-			'name' => 'test name',
-			'subject'=>'Login Successfull',
-			'message'=>'Welcome Back to SwitchR!'
-		];
-	$template = 'emails.loginmail';
-	sendMail($data,$template);
 });
 
 // Stripe Payment Route

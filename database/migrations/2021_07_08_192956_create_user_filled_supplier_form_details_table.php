@@ -16,9 +16,6 @@ class CreateUserFilledSupplierFormDetailsTable extends Migration
         Schema::create('user_filled_supplier_form_details', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('userFilledSupplierFormId');
-            $table->bigInteger('userId');
-            $table->bigInteger('companyId');
-            $table->bigInteger('supplierId');
             $table->string('key');
             $table->longText('value');
             $table->softDeletes();

@@ -1,6 +1,14 @@
 @extends('frontend.layouts.master')
 @section('title','Product Details')
-@section('content')	
+@section('css')
+
+<style>
+	.plan_details_btn{border: 1px solid #000;color: #fff;padding: 10px;margin-left: 20px;background-color: #5cdb94;}
+	.emailplanDetails{}
+	.switch_and_save{background-color: #f1b734;}
+</style>
+@stop
+@section('content')
 <section class="state_banner"><div class="container"></div></section>
 
 <section class="momentum_wrap">
@@ -23,6 +31,25 @@
 
 <section class="plan_listing_wraper">
 	<div class="container">
+		<div class="row">
+			@php 
+				$url='?productId='.$productData->id.'&';
+				if(!empty($req->rfqId)){
+					$url .= 'rfqId='.$req->rfqId;
+				}
+				// if(!empty($req->eneryType)){
+					// $url .= 'eneryType='.$req->eneryType.'&';
+				// }
+				// if(!empty($req->property_type)){
+					// $url .= 'property_type='.$req->property_type.'&';
+				// }
+				// if(!empty($req->stateId)){
+					// $url .= 'stateId='.$req->stateId.'&';
+				// }
+			@endphp
+			<button class="btn plan_details_btn emailplanDetails">Email Plan Details</button>
+			<a href="{{route('company.supplier.form')}}{{$url}}" class="btn plan_details_btn switch_and_save">Switch & Save Today</a>
+		</div>
 		<div class="row">
 			<div class="col-12">
 				<div class="plan_listing_items">
@@ -65,7 +92,6 @@
 											</div>
 											<div class="price_amount">
 												<h2>$ {{moneyFormat($gasData->price)}}</h2>
-												<!-- <a href="{{route('company.supplier.form',$companyData->id)}}" class="blue-btm">EXPLORE <span><i class="fas fa-arrow-circle-right"></i></span></a> -->
 											</div>
 										</div>
 									@endif
@@ -78,7 +104,6 @@
 											</div>
 											<div class="price_amount">
 												<h2>${{moneyFormat($electricityData->price)}}</h2>
-												<!-- <a href="{{route('company.supplier.form',$companyData->id)}}" class="blue-btm">EXPLORE <span><i class="fas fa-arrow-circle-right"></i></span></a> -->
 											</div>
 										</div>
 									@endif
@@ -287,7 +312,71 @@
 	</section>
 @endif
 
+<!-- Email Plan Details Modal -->
+<div class="modal fade" id="emailPlanDetailsModal" tabindex="-1" role="dialog" aria-labelledby="emailPlanDetailsModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+	    <div class="modal-content">
+		    <div class="modal-header">
+		        <h5 class="modal-title" id="emailPlanDetailsModalLabel">Please select tariff type you want to send</h5>
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			        <span aria-hidden="true">&times;</span>
+		        </button>
+		    </div>
+		    <div class="modal-body">
+		    	<h5>Electricity</h5>
+		    	<ul>
+		    		<li><input type="radio" name="plan_rate_link" value="https://www.google.co.in"><a href="https://www.google.co.in" target="_blank">Single rate tariff (EA010)</a></li>
+		    		<li><input type="radio" name="plan_rate_link" value="https://www.google.co.in"><a href="https://www.google.co.in" target="_blank">Single Rate With Controlled Load 2 Tariff (EA010|EA040)</a></li>
+		    		<li><input type="radio" name="plan_rate_link" value="https://www.google.co.in"><a href="https://www.google.co.in" target="_blank">Time Of Use Tariff (EA025)</a></li>
+		    		<li><input type="radio" name="plan_rate_link" value="https://www.google.co.in"><a href="https://www.google.co.in" target="_blank">Time Of Use With Controlled Load 2 Tariff (EA025|EA040)</a></li>
+		    		<li><input type="radio" name="plan_rate_link" value="https://www.google.co.in"><a href="https://www.google.co.in" target="_blank">Demand Two Rate Tariff (EA115)</a></li>
+		    		<li><input type="radio" name="plan_rate_link" value="https://www.google.co.in"><a href="https://www.google.co.in" target="_blank">Demand Two Rate With Controlled Load 2 Tariff (EA115|EA040)</a></li>
+		    		<li><input type="radio" name="plan_rate_link" value="https://www.google.co.in"><a href="https://www.google.co.in" target="_blank">Demand Single Rate Intro Tariff (EA111)</a></li>
+		    		<li><input type="radio" name="plan_rate_link" value="https://www.google.co.in"><a href="https://www.google.co.in" target="_blank">Demand Single Rate Tariff (EA116)</a></li>
+		    		<li><input type="radio" name="plan_rate_link" value="https://www.google.co.in"><a href="https://www.google.co.in" target="_blank">Single Rate With Controlled Load 1 Tariff (EA010|EA030)</a></li>
+		    		<li><input type="radio" name="plan_rate_link" value="https://www.google.co.in"><a href="https://www.google.co.in" target="_blank"> Demand Single Rate Intro With Controlled Load 1 Tariff (EA111|EA030)</a></li>
+		    	</ul>
+		    	<hr>
+		    	<h5>Gas</h5>
+		    	<ul>
+		    		<li><input type="radio" name="plan_rate_link_gas" value="https://www.energymadeeasy.gov.au/plan?id=ALI13114MRG&utm_source=Alinta%20Energy&utm_campaign=bpi-retailer&utm_medium=retailer"><a href="https://www.energymadeeasy.gov.au/plan?id=ALI13114MRG&utm_source=Alinta%20Energy&utm_campaign=bpi-retailer&utm_medium=retailer" target="_blank">gas peak offpeak</a></li>
+		    	</ul>
+		    </div>
+		    <div class="modal-footer">
+		        <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
+		        <button type="button" class="btn plan_details_btn emailedPlanDetails">Email Plan Details</button>
+		    </div>
+	    </div>
+	</div>
+</div>
+
 @section('script')
-    <script type="text/javascript"></script>
+    <script type="text/javascript">
+    	$(document).on('click','.emailplanDetails',function(){
+			$('#emailPlanDetailsModal').modal('show');
+    	});
+
+    	$(document).on('click','.emailedPlanDetails',function(){
+    		var thisBtn = $(this);
+    		var plan_rate_link = $("input[name='plan_rate_link']:checked").val(),plan_rate_link_gas = $("input[name='plan_rate_link_gas']:checked").val();
+    		// alert(plan_rate_link+'=>'+plan_rate_link_gas);
+    		$('.loading-data').show();thisBtn.attr('disabled',true);
+			$.ajax({
+				url : '{{route('rfq.email.plan.details')}}',
+				type : 'post',
+				dataType : 'JSON',
+				data : {plan_rate_link:plan_rate_link,plan_rate_link_gas:plan_rate_link_gas,rfqId:'{{$req->rfqId}}',productId:'{{$productData->id}}',_token:'{{csrf_token()}}'},
+				success:function(response){
+					$('.loading-data').hide();thisBtn.attr('disabled',false);
+					if(response.error == false){
+						$('.modal').modal('hide');$('.emailplanDetails').remove();
+						swal('success' , response.message);
+					}else{
+						swal('error' , response.message);
+					}
+				}
+			});
+    	});
+    </script>
 @stop
 @endsection
