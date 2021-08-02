@@ -34,7 +34,7 @@ class WelcomeController extends Controller
                             $user = $rfq->user;$latestSupplierFormForUser = $user->latestSupplierForm;
                             $user->formData = [];
                             if($latestSupplierFormForUser){
-                                $user->formData = UserFilledSupplierFormDetails::select('key','value')->where('userId',$user->id)->where('userFilledSupplierFormId',$latestSupplierFormForUser->id)->where('companyId',$data->company->id)->where('supplierId',$data->company->created_by)->get();
+                                $user->formData = UserFilledSupplierFormDetails::select('key','value')->where('userFilledSupplierFormId',$latestSupplierFormForUser->id)->get();
                             }
                             return view('frontend.forms.suppliersFormInput',compact('data','product','rfq','user','req'));
                             // return view('frontend.forms.electricityForm',compact('data','user','req'));
@@ -111,8 +111,9 @@ class WelcomeController extends Controller
             if(!empty($req->stateId)){
                 $url = '&stateId='.base64_encode($req->stateId);
             }
-            dd('Form Saved',$url);
-            // return redirect(route('product.listing').'?eneryType='.$req->eneryType.''.$url);
+            return redirect('/');
+            // dd('Form Saved',$url);
+            return redirect(route('product.listing').'?eneryType='.$req->eneryType.''.$url);
         }catch(Exception $e){
             DB::rollback();
             $error['submit'] = 'Something went wrong please try after some time';

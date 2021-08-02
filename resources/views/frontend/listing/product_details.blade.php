@@ -35,17 +35,17 @@
 			@php 
 				$url='?productId='.$productData->id.'&';
 				if(!empty($req->rfqId)){
-					$url .= 'rfqId='.$req->rfqId;
+					$url .= 'rfqId='.$req->rfqId.'&';
 				}
-				// if(!empty($req->eneryType)){
-					// $url .= 'eneryType='.$req->eneryType.'&';
-				// }
-				// if(!empty($req->property_type)){
-					// $url .= 'property_type='.$req->property_type.'&';
-				// }
-				// if(!empty($req->stateId)){
-					// $url .= 'stateId='.$req->stateId.'&';
-				// }
+				if(!empty($req->eneryType)){
+					$url .= 'eneryType='.$req->eneryType.'&';
+				}
+				if(!empty($req->property_type)){
+					$url .= 'property_type='.$req->property_type.'&';
+				}
+				if(!empty($req->stateId)){
+					$url .= 'stateId='.$req->stateId.'&';
+				}
 			@endphp
 			<button class="btn plan_details_btn emailplanDetails">Email Plan Details</button>
 			<a href="{{route('company.supplier.form')}}{{$url}}" class="btn plan_details_btn switch_and_save">Switch & Save Today</a>

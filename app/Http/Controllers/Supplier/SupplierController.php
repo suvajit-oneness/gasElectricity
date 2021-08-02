@@ -78,7 +78,7 @@ class SupplierController extends Controller
 
     public function supplierForm(Request $req)
     {
-        $formInput = FormInput::get();
+        $formInput = FormInput::where('status',1)->get();
         $data = SupplierForm::where('userId',auth()->user()->id)->get();
         return view('supplier.setting.form',compact('formInput','data'));
     }
