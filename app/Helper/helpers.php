@@ -18,6 +18,14 @@
 		return !empty($string) ? $string : '';
 	}
 
+	function addNotification($userId,$message)
+	{
+		$newNotification = new \App\Model\Notification;
+		$newNotification->userId = $userId;
+		$newNotification->message = emptyCheck($message);
+		$newNotification->save();
+	}
+
 	function findAVG($ratingsList)
 	{
 		$rating = 0;$counter = 1;

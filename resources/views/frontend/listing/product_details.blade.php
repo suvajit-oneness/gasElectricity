@@ -47,7 +47,7 @@
 					$url .= 'stateId='.$req->stateId.'&';
 				}
 			@endphp
-			<button class="btn plan_details_btn emailplanDetails">Email Plan Details</button>
+			<button class="btn plan_details_btn emailplanDetails @if(count($data->tariff_type) <= 0) emailedPlanDetails @endif">Email Plan Details</button>
 			<a href="{{route('company.supplier.form')}}{{$url}}" class="btn plan_details_btn switch_and_save">Switch & Save Today</a>
 		</div>
 		<div class="row">
@@ -311,44 +311,44 @@
 		</div>
 	</section>
 @endif
-
-<!-- Email Plan Details Modal -->
-<div class="modal fade" id="emailPlanDetailsModal" tabindex="-1" role="dialog" aria-labelledby="emailPlanDetailsModalLabel" aria-hidden="true">
-	<div class="modal-dialog" role="document">
-	    <div class="modal-content">
-		    <div class="modal-header">
-		        <h5 class="modal-title" id="emailPlanDetailsModalLabel">Please select tariff type you want to send</h5>
-		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-			        <span aria-hidden="true">&times;</span>
-		        </button>
+@if(count($data->tariff_type) > 0)
+	<!-- Email Plan Details Modal -->
+	<div class="modal fade" id="emailPlanDetailsModal" tabindex="-1" role="dialog" aria-labelledby="emailPlanDetailsModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+		    <div class="modal-content">
+			    <div class="modal-header">
+			        <h5 class="modal-title" id="emailPlanDetailsModalLabel">Please select tariff type you want to send</h5>
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				        <span aria-hidden="true">&times;</span>
+			        </button>
+			    </div>
+			    <div class="modal-body">
+			    	<h5>Electricity</h5>
+			    	<ul>
+			    		@foreach($data->tariff_type as $tariffElectricity)
+				    		@if($tariffElectricity->type == 1)
+					    		<li><input type="radio" name="plan_rate_link" value="{{$tariffElectricity->link}}"><a href="{{$tariffElectricity->link}}" target="_blank">{{$tariffElectricity->title}}</a></li>
+					    	@endif
+			    		@endforeach
+			    	</ul>
+			    	<hr>
+			    	<h5>Gas</h5>
+			    	<ul>
+			    		@foreach($data->tariff_type as $tariffElectricity)
+				    		@if($tariffElectricity->type == 2)
+					    		<li><input type="radio" name="plan_rate_link_gas" value="{{$tariffElectricity->link}}"><a href="{{$tariffElectricity->link}}" target="_blank">{{$tariffElectricity->title}}</a></li>
+					    	@endif
+			    		@endforeach
+			    	</ul>
+			    </div>
+			    <div class="modal-footer">
+			        <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
+			        <button type="button" class="btn plan_details_btn emailedPlanDetails">Email Plan Details</button>
+			    </div>
 		    </div>
-		    <div class="modal-body">
-		    	<h5>Electricity</h5>
-		    	<ul>
-		    		<li><input type="radio" name="plan_rate_link" value="https://www.google.co.in"><a href="https://www.google.co.in" target="_blank">Single rate tariff (EA010)</a></li>
-		    		<li><input type="radio" name="plan_rate_link" value="https://www.google.co.in"><a href="https://www.google.co.in" target="_blank">Single Rate With Controlled Load 2 Tariff (EA010|EA040)</a></li>
-		    		<li><input type="radio" name="plan_rate_link" value="https://www.google.co.in"><a href="https://www.google.co.in" target="_blank">Time Of Use Tariff (EA025)</a></li>
-		    		<li><input type="radio" name="plan_rate_link" value="https://www.google.co.in"><a href="https://www.google.co.in" target="_blank">Time Of Use With Controlled Load 2 Tariff (EA025|EA040)</a></li>
-		    		<li><input type="radio" name="plan_rate_link" value="https://www.google.co.in"><a href="https://www.google.co.in" target="_blank">Demand Two Rate Tariff (EA115)</a></li>
-		    		<li><input type="radio" name="plan_rate_link" value="https://www.google.co.in"><a href="https://www.google.co.in" target="_blank">Demand Two Rate With Controlled Load 2 Tariff (EA115|EA040)</a></li>
-		    		<li><input type="radio" name="plan_rate_link" value="https://www.google.co.in"><a href="https://www.google.co.in" target="_blank">Demand Single Rate Intro Tariff (EA111)</a></li>
-		    		<li><input type="radio" name="plan_rate_link" value="https://www.google.co.in"><a href="https://www.google.co.in" target="_blank">Demand Single Rate Tariff (EA116)</a></li>
-		    		<li><input type="radio" name="plan_rate_link" value="https://www.google.co.in"><a href="https://www.google.co.in" target="_blank">Single Rate With Controlled Load 1 Tariff (EA010|EA030)</a></li>
-		    		<li><input type="radio" name="plan_rate_link" value="https://www.google.co.in"><a href="https://www.google.co.in" target="_blank"> Demand Single Rate Intro With Controlled Load 1 Tariff (EA111|EA030)</a></li>
-		    	</ul>
-		    	<hr>
-		    	<h5>Gas</h5>
-		    	<ul>
-		    		<li><input type="radio" name="plan_rate_link_gas" value="https://www.energymadeeasy.gov.au/plan?id=ALI13114MRG&utm_source=Alinta%20Energy&utm_campaign=bpi-retailer&utm_medium=retailer"><a href="https://www.energymadeeasy.gov.au/plan?id=ALI13114MRG&utm_source=Alinta%20Energy&utm_campaign=bpi-retailer&utm_medium=retailer" target="_blank">gas peak offpeak</a></li>
-		    	</ul>
-		    </div>
-		    <div class="modal-footer">
-		        <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
-		        <button type="button" class="btn plan_details_btn emailedPlanDetails">Email Plan Details</button>
-		    </div>
-	    </div>
+		</div>
 	</div>
-</div>
+@endif
 
 @section('script')
     <script type="text/javascript">
@@ -359,7 +359,6 @@
     	$(document).on('click','.emailedPlanDetails',function(){
     		var thisBtn = $(this);
     		var plan_rate_link = $("input[name='plan_rate_link']:checked").val(),plan_rate_link_gas = $("input[name='plan_rate_link_gas']:checked").val();
-    		// alert(plan_rate_link+'=>'+plan_rate_link_gas);
     		$('.loading-data').show();thisBtn.attr('disabled',true);
 			$.ajax({
 				url : '{{route('rfq.email.plan.details')}}',

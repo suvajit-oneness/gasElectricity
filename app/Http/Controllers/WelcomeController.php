@@ -7,8 +7,8 @@ use App\Model\Testimonials,App\Model\BlogCategory;
 use App\Model\Faq,App\Model\Blog,Auth,App\User;
 use App\Model\ContactUs,App\Model\Membership;
 use App\Model\UserMembership,App\Model\Setting;
-use App\Model\Product,App\Model\State,DB;
-use App\Model\SupplierPincode,App\Model\Rfq;
+use App\Model\Product,App\Model\State,DB,App\Model\TariffType;
+use App\Model\SupplierPincode,App\Model\Rfq,App\Model\Notification;
 use App\Model\UserFilledSupplierFormDetails,App\Model\Company;
 use App\Model\SupplierForm,App\Model\UserFilledSupplierForm;
 
@@ -88,7 +88,6 @@ class WelcomeController extends Controller
         $req->validate($rules);
         // the Provided Form is Successfully validated
         DB::beginTransaction();
-        // UserFilledSupplierForm::truncate();UserFilledSupplierFormDetails::truncate();
         try{
             $userFormData = $req->except(['_token','companyId','supplierId','approve','termsandconsition','eneryType','stateId']);
             $rfq = Rfq::where('id',$req->rfqId)->first();
@@ -111,9 +110,9 @@ class WelcomeController extends Controller
             if(!empty($req->stateId)){
                 $url = '&stateId='.base64_encode($req->stateId);
             }
-            return redirect('/');
-            // dd('Form Saved',$url);
-            return redirect(route('product.listing').'?eneryType='.$req->eneryType.''.$url);
+            // addNotification($rfq->userId,'Application saved Success, our representive will catch you shortly.');
+            return redirect('/')->with('Success','Application saved Success, our representive will catch you shortly.');
+            // return redirect(route('product.listing').'?eneryType='.$req->eneryType.''.$url);
         }catch(Exception $e){
             DB::rollback();
             $error['submit'] = 'Something went wrong please try after some time';
@@ -367,6 +366,7 @@ class WelcomeController extends Controller
         $productData = Product::findOrFail($planId);
         $data = (object)[];
         $data->faq = Faq::get();
+        $data->tariff_type = TariffType::where('companyId',$productData->company_id)->get();
         return view('frontend.listing.product_details', compact('productData','data','req'));
     }
 
@@ -375,6 +375,8 @@ class WelcomeController extends Controller
         $rules = [
             'rfqId' => 'required|min:1|numeric',
             'productId' => 'required|min:1|numeric',
+            'plan_rate_link' => 'nullable|string',
+            'plan_rate_link_gas' => 'nullable|string',
         ];
         $validate = validator()->make($req->all(),$rules);
         if(!$validate->fails()){
@@ -392,6 +394,8 @@ class WelcomeController extends Controller
                         'gas_plan_name' => $product->name,
                         'gas_plan_tariff_details' => 'Available On Request',
                         'providers_terms_and_conditon' => $product->terms_condition,
+                        'plan_rate_link' => emptyCheck($req->plan_rate_link),
+                        'plan_rate_link_gas' => emptyCheck($req->plan_rate_link_gas),
                     ];
                     sendMail($data,'emails/emailPlanDetails',$rfq->user->email,'Your Requested Plan Details');
                     // $data['name'] => $rfq->user->name.' has requested to email plan details',
