@@ -25,6 +25,7 @@
                                     <th>Entertainment Service</th>
                                     <th>Gas Connection</th>
                                     <th>Electricity Usage</th>
+                                    <th>Emailed this Request</th>
                                     <th>Contacted By</th>
                                     <th>Remark</th>
                                 </tr>
@@ -47,6 +48,7 @@
                                         <td>{{strtoupper($rfq->entertainment_service)}}</td>
                                         <td>{{strtoupper($rfq->gas_connection)}}</td>
                                         <td>{{strtoupper($rfq->electricity_usage)}}</td>
+                                        <td>@if($rfq->email_request == 1){{('Yes')}}@else{{('NO')}}@endif</td>
                                         <td>
                                             @if($resolvedBy)
                                                 <a href="javascript:void(0)" class="seeDetails" data-id="{{$resolvedBy->id}}" data-name="{{$resolvedBy->name}}" data-email="{{$resolvedBy->email}}" data-mobile="{{$resolvedBy->mobile}}">{{$resolvedBy->name}}</a>

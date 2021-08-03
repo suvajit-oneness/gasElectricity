@@ -19,6 +19,7 @@
                                     <th>For Company</th>
                                     <th>For Product</th>
                                     <th>RFQ Data</th>
+                                    <th>Rfq Emailed</th>
                                     <th>Info Data</th>
                                     <th>Date / Time</th>
                                 </tr>
@@ -108,6 +109,7 @@
                                                 <!-- Modal View End -->
                                             @endif
                                         </td>
+                                        <td>@if($rfq->email_request == 1){{('Yes')}}@else{{('NO')}}@endif</td>
                                         <td>
                                             <a href="javascript:void(0)" onclick="getDetailsofFormInfo('{{$inf->id}}')">view</a>
                                             <!-- Modal View Start -->

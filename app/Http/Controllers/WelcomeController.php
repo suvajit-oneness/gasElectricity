@@ -11,6 +11,7 @@ use App\Model\Product,App\Model\State,DB,App\Model\TariffType;
 use App\Model\SupplierPincode,App\Model\Rfq,App\Model\Notification;
 use App\Model\UserFilledSupplierFormDetails,App\Model\Company;
 use App\Model\SupplierForm,App\Model\UserFilledSupplierForm;
+use App\Model\EmailRequest;
 
 class WelcomeController extends Controller
 {
@@ -384,6 +385,8 @@ class WelcomeController extends Controller
             if($rfq){
                 $product = Product::where('id',$req->productId)->first();
                 if($product){
+                    $rfq->email_request = 1;
+                    $rfq->save();
                     $data = [
                         'name' => $rfq->user->name,
                         'content1' => 'Thanks for choosing us to help you find an Electricity & Gas plan that suits you.',
