@@ -7224,4 +7224,13 @@ Media Query
     border-top: 1px solid #ccc;
     padding: 12px 12px 0px 12px;
 }
+
+.SumoSelect{
+    width:100% !important;
+}
+.SumoSelect>.CaptionCont{
+        border: 1px solid #ced4da !important;
+            border-radius: 2px !important;
+}
+
 /***************** Sweet Alert Design END **********************/

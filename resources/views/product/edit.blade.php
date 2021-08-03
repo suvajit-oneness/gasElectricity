@@ -32,8 +32,8 @@
 
                             <div class="form-group col-md-6">
                                 @php $productFor = explode(',',$product->product_for); @endphp
-                                <label for="product_for" class="col-form-label">Product For</label>
-                                <select name="product_for[]" class="form-control multipleSelect" id="product_for" multiple>
+                                <label for="product_for" class="col-form-label w-100">Product For</label>
+                                <select name="product_for[]" class="w-100 form-control multipleSelect" id="product_for" multiple>
                                     <option value="home" @if(in_array('home',$productFor)){{('selected')}}@endif>Home</option>
                                     <option value="business" @if(in_array('business',$productFor)){{('selected')}}@endif>Business</option>
                                 </select>

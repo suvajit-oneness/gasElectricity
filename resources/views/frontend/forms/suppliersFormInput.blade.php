@@ -2,11 +2,11 @@
 @section('title','Electricity Form')
 @section('content')
 
-<div class="container-fluid  dashboard-content">
-    <div class="row">
-        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-            <div class="card">
-                <div class="card-header">
+<div class="container dashboard-content">
+    <div class="row justify-content-center align-content-center m-0">
+        <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8 col-12 mt-5 mb-5">
+            <div class="card border-0 shadow-0">
+                <div class="card-header bg-transparent border-0 pl-0">
                     <h5 class="mb-0">Form</h5>
                 </div>
                 @if ($errors->any())
@@ -14,7 +14,7 @@
                          <div>{{$error}}</div>
                      @endforeach
                  @endif
-                <div class="card-body">
+                <div class="card-body pl-0">
                     <form method="post" action="{{route('company.supplier.form.save')}}" enctype="multipart/form-data">
                         @csrf
                         @error('success')
@@ -38,7 +38,7 @@
                         @enderror
                         @foreach($data->supplierForm as $key => $form)
 	                        @php $formInput = $form->input_type; @endphp
-	                        <div class="form-group col-md-12">
+	                        <div class="form-group col-md-12 pl-0 radio_btn">
 	                            <label for="{{$form->key}}" class="col-form-label">{{$form->label}}:</label>
 		                        @if($formInput->input_type == 'text' || $formInput->input_type == 'email' || $formInput->input_type == 'url')
 	                                <input type="{{$formInput->input_type}}" class="form-control @error($form->key) is-invalid @enderror" id="{{$form->key}}" name="{{$form->key}}" placeholder="{{$form->placeholder}}" value="{{old($form->key)}}" @if($form->is_required){{'required'}}@endif maxlength="200">

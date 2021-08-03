@@ -32,7 +32,7 @@
                             </div>
                             @php $productFor = (old('product_for')) ? old('product_for') : []; @endphp
                             <div class="form-group col-md-6">
-                                <label for="product_for" class="col-form-label">Product For</label>
+                                <label for="product_for" class="w-100 col-form-label">Product For</label>
                                 <select name="product_for[]" class="form-control multipleSelect" id="product_for" multiple>
                                     <option value="home" @if(in_array('home',$productFor)){{('selected')}}@endif>Home</option>
                                     <option value="business" @if(in_array('business',$productFor)){{('selected')}}@endif>Business</option>
