@@ -20,7 +20,7 @@
                                         @csrf
                                         <div class="form_group">
                                             <img src="{{asset('forntEnd/images/envelop-3.png')}}">
-                                            <input type="email" name="email" class="custom_input @error('email'){{'is-invalid'}}@enderror" placeholder="EMAIL ADDRESS" value="{{old('email')}}">
+                                            <input type="email" name="email" class="custom_input @error('email'){{'is-invalid'}}@enderror" placeholder="EMAIL ADDRESS" value="{{(old('email') ? old('email') : $email)}}">
                                             @error('email')
                                                 <span class="invalid-feedback" role="alert">{{ $message }}</span>
                                             @enderror

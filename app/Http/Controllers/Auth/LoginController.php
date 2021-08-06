@@ -43,7 +43,24 @@ class LoginController extends Controller
 
     public function showLoginForm()
     {
-        return view('auth.login');
+        $email = '';
+        $intendURL = session()->get('url.intended');
+        if($intendURL != ''){
+            $explode = explode('&',explode('?',$intendURL)[1]);
+            if(count($explode) > 0){
+                foreach ($explode as $key => $value) {
+                    $getdata = explode('=',$value);
+                    if($getdata[0] == 'rfqId'){
+                        $rfq = \App\Model\Rfq::where('id',$getdata[1])->first();
+                        if($rfq){
+                            $email = $rfq->user->email;
+                        }
+                        break;
+                    }
+                }
+            }   
+        }
+        return view('auth.login',compact('email'));
     }
 
     public function login(Request $req)
