@@ -240,7 +240,7 @@
 </section>
 
 <div class="modal" tabindex="-1" role="dialog" id="loginToContinue">
-	<div class="modal-dialog" role="document">
+	<div class="modal-dialog modal-dialog-centered please_log_modal" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
 				<h5 class="modal-title">Please do login</h5>
@@ -250,10 +250,11 @@
 			</div>
 			<div class="modal-body">
 				<p>Click login to continue</p>
+				<div class="col-12 p-0 text-right">
+				    <button type="button" class="btn btn-primary loginToContinue">Login</button>
+				</div>
 			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-primary loginToContinue">Login</button>
-			</div>
+				
 		</div>
 	</div>
 </div>

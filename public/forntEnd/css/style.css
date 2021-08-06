@@ -5391,6 +5391,32 @@ footer {
 .disable-click{
     pointer-events:none;
 }
+
+.iputIcon img{
+    position: absolute;
+    top: 50%;
+    left: 6%;
+    width: 24px;
+    height: auto;
+    transform: translate(50%, -50%);
+}
+.please_log_modal{
+    max-width: 330px !important;
+    margin: 1.75rem auto;
+}
+.loginToContinue{
+    border-radius: 20px;
+    padding: 5px 20px;
+    font-size: 14px;
+    background: #05396b;
+    border:0;
+}
+.loginToContinue .modal-header{
+    padding: 0.75rem 1rem !important;
+}
+.loginToContinue .modal-title{
+    font-size:16px !important;
+}
 /*.blurcontent{
     position: fixed;
     background: rgba(0, 0, 0, 0.65);
