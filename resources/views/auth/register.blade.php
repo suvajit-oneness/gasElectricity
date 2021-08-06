@@ -65,7 +65,9 @@
                                 <label for="referral_code" class="col-md-4 col-form-label text-md-right">{{ __('Referal Code') }}</label>
 
                                 <div class="col-md-6">
-                                    <input id="referral_code" type="text" class="form-control @error('referral') is-invalid @enderror" name="referral" value="{{old('referral')}}" placeholder="Referal Code (optional)">
+                                    <input id="referral_code" type="text" class="form-control @error('referral') is-invalid @enderror" name="referral" value="{{($req->referral_code ? $req->referral_code : (old('referral') ? old('referral') : ''))}}" placeholder="Referal Code (optional)">
+
+                                    <!-- {{(old('referral') ? old('referral') : ($req->referral_code) ? $req->referral_code : '')}} -->
                                     @error('referral')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>

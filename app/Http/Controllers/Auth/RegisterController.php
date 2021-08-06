@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\User;
+use Illuminate\Http\Request;use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
-// use DB;use App\Model\Referral;
 
 class RegisterController extends Controller
 {
@@ -21,6 +20,11 @@ class RegisterController extends Controller
     | provide this functionality without requiring any additional code.
     |
     */
+
+    public function showRegistrationForm(Request $req)
+    {
+        return view('auth.register',compact('req'));
+    }
 
     use RegistersUsers;
 

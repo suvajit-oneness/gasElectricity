@@ -40,6 +40,7 @@
 @section('content')
 
 <section class="plan_listing_wraper">
+	<!-- <div class="blurcontent"><div class="toasterClass"></div></div> -->
 	<div class="container">
 		<div class="row align-items-center">
 			<div class="col-12">
@@ -189,7 +190,7 @@
 													<h2>{{$gasData->title}}</h2>
 												</div>
 												<div class="price_amount">
-													<h2>$ {{moneyFormat($gasData->price)}}</h2> -->
+													<h2>$ {{moneyFormat($gasData->price)}}</h2>
 												</div>
 											</div>
 										@endif
@@ -238,7 +239,37 @@
 	</div>
 </section>
 
+<div class="modal" tabindex="-1" role="dialog" id="loginToContinue">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Please do login</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>Click login to continue</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary loginToContinue">Login</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 @section('script')
-    <script type="text/javascript"></script>
+    <script type="text/javascript">
+    	@guest	 
+	    	$('.plan_listing_wraper').css({'filter': 'blur(5px)'});
+			$('.plan_listing_wraper a').addClass("disable-click").removeAttr('href');
+			$('.plan_listing_wraper button').attr('disabled',true);
+			$('#loginToContinue').modal('show');
+			$(document).on('click','.loginToContinue',function(){
+				<?php Session::put('url.intended', URL::full()); ?>
+				window.location.href = '{{route('login')}}';
+			});
+    	@endguest
+    </script>
 @stop
 @endsection

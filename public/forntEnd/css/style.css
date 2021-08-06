@@ -5388,3 +5388,19 @@ footer {
 .radio_btn input[type=radio], input[type=checkbox]{
     margin:0 6px;
 }
+.disable-click{
+    pointer-events:none;
+}
+/*.blurcontent{
+    position: fixed;
+    background: rgba(0, 0, 0, 0.65);
+    backdrop-filter: blur(5px);
+    top: 27%;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 22;
+}
+.toasterClass{
+    background: #fff;
+}*/

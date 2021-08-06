@@ -12,7 +12,19 @@
                 <div class="card-body">
                     <form method="post" action="{{route('user.profile.save')}}" enctype="multipart/form-data">
                         @csrf
-                        <img src="{{$user->image}}" height="200" width="200">
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <img src="{{$user->image}}" height="200" width="200">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <!-- Toaster Alert -->
+                                <div aria-live="polite" aria-atomic="true" style="position: relative; min-height: 200px;">
+                                    <div class="toast" style="position: absolute; top: 0; right: 0;">
+                                        <div class="toast-body">Link Copied Successfull</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                         <div class="row">
                             <div class="form-group col-md-6">
                                 <label for="image" class="col-form-label">Image:</label>
@@ -41,7 +53,9 @@
 
                         <div class="row">
                             <div class="form-group col-md-6">
-                                <label for="referral" class="col-form-label">Referral Code:</label>
+                                <label for="referral" class="col-form-label">Referral Code: 
+                                    <a href="javascript:void(0)" id="copyToClipboard">Copy the Link to share</a><input id="linkToCopy" value="{{route('register')}}?referral_code={{$user->referral_code}}" readonly="" style="position: absolute; z-index: -999; opacity: 0;">
+                                </label>
                                 <input type="text" name="referral" class="form-control @error('referral') is-invalid @enderror" value="{{$user->referral_code}}" readonly disabled>
                                 @error('referral')<span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>@enderror
                             </div>
@@ -60,7 +74,7 @@
                         <div class="row">
                             <div class="form-group col-md-6">
                                 <label for="dob" class="col-form-label">Date of Birth:</label>
-                                <input type="date" name="dob" class="form-control @error('dob') is-invalid @enderror" value="{{(old('dob') ? old('dob') : $user->dob)}}">
+                                <input type="date" name="dob" class="form-control @error('dob') is-invalid @enderror" @if($user->dob != '0000-00-00' || old('dob'))value="{{(old('dob') ? old('dob') : $user->dob)}}"@endif>
                                 @error('dob')<span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>@enderror
                             </div>
                             <div class="form-group col-md-6">
@@ -78,7 +92,7 @@
                         <div class="row">
                             <div class="form-group col-md-6">
                                 <label for="aniversary" class="col-form-label">Anniversary:</label>
-                                <input type="date" name="aniversary" class="form-control @error('aniversary') is-invalid @enderror" value="{{(old('aniversary') ? old('aniversary') : $user->aniversary)}}">
+                                <input type="date" name="aniversary" class="form-control @error('aniversary') is-invalid @enderror" @if($user->aniversary != '0000-00-00' || old('dob'))value="{{(old('aniversary') ? old('aniversary') : $user->aniversary)}}"@endif>
                                 @error('aniversary')<span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>@enderror
                             </div>
                         </div>
@@ -127,4 +141,15 @@
         </div>
     </div>
 </div>
+@section('script')
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $(document).on('click','a#copyToClipboard',function(){
+                $(this).siblings('input#linkToCopy').select();
+                document.execCommand("copy");
+                $(".toast").toast('show');
+            });
+        });
+    </script>
+@stop
 @endsection
