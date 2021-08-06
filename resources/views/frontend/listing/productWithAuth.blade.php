@@ -262,12 +262,12 @@
 @section('script')
     <script type="text/javascript">
     	@guest
+	    	<?php Session::put('url.intended', URL::full()); ?>
 	    	$('.addBlur').css({'filter': 'blur(5px)'});
 			$('.plan_listing_wraper a').addClass("disable-click").removeAttr('href');
 			$('.plan_listing_wraper button').attr('disabled',true);
 			$('#loginToContinue').modal('show');
 			$(document).on('click','.loginToContinue',function(){
-				<?php Session::put('url.intended', URL::full()); ?>
 				window.location.href = '{{route('login')}}';
 			});
     	@endguest
