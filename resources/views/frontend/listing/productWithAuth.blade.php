@@ -161,13 +161,13 @@
 							@if($gasData || $electricityData)
 								@php $companyData = $product->company; @endphp
 								<div class="plane_list_wrapper">
-									<div class="res-planheading"><h5>Plan <span>and highlights</span></h5></div>
-									<div class="plan_icon_wrap">
+									<div class="res-planheading addBlur"><h5>Plan <span>and highlights</span></h5></div>
+									<div class="plan_icon_wrap addBlur">
 										<img src="{{asset($companyData->logo)}}">
 										<h6>{{$companyData->name}}</h6>
 										<a href="{{route('product.details',$product->id)}}{{$url}}" class="company-details-anchor">Details</a>
 									</div>
-									<div class="list_container_first ">
+									<div class="list_container_first addBlur">
 										<h4>{{$product->name}} <!-- <a href="javascript:void(0)"><i class="fas fa-share"></i></a> --></h4>
 										<ul class="reward_facilities">
 											@forelse ($companyData->feature as $featureData)
@@ -177,11 +177,11 @@
 											@endforelse
 										</ul>
 									</div>
-									<div class="plan_value">
+									<div class="plan_value addBlur">
 										<h4>Rating <span>({{findAVG($product->product_rating)}} out of 5)</span></h4>
 										<!-- <img src="{{asset('forntEnd/images/rating.png')}}"> -->
 									</div>
-									<div class="res-planheading"><h5>Price/year <span>(estimated^)</span></h5></div>
+									<div class="res-planheading addBlur"><h5>Price/year <span>(estimated^)</span></h5></div>
 									<div class="list_amount">
 										@if($gasData)
 											<div class="list_amount_inner">
@@ -260,8 +260,8 @@
 
 @section('script')
     <script type="text/javascript">
-    	@guest	 
-	    	$('.plan_listing_wraper').css({'filter': 'blur(5px)'});
+    	@guest
+	    	$('.addBlur').css({'filter': 'blur(5px)'});
 			$('.plan_listing_wraper a').addClass("disable-click").removeAttr('href');
 			$('.plan_listing_wraper button').attr('disabled',true);
 			$('#loginToContinue').modal('show');
