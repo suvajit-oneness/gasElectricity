@@ -240,22 +240,22 @@
 </section>
 
 <div class="modal" tabindex="-1" role="dialog" id="loginToContinue">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title">Please do login</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <p>Click login to continue</p>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary loginToContinue">Login</button>
-      </div>
-    </div>
-  </div>
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title">Please do login</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<p>Click login to continue</p>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary loginToContinue">Login</button>
+			</div>
+		</div>
+	</div>
 </div>
 
 @section('script')
