@@ -7,7 +7,7 @@
         <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8 col-12 mt-5 mb-5">
             <div class="card border-0 shadow-0">
                 <div class="card-header bg-transparent border-0 pl-0">
-                    <h5 class="mb-0">Please fill up this form</h5>
+                    <h5 class="mb-0">Please share the following details</h5>
                 </div>
                 @if ($errors->any())
                      @foreach ($errors->all() as $error)
