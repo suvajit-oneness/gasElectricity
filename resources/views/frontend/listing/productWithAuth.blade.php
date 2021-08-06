@@ -262,12 +262,6 @@
 @section('script')
     <script type="text/javascript">
     	@guest
-	    	// @php 
-		    // 	$url = '';
-		    // 	if(!empty($request) && !empty($request['rfqId'])){
-		    // 		$url = '&rfqId='.$request['rfqId'];
-		    // 	}
-		    // @endphp
 	    	$('.addBlur').css({'filter': 'blur(5px)'});
 			$('.plan_listing_wraper a').addClass("disable-click").removeAttr('href');
 			$('.plan_listing_wraper button').attr('disabled',true);
