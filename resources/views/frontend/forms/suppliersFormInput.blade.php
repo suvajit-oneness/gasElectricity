@@ -5,7 +5,7 @@
 <div class="container dashboard-content">
     <div class="row justify-content-center align-content-center m-0">
         <div class="col-xl-8 col-lg-8 col-md-8 col-sm-8 col-12 mt-5 mb-5">
-            <div class="card border-0 shadow-0">
+            <div class="card border-0 shadow-sm bg-light pl-3 pt-2">
                 <div class="card-header bg-transparent border-0 pl-0">
                     <h5 class="mb-0">Please share the following details</h5>
                 </div>
@@ -14,7 +14,7 @@
                          <div>{{$error}}</div>
                      @endforeach
                  @endif
-                <div class="card-body pl-0">
+                <div class="card-body pl-0 suplier_form">
                     <form method="post" action="{{route('company.supplier.form.save')}}" enctype="multipart/form-data">
                         @csrf
                         @error('success')

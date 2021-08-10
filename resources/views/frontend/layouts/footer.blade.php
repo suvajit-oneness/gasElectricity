@@ -3,8 +3,8 @@
 		<div class="row">
 			<div class="col-xl-4 col-lg-5 col-md-6 col-sm-12 col-12">
 				<div class="foot_info">
-					<a href="#" class="foot_logo">
-						<img src="{{asset('forntEnd/images/switchr_logo_footer.png')}}">
+					<a href="{{url('/')}}">
+						<img src="{{asset('forntEnd/images/logo.png')}}" width="140px">
 					</a>
 					<p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin</p>
 				</div>

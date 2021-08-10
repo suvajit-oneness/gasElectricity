@@ -20,9 +20,10 @@
 				@if(Auth::user())
 					<a href="{{url('login')}}" class="login-btm" id="navbarDropdownMenuLink2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="{{Auth::user()->image}}" height="30" width="30"></a>
                     <div class="dropdown-menu dropdown-menu-right nav-user-dropdown" aria-labelledby="navbarDropdownMenuLink2">
-                        <div class="nav-user-info">
-                            <h5 class="mb-0 text-white nav-user-name">{{Auth::user()->name}} </h5>
-                        </div>
+                        <!--<div class="nav-user-info">
+                            <h5 class="mb-0 nav-user-name">{{Auth::user()->name}} </h5>
+                        </div>-->
+                        <a class="dropdown-item mb-2 pb-2" style="border-bottom: 1px solid #bbbbbb;">{{Auth::user()->name}} </a>
                         <a class="dropdown-item" href="{{route('home')}}"><i class="fas fa-user mr-2"></i>Dashboard</a>
                         <a class="dropdown-item" href="{{route('home')}}"><i class="fas fa-cog mr-2"></i>Setting</a>
                         <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"><i class="fas fa-power-off mr-2"></i>{{ __('Logout') }}</a>
@@ -31,7 +32,7 @@
                         </form>
                     </div>
 				@else
-					<a href="{{url('login')}}" class="login-btm">Login <span><i class="fas fa-user-circle"></i></span></a>
+					<a href="{{url('login')}}" class="login-btm"><small>Login </small><span><i class="fas fa-user-circle"></i></span></a>
 				@endif
 			</div>
 		</div>
