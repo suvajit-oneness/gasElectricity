@@ -44,7 +44,7 @@
                                             @endphp
                                             {{$userType}}
                                         </td>
-                                        <td style="height: 100px; width: 100px"><img height="100px" width="100px" src="{{$user->image}}"></td>
+                                        <td style="height: 100px; width: 100px"><img height="100px" width="100px" src="{{asset($user->image)}}"></td>
                                         <td>{{$user->name}}</td>
                                         <td>{{$user->email}}</td>
                                         <td>{{$user->mobile}}</td>
