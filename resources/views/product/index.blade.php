@@ -92,11 +92,17 @@
                                         <td><a href="{{route('product.details',$product->id)}}" target="_blank">View</a></td>
                                         @if(urlprefix() == 'admin')
                                             <?php $author = $product->author;?>
-                                            <td><ul>
-                                                <li>UID : {{$author->id}}</li>
-                                                <li>Name : {{$author->name}}</li>
-                                                <li>Email : {{$author->email}}</li>
-                                            </ul></td>
+                                            <td>
+                                                @if($author)
+                                                    <ul>
+                                                        <li>UID : {{$author->id}}</li>
+                                                        <li>Name : {{$author->name}}</li>
+                                                        <li>Email : {{$author->email}}</li>
+                                                    </ul>
+                                                @else
+                                                    {{('N/A')}}
+                                                @endif
+                                            </td>
                                         @endif
                                         @if(urlprefix() != 'admin')
                                             <td>
