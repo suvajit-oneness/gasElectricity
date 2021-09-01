@@ -90,4 +90,32 @@ class Controller extends BaseController
         sendMail($data,'emails/userPointEmail',$user->email,'Congratulation - Point Added!!!');
         return $newPoint;
     }
+
+    public function defaultFormGenerationForEveryNewVendor($vendorId)
+    {
+        $data = [
+            [
+                'formInputId' => 1,
+                'userId' => $vendorId,
+                'key' => 'name',
+                'label' => 'Full Name',
+                'placeholder' => 'Full Name',
+            ],
+            [
+                'formInputId' => 1,
+                'userId' => $vendorId,
+                'key' => 'mobile',
+                'label' => 'Mobile',
+                'placeholder' => 'Mobile Number',
+            ],
+            [
+                'formInputId' => 7,
+                'userId' => $vendorId,
+                'key' => 'address',
+                'label' => 'Communication Address',
+                'placeholder' => 'Communication Address',
+            ]
+        ];
+        DB::table('supplier_forms')->insert($data);
+    }
 }

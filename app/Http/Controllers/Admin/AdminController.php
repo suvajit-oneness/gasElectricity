@@ -437,14 +437,14 @@ class AdminController extends Controller
 
     public function createUser(Request $req)
     {
-        $userType = UserType::orderBy('id','desc')->get();
+        $userType = UserType::whereIn('id',[2,3])->orderBy('id','desc')->get();
         return view('admin.user.create',compact('userType'));
     }
 
     public function saveUser(Request $req)
     {
         $req->validate([
-            'user_type' => 'required|min:1|numeric',
+            'user_type' => 'required|min:1|numeric|in:2,3',
             'image' => '',
             'name' => 'required|max:255|string',
             'email' => 'required|email|unique:users',
@@ -468,6 +468,10 @@ class AdminController extends Controller
             $user->password = Hash::make($random);
             $user->save();
             $this->setReferralCode($user,$req->referral);
+            if($req->user_type == 2){
+                // vendor Default Form generation
+                $this->defaultFormGenerationForEveryNewVendor($user->id);
+            }
             DB::commit();
             $data = [
                 'name' => $user->name,
