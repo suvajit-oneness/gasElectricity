@@ -69,11 +69,17 @@
                                         </td>
                                         @if(urlprefix() == 'admin')
                                             <?php $author = $company->author;?>
-                                            <td><ul>
-                                                <li>UID : {{$author->id}}</li>
-                                                <li>Name : {{$author->name}}</li>
-                                                <li>Email : {{$author->email}}</li>
-                                            </ul></td>
+                                            <td>
+                                                @if($author)
+                                                    <ul>
+                                                        <li>UID : {{$author->id}}</li>
+                                                        <li>Name : {{$author->name}}</li>
+                                                        <li>Email : {{$author->email}}</li>
+                                                    </ul>
+                                                @else
+                                                    {{('N/A')}}
+                                                @endif
+                                            </td>
                                         @endif
                                         @if(urlprefix() != 'admin')
                                             <td>
