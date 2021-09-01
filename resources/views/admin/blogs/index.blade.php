@@ -30,7 +30,7 @@
                             <tbody>
                                 @foreach($blogs as $blog)
                                     <tr>
-                                        <td style="height: 100px; width: 100px"><img height="100px" width="100px" src="{{$blog->image}}"></td>
+                                        <td style="height: 100px; width: 100px"><img height="100px" width="100px" src="{{asset($blog->image)}}"></td>
                                         <td>@if($blog->category){{$blog->category->name}}@else{{'N/A'}}@endif</td>
                                         <td>{{$blog->title}}</td>
                                         <td>{!! $blog->description !!}</td>
