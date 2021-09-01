@@ -23,7 +23,7 @@
 			</div>
 			<div class="col-12 col-md-5 col-lg-5">
 				<div class="intro_img_wrap">
-					<img src="{{$data->aboutus->image}}">
+					<img src="{{asset($data->aboutus->image)}}">
 				</div>
 			</div>
 		</div>
@@ -39,7 +39,7 @@
 					@foreach($data->whychooseus as $key=> $choose)
 						<li>
 							<div class="why_choose_img_wrap">
-								<img src="{{$choose->image}}">
+								<img src="{{asset($choose->image)}}">
 							</div>
 							<h5>{!! $choose->title !!}</h5>
 							<p>{!! $choose->description !!}</p>
@@ -51,7 +51,7 @@
 	</div>
 </section>
 
-<section class="consumers_update">
+<!-- <section class="consumers_update">
 	<div class="container">
 		<div class="update_content">
 			<h2 class="text-center text-white">We’ve helped consumers to reduce <span class="bold d-block">their bills by up to 32% in their first year!</span></h2>
@@ -71,7 +71,7 @@
 			</ul>
 		</div>
 	</div>
-</section>
+</section> -->
 
 <!-- <section class="energy_savings_plan_wrap">
 	<div class="container">

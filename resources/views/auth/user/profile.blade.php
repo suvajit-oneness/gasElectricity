@@ -14,7 +14,7 @@
                         @csrf
                         <div class="row">
                             <div class="form-group col-md-6">
-                                <img src="{{$user->image}}" height="200" width="200">
+                                <img src="{{asset($user->image)}}" height="200" width="200">
                             </div>
                             <div class="form-group col-md-6">
                                 <!-- Toaster Alert -->

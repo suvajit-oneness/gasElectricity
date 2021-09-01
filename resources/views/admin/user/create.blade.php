@@ -27,7 +27,7 @@
 
                         <div class="form-group">
                             <label for="image" class="col-form-label">Image:</label>
-                            <input type="file" class="form-control" id="image" name="image" value="{{old('image')}}">
+                            <input type="file" class="form-control" id="image" name="image">
                         </div>
 
                         <div class="form-group">

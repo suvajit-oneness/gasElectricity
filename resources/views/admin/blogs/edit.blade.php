@@ -15,7 +15,7 @@
                     <form method="post" action="{{route('admin.blogs.update')}}" enctype="multipart/form-data">
                         @csrf
                         <input type="hidden" name="blogId" value="{{$blog->id}}">
-                        <img src="{{$blog->image}}" height="200px" width="300px">
+                        <img src="{{asset($blog->image)}}" height="200px" width="300px">
                         <div class="form-group">
                             <label for="image" class="col-form-label">Image:</label>
                             <input type="file" class="form-control" id="image" name="image">

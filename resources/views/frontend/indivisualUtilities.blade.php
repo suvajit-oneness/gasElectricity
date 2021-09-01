@@ -58,7 +58,7 @@
 					@foreach($data->whychooseus as $key=>$choose)
 						<li>
 							<div class="why_choose_img_wrap">
-								<img src="{{$choose->image}}">
+								<img src="{{asset($choose->image)}}">
 							</div>
 							<h5>{!! $choose->title !!}</h5>
 							<p>{!! $choose->description !!}</p>
