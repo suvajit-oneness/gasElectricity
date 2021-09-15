@@ -230,10 +230,10 @@ class WelcomeController extends Controller
     public function rfqBeforeProductListing(Request $req)
     {
         $suppliers = $this->getSuppliersBySearch($req);$error = [];
-        if(!empty($request->stateId)){
+        if(!empty($req->stateId)){
             $error['state'] = 'We donot provide the service at selected State';
         }
-        if(!empty($request->search)){
+        if(!empty($req->search)){
             $error['search'] = 'We donot provide the service at given pincode';
         }
         if(count($suppliers) > 0){
