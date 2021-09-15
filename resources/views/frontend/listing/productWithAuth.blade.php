@@ -262,6 +262,12 @@
 @section('script')
     <script type="text/javascript">
     	@guest
+    	    // cut Copy paste Disbale for this case
+	    	$('body').bind('cut copy paste', function(event) {
+				event.preventDefault();
+			});
+			document.oncontextmenu = new Function("return false");
+
 	    	<?php Session::put('url.intended', URL::full()); ?>
 	    	$('.addBlur').css({'filter': 'blur(5px)'});
 			$('.plan_listing_wraper a').addClass("disable-click").removeAttr('href');
