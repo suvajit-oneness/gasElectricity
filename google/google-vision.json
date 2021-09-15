@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "oneness-tech-solution",
+  "private_key_id": "11d9e510ed002b1fd3f97d6816171d741c1f5b85",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQCa69mSDFDnHRnK\n5NNvZMrB/0S6dltICPoZAYcfXoSDS7HfGSnA56qz0axl/s23HaA4n4pvSSig0QAn\n+2NV/kxB/Au9d5UehOhVgv2KHq+ihm9F5TyQCPwgsaVNTFVeKWSF7mypvDSsddxD\ny55eH8Kld9GqgLA5ZS5xBwEc6B86HK/0aeQwzyQ1c//I1pj6uPeeD351PFjVLbrO\n0LTEGsqn4Z/UkNJ6zSxHHB01qIa0c3jU8ttOicmWrdxNZzHtQe6g+lngi1MBQRCr\ni1JigTh8bQfBxNOTRX5ei6GPYMsTw9WLVXuA01otKJL2NYSQpH0HYjPMF/jtH0x7\nsKtWctuXAgMBAAECggEAFfguqqv4HcuTg0wvrG3eOmRRYkyeMEPO978u4s9xZPnV\n4nNRPQEoGjJjS4mMBxT6n4exxuCt6XRfccwQGmX4JCldSYP3pSl9ldbVeVdVr+t2\n7zINhHLfEmHZinHcmgBZDYyHY2CvFZVB5GlamYgmfyGpSDp8rdRVTC5imtn+HQGI\n8ltjd9qGBtORcLrhCXVynSZTZDC9QqvyfVOjRpYXIGD7a9jHd7ngUTjxGQPo0VX8\nZq/W7YdkH7aSXUTHgBDOIvc7swKikps+CNKZedp+xX/yj7R5vjsjmXlMBKXiDmcZ\ndN2mlI5AWCtKjqle3hJ/T8G0xq5eB9+vQ7q2Cv4+/QKBgQDNsm2SoPNEK9jyU8An\nftkQ4VOV4X591RlEYrITvegI2q0P0hso6OgSW2cXRbbLraFyMCALLqwjAQUd+Tn2\nH++EaL5i98YTahV+OMHjABjbfky0BxCM0yGlSUSxu6e0dEHvt9XQdhJzA5t9N1F9\nfAfZOSHZd63/Z+cpCIIK7DeBIwKBgQDAzqGOvNXznyVKKvf5wRKyeORZJisDfn9L\n7SkaPoXJOKRlkTdLzS5ULjsO6LRLtJJI2AX2DsnJVaOLY3JPNjzRjD3IUt6qau7m\nZkz1pAe6EoywIBQZInq9PbUAu2rJIXYMTGs/3gni9+y/Yj1ylOSyUvtVPwVt12v+\nNOhm5lCU/QKBgQCyld4h9tEd97+kLGhhIfVNfYP3Vc5fa1tDjziygSdqQIkOekkQ\nTJ3oCilIAEPDNB0+KWA4tS3IOkN6EX5sHK/z0oixHhN/mZPNgXN8JQJv1oi7qIKK\n8Wd9vE4CzTy+JE121bGyCkDcUF536UY73yplQwALcafEXi5I5tUYrJtH5wKBgEuO\nLb1Tvrvzd5dy8y4KPRt3SHSvAlgiMBw+2caRDbhm2/V5TKQFycvvOfGDu3OXVWP6\nU4uzC9w8FRTAacEkzfyH6oYgA2Xg9bGQEUSJfQWr0zoJuBaJbnPORKn+x7/9vtbe\n84BZsKIi6cGt68qFEoHXBurHAYejzYwWi6QXSSi5AoGAZAxHIEQsKVYdEt8W7FY5\nZFjbONN/8AbmAwpBfT+ks3H/MA/orKhWhJ5nc/UorR77odJzsPgLglPQmtKZHMG3\nPA/eg6WD2tg4JJ+6TGUtJxgHexDK67m2/FT2E7V2GyZXEcgnt/De5MI3IWMCCflC\n46LnWSxS8ILjJn6xDCUQkvI=\n-----END PRIVATE KEY-----\n",
+  "client_email": "test-235@oneness-tech-solution.iam.gserviceaccount.com",
+  "client_id": "108999643655478607898",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/test-235%40oneness-tech-solution.iam.gserviceaccount.com"
+}
