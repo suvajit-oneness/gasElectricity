@@ -14,7 +14,7 @@
 		<div class="container">
 			<div class="row flex-row-reverse">
 				<div class="col-12 col-lg-3 col-md-12">
-					<form method="post" action="{{route('ocr.uploadfiles')}}" enctype="multipart/form-data">
+					<form method="post" action="{{route('ocr.uploadfiles.post')}}" enctype="multipart/form-data">
 						@csrf
 						<input type="file" name="file" class="form-control">
 						<input type="submit" name="">

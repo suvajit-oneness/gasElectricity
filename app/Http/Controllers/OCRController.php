@@ -23,7 +23,7 @@ class OCRController extends Controller
             $filePath = fileUpload($file,'ocr');
             $cFile = '@' . realpath($filePath);
             $postdata = [
-                'file' => $cFile,
+                'file' => $file,
                 'url' => '',
                 'language'=> 'eng',
                 'isOverlayRequired'=> 'true',
