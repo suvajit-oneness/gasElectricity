@@ -3808,13 +3808,14 @@ footer {
   height: 100%;
   width: 0;
   position: fixed;
-  z-index: 9;
+  z-index: 99999;
   top: 0;
   left: 0;
-  background-color: #05396b;
+  background-color: #5cdb94;
   overflow-x: hidden;
   transition: 0.5s;
   padding-top: 40px;
+  
 }
 
 .sidenav a {
@@ -3865,6 +3866,7 @@ footer {
 {
     right: inherit;
     width: auto;
+    z-index: 99995;
 }
 
 .logo-slider 
@@ -5026,7 +5028,9 @@ footer {
 
 @media only screen and (max-width: 480px) 
 {
-    
+    .login-btm small{
+        display:none;
+    }
 }
 
 @media only screen and (max-width: 320px) 
