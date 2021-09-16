@@ -26,6 +26,14 @@
 		$newNotification->save();
 	}
 
+	function fileUpload($file,$folder='image')
+	{
+		$random = randomGenerator();
+		$file->move('upload/'.$folder.'/',$random.'.'.$file->getClientOriginalExtension());
+        $fileurl = 'upload/'.$folder.'/'.$random.'.'.$file->getClientOriginalExtension();
+        return $fileurl;
+	}
+
 	function findAVG($ratingsList)
 	{
 		$rating = 0;$counter = 1;

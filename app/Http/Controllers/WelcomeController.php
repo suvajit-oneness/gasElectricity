@@ -38,7 +38,6 @@ class WelcomeController extends Controller
                                 $user->formData = UserFilledSupplierFormDetails::select('key','value')->where('userFilledSupplierFormId',$latestSupplierFormForUser->id)->get();
                             }
                             return view('frontend.forms.suppliersFormInput',compact('data','product','rfq','user','req'));
-                            // return view('frontend.forms.electricityForm',compact('data','user','req'));
                         }
                     }
                 }

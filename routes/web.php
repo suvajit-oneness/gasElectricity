@@ -33,18 +33,15 @@ Route::get('indivisual-utility','WelcomeController@indivisualUtilities')->name('
 Route::get('rfq/product/listing','WelcomeController@rfqBeforeProductListing')->name('rfq.product.listing');
 Route::post('electricity_form/rfq/product/listing/save','WelcomeController@rfqSaveBeforeProductListing')->name('elecricity.form.rfq.save');
 
-// Route::get('electricity-form','WelcomeController@electricityForm')->name('electricityform');
 // Route::get('membership','WelcomeController@membership')->name('membership');
 // Route::get('membership/purchase/{membershipId}','WelcomeController@purchaseMembership')->name('user.membership.purchase');
 // Route::get('membership/claimed/success/{membershipId}','WelcomeController@membershipSuccessFullPurchase')->name('membership.claimed.success');
 
-// Route::group(['middleware' => 'rfq_filled'],function(){
-	Route::get('product-listing','WelcomeController@productListing')->name('product.listing');
-	Route::get('product/{productId}/company/details','WelcomeController@productDetails')->name('product.details');
-	Route::post('email/plan_details','WelcomeController@emailPlanDetails')->name('rfq.email.plan.details');
-	Route::get('company/supplier/form','WelcomeController@supplierFormToShowUser')->name('company.supplier.form');
-	Route::post('company/supplier/form_post_save','WelcomeController@supplierFormToShowUserSave')->name('company.supplier.form.save');
-// });
+Route::get('product-listing','WelcomeController@productListing')->name('product.listing');
+Route::get('product/{productId}/company/details','WelcomeController@productDetails')->name('product.details');
+Route::post('email/plan_details','WelcomeController@emailPlanDetails')->name('rfq.email.plan.details');
+Route::get('company/supplier/form','WelcomeController@supplierFormToShowUser')->name('company.supplier.form');
+Route::post('company/supplier/form_post_save','WelcomeController@supplierFormToShowUserSave')->name('company.supplier.form.save');
 
 // Common Auth Routes
 Route::group(['middleware' => 'auth'],function(){
@@ -57,3 +54,13 @@ Route::group(['middleware' => 'auth'],function(){
 // Stripe Payment Route
 Route::post('stripe/payment/form_submit','StripePaymentController@stripePostForm_Submit')->name('stripe.payment.form_submit');
 Route::get('payment/successfull/thankyou/{stripeTransactionId}','StripePaymentController@thankyouStripePayment')->name('payment.successfull.thankyou');
+
+
+
+// Test Routes
+Route::get('ocr','OCRController@uploadFile')->name('ocr.uploadfiles');
+Route::get('ocr/compare','OCRController@compareOCRResult')->name('ocr.uploadfiles.result');
+Route::post('ocr/upload/files/data','OCRController@postOCRFILES')->name('ocr.uploadfiles.post');
+
+
+
