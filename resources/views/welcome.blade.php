@@ -29,7 +29,8 @@
 				 <p>If you’re a savvy bargain hunter like us at Econnex, you’ll love saving on your energy bills. Compare energy plans, sign up, and start saving!</p>
 				</div>
 			<div class="location-search-section">
-				<form action="{{route('rfq.product.listing')}}" autocomplete="off">
+				<form action="{{route('rfq.product.listing')}}" method="post" autocomplete="off" enctype="multipart/form-data">
+					@csrf
 					<div class="search-form">
 						<datalist id="suppliersPincode">
 							@foreach($data->pincode as $key => $pincde)
@@ -40,7 +41,9 @@
 						@error('search')<span class="text-danger">{{$message}}</span>@enderror
 						<label>Where are you located?</label>
 						<!-- <input type="hidden" name="eneryType" value="gas_electricity"> -->
-						<input type="text" class="postCodeSearch" name="search" id="search" placeholder="Enter your postcode or suburb..." required="" value="{{old('search')}}" list="suppliersPincode">
+						<input type="text" class="postCodeSearch" name="search" id="search" placeholder="Enter your postcode or suburb..." value="{{old('search')}}" list="suppliersPincode">
+						<input type="file" name="file" class="form-control">
+						@error('file')<span class="text-danger">{{$message}}</span>@enderror
 						<div class="button">
 							<button type="submit">compare now</button>
 							<i class="fas fa-arrow-circle-right"></i>

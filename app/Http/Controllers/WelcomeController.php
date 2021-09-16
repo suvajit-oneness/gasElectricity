@@ -12,9 +12,12 @@ use App\Model\SupplierPincode,App\Model\Rfq,App\Model\Notification;
 use App\Model\UserFilledSupplierFormDetails,App\Model\Company;
 use App\Model\SupplierForm,App\Model\UserFilledSupplierForm;
 use App\Model\EmailRequest;
+use App\Traits\OCRTraits;
 
 class WelcomeController extends Controller
 {
+    use OCRTraits;
+
     public function supplierFormToShowUser(Request $req)
     {
         $rules = [
@@ -228,16 +231,30 @@ class WelcomeController extends Controller
 
     public function rfqBeforeProductListing(Request $req)
     {
-        $suppliers = $this->getSuppliersBySearch($req);$error = [];
-        if(!empty($req->stateId)){
-            $error['state'] = 'We donot provide the service at selected State';
-        }
-        if(!empty($req->search)){
-            $error['search'] = 'We donot provide the service at given pincode';
-        }
-        if(count($suppliers) > 0){
-            $requestedData = $req->all();
-            return view('frontend.rfqBeforeProductListing',compact('requestedData'));
+        if($req->hasFile('file')){
+            $response = $this->postOCRFILES($req);
+            if($response->error == false){
+                $text = $this->convertToText($response->data);
+                if($text->error == false){
+                    echo "<pre>";print_r($text->data);exit;
+                }else{
+                    $error['file'] = $text->messga;
+                }
+            }else{
+                $error['file'] = $response->message;
+            }
+        }else{
+            $suppliers = $this->getSuppliersBySearch($req);$error = [];
+            if(!empty($req->stateId)){
+                $error['state'] = 'We donot provide the service at selected State';
+            }
+            if(!empty($req->search)){
+                $error['search'] = 'We donot provide the service at given pincode';
+            }
+            if(count($suppliers) > 0){
+                $requestedData = $req->all();
+                return view('frontend.rfqBeforeProductListing',compact('requestedData'));
+            }
         }
         return back()->withErrors($error)->withInput($req->all());
     }

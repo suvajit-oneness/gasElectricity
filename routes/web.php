@@ -30,7 +30,7 @@ Route::get('contact-us','WelcomeController@contactUs')->name('contact-us');
 Route::post('contact-us','WelcomeController@saveContactUs')->name('contactus.save');
 Route::get('indivisual-states','WelcomeController@indivisualStates')->name('indivisual.state');
 Route::get('indivisual-utility','WelcomeController@indivisualUtilities')->name('indivisual.utility');
-Route::get('rfq/product/listing','WelcomeController@rfqBeforeProductListing')->name('rfq.product.listing');
+Route::any('rfq/product/listing','WelcomeController@rfqBeforeProductListing')->name('rfq.product.listing');
 Route::post('electricity_form/rfq/product/listing/save','WelcomeController@rfqSaveBeforeProductListing')->name('elecricity.form.rfq.save');
 
 // Route::get('membership','WelcomeController@membership')->name('membership');
