@@ -57,10 +57,4 @@ Route::get('payment/successfull/thankyou/{stripeTransactionId}','StripePaymentCo
 
 
 
-// Test Routes
-Route::get('ocr','OCRController@uploadFile')->name('ocr.uploadfiles');
-Route::get('ocr/compare','OCRController@compareOCRResult')->name('ocr.uploadfiles.result');
-Route::post('ocr/upload/files/data','OCRController@postOCRFILES')->name('ocr.uploadfiles.post');
-
-
 
