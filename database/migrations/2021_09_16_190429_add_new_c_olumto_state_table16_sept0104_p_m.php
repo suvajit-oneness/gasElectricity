@@ -14,7 +14,7 @@ class AddNewCOlumtoStateTable16Sept0104PM extends Migration
     public function up()
     {
         Schema::table('states', function (Blueprint $table) {
-            $table->string('key')->after('name');
+            $table->string('acronym')->after('name');
         });
     }
 
@@ -26,7 +26,7 @@ class AddNewCOlumtoStateTable16Sept0104PM extends Migration
     public function down()
     {
         Schema::table('states', function (Blueprint $table) {
-            $table->dropColumn('key');
+            $table->dropColumn('acronym');
         });
     }
 }

@@ -19,7 +19,7 @@
                                 <tr>
                                     <th>Country</th>
                                     <th>State</th>
-                                    <th>Key</th>
+                                    <th>Acronym</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -28,8 +28,8 @@
                                     <tr>
                                         <td>{{$st->country->name}}</td>
                                         <td>{{$st->name}}</td>
-                                        <td>{{$st->key}}</td>
-                                        <td><a href="javascript:void(0)" class="text-success editState" data-id="{{$st->id}}" data-name="{{$st->name}}" data-country="{{$st->countryId}}">Edit</a> | <a href="javascript:void(0)" class="text-danger deleteState" data-id="{{$st->id}}">Delete</a></td>
+                                        <td>{{$st->acronym}}</td>
+                                        <td><a href="javascript:void(0)" class="text-success editState" data-id="{{$st->id}}" data-name="{{$st->name}}" data-country="{{$st->countryId}}" data-acronym="{{$st->acronym}}">Edit</a> | <a href="javascript:void(0)" class="text-danger deleteState" data-id="{{$st->id}}">Delete</a></td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -56,7 +56,7 @@
                 <div class="modal-body">
                     <div class="row">
                         <input type="hidden" name="form_type" value="add">
-                        <div class="form-group col-md-6">
+                        <div class="form-group col-md-4">
                             <label>Country</label>
                             <select name="country" class="form-control @error('country') is-invalid @enderror" required>
                                 <option value="2">Australia</option>
@@ -65,10 +65,17 @@
                                 <span class="text-danger">{{$message}}</span>
                             @enderror
                         </div>
-                        <div class="form-group col-md-6">
+                        <div class="form-group col-md-4">
                             <label>State</label>
                             <input type="text" name="state" class="form-control @error('state') is-invalid @enderror" required placeholder="State" value="{{old('state')}}">
                             @error('state')
+                                <span class="text-danger">{{$message}}</span>
+                            @enderror
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label>Acronym</label>
+                            <input type="text" name="acronym" class="form-control @error('acronym') is-invalid @enderror" required placeholder="Acronym" value="{{old('acronym')}}">
+                            @error('acronym')
                                 <span class="text-danger">{{$message}}</span>
                             @enderror
                         </div>
@@ -99,7 +106,7 @@
                     <div class="row">
                         <input type="hidden" name="form_type" value="edit">
                         <input type="hidden" name="stateId" id="stateId" value="{{old('stateId')}}">
-                        <div class="form-group col-md-6">
+                        <div class="form-group col-md-4">
                             <label>Country</label>
                             <select name="country" id="countryId" class="form-control @error('country') is-invalid @enderror" required>
                                 <option value="2">Australia</option>
@@ -108,10 +115,17 @@
                                 <span class="text-danger">{{$message}}</span>
                             @enderror
                         </div>
-                        <div class="form-group col-md-6">
+                        <div class="form-group col-md-4">
                             <label>State</label>
                             <input type="text" name="state" id="stateName" class="form-control @error('state') is-invalid @enderror" required placeholder="State" value="{{old('state')}}">
                             @error('state')
+                                <span class="text-danger">{{$message}}</span>
+                            @enderror
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label>Acronym</label>
+                            <input type="text" name="acronym" id="acroNym" class="form-control @error('acronym') is-invalid @enderror" required placeholder="Acronym" value="{{old('acronym')}}">
+                            @error('acronym')
                                 <span class="text-danger">{{$message}}</span>
                             @enderror
                         </div>
@@ -147,8 +161,10 @@
             var Id = $(this).attr('data-id');
             var countryId = $(this).attr('data-country');
             var state = $(this).attr('data-name');
+            var acronym = $(this).attr('data-acronym');
             $('#editStateModal #stateId').val(Id);
             $('#editStateModal #stateName').val(state);
+            $('#editStateModal #acroNym').val(acronym);
             $('#editStateModal').modal('show');
         });
 

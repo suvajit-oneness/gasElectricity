@@ -1239,6 +1239,7 @@ class AdminController extends Controller
             'form_type' => 'required|in:add,edit',
             'country' => 'required|numeric|min:1',
             'state' => 'required|string|max:200',
+            'acronym' => 'required|string|max:20',
         ]);
         if($req->form_type == 'add'){
             $checkState = State::where('countryId',$req->country)->where('name',$req->state)->first();
@@ -1246,6 +1247,7 @@ class AdminController extends Controller
                 $state = new State();
                     $state->countryId = $req->country;
                     $state->name = $req->state;
+                    $state->acronym = $req->acronym;
                 $state->save();
                 return back()->with('Success','State Added SuccessFully');
             }
@@ -1260,6 +1262,7 @@ class AdminController extends Controller
                 $state = State::where('id',$req->stateId)->first();
                     $state->countryId = $req->country;
                     $state->name = $req->state;
+                    $state->acronym = $req->acronym;
                 $state->save();
                 return back()->with('Success','State Updated SuccessFully');
             }
