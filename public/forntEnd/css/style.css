@@ -304,7 +304,7 @@ header {
 .button{
     background: #8de4af;
     position: relative;
-    padding: 0 18px;
+    padding: 0 10px;
     border-top-right-radius: 9px;
     border-bottom-right-radius: 9px;
 }
@@ -317,7 +317,37 @@ header {
     font-weight: 700;
     text-transform: uppercase;
 }
-
+.search-form input[type="file"] {
+    flex: 1;
+    background: #eef4ff !important;
+    color: #000 !important;
+    border: 1px solid #bbbbbb !important;
+    height: 53px !important;
+    padding:15px 22px !important;
+    border-radius:0 !important;
+    border-right: 0 !important;
+    border-left: 0 !important;
+    overflow: hidden;
+      -webkit-box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      box-sizing: border-box;
+      background: url('https://cdn1.iconfinder.com/data/icons/hawcons/32/698394-icon-130-cloud-upload-512.png') center center no-repeat #e4e4e4;
+      background-size: 60px 60px;
+      display: inline-block;
+    width: 100%;
+}
+.or_text {
+    text-align: center;
+    background: rgba(49, 65, 89, 0.25);
+    height: 53px;
+    border: 1px solid #bbbbbb;
+    padding-top: 15px !important;
+    font-weight: 600;
+    color: #6b6b6b;
+}
+::-webkit-file-upload-button {
+   display: none;
+}
 .machine-image {
     text-align: center;
 }
@@ -825,7 +855,7 @@ header {
 .dropdown-inner { 
     display: none;
     text-align: left;
-    padding: 45px 50px;
+    padding: 0 20px 20px 20px;
 }
 .dropdown-inner p {
     color:#332e2e;
@@ -838,18 +868,29 @@ header {
     text-align: left;
     display: block;
     font-size: 20px;
-    font-weight: 400;
+    font-weight: 500;
     color: #000000;
     /*border-bottom: 1px solid #dbdbdb;*/
-    padding: 45px 50px;
+    padding: 20px;
     line-height: 1;
     position: relative;
+}
+.f-error{
+   position: absolute;
+    bottom: -15px;
+    z-index: 2;
+    font-size: 11px;
+    font-weight: 600;
+    left: 3%; 
 }
 .dropdown-toggle:hover {
     color:#000;
 }
 .dropdown-toggle:after{
     display: none;
+}
+.caret img{
+    width:35px;
 }
 .dropdown-toggle .caret {
     display: none;
@@ -5553,4 +5594,18 @@ button:focus {
     padding: 6px 25px !important;
     border-radius: 25px !important;
     
+}
+
+.ct_radio{
+    padding: 22px 40px 22px 60px;
+    cursor: pointer;
+    width: 100%;
+}
+.energy_select_box .ct_radio::before {
+    top: 22px;
+    left: 16px;
+}
+.energy_select_box .ct_radio::after {
+    top: 27px;
+    left: 21px;
 }

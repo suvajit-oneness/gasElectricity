@@ -15,16 +15,16 @@
 					<p>Energy type</p>
 						<div class="row">
 							<div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
-								<div class="custom-control custom-radio autowidth">
+								<div class="custom-control custom-radio autowidth p-0">
 								  	<input type="radio" id="customRadio1" name="eneryType" value="electricity" class="custom-control-input" @if(old('eneryType') == 'electricity'){{('checked')}}@elseif(old('eneryType') == 'gas')@else{{('checked')}}@endif>
-								  	<label class="custom-control-label" for="customRadio1">Electricity</label>
+								  	<label class="custom-control-label ct_radio" for="customRadio1">Electricity</label>
 								</div>
 							</div>
 
 							<div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
-								<div class="custom-control custom-radio autowidth gas-icon white-bg">
+								<div class="custom-control custom-radio autowidth gas-icon white-bg p-0">
 								  	<input type="radio" id="customRadio3" name="eneryType" value="gas" class="custom-control-input" @if(old('eneryType') == 'gas'){{('checked')}}@endif>
-								  	<label class="custom-control-label" for="customRadio3">Gas </label>
+								  	<label class="custom-control-label ct_radio" for="customRadio3">Gas </label>
 								</div>
 							</div>
 						</div>

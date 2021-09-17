@@ -22,21 +22,21 @@
 				<p>What are you looking to compare? <span class="orange-color">*</span></p>
 				<div class="row">
 					<div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
-						<div class="custom-control custom-radio autowidth">
+						<div class="custom-control custom-radio autowidth p-0">
 						  <input type="radio" class="custom-control-input" id="customRadio1" name="energy_type" value="gas_electricity" @if(old('energy_type') == 'gas_electricity'){{('checked')}}@endif>
-						  <label class="custom-control-label" for="customRadio1">Gas &amp; Electricity</label>
+						  <label class="custom-control-label ct_radio" for="customRadio1">Gas &amp; Electricity</label>
 						</div>
 					</div>
 					<div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
-						<div class="custom-control custom-radio autowidth electricy-icon">
+						<div class="custom-control custom-radio autowidth electricy-icon p-0">
 						  <input type="radio" id="customRadio2" class="custom-control-input" name="energy_type" value="electricity" @if(old('energy_type') == 'electricity'){{('checked')}}@endif>
-						  <label class="custom-control-label" for="customRadio2">Electricity</label>
+						  <label class="custom-control-label ct_radio" for="customRadio2">Electricity</label>
 						</div>
 					</div>
 					<div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
-						<div class="custom-control custom-radio autowidth gas-icon">
+						<div class="custom-control custom-radio autowidth gas-icon p-0">
 						  <input type="radio" id="customRadio3" class="custom-control-input" name="energy_type" value="gas" @if(old('energy_type') == 'gas'){{('checked')}}@endif>
-						  <label class="custom-control-label" for="customRadio3">Gas </label>
+						  <label class="custom-control-label ct_radio" for="customRadio3">Gas </label>
 						</div>
 					</div>
 				</div>
@@ -48,15 +48,15 @@
 					<p class="black-content"> What type of property? <span class="orange-color">*</span></p>
 					<div class="row">
 						<div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
-							<div class="custom-control custom-radio autowidth">
+							<div class="custom-control custom-radio autowidth p-0">
 							  <input type="radio" id="myhome" name="type_of_property" value="home" class="custom-control-input" @if(old('type_of_property') == 'home'){{('checked')}}@endif>
-							  <label class="custom-control-label" for="myhome">My home</label>
+							  <label class="custom-control-label ct_radio" for="myhome">My home</label>
 							</div>
 						</div>
 						<div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
-							<div class="custom-control custom-radio autowidth">
+							<div class="custom-control custom-radio autowidth p-0">
 							  <input type="radio" id="mybusness" name="type_of_property" value="business" class="custom-control-input" @if(old('type_of_property') == 'business'){{('checked')}}@endif>
-							  <label class="custom-control-label" for="mybusness">My business</label>
+							  <label class="custom-control-label ct_radio" for="mybusness">My business</label>
 							</div>
 						</div>
 					</div>
@@ -67,15 +67,15 @@
 					<p class="black-content"> Do you own or rent the property? <span class="orange-color">*</span></p>
 					<div class="row">
 						<div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
-							<div class="custom-control custom-radio autowidth">
+							<div class="custom-control custom-radio autowidth p-0">
 							  <input type="radio" id="own" name="property_type" value="own" class="custom-control-input" @if(old('property_type') == 'own'){{('checked')}}@endif>
-							  <label class="custom-control-label" for="own"> Own </label>
+							  <label class="custom-control-label ct_radio" for="own"> Own </label>
 							</div>
 						</div>
 						<div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
-							<div class="custom-control custom-radio autowidth ">
+							<div class="custom-control custom-radio autowidth p-0">
 							  <input type="radio" id="rent" name="property_type" value="rent" class="custom-control-input" @if(old('property_type') == 'rent'){{('checked')}}@endif>
-							  <label class="custom-control-label" for="rent"> Rent </label>
+							  <label class="custom-control-label ct_radio" for="rent"> Rent </label>
 							</div>
 						</div>
 					</div>
@@ -86,15 +86,15 @@
 					<p class="black-content"> Are you moving into this property? <span class="orange-color">*</span> </p>
 					<div class="row">
 						<div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
-							<div class="custom-control custom-radio autowidth">
+							<div class="custom-control custom-radio autowidth p-0">
 							  <input type="radio" id="mov-yes" name="areyoumovingintothisproperty" value="yes" class="custom-control-input" @if(old('areyoumovingintothisproperty') == 'yes'){{('checked')}}@endif>
-							  <label class="custom-control-label" for="mov-yes"> Yes </label>
+							  <label class="custom-control-label ct_radio" for="mov-yes"> Yes </label>
 							</div>
 						</div>
 						<div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
-							<div class="custom-control custom-radio autowidth ">
+							<div class="custom-control custom-radio autowidth p-0">
 							  <input type="radio" id="mov-no" name="areyoumovingintothisproperty" value="no" class="custom-control-input" @if(old('areyoumovingintothisproperty') == 'no'){{('checked')}}@endif>
-							  <label class="custom-control-label" for="mov-no"> No </label>
+							  <label class="custom-control-label ct_radio" for="mov-no"> No </label>
 							</div>
 						</div>
 					</div>
@@ -117,15 +117,15 @@
 					<p class="black-content"> Do you also need to connect a broadband or home entertainment service? <span class="orange-color">*</span> </p>
 					<div class="row">
 						<div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
-							<div class="custom-control custom-radio autowidth">
+							<div class="custom-control custom-radio autowidth p-0">
 							  <input type="radio" id="mov-yes2" name="entertainment_service" value="yes" class="custom-control-input" @if(old('entertainment_service') == 'yes'){{('checked')}}@endif>
-							  <label class="custom-control-label" for="mov-yes2"> Yes </label>
+							  <label class="custom-control-label ct_radio" for="mov-yes2"> Yes </label>
 							</div>
 						</div>
 						<div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
-							<div class="custom-control custom-radio autowidth ">
+							<div class="custom-control custom-radio autowidth p-0">
 							  <input type="radio" id="mov-no2" name="entertainment_service" value="no" class="custom-control-input" @if(old('entertainment_service') == 'no'){{('checked')}}@endif>
-							  <label class="custom-control-label" for="mov-no2"> No </label>
+							  <label class="custom-control-label ct_radio" for="mov-no2"> No </label>
 							</div>
 						</div>
 					</div>
@@ -136,21 +136,21 @@
 					<p class="black-content"> Do you have gas connection to the property? <span class="orange-color">*</span> </p>
 					<div class="row">
 						<div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
-							<div class="custom-control custom-radio autowidth">
+							<div class="custom-control custom-radio autowidth p-0">
 							  <input type="radio" id="mov-yes3" name="gas_connection" value="yes" class="custom-control-input" @if(old('gas_connection') == 'yes'){{('checked')}}@endif>
-							  <label class="custom-control-label" for="mov-yes3"> Yes </label>
+							  <label class="custom-control-label ct_radio" for="mov-yes3"> Yes </label>
 							</div>
 						</div>
 						<div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
-							<div class="custom-control custom-radio autowidth ">
+							<div class="custom-control custom-radio autowidth p-0">
 							  <input type="radio" id="mov-no3" name="gas_connection" value="no" class="custom-control-input" @if(old('gas_connection') == 'no'){{('checked')}}@endif>
-							  <label class="custom-control-label" for="mov-no3"> No </label>
+							  <label class="custom-control-label ct_radio" for="mov-no3"> No </label>
 							</div>
 						</div>
 						<div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
-							<div class="custom-control custom-radio autowidth">
+							<div class="custom-control custom-radio autowidth p-0">
 							  <input type="radio" id="know" name="gas_connection" value="donotknow" class="custom-control-input" @if(old('gas_connection') == 'donotknow'){{('checked')}}@endif>
-							  <label class="custom-control-label" for="know"> Don't Know </label>
+							  <label class="custom-control-label ct_radio" for="know"> Don't Know </label>
 							</div>
 						</div>
 					</div>
@@ -202,9 +202,9 @@
 					<ul class="feature_list">
 						<li>
 							<div class="energy_select_box block-display">
-								<div class="custom-control custom-radio autowidth">
+								<div class="custom-control custom-radio autowidth p-0">
 									<input type="radio" id="low" name="electricity_usage" value="low" class="custom-control-input" @if(old('electricity_usage') == 'low'){{('checked')}}@endif>
-									<label class="custom-control-label" for="low"> Low </label>
+									<label class="custom-control-label ct_radio" for="low"> Low </label>
 								</div>
 							</div>
 							<div class="label-content text-center">
@@ -216,9 +216,9 @@
 						</li>
 						<li>
 							<div class="energy_select_box block-display">
-								<div class="custom-control custom-radio autowidth">
+								<div class="custom-control custom-radio autowidth p-0">
 									<input type="radio" id="Medium" name="electricity_usage" value="medium" class="custom-control-input" @if(old('electricity_usage') == 'medium'){{('checked')}}@endif>
-									<label class="custom-control-label" for="Medium"> Medium </label>
+									<label class="custom-control-label ct_radio" for="Medium"> Medium </label>
 								</div>
 							</div>
 
@@ -230,9 +230,9 @@
 						</li>
 						<li>
 							<div class="energy_select_box block-display">
-								<div class="custom-control custom-radio autowidth">
+								<div class="custom-control custom-radio autowidth p-0">
 									<input type="radio" id="High" name="electricity_usage" value="high" class="custom-control-input" @if(old('electricity_usage') == 'high'){{('checked')}}@endif>
-									<label class="custom-control-label" for="High">  High </label>
+									<label class="custom-control-label ct_radio" for="High">  High </label>
 								</div>
 							</div>
 							<div class="label-content text-center">

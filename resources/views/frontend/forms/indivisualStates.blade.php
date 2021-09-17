@@ -20,12 +20,23 @@
 					<div class="search-form">
 						@error('search')<span class="text-danger">{{$message}}</span>@enderror
 						<label>Where are you located?</label>
-						<input type="text" class="postCodeSearch" name="search" id="search" placeholder="Enter your postcode or suburb..." required="" value="{{old('search')}}" list="suppliersPincode">
-						<input type="file" name="file" class="form-control">
-						@error('file')<span class="text-danger">{{$message}}</span>@enderror
-						<div class="button">
-							<button type="submit">compare now</button>
-							<i class="fas fa-arrow-circle-right"></i>
+						<div class="row m-0 align-items-center justify-content-center w-100">
+						    <div class="col-12 col-md-5 p-0">
+						        <input type="text" class="postCodeSearch w-100" name="search" id="search" placeholder="Enter your postcode or suburb..." required="" value="{{old('search')}}" list="suppliersPincode">
+						    </div>
+						    <div class="col-12 col-md-1 test-center p-0 or_text">
+						        OR
+						    </div>
+						    <div class="col-12 col-md-4 p-0">
+						        <input type="file" name="file" class="form-control">
+						       @error('file')<span class="text-danger f-error">{{$message}}</span>@enderror
+						    </div>
+						    <div class="col-2 p-0">
+					        	<div class="button">
+        							<button type="submit">compare now</button>
+        							<i class="fas fa-arrow-circle-right"></i>
+        						</div>
+						    </div>
 						</div>
 					</div>
 				</form>
@@ -67,21 +78,21 @@
 					<p>Energy type</p>
 						<div class="row">
 							<div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
-								<div class="custom-control custom-radio autowidth">
+								<div class="custom-control custom-radio autowidth p-0">
 								  	<input type="radio" id="customRadio1" name="eneryType" value="gas_electricity" class="custom-control-input" @if(old('eneryType') == 'gas_electricity'){{('checked')}}@elseif(old('eneryType') == 'gas')@else{{('checked')}}@endif>
-								  	<label class="custom-control-label" for="customRadio1">Gas &amp; Electricity</label>
+								  	<label class="custom-control-label ct_radio" for="customRadio1">Gas &amp; Electricity</label>
 								</div>
 							</div>
 
 							<div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
-								<div class="custom-control custom-radio autowidth gas-icon white-bg">
+								<div class="custom-control custom-radio autowidth gas-icon white-bg p-0">
 								  	<input type="radio" id="customRadio3" name="eneryType" value="gas" class="custom-control-input" @if(old('eneryType') == 'gas'){{('checked')}}@endif>
-								  	<label class="custom-control-label" for="customRadio3">Gas </label>
+								  	<label class="custom-control-label ct_radio" for="customRadio3">Gas </label>
 								</div>
 							</div>
 						</div>
 					</div>
-					<div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
+					<!--<div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
 						<div class="text-center">
 							<p>Do you have a recent bill?</p>
 							<div class="yes-no-btn">
@@ -89,7 +100,7 @@
 								<input type="radio" name="recentbill" value="no" @if(old('recentbill') == 'no'){{('checked')}}@elseif(old('recentbill') == 'yes')@else{{('checked')}}@endif>No
 							</div>
 						</div>
-					</div>
+					</div>-->
 				</div>
 				<div class="search-form">
 					@error('eneryType')<span class="text-danger">{{$message}}</span>@enderror

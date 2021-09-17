@@ -38,9 +38,9 @@
 				<p>What are you looking to compare? <span class="orange-color">*</span></p>
 				<div class="row">
 					<div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
-						<div class="custom-control custom-radio autowidth">
+						<div class="custom-control custom-radio autowidth p-0">
 						  <input type="radio" id="customRadio1" checked name="eneryType" value="gas_electricity" class="custom-control-input" required>
-						  <label class="custom-control-label" for="customRadio1">Gas &amp; Electricity</label>
+						  <label class="custom-control-label ct_radio" for="customRadio1">Gas &amp; Electricity</label>
 						</div>
 					</div>
 					<!-- <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
@@ -50,9 +50,9 @@
 						</div>
 					</div> -->
 					<div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
-						<div class="custom-control custom-radio autowidth gas-icon">
+						<div class="custom-control custom-radio autowidth gas-icon p-0">
 						  <input type="radio" id="customRadio3" name="eneryType" value="gas" class="custom-control-input" required>
-						  <label class="custom-control-label" for="customRadio3">Gas </label>
+						  <label class="custom-control-label ct_radio" for="customRadio3">Gas </label>
 						</div>
 					</div>
 					@error('eneryType')
@@ -73,9 +73,9 @@
 								<div class="row">
 									@foreach($option as $index => $opt)
 										<div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
-											<div class="custom-control custom-radio autowidth">
+											<div class="custom-control custom-radio autowidth p-0">
 											  <input type="radio" id="{{$form->key}}" name="{{$form->key}}" class="custom-control-input @error($form->key) is-invalid @enderror" @if($form->is_required){{'required'}}@endif value="{{$opt->option}}" @if(old($form->key) == $opt->option || checkUserOldForm($form->key,$opt->option,$user->formData)){{('checked')}}@endif>
-											  <label class="custom-control-label" for="{{$form->key}}">{{$opt->option}}</label>
+											  <label class="custom-control-label ct_radio" for="{{$form->key}}">{{$opt->option}}</label>
 											</div>
 										</div>
 									@endforeach
@@ -91,13 +91,13 @@
 			<div class="electricity-details elect-form">
 				<div class="what-label">
 					<div class="check-area">
-						<div class="custom-control custom-checkbox custom-control-mod">
+						<div class="custom-control custom-checkbox custom-control-mod p-0">
 					        <input type="checkbox" name="approve" class="custom-control-input" id="customControl1" required="">
-					        <label class="custom-control-label" for="customControl1"><b> I understand iSelect recommends plans from a range of providers on its</b><span> Approved Product List.</span></label>
+					        <label class="custom-control-label ct_radio" for="customControl1"><b> I understand iSelect recommends plans from a range of providers on its</b><span> Approved Product List.</span></label>
 					    </div>
-					    <div class="custom-control custom-checkbox custom-control-mod">
+					    <div class="custom-control custom-checkbox custom-control-mod p-0">
 					        <input type="checkbox" name="termsandconsition" class="custom-control-input" id="customControl2" required="">
-					        <label class="custom-control-label" for="customControl2"><b>  I have read, understood and accept the</b><span> Terms and Conditions </span> <b>&</b> <span> Privacy Collection Notice. </span></label>
+					        <label class="custom-control-label ct_radio" for="customControl2"><b>  I have read, understood and accept the</b><span> Terms and Conditions </span> <b>&</b> <span> Privacy Collection Notice. </span></label>
 					    </div>
 					    @error('approve')
 			                <span class="text-danger" role="alert">{{ $message }}</span>

@@ -41,12 +41,23 @@
 						@error('search')<span class="text-danger">{{$message}}</span>@enderror
 						<label>Where are you located?</label>
 						<!-- <input type="hidden" name="eneryType" value="gas_electricity"> -->
-						<input type="text" class="postCodeSearch" name="search" id="search" placeholder="Enter your postcode or suburb..." value="{{old('search')}}" list="suppliersPincode">
-						<input type="file" name="file" class="form-control">
-						@error('file')<span class="text-danger">{{$message}}</span>@enderror
-						<div class="button">
-							<button type="submit">compare now</button>
-							<i class="fas fa-arrow-circle-right"></i>
+						<div class="row m-0 align-items-center justify-content-center w-100">
+                            <div class="col-12 col-md-5 p-0">
+                               <input type="text" class="postCodeSearch w-100" name="search" id="search" placeholder="Enter your postcode or suburb..." value="{{old('search')}}" list="suppliersPincode">
+                            </div>
+                            <div class="col-12 col-md-1 test-center p-0 or_text">
+                               OR
+                            </div>
+                            <div class="col-12 col-md-4 p-0">
+                               <input type="file" name="file" class="form-control">
+                               @error('file')<span class="text-danger f-error">{{$message}}</span>@enderror
+                            </div>
+                            <div class="col-2 p-0">
+                                <div class="button">
+                            		<button type="submit">compare now</button>
+                            		<i class="fas fa-arrow-circle-right"></i>
+                            	</div>
+                            </div>
 						</div>
 					</div>
 				</form>
