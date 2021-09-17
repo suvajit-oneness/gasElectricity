@@ -231,14 +231,24 @@ class WelcomeController extends Controller
 
     public function rfqBeforeProductListing(Request $req)
     {
+        $req->replace($req->except('_token'));
         if($req->hasFile('file')){
-            $response = $this->postOCRFILES($req);
+            $response = $this->postOCRFILES($req); // calling OCR API
             if($response->error == false){
-                $text = $this->convertToText($response->data);
+                $text = $this->convertToText($response->data); // Converting Response in to Text
                 if($text->error == false){
-                    echo "<pre>";print_r($text->data);exit;
+                    $returnData = $this->readLines($text->data); // Getting the Data
+                    if($returnData->error == false){
+                        $stateId = $returnData->state;
+                        $newRequest = new Request([
+                            'stateId' => base64_encode($stateId),
+                        ]);
+                        return $this->rfqBeforeProductListing($newRequest);
+                    }else{
+                        $error['file'] = $returnData->message;
+                    }
                 }else{
-                    $error['file'] = $text->messga;
+                    $error['file'] = $text->message;
                 }
             }else{
                 $error['file'] = $response->message;

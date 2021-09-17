@@ -2,6 +2,7 @@
 
 namespace App\Traits;
 use Illuminate\Http\Request;
+use App\Models\OcrFilesData;
 
 trait OCRTraits
 {
@@ -11,7 +12,7 @@ trait OCRTraits
     {
         $file = $req->file('file');
         $url = 'https://api.ocr.space/parse/image';
-        $filePath = fileUpload($file,'ocr');
+        $filePath = fileUpload($file,'ocr_upload');
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_URL, $url);
         curl_setopt($curl, CURLOPT_POST, true);
@@ -44,7 +45,7 @@ trait OCRTraits
         curl_setopt($curl, CURLOPT_HTTPHEADER, $header);
         $result = curl_exec($curl);
         $err = curl_error($curl);
-        $error = true;$msg = 'Something went wrong please try after sometime';$data = [];
+        $error = true;$msg = 'Something went wrong please try after sometime';
         if($err){}
         else{
             $error = false;$msg = 'Returned Data';   
@@ -60,26 +61,38 @@ trait OCRTraits
     {
         // dd($resultData);
         // echo $resultData->ParsedResults[0]->ParsedText;exit;
-        $error = true;$msg = 'uploaded file has no Content';$textData = [];
+        $error = true;$msg = 'uploaded file has no Content';$textData = '';
         if(!empty($resultData->ParsedResults) && count($resultData->ParsedResults) > 0){
             $arrayData = $resultData->ParsedResults[0];
             if(!empty($arrayData->ParsedText)){
                 $error = false;$msg = 'Content Readed';$textData = $arrayData->ParsedText;
+            }else{
+                $error = true;$msg = 'Something went wrong please try after sometime';
             }
         }
         $data = (object)[];
         $data->error = $error;
         $data->message = $msg;
-        $data->data = $textData;
+        $data->data = strtoupper($textData); // doing uppercase all data
         return $data;
     }
 
-    public function readLines($string,$priceLine = 0)
+    public function readLines($string)
     {
-        return $string;
-        echo $string;exit;
-        for ($i=0; $i <strlen($string) ; $i++) {
-
+        // return $string;
+        $stateId = 0;$error = true;$msg = 'we donot found the data for calculation';
+        $states = \App\Model\State::where('countryId',2)->get();
+        foreach ($states as $key => $state) {
+            if((strpos($string,strtoupper($state->name)) !== false) || ($state->key != '' && strpos($string,strtoupper($state->key)) !== false)){
+                $error = false;$msg = 'Data Found';
+                $stateId = $state->id;
+                break;
+            }
         }
+        $data = (object)[];
+        $data->error = $error;
+        $data->message = $msg;
+        $data->state = $stateId;
+        return $data;
     }
 }

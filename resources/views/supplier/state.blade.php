@@ -19,6 +19,7 @@
                                 <tr>
                                     <th>Country</th>
                                     <th>State</th>
+                                    <th>Key</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -27,6 +28,7 @@
                                     <tr>
                                         <td>{{$st->country->name}}</td>
                                         <td>{{$st->name}}</td>
+                                        <td>{{$st->key}}</td>
                                         <td><a href="javascript:void(0)" class="text-success editState" data-id="{{$st->id}}" data-name="{{$st->name}}" data-country="{{$st->countryId}}">Edit</a> | <a href="javascript:void(0)" class="text-danger deleteState" data-id="{{$st->id}}">Delete</a></td>
                                     </tr>
                                 @endforeach

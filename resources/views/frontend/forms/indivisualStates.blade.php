@@ -15,11 +15,14 @@
 						<option value="{{$pincde->autocomplete}}"></option>
 					@endforeach
 				</datalist>
-				<form action="{{route('rfq.product.listing')}}" method="get" autocomplete="off">
+				<form action="{{route('rfq.product.listing')}}" method="post" autocomplete="off" enctype="multipart/form-data">
+					@csrf
 					<div class="search-form">
 						@error('search')<span class="text-danger">{{$message}}</span>@enderror
 						<label>Where are you located?</label>
 						<input type="text" class="postCodeSearch" name="search" id="search" placeholder="Enter your postcode or suburb..." required="" value="{{old('search')}}" list="suppliersPincode">
+						<input type="file" name="file" class="form-control">
+						@error('file')<span class="text-danger">{{$message}}</span>@enderror
 						<div class="button">
 							<button type="submit">compare now</button>
 							<i class="fas fa-arrow-circle-right"></i>
