@@ -183,7 +183,7 @@
                     $.ajax({
                         type:'POST',
                         dataType:'JSON',
-                        url:"{{route(urlPrefix().'.state.delete',"+stateId+")}}",
+                        url:"{{route(urlPrefix().'.state.delete')}}",
                         data: {stateId:stateId,'_token': $('input[name=_token]').val()},
                         success:function(data){
                             if(data.error == false){

@@ -75,7 +75,7 @@
 		Route::get('/','Admin\AdminController@states')->name('admin.states');
 		Route::post('/save','Admin\AdminController@addOrUpdateState')->name('admin.state.save');
 		Route::post('/update','Admin\AdminController@addOrUpdateState')->name('admin.state.update');
-		Route::get('{stateId}/delete','Admin\AdminController@deleteState')->name('admin.state.delete');
+		Route::post('delete','Admin\AdminController@deleteState')->name('admin.state.delete');
 	});
 
 	// Reports
