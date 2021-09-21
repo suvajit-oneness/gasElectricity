@@ -24,9 +24,9 @@
 <section class="banner gas-electricity-banner">
 	<div class="container">
 		<div class="banner-caption">
-			<h1 class="banner-heading"> <span> Compare, Switch, Save & </span> <br> POSTCODE </h1>
+			<h1 class="banner-heading"> <span> Why pay more than you should  </span> <br> for your gas and electricity? </h1>
 				<div class="text-center white-para">
-				 <p>If you’re a savvy bargain hunter like us at Econnex, you’ll love saving on your energy bills. Compare energy plans, sign up, and start saving!</p>
+				 <p>If you’re a savvy bargain hunter like us at Switchr, you’ll love saving on your energy bills. Compare energy plans, sign up, and start saving!</p>
 				</div>
 			<div class="location-search-section">
 				<form action="{{route('rfq.product.listing')}}" method="post" autocomplete="off" enctype="multipart/form-data">
@@ -39,7 +39,7 @@
 						</datalist>
 						<!-- @error('eneryType')<span class="text-danger">{{$message}}</span>@enderror -->
 						@error('search')<span class="text-danger">{{$message}}</span>@enderror
-						<label>Where are you located?</label>
+						<label>Enter your postcode to compare, switch, and save!</label>
 						<!-- <input type="hidden" name="eneryType" value="gas_electricity"> -->
 						<div class="row m-0 align-items-center justify-content-center w-100">
                             <div class="col-12 col-md-5 p-0">
@@ -52,8 +52,8 @@
                                <input type="file" name="file" class="form-control">
                                @error('file')<span class="text-danger f-error">{{$message}}</span>@enderror
                             </div>
-                            <div class="col-2 p-0">
-                                <div class="button">
+                            <div class="col-12 col-md-2 mt-2 mt-md-0 p-0">
+                                <div class="button text-center">
                             		<button type="submit">compare now</button>
                             		<i class="fas fa-arrow-circle-right"></i>
                             	</div>
@@ -93,7 +93,7 @@
 	</div>
 	<div class="provide-content">
 		<h2 class="heading heading-left-border">What we provide</h2>
-		<p>It’s never been simpler to switch energy providers and save. It takes 5 mins to compare your electricity and gas rates with Econnex</p>
+		<!--<p>It’s never been simpler to switch energy providers and save. It takes 5 mins to compare your electricity and gas rates with Switchr</p>-->
 
 		<ul class="provide-list">
 			@foreach($data->whatWeProvide as $whatWeProvide)
@@ -132,16 +132,50 @@
 </section>
 @endif
 
+<section>
+    <div class="container">
+        <div class="row m-0 mb-2 pt-4">
+            <div class="col-12 p-0 text-center ">
+                <h2 class="heading text-center pb-0 mb-0">Switching is easy with SwitchR!</h2>
+			    <p class="sub-content text-center">In just a few minutes, you can be on the path to saving money!</p>
+            </div>
+        </div>
+        <div class="row m-0 mb-4 mb-md-5 justify-content-center align-items-center">
+            <div class="col-12 col-md-4">
+                <div class="card border-0 p-3 just_few">
+                    <div class="num_text"><h1>1</h1></div>
+                    <h4>Tell us where you live</h4>
+                    <p>Enter your postcode or suburb so we know which energy providers serve your location.</p>
+                </div>
+            </div>
+            <div class="col-12 col-md-4">
+                <div class="card border-0 p-3 just_few">
+                    <div class="num_text"><h1>2</h1></div>
+                    <h4>Upload your energy bill</h4>
+                    <p>Get the best deals quicker by uploading your energy bill to our portal!</p>
+                </div>
+            </div>
+            <div class="col-12 col-md-4">
+                <div class="card border-0 p-3 just_few">
+                    <div class="num_text"><h1>3</h1></div>
+                    <h4>Find a better deal and switch</h4>
+                    <p>Once you’ve found a better deal, create a SwitchR account to view details of your new plan and switch!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 @if(count($data->state) > 0)
-<section class="compare-section">
-	<h2 class="heading text-center">Compare by State </h2>
-	<p class="text-center sub-content">Easily compare, select and save on your energy plans</p>
-	<div class="map-section">
+<section class="compare-section pt-0">
+	<div class="map-section mt-0 border-top-0">
 		<div class="left-map">
 			<img src="{{asset('forntEnd/images/map.png')}}">
 		</div>
 		<div class="map-content">
 			<div class="map-content-wrap">
+			    <h2 class="heading heading-left-border">Find a better gas and electricity plan where you live</h2>
+			    <p class="sub-content mb-4">Select your state to find the cheapest gas and electricity providers where you live.</p>
 				<ul>
 					@foreach($data->state as $state)
 						<li>

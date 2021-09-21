@@ -467,7 +467,7 @@ header {
 .sub-content {
     font-size: 24px;
     font-weight: 300;
-    line-height: 1.2;
+    line-height:34px;
 }
 
 .heading-left-border:before {
@@ -3246,6 +3246,7 @@ footer {
 .gas-electricity-banner .banner-heading {
     font-weight: 700;
     color: #5cdb94;
+    text-transform: uppercase;
 }
 
 .gas-electricity-banner .banner-heading span{
@@ -3842,7 +3843,10 @@ footer {
         line-height: 24px;
         padding: 5px 0px 5px 15px;
     }
-
+    
+    .menu li a:hover{
+        color:#a6ffce;
+    }
     /*********** Side Nav **********/
 
     .sidenav {
@@ -3852,7 +3856,7 @@ footer {
   z-index: 99999;
   top: 0;
   left: 0;
-  background-color: #5cdb94;
+  background-color: #3eb573;
   overflow-x: hidden;
   transition: 0.5s;
   padding-top: 40px;
@@ -5608,4 +5612,49 @@ button:focus {
 .energy_select_box .ct_radio::after {
     top: 27px;
     left: 21px;
+}
+.just_few h4{
+    font-size: 22px;
+    font-weight: 600;
+    text-align:center;
+}
+.just_few p{
+    font-size: 17px;
+    color: #657282;
+    margin: 0;
+    text-align:center;
+}
+.num_text{
+    margin-bottom: 20px;
+    z-index: 99;
+    width: 100px;
+    height: 100px;
+    position: relative;
+    margin:0 auto;
+    margin-bottom:20px;
+    
+}
+.num_text h1{
+    font-size: 32px;
+    color: #fff;
+    text-align: center;
+    font-weight: 600;
+    position: relative;
+    z-index: 99;
+    padding-top: 30px;
+}
+.num_text::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left:0;
+    right: 0px;
+    bottom: 0px;
+    pointer-events: none;
+    background: rgba(5, 32, 68, 0.85);
+    clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+    width: 100px;
+    height: 100px;
+    z-index: 1;
+    background-position: center center;
 }

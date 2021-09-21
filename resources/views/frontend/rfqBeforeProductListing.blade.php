@@ -202,9 +202,9 @@
 					<ul class="feature_list">
 						<li>
 							<div class="energy_select_box block-display">
-								<div class="custom-control custom-radio autowidth p-0">
+								<div class="custom-control custom-radio autowidth">
 									<input type="radio" id="low" name="electricity_usage" value="low" class="custom-control-input" @if(old('electricity_usage') == 'low'){{('checked')}}@endif>
-									<label class="custom-control-label ct_radio" for="low"> Low </label>
+									<label class="custom-control-label" for="low"> Low </label>
 								</div>
 							</div>
 							<div class="label-content text-center">
@@ -216,9 +216,9 @@
 						</li>
 						<li>
 							<div class="energy_select_box block-display">
-								<div class="custom-control custom-radio autowidth p-0">
+								<div class="custom-control custom-radio autowidth">
 									<input type="radio" id="Medium" name="electricity_usage" value="medium" class="custom-control-input" @if(old('electricity_usage') == 'medium'){{('checked')}}@endif>
-									<label class="custom-control-label ct_radio" for="Medium"> Medium </label>
+									<label class="custom-control-label" for="Medium"> Medium </label>
 								</div>
 							</div>
 
@@ -230,9 +230,9 @@
 						</li>
 						<li>
 							<div class="energy_select_box block-display">
-								<div class="custom-control custom-radio autowidth p-0">
+								<div class="custom-control custom-radio autowidth">
 									<input type="radio" id="High" name="electricity_usage" value="high" class="custom-control-input" @if(old('electricity_usage') == 'high'){{('checked')}}@endif>
-									<label class="custom-control-label ct_radio" for="High">  High </label>
+									<label class="custom-control-label" for="High">  High </label>
 								</div>
 							</div>
 							<div class="label-content text-center">

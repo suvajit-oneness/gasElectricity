@@ -31,8 +31,8 @@
 						        <input type="file" name="file" class="form-control">
 						       @error('file')<span class="text-danger f-error">{{$message}}</span>@enderror
 						    </div>
-						    <div class="col-2 p-0">
-					        	<div class="button">
+						    <div class="col-12 col-md-2 mt-2 mt-md-0 p-0">
+					        	<div class="button text-center">
         							<button type="submit">compare now</button>
         							<i class="fas fa-arrow-circle-right"></i>
         						</div>
