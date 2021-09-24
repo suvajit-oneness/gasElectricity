@@ -26,7 +26,7 @@
 		<div class="banner-caption">
 			<h1 class="banner-heading"> <span> Why pay more than you should  </span> <br> for your gas and electricity? </h1>
 				<div class="text-center white-para">
-				 <p>If you’re a savvy bargain hunter like us at Switchr, you’ll love saving on your energy bills. Compare energy plans, sign up, and start saving!</p>
+				 <p>If you’re a savvy bargain hunter like us at SwitchR, you’ll love saving on your energy bills. Compare energy plans, sign up, and start saving!</p>
 				</div>
 			<div class="location-search-section">
 				<form action="{{route('rfq.product.listing')}}" method="post" autocomplete="off" enctype="multipart/form-data">
@@ -93,7 +93,7 @@
 	</div>
 	<div class="provide-content">
 		<h2 class="heading heading-left-border">What we provide</h2>
-		<!--<p>It’s never been simpler to switch energy providers and save. It takes 5 mins to compare your electricity and gas rates with Switchr</p>-->
+		<!--<p>It’s never been simpler to switch energy providers and save. It takes 5 mins to compare your electricity and gas rates with SwitchR</p>-->
 
 		<ul class="provide-list">
 			@foreach($data->whatWeProvide as $whatWeProvide)
