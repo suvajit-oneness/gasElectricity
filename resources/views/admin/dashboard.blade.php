@@ -41,12 +41,12 @@
                     <!-- <p>Welcome to the Dashboard</p> -->
                     <div class="dashboard-body-content-upper p-0">
                         <div class="row m-0">
-                            <div class="col-12 col-md-3 mb-3">
+                            <div class="col-12 col-md-4 mb-3">
                                 <div class="card shadow-sm border-0">
-                                   <div class="card-body">
+                                   <div class="card-body card-body-inner">
                                         <a href="{{route('admin.users')}}?userType=2" class="gpcVCf">
-                                            <div class="icon-sec w-25">
-                                                <img src="{{asset('image/total_vendors.png')}}">
+                                            <div class="icon-sec card-1">
+                                                <img src="{{asset('image/hotel-supplier.png')}}">
                                             </div>
                                             <div class="text-sec">
                                                 <h3>{{count($data->supplier)}} <span>Total Suppliers</span></h3>
@@ -55,12 +55,12 @@
                                    </div>
                                 </div>
                             </div>
-                            <div class="col-12 col-md-3 mb-3">
+                            <div class="col-12 col-md-4 mb-3">
                                 <div class="card shadow-sm border-0">
-                                   <div class="card-body">
+                                   <div class="card-body card-body-inner">
                                         <a href="{{route('admin.users')}}?userType=3" class="gpcVCf">
-                                            <div class="icon-sec w-25">
-                                                <img src="{{asset('image/total_customers.png')}}">
+                                            <div class="icon-sec card-2">
+                                                <img src="{{asset('image/customer.png')}}">
                                             </div>
                                             <div class="text-sec">
                                                 <h3>{{count($data->customer)}} <span>New Customers</span></h3>
@@ -69,11 +69,11 @@
                                    </div>
                                 </div>
                             </div>
-                            <div class="col-12 col-md-3 mb-3">
+                            <div class="col-12 col-md-4 mb-3">
                                 <div class="card shadow-sm border-0">
-                                   <div class="card-body">
+                                   <div class="card-body card-body-inner">
                                         <a href="{{route('admin.report.rfqs')}}" class="gpcVCf">
-                                            <div class="icon-sec w-25">
+                                            <div class="icon-sec card-3">
                                                 <img src="{{asset('image/rfq.png')}}" height="40" width="40">
                                             </div>
                                             <div class="text-sec">

@@ -7234,3 +7234,100 @@ Media Query
 }
 
 /***************** Sweet Alert Design END **********************/
+
+
+
+/*****************switcher admin panel********************/
+.card{
+    background: #f7f7f7;
+    box-shadow: 2px 2px 5px #d4d3d3 !important;
+}
+/* .icon-sec{
+    height: 60px;
+    width: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 12px;
+    box-shadow: 1px 1px 5px #8c8585;
+}
+.first-icon{
+    color:#d54849;
+}
+.second-icon{
+   color:#f78347; 
+}
+.third-icon{
+    color:#3b90d6;
+} */
+.card-inner{
+    position: relative;
+}
+.card-inner::before{
+    width: 100%;
+    height: 100%;
+    background: url(/images/circle.svg) bottom right no-repeat;
+    border-radius: 50%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    content: '';
+}
+.card-1{
+    background: linear-gradient(to bottom right, #1e63c3 0%, #00f2fe 100%) !important;
+}
+.icon-sec{
+    padding: 20px;
+    margin-right: 10px;
+    border-radius: 50%;
+}
+.icon-sec img{
+    width: 30px;
+    height: 30px;
+    object-fit: cover;
+}
+/* .card-1 .icon-sec{
+    background: #b3f7fd;
+}
+.card-2 .icon-sec{
+    background: #fdb8a8;
+}
+.card-3 .icon-sec{
+    background: #ffdb98;
+} */
+.card{
+    border:none !important;
+}
+.card-body-inner{
+    background-color: #fdf1f1;
+}
+.card-2{
+    background:linear-gradient(to bottom right, #509862 0%, #a8e0b6 100%) !important 
+}
+.card-3{
+    background: linear-gradient(to bottom right, #f66b4e 0%, #fbc434 100%) !important;
+}
+.card-header{
+    background-color: rgb(126 210 147);
+}
+.card-header h5{
+
+    color: #0e0d28;
+    font-weight: 500;
+}
+.text-sec h3 span {
+    font-size: 16px;
+    color: rgb(14 13 40);
+    font-weight: 600;
+    display: block;
+    letter-spacing: 1px;
+    margin-top: 5px;
+}
+.text-sec h3 {
+    font-size: 30px;
+    margin-bottom: 5px;
+    font-weight: 900;
+    line-height: 24px;
+    color: #4f4f5a;
+}
