@@ -18,9 +18,6 @@ class CreateOcrDataTable extends Migration
             $table->longText('full_text');
             $table->string('state');
             $table->string('pincode');
-            $table->string('name');
-            $table->string('email');
-            $table->string('phone');
             $table->string('unit_consumed');
             $table->string('bill_amount');
             $table->bigInteger('userId');

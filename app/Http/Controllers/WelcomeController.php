@@ -272,6 +272,64 @@ class WelcomeController extends Controller
     public function rfqSaveBeforeProductListing(Request $req)
     {
         $req->validate([
+            'rfqId' => 'nullable|min:1|numeric',
+            "energy_type" => "required|string|in:gas_electricity,gas,electricity",
+            "type_of_property" => "required|string|in:home,business",
+            "kwh_usage" => 'required|min:1|string',
+            "kwh_rate" => 'required|min:1|string',
+            "serviceChargedPeriod" => 'required|min:1|string',
+            "serviceChargedRate" => 'required|min:1|string',
+            "electricity_usage" => "required|string|in:low,medium,high",
+            "understand" => "required|in:1",
+            "termsandconsition" => "required|in:1",
+            "otherPageRequest" => "nullable|array",
+            "otherPageRequest.*" => "required|string",
+            "ocr" => 'nullable',
+        ]);
+        DB::beginTransaction();
+        try {
+            if(!empty($req->rfqId)){
+                $newRfq = new Rfq;
+            }else{
+                $newRfq = new Rfq;
+            }
+            if(auth()->user()){
+                $newRfq->userId = auth()->user()->id;
+            }
+            $newRfq->energy_type = $req->energy_type;
+            $newRfq->type_of_property = $req->type_of_property;
+            $newRfq->kwh_usage = $req->kwh_usage;
+            $newRfq->kwh_rate = $req->kwh_rate;
+            $newRfq->serviceChargedPeriod = $req->serviceChargedPeriod;
+            $newRfq->serviceChargedRate = $req->serviceChargedRate;
+            $newRfq->electricity_usage = $req->electricity_usage;
+            $newRfq->understand = $req->understand;
+            $newRfq->termsandconsition = $req->termsandconsition;
+            $newRfq->save();
+            DB::commit();
+            $url = [
+                'rfqId' => $newRfq->id,
+                'eneryType' => $newRfq->energy_type,
+                'property_type' => $newRfq->type_of_property,
+            ];
+            if(!empty($req->otherPageRequest) && count($req->otherPageRequest) > 0){
+                foreach ($req->otherPageRequest as $key => $value) {
+                    $url[$key] = $value;
+                }
+            }
+            return redirect(route('product.listing',$url));
+        } catch (Exception $e) {
+            DB::rollback();
+            $errors['termsandconsition'] = 'Something went wrong please try after sometime';
+            return back()->withErrors($errors)->withInput($req->all());
+        }
+        
+    }
+
+    public function rfqSaveBeforeProductListingOld(Request $req)
+    {
+        dd($req->all());
+        $req->validate([
             "energy_type" => "required|string|in:gas_electricity,gas,electricity",
             "type_of_property" => "required|string|in:home,business",
             "property_type" => "required|string|in:own,rent",

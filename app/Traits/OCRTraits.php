@@ -81,7 +81,6 @@ trait OCRTraits
         $string = strtoupper($string);
         $stateId = 0;$error = true;$msg = 'we donot found the data for calculation';
         $pincode = '';$stateName = '';$bill_amount = '';$unit_consumed = '';
-        $name = '';$email = '';$phone = '';
         $states = \App\Model\State::where('countryId',2)->get();
         foreach ($states as $key => $state) {
             // getting State making Position true or false
@@ -119,15 +118,11 @@ trait OCRTraits
         $data->message = $msg;
         $data->state = $stateId;
         $data->stateName = $stateName;
-        $data->name = $name;
-        $data->email = $email;
-        $data->phone = $phone;
         $data->pincode = $pincode;
         $data->bill_amount = $bill_amount;
         $data->unit_consumed = $unit_consumed;
         $data->originalstring = $string;
         $data->user = (Auth::user() ? Auth::user()->id : 0);
-        insertOCRData($data);
         dd($data);
         return $data;
     }

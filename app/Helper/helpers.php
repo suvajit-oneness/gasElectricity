@@ -91,21 +91,6 @@
 	    return $positionArray;
 	}
 
-	function insertOCRData($object)
-	{
-		$newOCR = new \App\Model\OcrData();
-		$newOCR->full_text = $object->originalstring;
-		$newOCR->state = $object->stateName;
-		$newOCR->pincode = $object->pincode;
-		$newOCR->name = $object->name;
-		$newOCR->email = $object->email;
-		$newOCR->phone = $object->phone;
-		$newOCR->unit_consumed = $object->unit_consumed;
-		$newOCR->bill_amount = $object->bill_amount;
-		$newOCR->userId = $object->user;
-		$newOCR->save();
-	}
-
 	function findAVG($ratingsList)
 	{
 		$rating = 0;$counter = 1;

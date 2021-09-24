@@ -14,16 +14,13 @@
                         <table id="example4" class="table table-striped table-bordered" style="width:100%">
                             <thead>
                                 <tr>
-                                    <th>Name</th>
-                                    <th>Email</th>
-                                    <th>Phone</th>
+                                    <th>User Info</th>
                                     <th>Looking to Compare</th>
                                     <th>Type of Property</th>
-                                    <th>Rent / OWN</th>
-                                    <th>Moving Into Property</th>
-                                    <th>Moving Date</th>
-                                    <th>Entertainment Service</th>
-                                    <th>Gas Connection</th>
+                                    <th>Kwh Usage</th>
+                                    <th>Kwh Rate</th>
+                                    <th>Service Charged Rate</th>
+                                    <th>Service Charged Period</th>
                                     <th>Electricity Usage</th>
                                     <th>Emailed this Request</th>
                                     <th>Contacted By</th>
@@ -37,16 +34,24 @@
                                         $resolvedBy = $rfq->contacted_by;
                                     @endphp
                                     <tr>
-                                        <td>{{($user) ? $user->name : 'N/A'}}</td>
-                                        <td>{{($user) ? $user->email : 'N/A'}}</td>
-                                        <td>{{($user) ? $user->mobile : 'N/A'}}</td>
+                                        <td>
+                                            @if($user)
+                                                <div class="media">
+                                                    <div class="media-body">
+                                                        <p class="mb-0">{{$user->name}}</p>
+                                                        <p class="text-muted mb-0">{{$user->email}}</p>
+                                                    </div>
+                                                </div>
+                                            @else
+                                                {{('N/A')}}
+                                            @endif
+                                        </td>
                                         <td>{{strtoupper($rfq->energy_type)}}</td>
                                         <td>{{strtoupper($rfq->type_of_property)}}</td>
-                                        <td>{{strtoupper($rfq->property_type)}}</td>
-                                        <td>{{strtoupper($rfq->areyoumovingintothisproperty)}}</td>
-                                        <td>{{($rfq->moving_date == '0000-00-00') ? 'N/A' : date('d M, Y',strtotime($rfq->moving_date))}}</td>
-                                        <td>{{strtoupper($rfq->entertainment_service)}}</td>
-                                        <td>{{strtoupper($rfq->gas_connection)}}</td>
+                                        <td>{{strtoupper($rfq->kwh_usage)}}</td>
+                                        <td>{{strtoupper($rfq->kwh_rate)}}</td>
+                                        <td>{{strtoupper($rfq->serviceChargedRate)}}</td>
+                                        <td>{{strtoupper($rfq->serviceChargedPeriod)}}</td>
                                         <td>{{strtoupper($rfq->electricity_usage)}}</td>
                                         <td>@if($rfq->email_request == 1){{('Yes')}}@else{{('NO')}}@endif</td>
                                         <td>

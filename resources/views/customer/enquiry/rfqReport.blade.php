@@ -15,12 +15,11 @@
                                 <tr>
                                     <th>Looking to Compare</th>
                                     <th>Type of Property</th>
-                                    <th>Rent / OWN</th>
-                                    <th>Moving Into Property</th>
-                                    <th>Moving Date</th>
-                                    <th>Entertainment Service</th>
-                                    <th>Gas Connection</th>
                                     <th>Electricity Usage</th>
+                                    <th>Kwh Usage</th>
+                                    <th>Kwh Rate</th>
+                                    <th>Service Charged Rate</th>
+                                    <th>Service Charged Period</th>
                                     <th>Status</th>
                                 </tr>
                             </thead>
@@ -29,12 +28,11 @@
                                     <tr>
                                         <td>{{strtoupper($rfq->energy_type)}}</td>
                                         <td>{{strtoupper($rfq->type_of_property)}}</td>
-                                        <td>{{strtoupper($rfq->property_type)}}</td>
-                                        <td>{{strtoupper($rfq->areyoumovingintothisproperty)}}</td>
-                                        <td>{{($rfq->moving_date == '0000-00-00') ? 'N/A' : date('d M, Y',strtotime($rfq->moving_date))}}</td>
-                                        <td>{{strtoupper($rfq->entertainment_service)}}</td>
-                                        <td>{{strtoupper($rfq->gas_connection)}}</td>
                                         <td>{{strtoupper($rfq->electricity_usage)}}</td>
+                                        <td>{{strtoupper($rfq->kwh_usage)}}</td>
+                                        <td>{{strtoupper($rfq->kwh_rate)}}</td>
+                                        <td>{{strtoupper($rfq->serviceChargedRate)}}</td>
+                                        <td>{{strtoupper($rfq->serviceChargedPeriod)}}</td>
                                         <td>
                                             @if($rfq->resolved_by == 0)
                                                 {{('We will contact you soon')}}

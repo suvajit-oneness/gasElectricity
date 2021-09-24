@@ -2,19 +2,14 @@
 @section('title','RFQ')
 @section('content')
 
-<!-- <section class="state_banner">
-	<div class="container">
-	</div>
-</section> -->
-
 <section class="contact_wraper bac-white">
 	<div class="container">
-		<form method="post" action="{{route('elecricity.form.rfq.save')}}">
+		<form method="post" action="{{route('elecricity.form.rfq.save')}}" enctype="multipart/form-data">
 			@csrf
 			<div class="electric-head">
 				<h2 class="heading text-center">Describe Your Usage </h2>
 				<p class="text-center">To find you a great plan we need to collect some details about you.</p>
-			</div>
+			</div>			
 			@foreach($requestedData as $key => $value)
 				<input type="hidden" name="otherPageRequest[{{$key}}]" value="{{$value}}">
 			@endforeach
@@ -64,6 +59,44 @@
 			    </div>
 
 			    <div class="energy_select_box block-display back-transparent">
+					<p class="black-content"> Do you have your Elecricity / Gas Bill ?<span class="orange-color"></span></p>
+					<div class="row">
+						<div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
+							<div class="custom-control custom-radio autowidth p-0">
+							  <input type="file" name="ocr" class="form-control @error('ocr'){{('is_invalid')}}@enderror" onchange="OCRFILEUPLOAD($event)">
+							</div>
+						</div>
+					</div>
+					<span class="text-danger" id="fileUploadError"></span>
+					@error('ocr')<span class="text-danger">{{$message}}</span>@enderror
+			    </div>
+			    <div class="energy_select_box block-display back-transparent">
+			    	<p class="black-content">Energy usage details <span class="orange-color">*</span></p>
+			    	<div class="row">
+			    		<div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
+			    			<label>kWh usage</label>
+			    			<input type="text" name="kwh_usage" placeholder="kWh usage" class="form-control @error('kwh_usage'){{('is_invalid')}}@enderror" value="{{(old('kwh_usage'))}}">
+			    			@error('kwh_usage')<span class="text-danger">{{$message}}</span>@enderror
+			    		</div>
+			    		<div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
+			    			<label>kWh rate</label>
+			    			<input type="text" name="kwh_rate" placeholder="kWh rate" class="form-control @error('kwh_rate'){{('is_invalid')}}@enderror" value="{{(old('kwh_rate'))}}">
+			    			@error('kwh_rate')<span class="text-danger">{{$message}}</span>@enderror
+			    		</div>
+			    		<div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
+			    			<label>Service charged period</label>
+			    			<input type="text" name="serviceChargedPeriod" placeholder="Service charged period" class="form-control @error('serviceChargedPeriod'){{('is_invalid')}}@enderror" value="{{(old('serviceChargedPeriod'))}}">
+			    			@error('serviceChargedPeriod')<span class="text-danger">{{$message}}</span>@enderror
+			    		</div>
+			    		<div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
+			    			<label>Service charged rate</label>
+			    			<input type="text" name="serviceChargedRate" placeholder="Service charged rate" class="form-control @error('serviceChargedRate'){{('is_invalid')}}@enderror" value="{{(old('serviceChargedRate'))}}">
+			    			@error('serviceChargedRate')<span class="text-danger">{{$message}}</span>@enderror
+			    		</div>
+			    	</div>
+			    </div>
+
+			    <!-- <div class="energy_select_box block-display back-transparent">
 					<p class="black-content"> Do you own or rent the property? <span class="orange-color">*</span></p>
 					<div class="row">
 						<div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
@@ -155,47 +188,10 @@
 						</div>
 					</div>
 					@error('gas_connection')<span class="text-danger">{{$message}}</span>@enderror
-			    </div>
+			    </div> -->
 			</div>
 
 			<div class="electricity-details elect-form">
-				<!-- <h2 class="heading text-center"> Your Electricity Details </h2> -->
-
-				<!-- <div class="light-green border-area">
-					<div class="energy_select_box block-display back-transparent">
-						<p class="black-content"> Do you have gas connection to the property? <span class="orange-color">*</span> </p>
-						<div class="row">
-							<div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
-								<div class="custom-control custom-radio autowidth">
-								  <input type="radio" id="det-yes" name="customRadio" class="custom-control-input">
-								  <label class="custom-control-label" for="det-yes"> Yes </label>
-								</div>
-							</div>
-							<div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
-								<div class="custom-control custom-radio autowidth electricy-icon">
-								  <input type="radio" id="det-no" name="customRadio" class="custom-control-input">
-								  <label class="custom-control-label" for="det-no"> No </label>
-								</div>
-							</div>
-						</div>
-				   	</div>
-
-				   	<div class="energy_select_box block-display back-transparent border-b-none ">
-						<p class="black-content"> Who is your current electricity provider? <span class="orange-color">*</span> </p>
-						<div class="row">
-							<div class="col-xl-8 col-lg-8 col-md-12 col-sm-12 col-12">
-								<div class="drop-control autowidth">
-									  <select class="form-control">
-									 	<option>Origin Energy</option>
-									 	<option>Origin 2</option>
-									 	<option>Origin 3</option>
-									 </select>  
-								</div>
-							</div>
-						</div>
-				   	</div>
-				</div> -->
-
 				<div class="what-label">
 					<strong class="black-content "> What level best describes your typical electricity usage? <span class="orange-color">*</span> </strong>
 
@@ -243,6 +239,8 @@
 							</div>
 						</li>
 					</ul>
+					<input type="hidden" name="rfqId" value="{{old('rfqId')}}">
+					@error('rfqId')<span class="text-danger">{{$message}}</span>@enderror
 					@error('electricity_usage')<span class="text-danger">{{$message}}</span>@enderror
 					@error('understand')<span class="text-danger">{{$message}}</span>@enderror
 					<div class="check-area">
@@ -255,13 +253,14 @@
 					        <input type="checkbox" class="custom-control-input" name="termsandconsition" value="1" id="customControl2" checked>
 					        <label class="custom-control-label" for="customControl2"><b>  I have read, understood and accept the</b><span> Terms and Conditions </span> <b>&</b> <span> Privacy Collection Notice. </span></label>
 					    </div>
-					    <button @guest type="button" data-toggle="modal" data-target="#userInformationModal" @else type="submit" @endguest class="blue-btm top-gap30">Apply Now <span><i class="fas fa-arrow-circle-right"></i></span></button>
+					    <button type="submit" class="blue-btm top-gap30">Apply Now <span><i class="fas fa-arrow-circle-right"></i></span></button>
+					    <!-- <button @guest type="button" data-toggle="modal" data-target="#userInformationModal" @else type="submit" @endguest class="blue-btm top-gap30">Apply Now <span><i class="fas fa-arrow-circle-right"></i></span></button> -->
 					</div>
 				</div>
 	 		</div>
 
 			@guest
-		 		<div class="modal fade" id="userInformationModal" tabindex="-1" role="dialog" aria-labelledby="userInformationLabel" aria-hidden="true">
+		 		<!-- <div class="modal fade" id="userInformationModal" tabindex="-1" role="dialog" aria-labelledby="userInformationLabel" aria-hidden="true">
 					<div class="modal-dialog" role="document">
 					    <div class="modal-content">
 						    <div class="modal-header">
@@ -293,23 +292,63 @@
 						    </div>
 					    </div>
 					</div>
-				</div>
+				</div> -->
 			@endguest
 	 	</form>
 	</div>
 </section>
 @section('script')
     <script type="text/javascript">
-    	@error('user_name')
-	    	$('#userInformationModal').modal('show');
-    	@enderror
-    	@error('user_email')
-	    	$('#userInformationModal').modal('show');
-    	@enderror
-    	@error('user_mobile')
-	    	$('#userInformationModal').modal('show');
-    	@enderror
-    	
+    	var fileUploadError = '',file = new File;
+		function OCRFILEUPLOAD(thisFile){
+			fileUploadError = '';
+			// fileUpload();
+		}
+    	function fileUpload(file)
+    	{
+			$.ajax({
+			    url: 'https://api.ocr.space/parse/image',
+			    method: "POST",
+			    dataType: 'JSON',
+			    crossDomain: true,
+			    contentType: "application/json; charset=utf-8",
+			    data: {
+			    	file : file,
+			    	url : '',
+		            language : 'eng',
+		            isOverlayRequired : 'true',
+		            IsCreateSearchablePDF : 'false',
+		            isSearchablePdfHideTextLayer : 'true',
+		            detectOrientation : 'false',
+		            isTable : 'false',
+		            scale : 'true',
+		            OCREngine : '1',
+		            detectCheckbox : 'false',
+		            checkboxTemplate : '0',
+			    },
+			    cache: false,
+			    beforeSend: function (xhr) {
+			        /* Authorization header */
+			        xhr.setRequestHeader("apikey", "091edecfdb88957");
+			        xhr.setRequestHeader("Content-Type", "multipart/form-data");
+			    },
+			    success: function (data) {
+					console.log(data);
+			    },
+			    error: function (error) {
+					console.log('Error => ',error);
+			    }
+			});
+    	}
+    	// @error('user_name')
+	    // 	$('#userInformationModal').modal('show');
+    	// @enderror
+    	// @error('user_email')
+	    // 	$('#userInformationModal').modal('show');
+    	// @enderror
+    	// @error('user_mobile')
+	    // 	$('#userInformationModal').modal('show');
+    	// @enderror
     </script>
 @stop
 @endsection
