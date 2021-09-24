@@ -34,6 +34,78 @@
         return $fileurl;
 	}
 
+	function getStringNearPosition($string,$curentPos,$whattoFind,$afterBefore=100,$before=true)
+	{
+		$pos = 0;$loopExecute = true;
+		if(isset($string[$curentPos - $afterBefore])){
+			for($i = $curentPos; $i > ($curentPos - $afterBefore); $i--){
+				if(isset($string[$i]) && ($string[$i] == $whattoFind)){
+					$pos = $i;$loopExecute=false;break;
+				}
+			}
+		}
+		if($loopExecute && isset($string[$curentPos + $afterBefore])){
+			for ($i=$curentPos; $i < ($curentPos + $afterBefore); $i++) {
+				if(isset($string[$i]) && ($string[$i] == $whattoFind)){
+					$pos = $i;break;
+				}
+			}
+		}
+		return $pos;
+	}
+
+	function getNumberFromString($string,$position)
+	{
+		$number  = '';$firstSpace = false;$count = 0;
+		$array = ['0','1','2','3','4','5','6','7','8','9','.'];
+		for($i = ($position); $i < ($position + 15); $i++){
+			// echo $string[$i];
+			if(isset($string[$i]) && in_array($string[$i], $array)){
+				$number .= $string[$i];
+			}elseif($firstSpace && $count >= 2){
+				break;
+			}else{
+				$firstSpace = true;$count += 1;
+			}
+		}
+		return $number;
+	}
+
+	function getStringFromTo($start,$upto,$string)
+	{
+		$data = '';
+		for ($i=0; $i < $upto; $i++) {
+			if(isset($string[$start+$i])){
+				$data .= $string[$start+$i];
+			}
+		}
+		return $data;
+	}
+
+	function strpos_all($haystack, $needle) {
+	    $nextPosition = 0;$positionArray = [];
+	    while (($pos = strpos($haystack, $needle, $nextPosition)) !== FALSE) {
+	        $nextPosition   = $pos + 1;
+	        $positionArray[] = $pos;
+	    }
+	    return $positionArray;
+	}
+
+	function insertOCRData($object)
+	{
+		$newOCR = new \App\Model\OcrData();
+		$newOCR->full_text = $object->originalstring;
+		$newOCR->state = $object->stateName;
+		$newOCR->pincode = $object->pincode;
+		$newOCR->name = $object->name;
+		$newOCR->email = $object->email;
+		$newOCR->phone = $object->phone;
+		$newOCR->unit_consumed = $object->unit_consumed;
+		$newOCR->bill_amount = $object->bill_amount;
+		$newOCR->userId = $object->user;
+		$newOCR->save();
+	}
+
 	function findAVG($ratingsList)
 	{
 		$rating = 0;$counter = 1;

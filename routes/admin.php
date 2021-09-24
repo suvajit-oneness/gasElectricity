@@ -84,6 +84,7 @@
 		Route::post('contact-us/remark/save','Admin\AdminController@saveRemarkOfContactUs')->name('admin.report.contactUsSaveRemark');
 		Route::get('rfqs/details','Admin\AdminController@rfqDetails')->name('admin.report.rfqs');
 		Route::post('rfqs/details/remark/save','Admin\AdminController@saveRemarkOfRfqs')->name('admin.report.rfqSaveRemark');
+		Route::get('ocr/data','Admin\AdminController@ocrData')->name('admin.report.ocr');
 		
 	});
 

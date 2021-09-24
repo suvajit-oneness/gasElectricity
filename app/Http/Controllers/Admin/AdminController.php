@@ -15,10 +15,10 @@ use App\Model\ProductGas,App\Model\ProductElectricity;
 use App\Model\ProductMomentum,App\Model\CompanyDiscount;
 use App\Model\State,App\Model\Country,App\Model\CompanyCalculation;
 use App\Model\CompanyRateDetails,App\Model\CompanyPlanDetails;
+use App\Model\OcrData;
 
 class AdminController extends Controller
 {
-
     public function adminDashboard(Request $req)
     {
         $data = (object)[];
@@ -26,6 +26,12 @@ class AdminController extends Controller
         $data->supplier = User::where('user_type',2)->get();
         $data->rfqs = Rfq::select('*')->get();
         return view('admin.dashboard',compact('data'));
+    }
+
+    public function ocrData(Request $req)
+    {
+        $ocr_data = OcrData::select('*')->latest()->paginate(20);
+        return view('admin.reports.ocrReport',compact('ocr_data'));
     }
 
     public function rfqDetails(Request $req)

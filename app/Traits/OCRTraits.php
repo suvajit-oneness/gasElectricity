@@ -3,6 +3,7 @@
 namespace App\Traits;
 use Illuminate\Http\Request;
 use App\Models\OcrFilesData;
+use Auth;
 
 trait OCRTraits
 {
@@ -48,7 +49,7 @@ trait OCRTraits
         $error = true;$msg = 'Something went wrong please try after sometime';
         if($err){}
         else{
-            $error = false;$msg = 'Returned Data';   
+            $error = false;$msg = 'Returned Data';
         }
         $data = (object)[];
         $data->error = $error;
@@ -59,15 +60,12 @@ trait OCRTraits
 
     public function convertToText($resultData)
     {
-        // dd($resultData);
         // echo $resultData->ParsedResults[0]->ParsedText;exit;
         $error = true;$msg = 'uploaded file has no Content';$textData = '';
         if(!empty($resultData->ParsedResults) && count($resultData->ParsedResults) > 0){
-            $arrayData = $resultData->ParsedResults[0];
-            if(!empty($arrayData->ParsedText)){
-                $error = false;$msg = 'Content Readed';$textData = $arrayData->ParsedText;
-            }else{
-                $error = true;$msg = 'Something went wrong please try after sometime';
+            $arrayData = $resultData->ParsedResults;
+            foreach($arrayData as $pageWise){
+                $error = false;$msg = 'Content Readed';$textData .= $pageWise->ParsedText.' ';
             }
         }
         $data = (object)[];
@@ -79,13 +77,39 @@ trait OCRTraits
 
     public function readLines($string)
     {
-        // return $string;
+        // echo "<pre>"; print_r($string);exit;
         $stateId = 0;$error = true;$msg = 'we donot found the data for calculation';
+        $pincode = '';$stateName = '';$bill_amount = '';$unit_consumed = '';
+        $name = '';$email = '';$phone = '';
         $states = \App\Model\State::where('countryId',2)->get();
         foreach ($states as $key => $state) {
-            if((strpos($string,strtoupper($state->name)) !== false) || ($state->key != '' && strpos($string,strtoupper($state->key)) !== false)){
+            // getting State making Position true or false
+            $pos1 = false;$pos2 = false;
+            if(($pos1 = strpos($string,strtoupper($state->name)) !== false) || ($state->acronym != '' && $pos2 = strpos($string,strtoupper($state->acronym)) !== false)){
                 $error = false;$msg = 'Data Found';
-                $stateId = $state->id;
+                $stateId = $state->id;$stateName = $state->name;
+                // Getting Pincode
+                if($pos1){
+                    $pos1 = strpos($string,strtoupper($state->name));
+                    $pos1 = $pos1 + strlen($state->name) + 1; // positon of the text + state name + 1 for space
+                    $pincode = getStringFromTo($pos1,4,$string);
+                    // $pincode = getNumberFromString($string,$pos1);
+                }elseif($pos2){
+                    $pos2 = strpos($string,strtoupper($state->acronym));
+                    $pos2 = $pos2 + strlen($state->acronym) + 1; // positon of the text + state acronym + 1 for space
+                    $pincode = getStringFromTo($pos2,4,$string);
+                    // $pincode = getNumberFromString($string,$pos2);
+                }
+                // getting Bill Amount
+                $gettingPositionForBillAmount = $this->getAllPosibleBillText($string);
+                if($gettingPositionForBillAmount){
+                    $posForAmount = getStringNearPosition($string,$gettingPositionForBillAmount,'$',1000);
+                    if($posForAmount && $posForAmount > 0){
+                        // Getting Price
+                        $bill_amount = getNumberFromString($string,$posForAmount);
+                    }
+                }
+                $unit_consumed = $this->getUnitConsumed($string);
                 break;
             }
         }
@@ -93,6 +117,42 @@ trait OCRTraits
         $data->error = $error;
         $data->message = $msg;
         $data->state = $stateId;
+        $data->stateName = $stateName;
+        $data->name = $name;
+        $data->email = $email;
+        $data->phone = $phone;
+        $data->pincode = $pincode;
+        $data->bill_amount = $bill_amount;
+        $data->unit_consumed = $unit_consumed;
+        $data->originalstring = $string;
+        $data->user = (Auth::user() ? Auth::user()->id : 0);
+        insertOCRData($data);
+        dd($data);
         return $data;
+    }
+
+    public function getUnitConsumed($string)
+    {
+        $unitConsumed = '';
+        $searchString = 'Average daily usage for this account: ';$pos = strpos($string,$searchString);
+        if($pos){$pos += strlen($searchString);}
+        // else{
+        //     $searchString = 'Average daily usage for this account: ';$pos = strpos($string,$searchString);
+        //     if($pos){$pos += strlen($searchString);}
+        //     else{}
+        // }
+        if($pos && $pos > 0){
+            $unitConsumed = getNumberFromString($string,$pos);
+        }
+        return $unitConsumed;
+    }
+
+    public function getAllPosibleBillText($string)
+    {
+        $pos = strpos($string,'Total Gas Charges');
+        if(!$pos){
+            $pos = strpos($string,'Total Electricity Charges');
+        }
+        return $pos;
     }
 }
