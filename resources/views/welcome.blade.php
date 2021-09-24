@@ -29,8 +29,7 @@
 				 <p>If you’re a savvy bargain hunter like us at SwitchR, you’ll love saving on your energy bills. Compare energy plans, sign up, and start saving!</p>
 				</div>
 			<div class="location-search-section">
-				<form action="{{route('rfq.product.listing')}}" method="post" autocomplete="off" enctype="multipart/form-data">
-					@csrf
+				<form action="{{route('rfq.product.listing')}}" autocomplete="off">
 					<div class="search-form">
 						<datalist id="suppliersPincode">
 							@foreach($data->pincode as $key => $pincde)
@@ -39,31 +38,18 @@
 						</datalist>
 						<!-- @error('eneryType')<span class="text-danger">{{$message}}</span>@enderror -->
 						@error('search')<span class="text-danger">{{$message}}</span>@enderror
-						<label>Enter your postcode to compare, switch, and save!</label>
+						<label>Where are you located?</label>
 						<!-- <input type="hidden" name="eneryType" value="gas_electricity"> -->
-						<div class="row m-0 align-items-center justify-content-center w-100">
-                            <div class="col-12 col-md-5 p-0">
-                               <input type="text" class="postCodeSearch w-100" name="search" id="search" placeholder="Enter your postcode or suburb..." value="{{old('search')}}" list="suppliersPincode">
-                            </div>
-                            <div class="col-12 col-md-1 test-center p-0 or_text">
-                               OR
-                            </div>
-                            <div class="col-12 col-md-4 p-0">
-                               <input type="file" name="file" class="form-control">
-                               @error('file')<span class="text-danger f-error">{{$message}}</span>@enderror
-                            </div>
-                            <div class="col-12 col-md-2 mt-2 mt-md-0 p-0">
-                                <div class="button text-center">
-                            		<button type="submit">compare now</button>
-                            		<i class="fas fa-arrow-circle-right"></i>
-                            	</div>
-                            </div>
+						<input type="text" class="postCodeSearch" name="search" id="search" placeholder="Enter your postcode or suburb..." required="" value="{{old('search')}}" list="suppliersPincode">
+						<div class="button">
+							<button type="submit">compare now</button>
+							<i class="fas fa-arrow-circle-right"></i>
 						</div>
 					</div>
 				</form>
 				<p>Currently available in 
 					@foreach($data->state as $state)
-						<a href="{{route('rfq.product.listing')}}?stateId={{base64_encode($state->id)}}" style="color:ffffff">{{$state->name}}</a> ,
+						<a href="{{route('rfq.product.listing',['stateId'=>$state->id,'stateName'=>$state->name])}}" style="color:ffffff">{{$state->name}}</a> ,
 					@endforeach
 				</p>
 			</div>

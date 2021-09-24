@@ -71,13 +71,14 @@ trait OCRTraits
         $data = (object)[];
         $data->error = $error;
         $data->message = $msg;
-        $data->data = strtoupper($textData); // doing uppercase all data
+        // $data->data = strtoupper($textData); // doing uppercase all data
+        $data->data = $textData; // doing nolmal all data
         return $data;
     }
 
     public function readLines($string)
     {
-        // echo "<pre>"; print_r($string);exit;
+        $string = strtoupper($string);
         $stateId = 0;$error = true;$msg = 'we donot found the data for calculation';
         $pincode = '';$stateName = '';$bill_amount = '';$unit_consumed = '';
         $name = '';$email = '';$phone = '';

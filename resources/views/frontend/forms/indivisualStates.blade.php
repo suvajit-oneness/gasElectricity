@@ -15,34 +15,20 @@
 						<option value="{{$pincde->autocomplete}}"></option>
 					@endforeach
 				</datalist>
-				<form action="{{route('rfq.product.listing')}}" method="post" autocomplete="off" enctype="multipart/form-data">
-					@csrf
+				<form action="{{route('rfq.product.listing')}}" method="get" autocomplete="off">
 					<div class="search-form">
 						@error('search')<span class="text-danger">{{$message}}</span>@enderror
 						<label>Where are you located?</label>
-						<div class="row m-0 align-items-center justify-content-center w-100">
-						    <div class="col-12 col-md-5 p-0">
-						        <input type="text" class="postCodeSearch w-100" name="search" id="search" placeholder="Enter your postcode or suburb..." required="" value="{{old('search')}}" list="suppliersPincode">
-						    </div>
-						    <div class="col-12 col-md-1 test-center p-0 or_text">
-						        OR
-						    </div>
-						    <div class="col-12 col-md-4 p-0">
-						        <input type="file" name="file" class="form-control">
-						       @error('file')<span class="text-danger f-error">{{$message}}</span>@enderror
-						    </div>
-						    <div class="col-12 col-md-2 mt-2 mt-md-0 p-0">
-					        	<div class="button text-center">
-        							<button type="submit">compare now</button>
-        							<i class="fas fa-arrow-circle-right"></i>
-        						</div>
-						    </div>
+						<input type="text" class="postCodeSearch" name="search" id="search" placeholder="Enter your postcode or suburb..." required="" value="{{old('search')}}" list="suppliersPincode">
+						<div class="button">
+							<button type="submit">compare now</button>
+							<i class="fas fa-arrow-circle-right"></i>
 						</div>
 					</div>
 				</form>
 				<p>Currently available in 
 					@foreach($data->state as $state)
-						<a href="{{route('rfq.product.listing')}}?stateId={{base64_encode($state->id)}}" style="color:ffffff">{{$state->name}}</a> ,
+						<a href="{{route('rfq.product.listing',['stateId'=>$state->id,'stateName'=>$state->name])}}" style="color:ffffff">{{$state->name}}</a> ,
 					@endforeach
 				</p>
 			</div>
