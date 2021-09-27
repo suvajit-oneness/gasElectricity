@@ -87,7 +87,7 @@ class RegisterController extends Controller
             $user->operateLifeSupportMedicalEquipment = emptyCheck($data->operateLifeSupportMedicalEquipment);
             $user->LifeSupportMachineType = emptyCheck($data->LifeSupportMachineType);    
         }else{
-            $user->requireLifeSupportMedicalEquipment = emptyCheck($data->requireLifeSupportMedicalEquipment);
+            $user->requireLifeSupportMedicalEquipment = 'no';
         }
         $user->save();
         $this->setReferralCode($user,$data->referral);

@@ -14,7 +14,7 @@
                         </li>
 
                         <li class="nav-item custom-tooltip">
-                        <span class="tooltiptext">Profile</span>
+                            <span class="tooltiptext">Profile</span>
                             <a class="nav-link {{request()->routeIs('user.profile')?'active':''}}" href="{{route('user.profile')}}"><i class="fa fa-fw fa-user-circle"></i><h5>Profile</h5></a>
                         </li>
                         @if(Auth::user()->user_type != 1)
@@ -137,9 +137,12 @@
                         <!-- Supplier Sidebar End-->
                         <!-- Customer Sidebar -->
                         @elseif(Auth::user()->user_type == 3)
-                            <li class="nav-divider">Enquiry</li>
                             <li class="nav-item">
-                                <a class="nav-link {{request()->routeIs('customer.enquiry.rfq')?'active':''}}" href="{{route('customer.enquiry.rfq')}}"><i class="fa fa-fw fa-user-circle"></i>Your Enquiry</a>
+                                <a class="nav-link {{request()->routeIs('user.usage_details')?'active':''}}" href="{{route('user.usage_details')}}"><i class="fa fa-fw fa-user-circle"></i>Home & Usage Details</a>
+                            </li>
+                            <li class="nav-divider">History</li>
+                            <li class="nav-item">
+                                <a class="nav-link {{request()->routeIs('customer.enquiry.rfq')?'active':''}}" href="{{route('customer.enquiry.rfq')}}"><i class="fa fa-fw fa-user-circle"></i>History</a>
                             </li>
                         @endif
                     </ul>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request,DB;
 use Auth,Hash,App\Model\Company;
 use App\Model\Master;
+use App\HomeAndUsage;
 
 class HomeController extends Controller
 {
@@ -71,6 +72,61 @@ class HomeController extends Controller
         $user->aniversary = emptyCheck($req->aniversary,true);
         $user->save();
         return back()->with('Success','Profile updated successFully');
+    }
+
+    public function homeAndUsageDetails(Request $req)
+    {
+        $user = Auth::user();
+        $homeAndUsage = HomeAndUsage::where('userId',$user->id)->first();
+        if(!$homeAndUsage){
+            $homeAndUsage = new HomeAndUsage();
+            $homeAndUsage->userId = $user->id;            
+        }
+        $homeAndUsage->save();
+        return view('auth.user/home_and_usageDetails',compact('user','homeAndUsage'));
+    }
+
+    public function homeAndUsageDetailsUpdate(Request $req)
+    {
+        $req->validate([
+            'serviceAddress' => 'nullable|max:200',
+            'meterNumber' => 'nullable|max:200',
+            'nmi' => 'nullable|max:200',
+            'solar' => 'nullable|max:200',
+            'usageInfo' => 'nullable|max:200',
+            'requireLifeSupportMedicalEquipment' => 'nullable',
+            'operateLifeSupportMedicalEquipment' => 'nullable',
+            'LifeSupportMachineType' => 'nullable',
+        ]);
+        DB::beginTransaction();
+        try {
+            $user = Auth::user();
+            if(!empty($req->requireLifeSupportMedicalEquipment) && $req->requireLifeSupportMedicalEquipment == 'yes'){
+                $user->requireLifeSupportMedicalEquipment = emptyCheck($req->requireLifeSupportMedicalEquipment);
+                $user->operateLifeSupportMedicalEquipment = emptyCheck($req->operateLifeSupportMedicalEquipment);
+                $user->LifeSupportMachineType = emptyCheck($req->LifeSupportMachineType);    
+            }else{
+                $user->requireLifeSupportMedicalEquipment = 'no';
+            }
+            $user->save();
+            $homeAndUsage = HomeAndUsage::where('userId',$user->id)->first();
+            if(!$homeAndUsage){
+                $homeAndUsage = new HomeAndUsage();
+                $homeAndUsage->userId = $user->id;
+            }
+            $homeAndUsage->serviceAddress = emptyCheck($req->serviceAddress);
+            $homeAndUsage->meterNumber = emptyCheck($req->meterNumber);
+            $homeAndUsage->nmi = emptyCheck($req->nmi);
+            $homeAndUsage->solar = emptyCheck($req->solar);
+            $homeAndUsage->usageInfo = emptyCheck($req->usageInfo);
+            $homeAndUsage->save();
+            DB::commit();
+            return back()->with('Success','Data updated successFully');
+        } catch (Exception $e) {
+            DB::rollback();
+            $error['serviceAddress'] = 'Something went wrong please try after sometime';
+            return back()->withErrors($error)->withInput($req->all());
+        }
     }
 
     public function updateUserPassword(Request $req)

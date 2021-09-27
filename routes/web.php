@@ -48,6 +48,8 @@ Route::group(['middleware' => 'auth'],function(){
 	Route::post('user/profile','HomeController@userProfileSave')->name('user.profile.save');
 	Route::post('user/change/password','HomeController@updateUserPassword')->name('user.changepassword.save');
 	Route::get('user/points','HomeController@userPoints')->name('user.points');
+	Route::get('user/home_and_usage/details','HomeController@homeAndUsageDetails')->name('user.usage_details');
+	Route::post('user/home_and_usage/details/update','HomeController@homeAndUsageDetailsUpdate')->name('user.home_and_usage.details.update');
 
 	Route::get('product/{productId}/company/details','WelcomeController@productDetails')->name('product.details');
 });
