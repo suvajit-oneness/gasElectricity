@@ -46,91 +46,80 @@ trait OCRTraits
         curl_setopt($curl, CURLOPT_HTTPHEADER, $header);
         $result = curl_exec($curl);
         $err = curl_error($curl);
-        $error = true;$msg = 'Something went wrong please try after sometime';
-        if($err){}
-        else{
-            $error = false;$msg = 'Returned Data';
+        if($err){
+            return errorResponse('Something went wrong please try after sometime'); // sending the Error Response
         }
-        $data = (object)[];
-        $data->error = $error;
-        $data->message = $msg;
-        $data->data = json_decode($result);
-        return $data;
+        return $this->convertToText(json_decode($result)); // transferring to the next step
     }
 
     public function convertToText($resultData)
     {
         // echo $resultData->ParsedResults[0]->ParsedText;exit;
-        $error = true;$msg = 'uploaded file has no Content';$textData = '';
+        $error = true;$msg = '';$textData = '';
         if(!empty($resultData->ParsedResults) && count($resultData->ParsedResults) > 0){
             $arrayData = $resultData->ParsedResults;
             foreach($arrayData as $pageWise){
-                $error = false;$msg = 'Content Readed';$textData .= $pageWise->ParsedText.' ';
+                $error = false;$textData .= $pageWise->ParsedText.' ';
             }
         }
-        $data = (object)[];
-        $data->error = $error;
-        $data->message = $msg;
-        // $data->data = strtoupper($textData); // doing uppercase all data
-        $data->data = $textData; // doing nolmal all data
-        return $data;
+        if($error){
+            return errorResponse('uploaded file has no Content',$textData); // sending the Error Response
+        }
+        return $this->readLines($textData); // transferring to the next step
     }
 
     public function readLines($string)
     {
-        $string = strtoupper($string);
-        $stateId = 0;$error = true;$msg = 'we donot found the data for calculation';
-        $pincode = '';$stateName = '';$bill_amount = '';$unit_consumed = '';
+        $stateId = 0;$error = true;$pincode = '';$stateName = '';$bill_amount = '';$unit_consumed = '';
+        $serviceChargePeriod = '';$serviceChargedRate = '';
         $states = \App\Model\State::where('countryId',2)->get();
         foreach ($states as $key => $state) {
-            // getting State making Position true or false
-            $pos1 = false;$pos2 = false;
-            if(($pos1 = strpos($string,strtoupper($state->name)) !== false) || ($state->acronym != '' && $pos2 = strpos($string,strtoupper($state->acronym)) !== false)){
-                $error = false;$msg = 'Data Found';
-                $stateId = $state->id;$stateName = $state->name;
-                // Getting Pincode
+            if($state->acronym != '' && $pos1 = strpos($string,strtoupper($state->acronym))){
                 if($pos1){
-                    $pos1 = strpos($string,strtoupper($state->name));
-                    $pos1 = $pos1 + strlen($state->name) + 1; // positon of the text + state name + 1 for space
+                    $pos1 += strlen($state->acronym) + 1; // positon of the text + state acronym + 1 for space
                     $pincode = getStringFromTo($pos1,4,$string);
-                    // $pincode = getNumberFromString($string,$pos1);
-                }elseif($pos2){
-                    $pos2 = strpos($string,strtoupper($state->acronym));
-                    $pos2 = $pos2 + strlen($state->acronym) + 1; // positon of the text + state acronym + 1 for space
-                    $pincode = getStringFromTo($pos2,4,$string);
-                    // $pincode = getNumberFromString($string,$pos2);
-                }
-                // getting Bill Amount
-                $gettingPositionForBillAmount = $this->getAllPosibleBillText($string);
-                if($gettingPositionForBillAmount){
-                    $posForAmount = getStringNearPosition($string,$gettingPositionForBillAmount,'$',1000);
-                    if($posForAmount && $posForAmount > 0){
-                        // Getting Price
-                        $bill_amount = getNumberFromString($string,$posForAmount);
+                }elseif($state->name != '' && $pos2 = strpos($string,$state->name)){
+                    if($pos2){
+                        $pos2 += strlen($state->name) + 1; // positon of the text + state Name + 1 for space
+                        $pincode = getStringFromTo($pos2,4,$string);
                     }
                 }
-                $unit_consumed = $this->getUnitConsumed($string);
-                break;
+                if($pos1 || $pos2){
+                    $stateId = $state->id;$stateName = $state->name;
+                    $gettingPositionForBillAmount = $this->getAllPosibleBillText($string);
+                    if($gettingPositionForBillAmount){
+                        $posForAmount = getStringNearPosition($string,$gettingPositionForBillAmount,'$',1000);
+                        if($posForAmount && $posForAmount > 0){
+                            $bill_amount = getNumberFromString($string,$posForAmount);
+                        }
+                    }
+                    $unit_consumed = $this->getUnitConsumed($string);
+                    $error = false;break;
+                }
             }
+            continue;
         }
-        $data = (object)[];
-        $data->error = $error;
-        $data->message = $msg;
-        $data->state = $stateId;
-        $data->stateName = $stateName;
-        $data->pincode = $pincode;
-        $data->bill_amount = $bill_amount;
-        $data->unit_consumed = $unit_consumed;
-        $data->originalstring = $string;
-        $data->user = (Auth::user() ? Auth::user()->id : 0);
-        dd($data);
-        return $data;
+        if($error){
+            return errorResponse('we donot found the data for calculation',$string);
+        }
+        return successResponse('Data Found',[
+            'stateId' => $stateId,
+            'stateName' => $stateName,
+            'pincode' => $pincode,
+            'bill_amount' => $bill_amount,
+            'unit_consumed' => $unit_consumed,
+            'kwh_usage' => $unit_consumed,
+            'kwh_rate' => $bill_amount,
+            'serviceChargedPeriod' => $serviceChargePeriod,
+            'serviceChargedRate' => $serviceChargedRate,
+            'originalstring' => $string,
+        ]);
     }
 
     public function getUnitConsumed($string)
     {
         $unitConsumed = '';
-        $searchString = 'Average daily usage for this account: ';$pos = strpos($string,$searchString);
+        $searchString = 'AVERAGE DAILY USAGE FOR THIS ACCOUNT: ';$pos = strpos(strtoupper($string),$searchString);
         if($pos){$pos += strlen($searchString);}
         // else{
         //     $searchString = 'Average daily usage for this account: ';$pos = strpos($string,$searchString);
@@ -145,9 +134,9 @@ trait OCRTraits
 
     public function getAllPosibleBillText($string)
     {
-        $pos = strpos($string,'Total Gas Charges');
+        $pos = strpos(strtoupper($string),'TOTAL GAS CHARGES');
         if(!$pos){
-            $pos = strpos($string,'Total Electricity Charges');
+            $pos = strpos(strtoupper($string),'TOTAL ELECTRICITY CHARGES');
         }
         return $pos;
     }

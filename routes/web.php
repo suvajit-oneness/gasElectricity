@@ -1,6 +1,6 @@
 <?php
 
-Auth::routes(['register' => true,'logout'=>false]);
+Auth::routes(['register' => true,'logout'=>false,'verify'=>true]);
 Route::any('logout','Auth\LoginController@logout');
 
 Route::get('/home', 'HomeController@index')->name('home');
@@ -38,7 +38,6 @@ Route::post('electricity_form/rfq/product/listing/save','WelcomeController@rfqSa
 // Route::get('membership/claimed/success/{membershipId}','WelcomeController@membershipSuccessFullPurchase')->name('membership.claimed.success');
 
 Route::get('product-listing','WelcomeController@productListing')->name('product.listing');
-Route::get('product/{productId}/company/details','WelcomeController@productDetails')->name('product.details');
 Route::post('email/plan_details','WelcomeController@emailPlanDetails')->name('rfq.email.plan.details');
 Route::get('company/supplier/form','WelcomeController@supplierFormToShowUser')->name('company.supplier.form');
 Route::post('company/supplier/form_post_save','WelcomeController@supplierFormToShowUserSave')->name('company.supplier.form.save');
@@ -49,11 +48,16 @@ Route::group(['middleware' => 'auth'],function(){
 	Route::post('user/profile','HomeController@userProfileSave')->name('user.profile.save');
 	Route::post('user/change/password','HomeController@updateUserPassword')->name('user.changepassword.save');
 	Route::get('user/points','HomeController@userPoints')->name('user.points');
+
+	Route::get('product/{productId}/company/details','WelcomeController@productDetails')->name('product.details');
 });
 
 // Stripe Payment Route
 Route::post('stripe/payment/form_submit','StripePaymentController@stripePostForm_Submit')->name('stripe.payment.form_submit');
 Route::get('payment/successfull/thankyou/{stripeTransactionId}','StripePaymentController@thankyouStripePayment')->name('payment.successfull.thankyou');
+
+// OCR Upload Section
+Route::any('ocr/upload_and_getdata','WelcomeController@ocrUploadAndGetdata')->name('ocr.upload_and_get_data');
 
 
 

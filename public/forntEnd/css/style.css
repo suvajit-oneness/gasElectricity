@@ -5658,3 +5658,9 @@ button:focus {
     z-index: 1;
     background-position: center center;
 }
+.viewMoreDetailsDIV{
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%, -14px);
+}

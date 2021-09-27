@@ -206,6 +206,9 @@
 												</div>
 											</div>
 										@endif
+										<div class="viewMoreDetailsDIV">
+											<a href="{{route('product.details',$product->id)}}{{$url}}" class="btn btn-link viewMoreDetailsAnchortag">View more details</a>
+										</div>
 									</div>
 									<div class="plan_info">
 										<p>{{$product->tag}} <img src="{{asset('forntEnd/images/question.png')}}" data-toggle="tooltip" data-placement="bottom" title="{!! $product->tag_description !!}"></p>
@@ -239,7 +242,7 @@
 	</div>
 </section>
 
-<div class="modal" tabindex="-1" role="dialog" id="loginToContinue">
+<!-- <div class="modal" tabindex="-1" role="dialog" id="loginToContinue">
 	<div class="modal-dialog modal-dialog-centered please_log_modal" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -257,7 +260,7 @@
 				
 		</div>
 	</div>
-</div>
+</div> -->
 
 @section('script')
     <script type="text/javascript">
@@ -267,15 +270,16 @@
 				event.preventDefault();
 			});
 			document.oncontextmenu = new Function("return false");
-
 	    	<?php Session::put('url.intended', URL::full()); ?>
 	    	$('.addBlur').css({'filter': 'blur(5px)'});
-			$('.plan_listing_wraper a').addClass("disable-click").removeAttr('href');
+			$('.plan_listing_wraper a').addClass("disable-click");
+			// $('.plan_listing_wraper a').addClass("disable-click").removeAttr('href');
 			$('.plan_listing_wraper button').attr('disabled',true);
-			$('#loginToContinue').modal('show');
-			$(document).on('click','.loginToContinue',function(){
-				window.location.href = '{{route('login')}}';
-			});
+			$('.viewMoreDetailsAnchortag').attr('disabled',false).removeClass('disable-click'); // only this will enabled to click
+			// $('#loginToContinue').modal('show');
+			// $(document).on('click','.loginToContinue',function(){
+			// 	window.location.href = '{{route('login')}}';
+			// });
     	@endguest
     </script>
 @stop

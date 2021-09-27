@@ -27,11 +27,11 @@ class HomeController extends Controller
     {
         switch (Auth::user()->user_type) {
             case 1:
-                return redirect('admin/dashboard');break;
+                return redirect()->intended('admin/dashboard');break;
             case 2:
-                return redirect('supplier/dashboard');break;
+                return redirect()->intended('supplier/dashboard');break;
             case 3:
-                return redirect('customer/dashboard');break;
+                return redirect()->intended('customer/dashboard');break;
             default:
                 return view('home');break;
         }

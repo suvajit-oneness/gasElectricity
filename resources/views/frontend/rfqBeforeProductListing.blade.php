@@ -4,7 +4,7 @@
 
 <section class="contact_wraper bac-white">
 	<div class="container">
-		<form method="post" action="{{route('elecricity.form.rfq.save')}}" enctype="multipart/form-data">
+		<form method="post" action="{{route('elecricity.form.rfq.save')}}" enctype="multipart/form-data" id="RFqFormSection">
 			@csrf
 			<div class="electric-head">
 				<h2 class="heading text-center">Describe Your Usage </h2>
@@ -63,34 +63,34 @@
 					<div class="row">
 						<div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
 							<div class="custom-control custom-radio autowidth p-0">
-							  <input type="file" name="ocr" class="form-control @error('ocr'){{('is_invalid')}}@enderror" onchange="OCRFILEUPLOAD($event)">
+							  <input type="file" name="file" id="OCRFormField" class="form-control @error('file'){{('is_invalid')}}@enderror" onchange="OCRFILEUPLOAD(event)">
 							</div>
 						</div>
 					</div>
 					<span class="text-danger" id="fileUploadError"></span>
-					@error('ocr')<span class="text-danger">{{$message}}</span>@enderror
+					@error('file')<span class="text-danger">{{$message}}</span>@enderror
 			    </div>
 			    <div class="energy_select_box block-display back-transparent">
 			    	<p class="black-content">Energy usage details <span class="orange-color">*</span></p>
 			    	<div class="row">
 			    		<div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
 			    			<label>kWh usage</label>
-			    			<input type="text" name="kwh_usage" placeholder="kWh usage" class="form-control @error('kwh_usage'){{('is_invalid')}}@enderror" value="{{(old('kwh_usage'))}}">
+			    			<input type="text" id="kwh_usage" name="kwh_usage" placeholder="kWh usage" class="form-control @error('kwh_usage'){{('is_invalid')}}@enderror" value="{{(old('kwh_usage'))}}">
 			    			@error('kwh_usage')<span class="text-danger">{{$message}}</span>@enderror
 			    		</div>
 			    		<div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
 			    			<label>kWh rate</label>
-			    			<input type="text" name="kwh_rate" placeholder="kWh rate" class="form-control @error('kwh_rate'){{('is_invalid')}}@enderror" value="{{(old('kwh_rate'))}}">
+			    			<input type="text" id="kwh_rate" name="kwh_rate" placeholder="kWh rate" class="form-control @error('kwh_rate'){{('is_invalid')}}@enderror" value="{{(old('kwh_rate'))}}">
 			    			@error('kwh_rate')<span class="text-danger">{{$message}}</span>@enderror
 			    		</div>
 			    		<div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
 			    			<label>Service charged period</label>
-			    			<input type="text" name="serviceChargedPeriod" placeholder="Service charged period" class="form-control @error('serviceChargedPeriod'){{('is_invalid')}}@enderror" value="{{(old('serviceChargedPeriod'))}}">
+			    			<input type="text" id="serviceChargedPeriod" name="serviceChargedPeriod" placeholder="Service charged period" class="form-control @error('serviceChargedPeriod'){{('is_invalid')}}@enderror" value="{{(old('serviceChargedPeriod'))}}">
 			    			@error('serviceChargedPeriod')<span class="text-danger">{{$message}}</span>@enderror
 			    		</div>
 			    		<div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
 			    			<label>Service charged rate</label>
-			    			<input type="text" name="serviceChargedRate" placeholder="Service charged rate" class="form-control @error('serviceChargedRate'){{('is_invalid')}}@enderror" value="{{(old('serviceChargedRate'))}}">
+			    			<input type="text" id="serviceChargedRate" name="serviceChargedRate" placeholder="Service charged rate" class="form-control @error('serviceChargedRate'){{('is_invalid')}}@enderror" value="{{(old('serviceChargedRate'))}}">
 			    			@error('serviceChargedRate')<span class="text-danger">{{$message}}</span>@enderror
 			    		</div>
 			    	</div>
@@ -199,7 +199,7 @@
 						<li>
 							<div class="energy_select_box block-display">
 								<div class="custom-control custom-radio autowidth">
-									<input type="radio" id="low" name="electricity_usage" value="low" class="custom-control-input" @if(old('electricity_usage') == 'low'){{('checked')}}@endif>
+									<input type="radio" id="low" name="electricity_usage" value="low" class="custom-control-input" @if(old('electricity_usage') == 'low'){{('checked')}}@elseif(!old('electricity_usage')){{('checked')}}@endif>
 									<label class="custom-control-label" for="low"> Low </label>
 								</div>
 							</div>
@@ -299,46 +299,70 @@
 </section>
 @section('script')
     <script type="text/javascript">
-    	var fileUploadError = '',file = new File;
-		function OCRFILEUPLOAD(thisFile){
-			fileUploadError = '';
-			// fileUpload();
+
+		function OCRFILEUPLOAD(thisFiles){
+			$('#fileUploadError').text('');
+			var ocr_FIle = $('#OCRFormField').val();
+			if(ocr_FIle){
+				var form = $('#RFqFormSection')[0];
+	            var data = new FormData(form);
+	            fileUpload(data);
+			}
 		}
-    	function fileUpload(file)
+
+    	function fileUpload(formData)
     	{
-			$.ajax({
-			    url: 'https://api.ocr.space/parse/image',
-			    method: "POST",
-			    dataType: 'JSON',
-			    crossDomain: true,
-			    contentType: "application/json; charset=utf-8",
-			    data: {
-			    	file : file,
-			    	url : '',
-		            language : 'eng',
-		            isOverlayRequired : 'true',
-		            IsCreateSearchablePDF : 'false',
-		            isSearchablePdfHideTextLayer : 'true',
-		            detectOrientation : 'false',
-		            isTable : 'false',
-		            scale : 'true',
-		            OCREngine : '1',
-		            detectCheckbox : 'false',
-		            checkboxTemplate : '0',
-			    },
-			    cache: false,
-			    beforeSend: function (xhr) {
-			        /* Authorization header */
-			        xhr.setRequestHeader("apikey", "091edecfdb88957");
-			        xhr.setRequestHeader("Content-Type", "multipart/form-data");
-			    },
-			    success: function (data) {
-					console.log(data);
-			    },
-			    error: function (error) {
-					console.log('Error => ',error);
-			    }
-			});
+    		$('#fileUploadError').text('');$('.loading-data').show();
+    		$.ajax({
+				url : "{{route('ocr.upload_and_get_data')}}",
+				method : "POST",
+				dataType : 'JSON',
+				processData: false,
+				contentType: false,
+				cache: false,
+				data : formData,
+				success:function(response){
+					if(response.error == false){
+						$('#kwh_usage').val(response.data.kwh_usage);
+						$('#kwh_rate').val(response.data.kwh_rate);
+						$('#serviceChargedPeriod').val(response.data.serviceChargedPeriod);
+						$('#serviceChargedRate').val(response.data.serviceChargedRate);
+					}else{
+						$('#fileUploadError').text(response.message);
+					}
+					$('.loading-data').hide();
+				},
+				error:function(error){
+					$('#fileUploadError').text('Something went wrong please try after some time');
+					$('.loading-data').hide();
+				}
+    		});
+
+			// $.ajax({
+			//     url: 'https://api.ocr.space/parse/image',
+			//     method: "POST",
+			//     dataType: 'JSON',
+			//     crossDomain: true,
+			//     contentType: "application/json; charset=utf-8",
+			//     data: {
+			//     	file : formData.file,
+			//     	url : '',language : 'eng',isOverlayRequired : 'true',IsCreateSearchablePDF : 'false',
+		 //            isSearchablePdfHideTextLayer : 'true',detectOrientation : 'false',isTable : 'false',
+		 //            scale : 'true',OCREngine : '1',detectCheckbox : 'false',checkboxTemplate : '0',
+			//     },
+			//     cache: false,
+			//     beforeSend: function (xhr) {
+			//         /* Authorization header */
+			//         xhr.setRequestHeader("apikey", "091edecfdb88957");
+			//         xhr.setRequestHeader("Content-Type", "multipart/form-data");
+			//     },
+			//     success: function (data) {
+			// 		console.log(data);
+			//     },
+			//     error: function (error) {
+			// 		console.log('Error => ',error);
+			//     }
+			// });
     	}
     	// @error('user_name')
 	    // 	$('#userInformationModal').modal('show');

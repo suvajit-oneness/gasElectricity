@@ -232,41 +232,31 @@ class WelcomeController extends Controller
     public function rfqBeforeProductListing(Request $req)
     {
         $req->replace($req->except('_token'));
-        if($req->hasFile('file')){
-            $response = $this->postOCRFILES($req); // calling OCR API
-            if($response->error == false){
-                $text = $this->convertToText($response->data); // Converting Response in to Text
-                if($text->error == false){
-                    $returnData = $this->readLines($text->data); // Getting the Data
-                    if($returnData->error == false){
-                        $stateId = $returnData->state;
-                        $newRequest = new Request([
-                            'stateId' => base64_encode($stateId),
-                        ]);
-                        return $this->rfqBeforeProductListing($newRequest);
-                    }else{
-                        $error['file'] = $returnData->message;
-                    }
-                }else{
-                    $error['file'] = $text->message;
-                }
-            }else{
-                $error['file'] = $response->message;
-            }
-        }else{
-            $suppliers = $this->getSuppliersBySearch($req);$error = [];
-            if(!empty($req->stateId)){
-                $error['state'] = 'We donot provide the service at selected State';
-            }
-            if(!empty($req->search)){
-                $error['search'] = 'We donot provide the service at given pincode';
-            }
-            if(count($suppliers) > 0){
-                $requestedData = $req->all();
-                return view('frontend.rfqBeforeProductListing',compact('requestedData'));
-            }
+        $suppliers = $this->getSuppliersBySearch($req);$error = [];
+        if(!empty($req->stateId)){
+            $error['state'] = 'We donot provide the service at selected State';
+        }
+        if(!empty($req->search)){
+            $error['search'] = 'We donot provide the service at given pincode';
+        }
+        if(count($suppliers) > 0){
+            $requestedData = $req->all();
+            return view('frontend.rfqBeforeProductListing',compact('requestedData'));
         }
         return back()->withErrors($error)->withInput($req->all());
+    }
+
+    public function ocrUploadAndGetdata(Request $req)
+    {
+        $rules = [
+            'file' => 'required',
+        ];
+        $validate = validator()->make($req->all(),$rules);
+        if(!$validate->fails()){
+            // return $this->readLines("LUMO ENERGY 11184 UNI BERWICK YOUR ENERGY USAGE FOR GAS SUPPLY AT UNIT 4\/1 YOUR AVERA E DAIL USA E: GAS ACCOUNT CUR-NO ENERGY AUSTRALIA PTY LIMITED ABN 69100 528 327 ENQUIRIES 1300115 866 LIVE CHAT LUMOENERGY.COM.AU\/CHAT EMAIL INFO@LUMOENERGY.COM.AU GAM - 8PM MONDAY TO FRIDAY \/ BAM - 5PM SATURDAY (AEST\/AEDT) II-VEIRA ERWICK, VIC 3806 FAULTS & EMERGENCIES 24 HOURS ACCOUNT NUMBER: DUE DATE TOTAL DUE (INCL GST) TAX INVOICE 1800 427 532 AGN 01 JUN 21 $17.39 13 MAY 21 UNIT 4\/18 150 120 90 60 30 ERWICK, VIC 3806 TRANSACTIONS SINCE PREVIOUS ACCOUNT (INCL GST) 11 JAN 2021 12 MAR 2021 CURRENT READ PREVIOUS INVOICE AMOUNT PAYMENT RECEIVED - THANK YOU BALANCE BROUGHT FORWARD CURRENT TRANSACTIONS (INCL GST) GAS CHARGES TOTAL CURRENT TRANSACTIONS (INCL GST) TOTAL AMOUNT DUE (INCL GST) TOTAL GST FOR THIS ACCOUNT IS $16.32 AVERAGE DAILY USAGE COST FOR THIS ACCOUNT (INCL. ST P): $2.94 AVERAGE DAILY USAGE FOR THIS ACCOUNT: 108.97 MJ FOR MORE INFORMATION SEE WWW.SWITCHON.VIC.GOV.AU YOU'RE ON OUR BEST RATES! YOU CAN COMPARE OFFERS BY VISITING THE VICTORIAN ENERGY COMPARE WEBSITE AT COMPARE.ENERGY.VIC.GOV.AU O IF YOU ARE EXPERIENCING FINANCIAL HARDSHIP PLEASE CONTACT US FOR ASSISTANCE. $77.90 $240.00 CR $162.10 CR $179.49 $179.49 $17.39 PAGE 1 OF 2 01 JUN 21 $17.39 PAYING YOUR ACCOUNT TELEPHONE & INTERNET BANKING - BPAY@ CONTACT YOUR BANK OR FINANCIAL PAY INSTITUTION TO MAKE THIS PAYMENT FROM YOUR CHEQUE, SAVINGS, DEBIT, CREDIT CARD OR TRANSACTION ACCOUNT. MORE INFO: WWW.BPAY.COM.AU BILLER CODE: 275602 REF NO: 4138 2258115 IN PERSON POST BILL A PRESENT THIS INVOICE WITH YOUR PAYMENT AT ANY AUSTRALIA POST OUTLET. PAY BY DIRECT DEBIT CALL US ON 1300115 866 TO SET UP DIRECT DEBIT. PAY ON OUR WEBSITE BY AMEX, VISA OR MASTERCARD. LUMOENER COM_AU AY REF NO PAY BY PHONE CALL 1300 553 615 TO PAY ANYTIME BY AMEX, VISA OR MASTERCARD. REF NO POST A CHEQUE PAYABLE TO LURNO ENERGY WITH THIS PAYMENT SLIP ATTACHED TO: LUMO ENERGY GPO BOX 5450 MELBOURNE VIC 3001 PAYMENT SLIP ACCOUNT NUMBER: DUE DATE: AMOUNT DUE (INCL GST):  USAGE AND SUDDLY DETAILS FOR GAS SUPPLY AT UNIT 4\/18 PAYMENTS SINCE YOUR LAST ACCOUNT ERWICK, VIC 3806 23\/03\/2021 21\/04\/2021 TOTAL PAYMENTS RECEIVED CURRENT TRANSACTIONS GAS CHARGES PAYMENT RECEIVED PAYMENT RECEIVED - THANKYOU - THANKYOU BASE USAGE 172 ACCOUNT NUMBER: NEXT READ DATE WITHIN TWO DAYS OF: $120.00 CR $120.00 CR $240.00 CR CHARGES BASED ON ACTUAL READ YOUR PLAN ORIGIN SOUTHEAST FROM 13 MARCH 2021 TO 12 MAY 2021 (61 DAYS) MIRN 5 PRESSURE RATE C\/MJ TARIFF DESCRIPTION SUMMER STEPL STEP2 STEP3 TOTAL SUMMER METER NUMBER 5 PREVIOUS READING 3774 CURRENT READING 3946 HEATING VALUE 38.2300 FACTOR 1.0109 USAGE MJ 6647 1671 1336 3640 6647 61 DAYS (INCL GST) 2.178 2.068 1.921 74.690 C\/DAY 5 CHARGES (INCL GST) $36.39 $27.63 $69.91 $133.93 $45.56 $16.32 $179.49 SERVICE TO PROPERTY CHARGE TOTAL GST FOR CHARGES TOTAL GAS CHARGES CORRESPONDENCE LUMO ENERGY PO BOX 4136 EAST RICHMOND 3121 FAX: 1300136 891 LUMO ENERGY CONCESSION INFORMATION HAVE A VALID CONCESSION CARD? FOR INFORMATION ON STATE GOVERNMENT CONCESSION ELIGIBILITY, INCLUDING THE UTILITY RELIEF GRANT SCHEME (URGS), PLEASE CONTACT LUMO ENERGY ON 1300 115 866 PAYMENT ASSISTANCE FOR PAYMENT ASSISTANCE, A PAYMENT EXTENSION, OR OTHER PAYMENT FREQUENCY OPTIONS, CALL US ON 1300115 866. COMPLAINTS PROCESS OUR CUSTOMER SOLUTIONS STAFF WILL AIM TO RESOLVE YOUR ENQUIRY AT FIRST CONTACT. COMPLAINTS MAY ALSO BE ESCALATED TO A TEAM MANAGER OR COMPLAINT RESOLUTION SPECIALIST IF REQUIRED. CALL 1300115 866 HEARING OR SPEECH IMPAIRED? CALL THE NATIONAL RELAY SERVICE ON 133 677. INTERPRETER SERVICE (EZISPEAKTM) CALL 1300171 764 DICH VU TH\u00f6NG DICH YNNPE0IA AIEPPNVEIAG PAGE 2 OF 2");
+            return $this->postOCRFILES($req); // calling OCR API
+        }
+        return errorResponse($validate->errors()->first());
     }
 
     public function rfqSaveBeforeProductListing(Request $req)
@@ -491,7 +481,6 @@ class WelcomeController extends Controller
                 }
             }
             return errorResponse('Something went wrong please try after some time');
-            
         }
         return errorResponse($validate->errors()->first());
     }
