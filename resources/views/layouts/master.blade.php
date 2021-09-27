@@ -22,7 +22,7 @@
         @include('layouts.header')
         <!-- Sidebar Content -->
         @include('layouts.sidebar')
-        <div class="dashboard-wrapper" @if(!Auth::user()) style="margin-left : 0px !important;"@endif>
+        <div class="dashboard-wrapper" id="dashboardwrapper" @if(!Auth::user()) style="margin-left : 0px !important;"@endif>
             <!-- Main Content -->
             @yield('content')
         </div>
@@ -62,6 +62,26 @@
                 return true;  
             }  
             return false;  
+        }
+    </script>
+    <script>
+        var sidenav = document.getElementById("sidenav");
+        var buttoncross = document.getElementById("closebutton");
+        function closeNav() {
+        document.getElementById("sidenav").style.width = "64px";
+        document.getElementById("dashboardwrapper").style.marginLeft = "64px";
+        sidenav.classList.add("closestyle");
+        sidenav.classList.remove("openstyle");
+        buttoncross.classList.add("hide");
+        buttoncross.classList.remove("show");
+        }
+        function openNav() {
+        document.getElementById("sidenav").style.width = "264px";
+        document.getElementById("dashboardwrapper").style.marginLeft = "264px";
+        sidenav.classList.add("openstyle");
+        sidenav.classList.remove("closestyle");
+        buttoncross.classList.add("show");
+        buttoncross.classList.remove("hide");
         }
     </script>
     @yield('script')
