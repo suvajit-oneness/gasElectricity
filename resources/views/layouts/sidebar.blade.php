@@ -1,11 +1,11 @@
 @auth
-    <div class="nav-left-sidebar sidebar-dark">
+    <div class="nav-left-sidebar sidebar-dark closestyle" id="sidenav">
         <div class="menu-list">
             <nav class="navbar navbar-expand-lg navbar-light">
                 <!-- <a class="d-xl-none d-lg-none" href="#">Dashboard</a> -->
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
-                </button>
+                </button> -->
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav flex-column">
                         <li class="nav-divider"> Menu </li>
@@ -13,12 +13,14 @@
                             <a class="nav-link {{request()->routeIs('home')?'active':''}}" href="{{route('home')}}"><i class="fa fa-fw fa-user-circle"></i>Dashboard</a>
                         </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link {{request()->routeIs('user.profile')?'active':''}}" href="{{route('user.profile')}}"><i class="fa fa-fw fa-user-circle"></i>Profile</a>
+                        <li class="nav-item custom-tooltip">
+                        <span class="tooltiptext">Profile</span>
+                            <a class="nav-link {{request()->routeIs('user.profile')?'active':''}}" href="{{route('user.profile')}}"><i class="fa fa-fw fa-user-circle"></i><h5>Profile</h5></a>
                         </li>
                         @if(Auth::user()->user_type != 1)
                             <li class="nav-item">
-                                <a class="nav-link {{request()->routeIs('user.points')?'active':''}}" href="{{route('user.points')}}"><i class="fa fa-fw fa-user-circle"></i>Your Points</a>
+                            <span class="tooltiptext">Your Points</span>
+                                <a class="nav-link {{request()->routeIs('user.points')?'active':''}}" href="{{route('user.points')}}"><i class="fa fa-fw fa-user-circle"></i><h5>Your Points</h5></a>
                             </li>
                         @endif
 
@@ -28,45 +30,56 @@
                                 <a class="nav-link {{request()->routeIs('admin.membership')?'active':''}}" href="{{route('admin.membership')}}"><i class="fa fa-fw fa-user-circle"></i>Membership</a>
                             </li> -->
 
-                            <li class="nav-item">
-                                <a class="nav-link {{request()->routeIs('admin.user*')?'active':''}}" href="{{route('admin.users')}}"><i class="fa fa-fw fa-user-circle"></i>Users</a>
+                            <li class="nav-item custom-tooltip">
+                            <span class="tooltiptext">Users</span>
+                                <a class="nav-link {{request()->routeIs('admin.user*')?'active':''}}" href="{{route('admin.users')}}"><i class="fa fa-fw fa-user-circle"></i><h5>Users</h5></a>
                             </li>
                             <!-- Main Section -->
                             <li class="nav-divider">Main</li>
-                            <li class="nav-item">
-                                <a class="nav-link {{request()->routeIs('admin.state*')?'active':''}}" href="{{route('admin.states')}}"><i class="fa fa-fw fa-user-circle"></i>State</a>
+                            <li class="nav-item custom-tooltip">
+                            <span class="tooltiptext">State</span>
+                                <a class="nav-link {{request()->routeIs('admin.state*')?'active':''}}" href="{{route('admin.states')}}"><i class="fa fa-fw fa-user-circle"></i><h5>State</h5></a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link {{request()->routeIs('admin.companie*')?'active':''}}" href="{{route('admin.companies')}}"><i class="fa fa-fw fa-user-circle"></i>Companies</a>
+                            <li class="nav-item custom-tooltip">
+                            <span class="tooltiptext">Companies</span>
+                                <a class="nav-link {{request()->routeIs('admin.companie*')?'active':''}}" href="{{route('admin.companies')}}"><i class="fa fa-fw fa-user-circle"></i><h5>Companies</h5></a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link {{request()->routeIs('admin.product*')?'active':''}}" href="{{route('admin.products')}}"><i class="fa fa-fw fa-user-circle"></i>Products</a>
+                            <li class="nav-item custom-tooltip">
+                            <span class="tooltiptext">Products</span>
+                                <a class="nav-link {{request()->routeIs('admin.product*')?'active':''}}" href="{{route('admin.products')}}"><i class="fa fa-fw fa-user-circle"></i><h5>Products</h5></a>
                             </li>
                             
                             <!-- Report Section -->
                             <li class="nav-divider">Report</li>
-                            <li class="nav-item">
-                                <a class="nav-link {{request()->routeIs('admin.report.contactus')?'active':''}}" href="{{route('admin.report.contactus')}}"><i class="fa fa-fw fa-user-circle"></i>Contact us</a>
+                            <li class="nav-item custom-tooltip">
+                            <span class="tooltiptext">Contact us</span>
+                                <a class="nav-link {{request()->routeIs('admin.report.contactus')?'active':''}}" href="{{route('admin.report.contactus')}}"><i class="fa fa-fw fa-user-circle"></i><h5>Contact us</h5></a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link {{request()->routeIs('admin.report.rfqs')?'active':''}}" href="{{route('admin.report.rfqs')}}"><i class="fa fa-fw fa-user-circle"></i>RFQs</a>
+                            <li class="nav-item custom-tooltip">
+                            <span class="tooltiptext">RFQs</span>
+                                <a class="nav-link {{request()->routeIs('admin.report.rfqs')?'active':''}}" href="{{route('admin.report.rfqs')}}"><i class="fa fa-fw fa-user-circle"></i><h5>RFQs</h5></a>
                             </li>
                             <!-- Crud Operation Section -->
                             <li class="nav-divider">Features</li>
-                            <li class="nav-item">
-                                <a class="nav-link {{request()->routeIs('admin.blogs.category')?'active':''}}" href="{{route('admin.blogs.category')}}"><i class="fa fa-fw fa-user-circle"></i>Blog Category</a>
+                            <li class="nav-item custom-tooltip">
+                            <span class="tooltiptext">Blog Category</span>
+                                <a class="nav-link {{request()->routeIs('admin.blogs.category')?'active':''}}" href="{{route('admin.blogs.category')}}"><i class="fa fa-fw fa-user-circle"></i><h5>Blog Category</h5></a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link {{request()->routeIs('admin.blogs')?'active':''}}" href="{{route('admin.blogs')}}"><i class="fa fa-fw fa-user-circle"></i>Blogs</a>
+                            <li class="nav-item custom-tooltip">
+                            <span class="tooltiptext">Blogs</span>
+                                <a class="nav-link {{request()->routeIs('admin.blogs')?'active':''}}" href="{{route('admin.blogs')}}"><i class="fa fa-fw fa-user-circle"></i><h5>Blogs</h5></a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link {{request()->routeIs('admin.testimonial')?'active':''}}" href="{{route('admin.testimonial')}}"><i class="fa fa-fw fa-user-circle"></i>Testimonial</a>
+                            <li class="nav-item custom-tooltip">
+                            <span class="tooltiptext">Testimonial</span>
+                                <a class="nav-link {{request()->routeIs('admin.testimonial')?'active':''}}" href="{{route('admin.testimonial')}}"><i class="fa fa-fw fa-user-circle"></i><h5>Testimonial</h5></a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link {{request()->routeIs('admin.faq')?'active':''}}" href="{{route('admin.faq')}}"><i class="fa fa-fw fa-user-circle"></i>Faq</a>
+                            <li class="nav-item custom-tooltip">
+                            <span class="tooltiptext">Faq</span>
+                                <a class="nav-link {{request()->routeIs('admin.faq')?'active':''}}" href="{{route('admin.faq')}}"><i class="fa fa-fw fa-user-circle"></i><h5>Faq</h5></a>
                             </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="javascript:void(0)" data-toggle="collapse" aria-expanded="{{request()->routeIs('admin.setting.*')?'true':'false'}}" data-target="#submenu-6" aria-controls="submenu-6"><i class="fas fa-fw fa-file"></i> Settings </a>
+                            <li class="nav-item custom-tooltip">
+                            <span class="tooltiptext">Settings</span>
+                                <a class="nav-link" href="javascript:void(0)" data-toggle="collapse" aria-expanded="{{request()->routeIs('admin.setting.*')?'true':'false'}}" data-target="#submenu-6" aria-controls="submenu-6"><i class="fas fa-fw fa-file"></i> <h5>Settings</h5> </a>
                                 <div id="submenu-6" class="collapse submenu {{request()->routeIs('admin.setting.*')?'show':''}}">
                                     <ul class="nav flex-column">
                                         <li class="nav-item {{request()->routeIs('admin.setting.points')?'active':''}}">
