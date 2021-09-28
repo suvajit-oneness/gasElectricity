@@ -99,9 +99,9 @@
                             <div class="firm-group col-md-6">
                                 <label for="identification_expiry" class="col-form-label">Are you a concession card holder?</label>
                                 <br>
-                                <input class="concession_card_holder" type="radio" @if($identification->concession_card_holder == 1){{('checked')}}@endif name="concession_card_holder" id="card_yes" value="1" class="d-inline-block">
+                                <input class="concession_card_holder d-inline-block" type="radio" @if($identification->concession_card_holder == 1){{('checked')}}@endif name="concession_card_holder" id="card_yes" value="1" class="d-inline-block">
                                 <label for="card_yes">YES</label>
-                                <input class="concession_card_holder" type="radio" @if($identification->concession_card_holder == 0){{('checked')}}@endif name="concession_card_holder" id="card_no" value="0" class="d-inline-block">
+                                <input class="concession_card_holder d-inline-block" type="radio" @if($identification->concession_card_holder == 0){{('checked')}}@endif name="concession_card_holder" id="card_no" value="0" class="d-inline-block">
                                 <label for="card_no">NO</label>
                             </div>
 
