@@ -74,4 +74,9 @@ class User extends Authenticatable
     {
         return $this->hasOne('App\HomeAndUsage','userId','id');
     }
+
+    public function identification_details()
+    {
+        return $this->hasOne('App\Model\UserIdentification','userId','id');
+    }
 }

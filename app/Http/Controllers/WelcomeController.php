@@ -387,21 +387,28 @@ class WelcomeController extends Controller
 
     public function productListing(Request $req)
     {
-        $suppliers = $this->getSuppliersBySearch($req);$error = [];
-        if(!empty($req->stateId)){
-            $error['state'] = 'We donot provide the service at given State';
+        $rules = [
+            'rfqId' => 'required|min:1|numeric',
+            'eneryType' => 'nullable|string',
+            'property_type' => 'nullable|string',
+            'search' => 'nullable|string',
+            'stateId' => 'nullable|string',
+        ];
+        $validate = validator()->make($req->all(),$rules);
+        if(!$validate->fails()){
+            $suppliers = $this->getSuppliersBySearch($req);$error = [];
+            if(!empty($req->stateId)){
+                $error['state'] = 'We donot provide the service at given State';
+            }
+            if(!empty($req->search)){
+                $error['search'] = 'We donot provide the service at given pincode';
+            }
+            if(count($suppliers) > 0){
+                return $this->productListingwithAuth($req,$suppliers);
+            }
+            return back()->withErrors($error)->withInput($req->all());
         }
-        if(!empty($req->search)){
-            $error['search'] = 'We donot provide the service at given pincode';
-        }
-        if(count($suppliers) > 0){
-            return $this->productListingwithAuth($req,$suppliers);
-            // if(auth()->user())
-            //     return $this->productListingwithAuth($req,$suppliers);
-            // else
-            //     return $this->productListingwithoutAuth($req,$suppliers);
-        }
-        return back()->withErrors($error)->withInput($req->all());
+        return errorResponse('Something went wrong please try after sometime');
     }
 
     public function getPlanlistingData(Request $req,$supplierId)
@@ -429,13 +436,6 @@ class WelcomeController extends Controller
         return view('frontend.listing.productWithAuth', compact('productData','state','request'));
     }
 
-    // public function productListingwithoutAuth(Request $req,$supplierId)
-    // {
-    //     $productData = $this->getPlanlistingData($req,$supplierId);
-    //     $request = $req->all();
-    //     return view('frontend.listing.productWithoutAuth', compact('productData','request'));
-    // }
-
     public function productDetails(Request $req,$planId)
     {
         $productData = Product::findOrFail($planId);
@@ -452,11 +452,16 @@ class WelcomeController extends Controller
             'productId' => 'required|min:1|numeric',
             'plan_rate_link' => 'nullable|string',
             'plan_rate_link_gas' => 'nullable|string',
+            'userId' => 'required|min:1|numeric',
         ];
         $validate = validator()->make($req->all(),$rules);
         if(!$validate->fails()){
             $rfq = Rfq::where('id',$req->rfqId)->first();
             if($rfq){
+                if($rfq->userId == 0){
+                    $rfq->userId = $req->userId;
+                    $rfq->save();
+                }
                 $product = Product::where('id',$req->productId)->first();
                 if($product){
                     $rfq->email_request = 1;

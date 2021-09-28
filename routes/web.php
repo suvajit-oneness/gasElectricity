@@ -38,7 +38,7 @@ Route::post('electricity_form/rfq/product/listing/save','WelcomeController@rfqSa
 // Route::get('membership/claimed/success/{membershipId}','WelcomeController@membershipSuccessFullPurchase')->name('membership.claimed.success');
 
 Route::get('product-listing','WelcomeController@productListing')->name('product.listing');
-Route::post('email/plan_details','WelcomeController@emailPlanDetails')->name('rfq.email.plan.details');
+Route::any('email/plan_details','WelcomeController@emailPlanDetails')->name('rfq.email.plan.details');
 Route::get('company/supplier/form','WelcomeController@supplierFormToShowUser')->name('company.supplier.form');
 Route::post('company/supplier/form_post_save','WelcomeController@supplierFormToShowUserSave')->name('company.supplier.form.save');
 
@@ -47,6 +47,7 @@ Route::group(['middleware' => 'auth'],function(){
 	Route::get('user/profile','HomeController@userProfile')->name('user.profile');
 	Route::post('user/profile','HomeController@userProfileSave')->name('user.profile.save');
 	Route::post('user/change/password','HomeController@updateUserPassword')->name('user.changepassword.save');
+	Route::post('user/identification/update','HomeController@updateUserIdentification')->name('user.identification.save');
 	Route::get('user/points','HomeController@userPoints')->name('user.points');
 	Route::get('user/home_and_usage/details','HomeController@homeAndUsageDetails')->name('user.usage_details');
 	Route::post('user/home_and_usage/details/update','HomeController@homeAndUsageDetailsUpdate')->name('user.home_and_usage.details.update');

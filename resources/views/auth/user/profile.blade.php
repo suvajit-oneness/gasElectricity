@@ -63,6 +63,68 @@
                 </div>
             </div>
         </div>
+        @if($user->user_type == 3)
+            <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0">Identification</h5>
+                        <!-- <p>This example shows FixedHeader being styled by the Bootstrap 4 CSS framework.</p> -->
+                    </div>
+                    <div class="card-body">
+                        <form method="post" action="{{route('user.identification.save')}}">
+                            @csrf
+                            <div class="form-group col-md-6">
+                                <label for="password" class="col-form-label">Identification type</label>
+                                <select name="identification_type" class="form-control @error('identification_type') {{('is-invalid')}} @enderror">
+                                    <option value="" selected="" hidden="">---Select Type---</option>
+                                    <option value="Passport" @if(old('identification_type') ?? $identification->identification_type == 'Passport'){{('selected')}}@endif>Passport</option>
+                                    <option value="Drivers Licence" @if(old('identification_type') ?? $identification->identification_type == 'Drivers Licence'){{('selected')}}@endif>Drivers Licence</option>
+                                    <option value="Medicare Card" @if(old('identification_type') ?? $identification->identification_type == 'Medicare Card'){{('selected')}}@endif>Medicare Card</option>
+                                </select>
+                                @error('identification_type')<span class="text-danger">{{ $message }}</span>@enderror
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <label for="identification_number" class="col-form-label">Identification Number:</label>
+                                <input type="text" name="identification_number" class="form-control @error('identification_number') is-invalid @enderror" placeholder="Identification Number" value="{{(old('identification_number') ?? $identification->identification_number)}}">
+                                @error('identification_number')<span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>@enderror
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <label for="identification_expiry" class="col-form-label">Identification Expiry:</label>
+                                <input type="date" name="identification_expiry" class="form-control @error('identification_expiry') is-invalid @enderror" placeholder="Identification Number" value="{{(old('identification_expiry') ?? $identification->identification_expiry)}}" min="{{date('Y-m-d')}}" onkeypress="return false;">
+                                @error('identification_expiry')<span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>@enderror
+                            </div>
+
+                            <div class="firm-group col-md-6">
+                                <label for="identification_expiry" class="col-form-label">Are you a concession card holder?</label>
+                                <br>
+                                <input class="concession_card_holder d-inline-block" type="radio" @if($identification->concession_card_holder == 1){{('checked')}}@endif name="concession_card_holder" id="card_yes" value="1" class="d-inline-block">
+                                <label for="card_yes">YES</label>
+                                <input class="concession_card_holder d-inline-block" type="radio" @if($identification->concession_card_holder == 0){{('checked')}}@endif name="concession_card_holder" id="card_no" value="0" class="d-inline-block">
+                                <label for="card_no">NO</label>
+                            </div>
+
+                            <div class="form-group col-md-6 concession_card_holderRelated @if($identification->concession_card_holder == 0){{('d-none')}}@endif">
+                                <label for="type_of_concession_card" class="col-form-label">Type of concession card</label>
+                                <select name="type_of_concession_card" class="form-control @error('type_of_concession_card') {{('is-invalid')}} @enderror">
+                                    <option value="" selected="" hidden="">---Select Type---</option>
+                                    <option value="Commonwealth Seniors Health Card" @if(old('type_of_concession_card') ?? $identification->type_of_concession_card == 'Commonwealth Seniors Health Card'){{('selected')}}@endif>Commonwealth Seniors Health Card</option>
+                                    <option value="Seniors Card" @if(old('type_of_concession_card') ?? $identification->type_of_concession_card == 'Seniors Card'){{('selected')}}@endif>Seniors Card</option>
+                                    <option value="Other concession cards" @if(old('type_of_concession_card') ?? $identification->type_of_concession_card == 'Other concession cards'){{('selected')}}@endif>Other concession cards</option>
+                                    <option value="Low Income Health Care Card" @if(old('type_of_concession_card') ?? $identification->type_of_concession_card == 'Low Income Health Care Card'){{('selected')}}@endif>Low Income Health Care Card</option>
+                                </select>
+                                @error('type_of_concession_card')<span class="text-danger">{{ $message }}</span>@enderror
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <button type="submit" class="btn btn-primary">Update</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        @endif
 
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
             <div class="card">
@@ -108,6 +170,17 @@
                 document.execCommand("copy");
                 $(".toast").toast('show');
             });
+            
+            $(document).on('click','.concession_card_holder',function(){
+                var thisClicked = $(this).val();
+                if(thisClicked == 1 || thisClicked == '1'){
+                    $('.concession_card_holderRelated').removeClass('d-none');
+                }else{
+                    $('.concession_card_holderRelated').addClass('d-none');
+                }
+            });
+            $('.concession_card_holder')
+
         });
     </script>
 @stop
