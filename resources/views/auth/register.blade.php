@@ -92,7 +92,7 @@
                                             </div>
                                         </div>
 
-                                        <div id="nextFieldTobeAppear">
+                                        <div id="nextFieldTobeAppear" style="display: none;">
                                             <div class="form-group row">
                                                 <div class="col-md-12 iputIcon">
                                                     <label><b>Do you gas or electricity to operate life support medical equipment?</b></label>

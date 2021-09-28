@@ -4,8 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request,DB;
 use Auth,Hash,App\Model\Company;
-use App\Model\Master;
-use App\HomeAndUsage;
+use App\Model\Master,App\HomeAndUsage,App\Model\UserIdentification;
 
 class HomeController extends Controller
 {
@@ -47,7 +46,13 @@ class HomeController extends Controller
     public function userProfile(Request $req)
     {
         $user = Auth::user();
-        return view('auth.user.profile',compact('user'));
+        $identification = UserIdentification::where('userId',$user->id)->first();
+        if(!$identification){
+            $identification = new UserIdentification();
+            $identification->userId = $user->id;
+            $identification->save();
+        }
+        return view('auth.user.profile',compact('user','identification'));
     }
 
     public function userProfileSave(Request $req)
@@ -86,10 +91,34 @@ class HomeController extends Controller
         $homeAndUsage = HomeAndUsage::where('userId',$user->id)->first();
         if(!$homeAndUsage){
             $homeAndUsage = new HomeAndUsage();
-            $homeAndUsage->userId = $user->id;            
+            $homeAndUsage->userId = $user->id;
         }
         $homeAndUsage->save();
         return view('auth.user/home_and_usageDetails',compact('user','homeAndUsage'));
+    }
+
+    public function updateUserIdentification(Request $req)
+    {
+        $req->validate([
+            'identification_type' => 'required|string|max:255',
+            'identification_number' => 'required|string',
+            'identification_expiry' => 'nullable',
+            'concession_card_holder' => 'nullable',
+            'type_of_concession_card' => 'nullable',
+        ]);
+        $user = $req->user();
+        $identification = UserIdentification::where('userId',$user->id)->first();
+        if(!$identification){
+            $identification = new UserIdentification();
+            $identification->userId = $user->id;
+        }
+        $identification->identification_type = emptyCheck($req->identification_type);
+        $identification->identification_number = emptyCheck($req->identification_number);
+        $identification->identification_expiry = emptyCheck($req->identification_expiry,true);
+        $identification->concession_card_holder = ($req->concession_card_holder ?? 0);
+        $identification->type_of_concession_card = emptyCheck($req->type_of_concession_card);
+        $identification->save();
+        return back()->with('Success','Identification updated successFully');
     }
 
     public function homeAndUsageDetailsUpdate(Request $req)
