@@ -16,7 +16,7 @@ class RemoveSomeColumnfromRFQandOCRTableOn24Sept20210620PM extends Migration
         Schema::table('rfqs', function (Blueprint $table) {
             // Add new Columns
             $table->longText('ocr_full_text')->after('electricity_usage');
-            $table->string('ocr_statestate')->after('electricity_usage');
+            $table->string('ocr_state')->after('electricity_usage');
             $table->string('ocr_pincode')->after('electricity_usage');
             $table->string('ocr_unit_consumed')->after('electricity_usage');
             $table->string('ocr_bill_amount')->after('electricity_usage');

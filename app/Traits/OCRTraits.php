@@ -70,6 +70,7 @@ trait OCRTraits
 
     public function readLines(Request $req,$string)
     {
+        // return errorResponse($string);
         $stateId = 0;$error = true;$pincode = '';$stateName = '';$bill_amount = '';$unit_consumed = '';
         $serviceChargePeriod = '';$serviceChargedRate = '';
         $states = \App\Model\State::where('countryId',2)->get();
