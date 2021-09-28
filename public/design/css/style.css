@@ -1973,6 +1973,7 @@ Container / Wrapper
     margin-left: 64px;
     min-height: 870px !important;
     transition: 0.3s all linear;
+    background-color: #f3fbf2;
 }
 
 .dashboard-content {
@@ -3236,6 +3237,7 @@ btn-link
     /* -webkit-box-shadow: 0px 1px 2px 1px rgba(154, 154, 204, 0.22);
     -moz-box-shadow: 0px 1px 2px 1px rgba(154, 154, 204, 0.22); */
     box-shadow: none !important;
+    background-color: transparent !important;
 }
 
 .card-header {
@@ -7307,7 +7309,7 @@ Media Query
 
 }
 .card-body-inner{
-    background-color: #effded;
+    background-color: #fff;
     border-left: 3px solid #7ed293;
     border-radius: 5px;
     padding: 15px !important;
@@ -7486,7 +7488,7 @@ th{
     padding: 0px;
     border: none;
     font-weight: 600;
-    color: #7ed293;
+    color: #529463;
 }
 .table-button:focus,.table-button:focus-visible{
     outline: none;
@@ -7527,6 +7529,9 @@ table thead{
     box-shadow: none;
 
 }
+table thead th{
+    border-bottom: 0px !important;
+}
 .pagination .paginate_button{
     background-color: transparent;
     font-size: 13px;
@@ -7535,11 +7540,13 @@ table thead{
 }
 .pagination .paginate_button .page-link{
     border: none;
-    border-left: 1px solid;
+    border-left: 1px solid #dee2e6;
+    border-radius: 0px;
     padding-top:0px;
     padding-bottom: 0px;
     font-weight: 500;
     color: #0e0d28 !important;
+    background-color: transparent !important;
 }
 .page-item.active .page-link {
     z-index: 3;
@@ -7563,4 +7570,19 @@ table thead{
     font-size: 13px;
     font-weight: 500;
     color: #0e0d28;
+}
+.headerbuttonforAdd{
+    padding: 10px 20px;
+    border: none;
+    font-size: 14px;
+    background: #39ad56;
+    color: #fff;
+    border-radius: 5px;
+    box-shadow: 2px 1px 5px #bbb2b2;
+}
+.headerbuttonforAdd i{
+    margin-right: 5px;
+}
+td svg{
+    width: 20px !important;
 }
