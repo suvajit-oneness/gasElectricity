@@ -7,9 +7,11 @@
             <div class="card">
                 <div class="card-header">
                     <h5 class="mb-0">User List Referred By ({{$user->name}}) - (Referral Code : {{$user->referral_code}})
-                        <a class="headerbuttonforAdd" href="{{route('admin.user.create')}}">
-                            <i class="fa fa-plus" aria-hidden="true"></i>Add User
-                        </a>
+                        @if($user->user_type == 1)
+                            <a class="headerbuttonforAdd" href="{{route('admin.user.create')}}">
+                                <i class="fa fa-plus" aria-hidden="true"></i>Add User
+                            </a>
+                        @endif
                     </h5>
                     <!-- <p>This example shows FixedHeader being styled by the Bootstrap 4 CSS framework.</p> -->
                 </div>
@@ -22,45 +24,49 @@
                                     <th>Name</th>
                                     <th>Email</th>
                                     <th>Phone</th>
-                                    <th>Referral Code</th>
-                                    <th>Referred By</th>
-                                    <th>Count Referred To</th>
-                                    <th>Action</th>
+                                    @if($user->user_type == 1)
+                                        <th>Referral Code</th>
+                                        <th>Referred By</th>
+                                        <th>Count Referred To</th>
+                                        <th>Action</th>
+                                    @endif
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($user->referred_to as $user)
+                                @foreach($user->referred_to as $key => $data)
                                     <tr>
-                                        <td style="height: 100px; width: 100px"><img height="100px" width="100px" src="{{$user->image}}"></td>
-                                        <td>{{$user->name}}</td>
-                                        <td>{{$user->email}}</td>
-                                        <td>{{$user->mobile}}</td>
-                                        <td>{{$user->referral_code}}</td>
-                                        <td>
-                                            @if($user->referred_through)
-                                                <a href="javascript:void(0)" class="getReferredByDetails" data-details="{{json_encode($user->referred_through)}}">view</a>
-                                            @else
-                                                {{('N/A')}}
-                                            @endif
-                                        </td>
-                                        <td>
-                                            @if(count($user->referred_to) > 0)
-                                                <a href="{{route('admin.referral.referred_to',$user->id)}}">{{count($user->referred_to)}}</a>
-                                            @else
-                                                {{('N/A')}}
-                                            @endif
-                                        </td>
+                                        <td style="height: 100px; width: 100px"><img height="100px" width="100px" src="{{$data->image}}"></td>
+                                        <td>{{$data->name}}</td>
+                                        <td>{{$data->email}}</td>
+                                        <td>{{$data->mobile}}</td>
                                         @if($user->user_type == 1)
-                                            <td></td>
-                                        @else
+                                            <td>{{$data->referral_code}}</td>
                                             <td>
-                                                <?php $action = 'Block';
-                                                    if($user->status != 1){
-                                                        $action = 'Unblock';
-                                                    }
-                                                ?>
-                                                <a href="javascript:void(0)" class="blockUnblock" data-id="{{$user->id}}">{{$action}}</a> | <a href="javascript:void(0)" class="text-danger userDelete" data-id="{{$user->id}}">Delete</a>
+                                                @if($data->referred_through)
+                                                    <a href="javascript:void(0)" class="getReferredByDetails" data-details="{{json_encode($data->referred_through)}}">view</a>
+                                                @else
+                                                    {{('N/A')}}
+                                                @endif
                                             </td>
+                                            <td>
+                                                @if(count($data->referred_to) > 0)
+                                                    <a href="{{route('admin.referral.referred_to',$data->id)}}">{{count($data->referred_to)}}</a>
+                                                @else
+                                                    {{('N/A')}}
+                                                @endif
+                                            </td>
+                                            @if($data->user_type == 1)
+                                                <td></td>
+                                            @else
+                                                <td>
+                                                    <?php $action = 'Block';
+                                                        if($data->status != 1){
+                                                            $action = 'Unblock';
+                                                        }
+                                                    ?>
+                                                    <a href="javascript:void(0)" class="blockUnblock" data-id="{{$data->id}}">{{$action}}</a> | <a href="javascript:void(0)" class="text-danger userDelete" data-id="{{$data->id}}">Delete</a>
+                                                </td>
+                                            @endif
                                         @endif
                                     </tr>
                                 @endforeach
@@ -93,57 +99,59 @@
 
 @section('script')
     <script type="text/javascript">
-        $(document).on('click','.userDelete',function(){
-            var userId = $(this).attr('data-id');
-            var thisClickedbtn = $(this);
-            swal({
-                title: "Are you sure?",
-                text: "Once deleted, you will not be able to recover this user!",
-                buttons: true,
-                dangerMode: true,
-            })
-            .then((willDelete) => {
-                if (willDelete) {
-                    allinOneManageUsers(userId,'delete',thisClickedbtn)
-                }
-            });
-        });
-
-        $(document).on('click','.blockUnblock',function(){
-            var userId = $(this).attr('data-id');
-            var thisClickedbtn = $(this);
-            var action = 'unblock';
-            if(thisClickedbtn.text() == 'Block'){
-                action = 'block';
-            }
-            allinOneManageUsers(userId,action,thisClickedbtn);
-        });
-
-        function allinOneManageUsers(userId,action,clickedBtn)
-        {
-            $.ajax({
-                type:'POST',
-                dataType:'JSON',
-                url:"{{route('admin.user.manageUser')}}",
-                data: {userId:userId,action:action,'_token': $('input[name=_token]').val()},
-                success:function(data){
-                    if(data.error == false){
-                        if(action == 'delete'){
-                            clickedBtn.closest('tr').remove();
-                            swal('Success',"Poof! Your user has been deleted!");
-                        }else{
-                            if(action == 'block'){
-                                clickedBtn.text('Unblock');
-                            }else{
-                                clickedBtn.text('Block');
-                            }
-                        }
-                    }else{
-                        swal('Error',data.message);
+        @if($user->user_type == 1)
+            $(document).on('click','.userDelete',function(){
+                var userId = $(this).attr('data-id');
+                var thisClickedbtn = $(this);
+                swal({
+                    title: "Are you sure?",
+                    text: "Once deleted, you will not be able to recover this user!",
+                    buttons: true,
+                    dangerMode: true,
+                })
+                .then((willDelete) => {
+                    if (willDelete) {
+                        allinOneManageUsers(userId,'delete',thisClickedbtn)
                     }
-                }
+                });
             });
-        }
+
+            $(document).on('click','.blockUnblock',function(){
+                var userId = $(this).attr('data-id');
+                var thisClickedbtn = $(this);
+                var action = 'unblock';
+                if(thisClickedbtn.text() == 'Block'){
+                    action = 'block';
+                }
+                allinOneManageUsers(userId,action,thisClickedbtn);
+            });
+
+            function allinOneManageUsers(userId,action,clickedBtn)
+            {
+                $.ajax({
+                    type:'POST',
+                    dataType:'JSON',
+                    url:"{{route('admin.user.manageUser')}}",
+                    data: {userId:userId,action:action,'_token': $('input[name=_token]').val()},
+                    success:function(data){
+                        if(data.error == false){
+                            if(action == 'delete'){
+                                clickedBtn.closest('tr').remove();
+                                swal('Success',"Poof! Your user has been deleted!");
+                            }else{
+                                if(action == 'block'){
+                                    clickedBtn.text('Unblock');
+                                }else{
+                                    clickedBtn.text('Block');
+                                }
+                            }
+                        }else{
+                            swal('Error',data.message);
+                        }
+                    }
+                });
+            }
+        @endif
 
         $(document).on('click','.getReferredByDetails',function(){
             var details = JSON.parse($(this).attr('data-details'));

@@ -164,6 +164,12 @@
                             <li class="nav-item">
                                 <a class="nav-link {{request()->routeIs('user.usage_details')?'active':''}}" href="{{route('user.usage_details')}}"><i class="fa fa-fw fa-user-circle"></i>Home & Usage Details</a>
                             </li>
+                            <li class="nav-item">
+                                <span class="tooltiptext">Referral</span>
+                                <a class="nav-link {{request()->routeIs('user.referral')?'active':''}}" href="{{route('user.referral')}}">
+                                <i class="fa fa-fw fa-user-circle"></i>
+                                <h5>Referral</h5></a>
+                            </li>
                             <li class="nav-divider">History</li>
                             <li class="nav-item">
                                 <a class="nav-link {{request()->routeIs('customer.enquiry.rfq')?'active':''}}" href="{{route('customer.enquiry.rfq')}}"><i class="fa fa-fw fa-user-circle"></i>History</a>

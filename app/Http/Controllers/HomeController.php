@@ -38,6 +38,12 @@ class HomeController extends Controller
         }
     }
 
+    public function userReferral(Request $req)
+    {
+        $user = Auth::user();
+        return view('admin.referral.referred_to',compact('user'));
+    }
+
     public function userProfile(Request $req)
     {
         $user = Auth::user();
