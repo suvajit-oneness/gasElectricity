@@ -23,7 +23,7 @@
                                 <label for="email" class="col-form-label">Email:</label>
                                 <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" placeholder="Email eg: abc@xyz.com" value="{{(old('email') ? old('email') : $user->email)}}" readonly="">
                                 @error('email')<span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>@enderror
-                            </div> 
+                            </div>
                             <div class="form-group col-md-6">
                                 <label for="mobile" class="col-form-label">Phone:</label>
                                 <input type="text" name="mobile" class="form-control @error('mobile') is-invalid @enderror" placeholder="Mobile" value="{{(old('mobile') ? old('mobile') : $user->mobile)}}" onkeypress="return isNumberKey(event);" maxlength="20">
