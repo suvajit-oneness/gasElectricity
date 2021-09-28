@@ -28,7 +28,7 @@
 				</form>
 				<p>Currently available in 
 					@foreach($data->state as $state)
-						<a href="{{route('rfq.product.listing',['stateId'=>$state->id,'stateName'=>$state->name])}}" style="color:ffffff">{{$state->name}}</a> ,
+						<a href="{{route('rfq.product.listing',['stateId'=>base64_encode($state->id),'stateName'=>$state->name])}}" style="color:ffffff">{{$state->name}}</a> ,
 					@endforeach
 				</p>
 			</div>

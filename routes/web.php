@@ -38,7 +38,7 @@ Route::post('electricity_form/rfq/product/listing/save','WelcomeController@rfqSa
 // Route::get('membership/claimed/success/{membershipId}','WelcomeController@membershipSuccessFullPurchase')->name('membership.claimed.success');
 
 Route::get('product-listing','WelcomeController@productListing')->name('product.listing');
-Route::post('email/plan_details','WelcomeController@emailPlanDetails')->name('rfq.email.plan.details');
+Route::any('email/plan_details','WelcomeController@emailPlanDetails')->name('rfq.email.plan.details');
 Route::get('company/supplier/form','WelcomeController@supplierFormToShowUser')->name('company.supplier.form');
 Route::post('company/supplier/form_post_save','WelcomeController@supplierFormToShowUserSave')->name('company.supplier.form.save');
 
