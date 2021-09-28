@@ -279,7 +279,10 @@ class WelcomeController extends Controller
         DB::beginTransaction();
         try {
             if(!empty($req->rfqId)){
-                $newRfq = new Rfq;
+                $newRfq = Rfq::where('id',$req->rfqId)->first();
+                if(!$newRfq){
+                    $newRfq = new Rfq;
+                }
             }else{
                 $newRfq = new Rfq;
             }

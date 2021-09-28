@@ -102,6 +102,16 @@ trait OCRTraits
         if($error){
             return errorResponse('we donot found the data for calculation',$string);
         }
+        $rfq = new \App\Model\Rfq;
+        if(auth()->user()){
+            $rfq->userId = auth()->user()->id;
+        }
+        $rfq->ocr_bill_amount = $bill_amount;
+        $rfq->ocr_unit_consumed = $unit_consumed;
+        $rfq->ocr_pincode = $pincode;
+        $rfq->ocr_state = $stateName;
+        $rfq->ocr_full_text = $string;
+        $rfq->save();
         return successResponse('Data Found',[
             'stateId' => $stateId,
             'stateName' => $stateName,
@@ -113,6 +123,7 @@ trait OCRTraits
             'serviceChargedPeriod' => $serviceChargePeriod,
             'serviceChargedRate' => $serviceChargedRate,
             'originalstring' => $string,
+            'rfqId' => $rfq->id,
         ]);
     }
 

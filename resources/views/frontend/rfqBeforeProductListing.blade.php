@@ -239,7 +239,7 @@
 							</div>
 						</li>
 					</ul>
-					<input type="hidden" name="rfqId" value="{{old('rfqId')}}">
+					<input type="hidden" id="rfqId" name="rfqId" value="{{old('rfqId')}}">
 					@error('rfqId')<span class="text-danger">{{$message}}</span>@enderror
 					@error('electricity_usage')<span class="text-danger">{{$message}}</span>@enderror
 					@error('understand')<span class="text-danger">{{$message}}</span>@enderror
@@ -323,6 +323,7 @@
 				data : formData,
 				success:function(response){
 					if(response.error == false){
+						$('#rfqId').val(response.data.rfqId);
 						$('#kwh_usage').val(response.data.kwh_usage);
 						$('#kwh_rate').val(response.data.kwh_rate);
 						$('#serviceChargedPeriod').val(response.data.serviceChargedPeriod);
@@ -337,32 +338,6 @@
 					$('.loading-data').hide();
 				}
     		});
-
-			// $.ajax({
-			//     url: 'https://api.ocr.space/parse/image',
-			//     method: "POST",
-			//     dataType: 'JSON',
-			//     crossDomain: true,
-			//     contentType: "application/json; charset=utf-8",
-			//     data: {
-			//     	file : formData.file,
-			//     	url : '',language : 'eng',isOverlayRequired : 'true',IsCreateSearchablePDF : 'false',
-		 //            isSearchablePdfHideTextLayer : 'true',detectOrientation : 'false',isTable : 'false',
-		 //            scale : 'true',OCREngine : '1',detectCheckbox : 'false',checkboxTemplate : '0',
-			//     },
-			//     cache: false,
-			//     beforeSend: function (xhr) {
-			//         /* Authorization header */
-			//         xhr.setRequestHeader("apikey", "091edecfdb88957");
-			//         xhr.setRequestHeader("Content-Type", "multipart/form-data");
-			//     },
-			//     success: function (data) {
-			// 		console.log(data);
-			//     },
-			//     error: function (error) {
-			// 		console.log('Error => ',error);
-			//     }
-			// });
     	}
     	// @error('user_name')
 	    // 	$('#userInformationModal').modal('show');
