@@ -69,4 +69,9 @@ class User extends Authenticatable
     {
         return $this->hasOne('App\Model\Rfq','userId','id')->latest();
     }
+
+    public function home_and_usage_details()
+    {
+        return $this->hasOne('App\HomeAndUsage','userId','id');
+    }
 }

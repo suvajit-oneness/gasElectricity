@@ -22,7 +22,7 @@
                         </li>
 
                         <li class="nav-item custom-tooltip">
-                        <span class="tooltiptext">Profile</span>
+                            <span class="tooltiptext">Profile</span>
                             <a class="nav-link {{request()->routeIs('user.profile')?'active':''}}" href="{{route('user.profile')}}">
                             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-lock"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
                             <h5>Profile</h5></a>
@@ -161,9 +161,12 @@
                         <!-- Supplier Sidebar End-->
                         <!-- Customer Sidebar -->
                         @elseif(Auth::user()->user_type == 3)
-                            <li class="nav-divider">Enquiry</li>
                             <li class="nav-item">
-                                <a class="nav-link {{request()->routeIs('customer.enquiry.rfq')?'active':''}}" href="{{route('customer.enquiry.rfq')}}"><i class="fa fa-fw fa-user-circle"></i>Your Enquiry</a>
+                                <a class="nav-link {{request()->routeIs('user.usage_details')?'active':''}}" href="{{route('user.usage_details')}}"><i class="fa fa-fw fa-user-circle"></i>Home & Usage Details</a>
+                            </li>
+                            <li class="nav-divider">History</li>
+                            <li class="nav-item">
+                                <a class="nav-link {{request()->routeIs('customer.enquiry.rfq')?'active':''}}" href="{{route('customer.enquiry.rfq')}}"><i class="fa fa-fw fa-user-circle"></i>History</a>
                             </li>
                         @endif
                     </ul>

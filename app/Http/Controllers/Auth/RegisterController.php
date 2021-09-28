@@ -56,6 +56,11 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'phone' => ['required','string'],
+            'dateOfBirth' => ['required','date'],
+            'requireLifeSupportMedicalEquipment' => ['nullable'],
+            'operateLifeSupportMedicalEquipment' => ['nullable'],
+            'LifeSupportMachineType' => ['nullable'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'referral' => ['string','nullable','exists:referrals,code'],
         ]);
@@ -69,7 +74,30 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        $userObject = (object)$data;
-        return $this->createNewUser($userObject);
+        $data = (object)$data;
+        $user = new User();
+        $user->user_type = 3;
+        $user->name = $data->name;
+        $user->email = $data->email;
+        $user->mobile = $data->phone;
+        $user->dob = date('Y-m-d',strtotime($data->dateOfBirth));
+        $user->password = Hash::make($data->password);
+        if(!empty($data->requireLifeSupportMedicalEquipment) && $data->requireLifeSupportMedicalEquipment == 'yes'){
+            $user->requireLifeSupportMedicalEquipment = emptyCheck($data->requireLifeSupportMedicalEquipment);
+            $user->operateLifeSupportMedicalEquipment = emptyCheck($data->operateLifeSupportMedicalEquipment);
+            $user->LifeSupportMachineType = emptyCheck($data->LifeSupportMachineType);    
+        }else{
+            $user->requireLifeSupportMedicalEquipment = 'no';
+        }
+        $user->save();
+        $this->setReferralCode($user,$data->referral);
+        $data = [
+            'name' => $user->name,
+            'email' => $user->email,
+            'password' => $data->password,
+            'content' => 'Please use the Provided password below to login',
+        ];
+        sendMail($data,'emails/userRegistration',$user->email,'Congratulation - Successful Registration !!!');
+        return $user;
     }
 }

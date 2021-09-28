@@ -1,7 +1,6 @@
 @extends('frontend.layouts.master')
 @section('title','Register')
 @section('content')
-
 <section class="contact_wraper">
     <div class="container">
         <div class="row">
@@ -22,7 +21,6 @@
                                             <div class="col-md-12 iputIcon">
                                                 <img src="{{asset('forntEnd/images/user.png')}}">
                                                 <input id="name" type="text" class="mb-0 custom_input @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" autocomplete="name" autofocus placeholder="Name">
-            
                                                 @error('name')
                                                     <span class="invalid-feedback" role="alert">
                                                         <strong>{{ $message }}</strong>
@@ -42,12 +40,35 @@
                                                 @enderror
                                             </div>
                                         </div>
+
+                                        <div class="form-group row">
+                                            <div class="col-md-12 iputIcon">
+                                                <img src="{{asset('forntEnd/images/envelop-3.png')}}">
+                                                <input id="phone" type="phone" class="mb-0 custom_input @error('phone') is-invalid @enderror" name="phone" value="{{old('phone')}}" placeholder="Phone">
+                                                @error('phone')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group row">
+                                            <div class="col-md-12 iputIcon">
+                                                <img src="{{asset('forntEnd/images/lock.png')}}">
+                                                <input id="dateOfBirth" type="date" class="mb-0 custom_input @error('dateOfBirth') is-invalid @enderror" name="dateOfBirth" max="{{date('Y-m-d',strtotime('-12 years'))}}" onkeypress="return false;">
+                                                @error('dateOfBirth')
+                                                    <span class="invalid-feedback" role="alert">
+                                                        <strong>{{ $message }}</strong>
+                                                    </span>
+                                                @enderror
+                                            </div>
+                                        </div>
             
                                         <div class="form-group row">
                                             <div class="col-md-12 iputIcon">
                                                 <img src="{{asset('forntEnd/images/lock.png')}}">
                                                 <input id="password" type="password" class="mb-0 custom_input @error('password') is-invalid @enderror" name="password" autocomplete="new-password" placeholder="Password">
-            
                                                 @error('password')
                                                     <span class="invalid-feedback" role="alert">
                                                         <strong>{{ $message }}</strong>
@@ -62,7 +83,37 @@
                                                 <input id="password-confirm" type="password" class="mb-0 custom_input" name="password_confirmation" autocomplete="new-password" placeholder="Confirm Password">
                                             </div>
                                         </div>
-            
+
+                                        <div class="form-group row">
+                                            <div class="col-md-12 iputIcon">
+                                                <label><b>Do you require life support medical equipment?</b></label>
+                                                <input type="radio" class="requireLifeSupportMedicalEquipment" name="requireLifeSupportMedicalEquipment" value="yes">Yes
+                                                <input type="radio" class="requireLifeSupportMedicalEquipment" name="requireLifeSupportMedicalEquipment" value="no" checked="">No
+                                            </div>
+                                        </div>
+
+                                        <div id="nextFieldTobeAppear">
+                                            <div class="form-group row">
+                                                <div class="col-md-12 iputIcon">
+                                                    <label><b>Do you gas or electricity to operate life support medical equipment?</b></label>
+                                                    <input type="radio" class="operateLifeSupportMedicalEquipment" name="operateLifeSupportMedicalEquipment" value="yes">Yes
+                                                    <input type="radio" class="operateLifeSupportMedicalEquipment" name="operateLifeSupportMedicalEquipment" value="no" checked="">No
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <div class="col-md-12 iputIcon">
+                                                    <label><b>Life support machine type?</b></label>
+                                                    <select name="LifeSupportMachineType" class="form-control">
+                                                        <option value="" selected="" hidden="">Select Machine Type</option>
+                                                        <option value="Feeding tube">Feeding tube</option>
+                                                        <option value="Parenteral nutrition">Parenteral nutrition</option>
+                                                        <option value="Mechanical ventilation">Mechanical ventilation</option>
+                                                        <option value="Others">Others</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+
                                         <div class="form-group row">
                                             <div class="col-md-12 iputIcon">
                                                 <img src="{{asset('forntEnd/images/reffer.png')}}">
@@ -77,7 +128,7 @@
             
                                         <div class="form-group row mb-0 m-0">
                                             <button type="submit" class="blue-btm blue-btm-mod mt-0">Register</button>
-                                            <!-- <a href="{{route('register')}}" class="white-btm">+ Login</a> -->
+                                            <!-- <a href="{{route('login')}}" class="white-btm">+ Login</a> -->
                                         </div>
                                     </form>
                                 </div>
@@ -89,90 +140,16 @@
         </div>
     </div>
 </section>
-<!-- <div class="container d-none">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Register') }}</div>
-
-                <div class="card-body">
-                    <form method="POST" action="{{ route('register') }}">
-                        @csrf
-
-                        <div class="form-group row">
-                            <label for="name" class="col-md-4 col-form-label text-md-right">{{ __('Name') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="name" type="text" class="form-control @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" autocomplete="name" autofocus placeholder="Name">
-
-                                @error('name')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" autocomplete="email" placeholder="Email">
-
-                                @error('email')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" autocomplete="new-password" placeholder="Password">
-
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" autocomplete="new-password" placeholder="Confirm Password">
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="referral_code" class="col-md-4 col-form-label text-md-right">{{ __('Referal Code') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="referral_code" type="text" class="form-control @error('referral') is-invalid @enderror" name="referral" value="{{($req->referral_code ? $req->referral_code : (old('referral') ? old('referral') : ''))}}" placeholder="Referal Code (optional)">
-                                @error('referral')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Register') }}
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div> -->
+@section('script')
+    <script type="text/javascript">
+        $(document).on('click','.requireLifeSupportMedicalEquipment',function(){
+            var thisRadiobtn = $(this);
+            if(thisRadiobtn.val() == 'yes'){
+                $('#nextFieldTobeAppear').show();
+            }else{
+                $('#nextFieldTobeAppear').hide();
+            }
+        });
+    </script>
+@stop
 @endsection
