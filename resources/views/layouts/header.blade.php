@@ -23,7 +23,7 @@
                     <a href="" class="dropdown-item"><i class="fas fa-user mr-2"></i>How it works</a>
                 </div>
                 </li>
-                    <li class="nav-item dropdown nav-user">
+                    <li class="nav-item dropdown nav-user user-icon-header">
                         <a class="nav-link nav-user-img" href="#" id="navbarDropdownMenuLink2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <img src="{{asset(Auth::user()->image)}}" alt="" class="user-avatar-md rounded-circle">
                         </a>

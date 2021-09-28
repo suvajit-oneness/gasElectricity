@@ -47,7 +47,7 @@
                                    <div class="card-body card-body-inner">
                                         <a href="{{route('admin.users')}}?userType=2" class="gpcVCf">
                                             <div class="icon-sec card-1">
-                                                <img src="{{asset('image/hotel-supplier.png')}}">
+                                                <img src="{{asset('image/inventory.png')}}">
                                             </div>
                                             <div class="text-sec">
                                                 <h3>{{count($data->supplier)}} <span>Total Suppliers</span></h3>
@@ -61,7 +61,7 @@
                                    <div class="card-body card-body-inner">
                                         <a href="{{route('admin.users')}}?userType=3" class="gpcVCf">
                                             <div class="icon-sec card-2">
-                                                <img src="{{asset('image/customer.png')}}">
+                                                <img src="{{asset('image/value.png')}}">
                                             </div>
                                             <div class="text-sec">
                                                 <h3>{{count($data->customer)}} <span>New Customers</span></h3>

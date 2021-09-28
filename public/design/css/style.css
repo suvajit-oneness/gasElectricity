@@ -1976,7 +1976,7 @@ Container / Wrapper
 }
 
 .dashboard-content {
-    padding: 30px 30px 60px 30px;
+    padding: 10px 30px 60px 30px;
 }
 
 
@@ -3233,15 +3233,14 @@ btn-link
 .card {
     margin-bottom: 30px;
     border: none;
-    -webkit-box-shadow: 0px 1px 2px 1px rgba(154, 154, 204, 0.22);
-    -moz-box-shadow: 0px 1px 2px 1px rgba(154, 154, 204, 0.22);
-    box-shadow: 0px 1px 2px 1px rgba(154, 154, 204, 0.22);
+    /* -webkit-box-shadow: 0px 1px 2px 1px rgba(154, 154, 204, 0.22);
+    -moz-box-shadow: 0px 1px 2px 1px rgba(154, 154, 204, 0.22); */
+    box-shadow: none !important;
 }
 
 .card-header {
-    background-color: #fff;
-    border-bottom: 1px solid #e6e6f2;
-    background-color: rgba(227,247,223,1) !important;
+    border-bottom: none !important;
+    background-color: transparent !important;
 }
 
 .card-title {}
@@ -3250,7 +3249,10 @@ btn-link
     font-size: 14px;
 }
 
-.card-body {}
+.card-body {
+    padding: 15px 0px !important;
+    padding-top: 5px !important;
+}
 
 .card-text {}
 
@@ -7276,17 +7278,17 @@ Media Query
     left: 0;
     content: '';
 }
-.card-1{
+/* .card-1{
     background: linear-gradient(to bottom right, #1e63c3 0%, #00f2fe 100%) !important;
-}
+} */
 .icon-sec{
     padding: 20px;
     margin-right: 10px;
     border-radius: 50%;
 }
 .icon-sec img{
-    width: 30px;
-    height: 30px;
+    width: 32px;
+    height: 32px;
     object-fit: cover;
 }
 /* .card-1 .icon-sec{
@@ -7300,20 +7302,22 @@ Media Query
 } */
 .card{
     border:none !important;
-    box-shadow: 0px 2px 7px #b5b5b5 !important;
+    box-shadow: none !important;
 
 }
 .card-body-inner{
-    background-color: #e3f7df;
-    border-left: 4px solid #7ed293;
+    background-color: #effded;
+    border-left: 3px solid #7ed293;
     border-radius: 5px;
+    padding: 15px !important;
+    box-shadow: 0 .125rem .25rem rgba(0,0,0,.075)!important;
 }
-.card-2{
+/* .card-2{
     background:linear-gradient(to bottom right, #509862 0%, #a8e0b6 100%) !important 
 }
 .card-3{
     background: linear-gradient(to bottom right, #f66b4e 0%, #fbc434 100%) !important;
-}
+} */
 .card-header{
     background-color: rgb(126 210 147);
 }
@@ -7322,10 +7326,13 @@ Media Query
     color: #0e0d28;
     font-weight: 500;
 }
+.text-sec{
+    border-left: 1px solid #7e7e82 !important;
+}
 .text-sec h3 span {
-    font-size: 16px;
-    color: rgb(14 13 40);
-    font-weight: 600;
+    font-size: 18px;
+    color: rgb(126 126 130);
+    font-weight: 500;
     display: block;
     letter-spacing: 1px;
     margin-top: 5px;
@@ -7333,7 +7340,7 @@ Media Query
 .text-sec h3 {
     font-size: 30px;
     margin-bottom: 5px;
-    font-weight: 900;
+    font-weight: 800;
     line-height: 24px;
     color: #5c9269;
 }
@@ -7372,7 +7379,6 @@ Media Query
     color: #7ed293;
 }
 .dashboard-header{
-    background-color: rgba(227,247,223,1) !important;
     border-bottom: 1px solid rgb(126 210 147);
 }
 .openstyle .nav-divider{
@@ -7392,8 +7398,8 @@ Media Query
     padding-right: 0px;
 }
 .openstyle .navbar{
-    padding-left: 14px;
-    padding-right: 14px;
+    padding-left: 0px;
+    padding-right: 0px;
 }
 .openstyle .nav-link h5{
     display: inline-block;
@@ -7446,4 +7452,8 @@ td li{
 th{
     font-size: 15px;
     vertical-align: middle !important;
+    white-space: nowrap;
+}
+.user-icon-header{
+    margin-right: 6px;
 }
