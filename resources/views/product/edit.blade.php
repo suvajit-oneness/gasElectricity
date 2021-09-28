@@ -90,8 +90,8 @@
                             </div>
                             
                             <div class="form-group col-md-6">
-                                <label for="gas_price" class="col-form-label">Gas Price:</label>
-                                <input type="text" class="form-control @error('gas_price') is-invalid @enderror" id="gas_price" name="gas_price" placeholder="Gas Price" value="{{$gasData->price}}" onkeypress="return isNumberKey(event)" maxlength="5">
+                                <label for="gas_price" class="col-form-label">Gas Price/Unit:</label>
+                                <input type="text" class="form-control @error('gas_price') is-invalid @enderror" id="gas_price" name="gas_price" placeholder="Gas Price Per unit" value="{{$gasData->price}}" onkeypress="return isNumberKey(event)" maxlength="5">
                                 @error('gas_price')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -112,8 +112,8 @@
                             </div>
                             
                             <div class="form-group col-md-6">
-                                <label for="electricty_price" class="col-form-label">Electricity Price:</label>
-                                <input type="text" class="form-control @error('electricty_price') is-invalid @enderror" id="electricty_price" name="electricty_price" placeholder="Product Electricity Price" value="{{$electrictyData->price}}" onkeypress="return isNumberKey(event)" maxlength="5">
+                                <label for="electricty_price" class="col-form-label">Electricity Price/Unit:</label>
+                                <input type="text" class="form-control @error('electricty_price') is-invalid @enderror" id="electricty_price" name="electricty_price" placeholder="Product Electricity Price Per unit" value="{{$electrictyData->price}}" onkeypress="return isNumberKey(event)" maxlength="5">
                                 @error('electricty_price')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>

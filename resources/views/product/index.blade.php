@@ -68,7 +68,7 @@
                                             <?php $gasData = $product->product_gas; ?>
                                             @if($gasData)
                                                 <li>Title : {{$gasData->title}}</li>
-                                                <li>Price : {{moneyFormat($gasData->price)}}</li>
+                                                <li>Price : {{moneyFormat($gasData->price)}} / unit</li>
                                             @else
                                                 {{('N/A')}}
                                             @endif
@@ -77,7 +77,7 @@
                                             <?php $electricityData = $product->product_electricty; ?>
                                             @if($electricityData)
                                                 <li>Title : {{$electricityData->title}}</li>
-                                                <li>Price : {{moneyFormat($electricityData->price)}}</li>
+                                                <li>Price : {{moneyFormat($electricityData->price)}} / unit</li>
                                             @else
                                                 {{('N/A')}}
                                             @endif
