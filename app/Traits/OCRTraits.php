@@ -49,10 +49,10 @@ trait OCRTraits
         if($err){
             return errorResponse('Something went wrong please try after sometime'); // sending the Error Response
         }
-        return $this->convertToText(json_decode($result)); // transferring to the next step
+        return $this->convertToText($req,json_decode($result)); // transferring to the next step
     }
 
-    public function convertToText($resultData)
+    public function convertToText(Request $req,$resultData)
     {
         // echo $resultData->ParsedResults[0]->ParsedText;exit;
         $error = true;$msg = '';$textData = '';
@@ -65,10 +65,10 @@ trait OCRTraits
         if($error){
             return errorResponse('uploaded file has no Content',$textData); // sending the Error Response
         }
-        return $this->readLines($textData); // transferring to the next step
+        return $this->readLines($req,$textData); // transferring to the next step
     }
 
-    public function readLines($string)
+    public function readLines(Request $req,$string)
     {
         $stateId = 0;$error = true;$pincode = '';$stateName = '';$bill_amount = '';$unit_consumed = '';
         $serviceChargePeriod = '';$serviceChargedRate = '';
@@ -94,6 +94,8 @@ trait OCRTraits
                         }
                     }
                     $unit_consumed = $this->getUnitConsumed($string);
+                    $serviceChargePeriod = $this->getServiceChargedForThisString($string);
+                    $serviceChargedRate = $this->calculateServiceChargedRate($string);
                     $error = false;break;
                 }
             }
@@ -102,7 +104,14 @@ trait OCRTraits
         if($error){
             return errorResponse('we donot found the data for calculation',$string);
         }
-        $rfq = new \App\Model\Rfq;
+        if(!empty($req->rfqId)){
+            $rfq = \App\Model\Rfq::where('id',$req->rfqId)->first();
+            if(!$rfq){
+                $rfq = new \App\Model\Rfq;
+            }
+        }else{
+            $rfq = new \App\Model\Rfq;
+        }
         if(auth()->user()){
             $rfq->userId = auth()->user()->id;
         }
@@ -127,16 +136,46 @@ trait OCRTraits
         ]);
     }
 
+    public function calculateServiceChargedRate($string)
+    {
+        $returnValue = '';
+        $searchString = ' c/day';$pos = strpos($string,$searchString);
+        if($pos){
+            $array = ['0','1','2','3','4','5','6','7','8','9','.'];
+            for($i = $pos; $i > ($pos - 8); $i--){
+                if(isset($string[$i]) && in_array($string[$i],$array)){
+                    $returnValue .= $string[$i];
+                }
+            }
+        }
+        return strrev($returnValue);
+    }
+
+    public function getServiceChargedForThisString($string)
+    {
+        $return = '';
+        $searchString = ' DAYS)';$pos = strpos(strtoupper($string),$searchString);
+        if($pos){
+            $array = ['0','1','2','3','4','5','6','7','8','9'];
+            for($i = $pos; $i > ($pos - 5); $i--){
+                if(isset($string[$i]) && in_array($string[$i],$array)){
+                    $return .= $string[$i];
+                }
+            }
+        }
+        return strrev($return);
+    }
+
     public function getUnitConsumed($string)
     {
         $unitConsumed = '';
-        $searchString = 'AVERAGE DAILY USAGE FOR THIS ACCOUNT: ';$pos = strpos(strtoupper($string),$searchString);
+        $searchString = 'BASE USAGE ';$pos = strpos(strtoupper($string),$searchString);
         if($pos){$pos += strlen($searchString);}
-        // else{
-        //     $searchString = 'Average daily usage for this account: ';$pos = strpos($string,$searchString);
-        //     if($pos){$pos += strlen($searchString);}
-        //     else{}
-        // }
+        else{
+            $searchString = 'AVERAGE DAILY USAGE FOR THIS ACCOUNT';$pos = strpos($string,$searchString);
+            if($pos){$pos += strlen($searchString);}
+            else{}
+        }
         if($pos && $pos > 0){
             $unitConsumed = getNumberFromString($string,$pos);
         }

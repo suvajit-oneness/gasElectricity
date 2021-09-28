@@ -299,7 +299,7 @@
 </section>
 @section('script')
     <script type="text/javascript">
-
+		var rfqId = '';
 		function OCRFILEUPLOAD(thisFiles){
 			$('#fileUploadError').text('');
 			var ocr_FIle = $('#OCRFormField').val();

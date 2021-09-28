@@ -64,7 +64,7 @@
 						<a href="javascript:void(0)" class="close-panel">CLOSE</a>
 					</div>
 					<div class="plan_wraper">
-						@php 
+						@php
 							$url='?';
 							if(!empty($request) && !empty($request['rfqId'])){
 								$url .= 'rfqId='.$request['rfqId'].'&';
@@ -77,6 +77,9 @@
 							}
 							if(!empty($request) && !empty($request['stateId'])){
 								$url .= 'stateId='.$request['stateId'].'&';
+							}
+							if(!empty($request) && !empty($request['search'])){
+								$url .= 'search='.$request['search'];
 							}
 						@endphp
 						@foreach($productData as $product)
@@ -146,49 +149,13 @@
 						@endforeach
 					</div>
 					<ul class="plan_pagination mx-auto">
-						{!! $productData->appends(request()->query())->links() !!}
+						{{-- {!! $productData->appends(request()->query())->links() !!} --}}
 					</ul>
 				</div>
-				<!-- <div class="important_note_wrap">
-					<div class="note_title">
-						<div class="trigger">+</div>
-						<div class="note_title_head">
-							<p>IMPORTANT NOTES</p>
-						</div>
-					</div>
-					<div class="note_content">
-						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-						tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-						quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-						consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-						cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-						proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-					</div>
-				</div> -->
 			</div>
 		</div>
 	</div>
 </section>
-
-<!-- <div class="modal" tabindex="-1" role="dialog" id="loginToContinue">
-	<div class="modal-dialog modal-dialog-centered please_log_modal" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title">Please do login</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<div class="modal-body">
-				<p>Click login to continue</p>
-				<div class="col-12 p-0 text-right">
-				    <button type="button" class="btn btn-primary loginToContinue">Login</button>
-				</div>
-			</div>
-				
-		</div>
-	</div>
-</div> -->
 
 @section('script')
     <script type="text/javascript">
@@ -204,10 +171,6 @@
 			// $('.plan_listing_wraper a').addClass("disable-click").removeAttr('href');
 			$('.plan_listing_wraper button').attr('disabled',true);
 			$('.viewMoreDetailsAnchortag').attr('disabled',false).removeClass('disable-click'); // only this will enabled to click
-			// $('#loginToContinue').modal('show');
-			// $(document).on('click','.loginToContinue',function(){
-			// 	window.location.href = '{{route('login')}}';
-			// });
     	@endguest
     </script>
 @stop

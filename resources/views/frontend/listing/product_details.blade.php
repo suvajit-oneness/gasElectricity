@@ -32,7 +32,7 @@
 <section class="plan_listing_wraper">
 	<div class="container">
 		<div class="row">
-			@php 
+			@php
 				$url='?productId='.$productData->id.'&';
 				if(!empty($req->rfqId)){
 					$url .= 'rfqId='.$req->rfqId.'&';
@@ -46,13 +46,16 @@
 				if(!empty($req->stateId)){
 					$url .= 'stateId='.$req->stateId.'&';
 				}
+				if(!empty($req->search)){
+					$url .= 'search='.$req->search.'&';
+				}
 			@endphp
 			<div class="col-md-8">
 				<button class="btn plan_details_btn emailplanDetails @if(count($data->tariff_type) <= 0) emailedPlanDetails @endif">Email Plan Details</button>
 				<a href="{{route('company.supplier.form')}}{{$url}}" class="btn plan_details_btn switch_and_save">Switch & Save Today</a>
 			</div>
 			<div class="col-md-4 text-right">
-				<a class="btn plan_details_btn"> <i class="fas fa-chevron-left"></i> Go back to search result</a>
+				<a href="{{route('product.listing')}}{{$url}}" class="btn plan_details_btn"> <i class="fas fa-chevron-left"></i> Go back to search result</a>
 			</div>
 		</div>
 		<div class="row">
