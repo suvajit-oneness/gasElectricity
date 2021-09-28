@@ -416,14 +416,24 @@ class WelcomeController extends Controller
         return errorResponse('Something went wrong please try after sometime');
     }
 
-    public function getPlanlistingData(Request $req,$supplierId)
+    public function getPlanlistingData(Request $req,$supplierId,$rfq)
     {
+        $userBillRate = number_format(($rfq->kwh_rate) / ($rfq->kwh_usage),2);
+        // dd($userBillRate);
         $productData = Product::select('*')->whereIn('created_by',$supplierId);
         if(!empty($req->productId)){
             $productData = $productData->where('id',$req->productId);
         }
         if(!empty($req->property_type)){
             $productData = $productData->whereRaw('FIND_IN_SET("'.$req->property_type.'",product_for)');
+        }
+        if($rfq->energy_type == 'electricity'){
+            $productData = $productData->leftjoin('product_electricities','product_electricities.product_id','=','products.id')->whereBetween('product_electricities.price',[$userBillRate-1,$userBillRate+0.5]);
+        }elseif($rfq->energy_type == 'gas'){
+            $productData = $productData->leftjoin('product_gases','product_gases.product_id','=','products.id')->whereBetween('product_gases.price',[$userBillRate-1,$userBillRate+0.5]);
+        }elseif($rfq->energy_type == 'gas_electricity'){
+            $productData = $productData->leftjoin('product_electricities','product_electricities.product_id','=','products.id')->whereBetween('product_electricities.price',[$userBillRate-1,$userBillRate+0.5]);
+            $productData = $productData->leftjoin('product_gases','product_gases.product_id','=','products.id')->whereBetween('product_gases.price',[$userBillRate-1,$userBillRate+0.5]);
         }
         $count = $productData->count();
         // $productData = $productData->paginate(5);
@@ -434,7 +444,7 @@ class WelcomeController extends Controller
 
     public function productListingwithAuth(Request $req,$supplierId,$rfq)
     {
-        $productData = $this->getPlanlistingData($req,$supplierId);
+        $productData = $this->getPlanlistingData($req,$supplierId,$rfq);
         $request = $req->all();$state = [];
         if(!empty($req->stateId)){
             $state = State::where('id',base64_decode($req->stateId))->first();

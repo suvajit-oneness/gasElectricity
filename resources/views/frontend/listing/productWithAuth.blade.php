@@ -87,8 +87,11 @@
 								$gasData = (!empty($request['eneryType']) && ($request['eneryType'] == 'gas' || $request['eneryType'] == 'gas_electricity')) ? $product->product_gas : [];
 								$electricityData = (!empty($request['eneryType']) && ($request['eneryType'] == 'electricity' || $request['eneryType'] == 'gas_electricity')) ? $product->product_electricty : [];
 							?>
+							<!-- && ($gasData && $gasData->price) || ($electricityData && $electricityData->price) -->
 							@if($gasData || $electricityData)
-								@php $companyData = $product->company; @endphp
+								@php
+									$companyData = $product->company;
+								@endphp
 								<div class="plane_list_wrapper">
 									<div class="res-planheading addBlur"><h5>Plan <span>and highlights</span></h5></div>
 									<div class="plan_icon_wrap addBlur">
