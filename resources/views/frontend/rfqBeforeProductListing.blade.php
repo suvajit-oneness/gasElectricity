@@ -24,7 +24,7 @@
 					</div>
 					<div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
 						<div class="custom-control custom-radio autowidth electricy-icon p-0">
-						  <input type="radio" id="customRadio2" class="custom-control-input" name="energy_type" value="electricity" @if(old('energy_type') == 'electricity'){{('checked')}}@endif>
+						  <input type="radio" id="customRadio2" class="custom-control-input" name="energy_type" value="electricity" @if(old('energy_type') == 'electricity'){{('checked')}}@elseif(!old('energy_type')){{('checked')}}@endif>
 						  <label class="custom-control-label ct_radio" for="customRadio2">Electricity</label>
 						</div>
 					</div>
@@ -44,7 +44,7 @@
 					<div class="row">
 						<div class="col-xl-4 col-lg-4 col-md-12 col-sm-12 col-12">
 							<div class="custom-control custom-radio autowidth p-0">
-							  <input type="radio" id="myhome" name="type_of_property" value="home" class="custom-control-input" @if(old('type_of_property') == 'home'){{('checked')}}@endif>
+							  <input type="radio" id="myhome" name="type_of_property" value="home" class="custom-control-input" @if(old('type_of_property') == 'home'){{('checked')}}@elseif(!old('type_of_property')){{('checked')}}@endif>
 							  <label class="custom-control-label ct_radio" for="myhome">My home</label>
 							</div>
 						</div>
@@ -199,7 +199,7 @@
 						<li>
 							<div class="energy_select_box block-display">
 								<div class="custom-control custom-radio autowidth">
-									<input type="radio" id="low" name="electricity_usage" value="low" class="custom-control-input" @if(old('electricity_usage') == 'low'){{('checked')}}@elseif(!old('electricity_usage')){{('checked')}}@endif>
+									<input type="radio" id="low" name="electricity_usage" value="low" class="custom-control-input" @if(old('electricity_usage') == 'low'){{('checked')}}@endif>
 									<label class="custom-control-label" for="low"> Low </label>
 								</div>
 							</div>
@@ -213,7 +213,7 @@
 						<li>
 							<div class="energy_select_box block-display">
 								<div class="custom-control custom-radio autowidth">
-									<input type="radio" id="Medium" name="electricity_usage" value="medium" class="custom-control-input" @if(old('electricity_usage') == 'medium'){{('checked')}}@endif>
+									<input type="radio" id="Medium" name="electricity_usage" value="medium" class="custom-control-input" @if(old('electricity_usage') == 'medium'){{('checked')}}@elseif(!old('electricity_usage')){{('checked')}}@endif>
 									<label class="custom-control-label" for="Medium"> Medium </label>
 								</div>
 							</div>

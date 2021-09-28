@@ -26,6 +26,17 @@
 		$newNotification->save();
 	}
 
+	function getEnergyType($energyType)
+	{
+		$string = 'Electricity';
+		switch($energyType){
+			case 'gas' : $string = 'Gas';break; 
+			case 'electricity' : $string = 'Electricity';break; 
+			case 'gas_electricity' : $string = 'Gas and Electricity';break; 
+		}
+		return $string;
+	}
+
 	function fileUpload($file,$folder='image')
 	{
 		$random = randomGenerator();

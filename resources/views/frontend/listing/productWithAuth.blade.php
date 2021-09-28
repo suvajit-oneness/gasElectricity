@@ -44,91 +44,17 @@
 	<div class="container">
 		<div class="row align-items-center">
 			<div class="col-12">
-				<center><h2 class="listing_wrap_title">Compare Electricity Plans <br><span>Total : {{$productData->count}}</span> {{($state) ? 'In "'.$state->name.'"' : ''}}</h2></center>
+				<center><h4 class="listing_wrap_title">Compare “{{getEnergyType($rfq->energy_type)}}” Plans <br><span>Total : “{{$productData->count}}” data found</span> {{($state) ? 'In "'.$state->name.'"' : ''}}</h4></center>
 				<div class="your-search">
-					<!-- <div class="top-panel-search">
-						<h4>Your Search</h4>
-						<div class="right-toggle">
-							<p>*Product info updated frequently</p>
-							<span>^ See Important Notes</span>
-						</div>
-					</div> -->
 					<div class="search-panel">
 						<p>The below offers are based on a residential customer who consumes <span> 4,600 kWh / year </span> on a single rate tariff in the <span> SWITCHR </span> network. The lowest annual price is displayed for each offer. Your bill will differ, based on your actual usage.</p>
-						<!-- <a href="javascript:void(0)" class="toggle_down">Edit your postcode/suburb, distributor and controlled load <span><img src="{{asset('forntEnd/images/arrow-down.png')}}"></span></a> -->
-						<!-- <div class="select-four">
-							<div class="select-box-one">
-								<select name="option">
-									<option value="">Don't mind</option>
-									<option value="">option2</option>
-								</select>
-								<div class="select-box-one-content">
-									<p>Contract length</p>
-								</div>
-								<img src="{{asset('forntEnd/images/double-arrow-down.png')}}">
-							</div>
-							<div class="select-box-one select-box-one-mod-two">
-								<select name="option">
-									<option value="">Don't mind</option>
-									<option value="">option2</option>
-								</select>
-								<div class="select-box-one-content">
-									<p>Conditional discounts</p>
-								</div>
-								<img src="{{asset('forntEnd/images/double-arrow-down.png')}}">
-							</div>
-							<div class="select-box-one select-box-one-mod-three">
-								<select name="option">
-									<option value="">Don't mind</option>
-									<option value="">option2</option>
-								</select>
-								<div class="select-box-one-content">
-									<p>Billing frequency</p>
-								</div>
-								<img src="{{asset('forntEnd/images/double-arrow-down.png')}}">
-							</div>
-							<div class="select-box-one select-box-one-mod-four">
-								<select name="option">
-									<option value="">Don't mind</option>
-									<option value="">option2</option>
-								</select>
-								<div class="select-box-one-content">
-									<p>Payment methods</p>
-								</div>
-								<img src="{{asset('forntEnd/images/double-arrow-down.png')}}">
-							</div>
-						</div> -->
 					</div>
 				</div>
 			</div>
-			<!-- <div class="col-12 col-md-7">
-				<div class="custom-control custom-checkbox custom-control-mod">
-			        <input type="checkbox" class="custom-control-input" id="customControlAutosizing" name="referral_partner" value="true">
-			        <label class="custom-control-label" for="customControlAutosizing">Just compare plans which link to a Referral Partner's website.</label>
-			    </div>
-			</div>
-			<div class="col-12 col-md-5 text-right">
-				<div class="filter_wrap">
-					<div class="filter_icon">
-						<img src="{{asset('forntEnd/images/filter.png')}}">
-					</div>
-					<div class="dropdown filter_selected">
-					  	<a class="btn btn-secondary dropdown-toggle" href="javascript:void(0)" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><p><span>Sorted by:</span>Value Score</p> <img src="{{asset('forntEnd/images/double-arrow-down.png')}}"></a>
-					 	<div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-						    <a class="dropdown-item" href="javascript:void(0)">Action</a>
-						    <a class="dropdown-item" href="javascript:void(0)">Another action</a>
-						    <a class="dropdown-item" href="javascript:void(0)">Something else here</a>
-					  	</div>
-					</div>
-				</div>
-			</div> -->
 		</div>
 		<div class="row">
 			<div class="col-12">
 				<div class="plan_listing_items">
-					<div class="plan_listing_header">
-						<!-- <p>Based on the general usage^ in the Energex network the AER reference price is: <span>$1,508 / year</span></p> -->
-					</div>
 					<div class="plan_title_wrap">
 						<h5>Plan <span>and highlights</span></h5>
 						<h5>Price/year <span>(estimated^)</span></h5>
@@ -206,9 +132,11 @@
 												</div>
 											</div>
 										@endif
-										<div class="viewMoreDetailsDIV">
-											<a href="{{route('product.details',$product->id)}}{{$url}}" class="btn btn-link viewMoreDetailsAnchortag">View more details</a>
-										</div>
+										@guest
+											<div class="viewMoreDetailsDIV">
+												<a href="{{route('product.details',$product->id)}}{{$url}}" class="btn btn-link viewMoreDetailsAnchortag">View more details</a>
+											</div>
+										@endguest
 									</div>
 									<div class="plan_info">
 										<p>{{$product->tag}} <img src="{{asset('forntEnd/images/question.png')}}" data-toggle="tooltip" data-placement="bottom" title="{!! $product->tag_description !!}"></p>

@@ -406,8 +406,9 @@ class WelcomeController extends Controller
             if(!empty($req->search)){
                 $error['search'] = 'We donot provide the service at given pincode';
             }
-            if(count($suppliers) > 0){
-                return $this->productListingwithAuth($req,$suppliers);
+            $rfq = Rfq::where('id',$req->rfqId)->first();
+            if(count($suppliers) > 0 && $rfq){
+                return $this->productListingwithAuth($req,$suppliers,$rfq);
             }
             return back()->withErrors($error)->withInput($req->all());
         }
@@ -429,14 +430,14 @@ class WelcomeController extends Controller
         return $productData;
     }
 
-    public function productListingwithAuth(Request $req,$supplierId)
+    public function productListingwithAuth(Request $req,$supplierId,$rfq)
     {
         $productData = $this->getPlanlistingData($req,$supplierId);
         $request = $req->all();$state = [];
         if(!empty($req->stateId)){
             $state = State::where('id',base64_decode($req->stateId))->first();
         }
-        return view('frontend.listing.productWithAuth', compact('productData','state','request'));
+        return view('frontend.listing.productWithAuth', compact('productData','state','request','rfq'));
     }
 
     public function productDetails(Request $req,$planId)
