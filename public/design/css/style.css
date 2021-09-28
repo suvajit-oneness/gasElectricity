@@ -1972,6 +1972,7 @@ Container / Wrapper
     left: 0;
     margin-left: 64px;
     min-height: 870px !important;
+    transition: 0.3s all linear;
 }
 
 .dashboard-content {
@@ -3240,6 +3241,7 @@ btn-link
 .card-header {
     background-color: #fff;
     border-bottom: 1px solid #e6e6f2;
+    background-color: rgba(227,247,223,1) !important;
 }
 
 .card-title {}
@@ -7342,6 +7344,7 @@ Media Query
     color: #fff;
     margin-left: 5px;
     color: #fff;
+    margin-bottom: 0px;
 }
 .dashboard-wrapper{
     margin-left: 64px;;
@@ -7430,4 +7433,17 @@ Media Query
   .openstyle .custom-tooltip:hover .tooltiptext{
     display: none;
 }
-  
+.nav-link svg{
+    width: 20px;
+    height: 20px;
+}
+td{
+    font-size: 13px;
+}
+td li{
+    list-style: none;
+}
+th{
+    font-size: 15px;
+    vertical-align: middle !important;
+}
