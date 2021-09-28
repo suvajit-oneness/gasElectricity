@@ -17,7 +17,7 @@
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table id="example4" class="table" style="width:100%">
+                        <table id="example4" class="table">
                             <thead>
                                 <tr>
                                     <th>Company Id</th>

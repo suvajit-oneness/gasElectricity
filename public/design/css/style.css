@@ -7571,7 +7571,7 @@ table thead th{
     font-weight: 500;
     color: #0e0d28;
 }
-.headerbuttonforAdd{
+.headerbuttonforAdd,button{
     padding: 10px 20px;
     border: none;
     font-size: 14px;
@@ -7580,9 +7580,20 @@ table thead th{
     border-radius: 5px;
     box-shadow: 2px 1px 5px #bbb2b2;
 }
+button{
+    display: block !important;
+    margin-left: auto !important;
+}
 .headerbuttonforAdd i{
     margin-right: 5px;
 }
 td svg{
     width: 20px !important;
+}
+label{
+    font-size: 14px !important;
+    font-weight: 600 !important;
+}
+input::placeholder{
+    font-size: 15px !important;
 }

@@ -14,7 +14,7 @@
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table id="example4" class="table table-striped table-bordered" style="width:100%">
+                        <table id="example4" class="table" style="width:100%">
                             <thead>
                                 <tr>
                                     <th>User Type</th>
@@ -44,7 +44,7 @@
                                             @endphp
                                             {{$userType}}
                                         </td>
-                                        <td style="height: 100px; width: 100px"><img height="100px" width="100px" src="{{asset($user->image)}}"></td>
+                                        <td class="text-center"><img height="35px" width="auto" src="{{asset($user->image)}}"></td>
                                         <td>{{$user->name}}</td>
                                         <td>{{$user->email}}</td>
                                         <td>{{$user->mobile}}</td>
@@ -76,7 +76,7 @@
                                                         $action = 'Unblock';
                                                     }
                                                 ?>
-                                                <a href="javascript:void(0)" class="blockUnblock" data-id="{{$user->id}}">{{$action}}</a> | <a href="javascript:void(0)" class="text-danger userDelete" data-id="{{$user->id}}">Delete</a>
+                                                <a href="javascript:void(0)" class="blockUnblock" data-id="{{$user->id}}">{{$action}}</a> | <a href="javascript:void(0)" class="text-danger userDelete" data-id="{{$user->id}}"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg></a>
                                             </td>
                                         @endif
                                     </tr>
