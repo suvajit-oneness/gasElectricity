@@ -3241,6 +3241,7 @@ btn-link
 .card-header {
     border-bottom: none !important;
     background-color: transparent !important;
+    padding-left: 0px !important;
 }
 
 .card-title {}
@@ -7445,6 +7446,8 @@ Media Query
 }
 td{
     font-size: 13px;
+    padding: 6px;
+    vertical-align: middle !important;
 }
 td li{
     list-style: none;
@@ -7456,4 +7459,108 @@ th{
 }
 .user-icon-header{
     margin-right: 6px;
+}
+.feature-box{
+    width: 150px;
+}
+.feature-box a{
+    color: #000;
+}
+.feature-box-inner{
+    display: block;
+    width: 150px;
+    /* overflow: hidden; */
+    /* text-overflow: ellipsis; */
+    height: 20px;
+    overflow: hidden;
+}
+.feature-container{
+    width: 150px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.table-button{
+    background: transparent;
+    font-size: 13px;
+    padding: 0px;
+    border: none;
+    font-weight: 600;
+    color: #7ed293;
+}
+.table-button:focus,.table-button:focus-visible{
+    outline: none;
+    border: none;
+}
+.dashboard-modal{
+    height: 100vh;
+}
+.dashboard-modal .modal-dialog{
+    width: 80%;
+    height: 100vh;
+}
+.dashboard-modal .modal-dialog .modal-content{
+    margin-top: 30%;
+}
+.dashboard-modal .modal-body div{
+    font-size: 13px;
+    margin: 10px 0px;
+}
+.description,.description p{
+    width: 100px;
+    /* height: 50px; */
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    margin-bottom: 0px;
+}
+table{
+    /* box-shadow: 0px .125rem .25rem grey!important; */
+    border-radius: 5px;
+}
+table .row:first-child{
+    padding: 5px 10px;
+}
+table thead{
+    background: #d5f1dc;
+    border: none;
+    box-shadow: none;
+
+}
+.pagination .paginate_button{
+    background-color: transparent;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+}
+.pagination .paginate_button .page-link{
+    border: none;
+    border-left: 1px solid;
+    padding-top:0px;
+    padding-bottom: 0px;
+    font-weight: 500;
+    color: #0e0d28 !important;
+}
+.page-item.active .page-link {
+    z-index: 3;
+    color: #7ed293 !important;
+    background-color: #0e0d28 !important;
+    border-color: #007bff;
+    height: 30px;
+    width: 30px !important;
+    text-align: center;
+    /* border-radius: 50%; */
+    vertical-align: middle;
+    text-align: center;
+    padding: 0px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 600;
+    border-radius: 50%;
+}
+.dataTables_info{
+    font-size: 13px;
+    font-weight: 500;
+    color: #0e0d28;
 }
