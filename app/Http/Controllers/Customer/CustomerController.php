@@ -8,9 +8,18 @@ use App\Model\Rfq;
 
 class CustomerController extends Controller
 {
-    public function rfqEnquiry(Request $req)
+    public function dashboard(Request $req)
     {
-        $rfqs = Rfq::where('userId',auth()->user()->id)->orderBy('resolved_by','ASC')->get();
-        return view('customer.enquiry.rfqReport',compact('rfqs'));
+        $data = (object)[];
+        $data->rfqs = Rfq::where('userId',auth()->user()->id)->latest()->get();
+        return view('customer.dashboard',compact('data'));
     }
+
+    /*public function rfqEnquiry(Request $req)
+    {
+        $rfqs = Rfq::where('userId',auth()->user()->id)->latest()->get();
+        return view('customer.enquiry.rfqReport',compact('rfqs'));
+    }*/
+
+    
 }

@@ -145,10 +145,10 @@
                                 <i class="fa fa-fw fa-user-circle"></i>
                                 <h5>Referral</h5></a>
                             </li>
-                            <li class="nav-divider">History</li>
+                            <!-- {{-- <li class="nav-divider">History</li>
                             <li class="nav-item">
                                 <a class="nav-link {{request()->routeIs('customer.enquiry.rfq')?'active':''}}" href="{{route('customer.enquiry.rfq')}}"><i class="fa fa-fw fa-user-circle"></i>History</a>
-                            </li>
+                            </li> --}} -->
                         @endif
                     </ul>
                 </div>
