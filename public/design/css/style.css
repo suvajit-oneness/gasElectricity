@@ -7646,3 +7646,23 @@ input::placeholder{
     border-radius: 10px;
     background: #7ed293; 
 }
+.customer-details p{
+    font-size: 13px;
+    margin-bottom: 10px;
+}
+.customer-details,.invoice-details{
+    margin-bottom: 20px;
+}
+.invoice-details{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+.invoice-details p{
+    text-align: right;
+}
+.invoice-details p span{
+    font-weight: 500;
+    margin-right: 10px;
+    color:#7ed293;
+}

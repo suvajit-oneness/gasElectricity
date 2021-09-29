@@ -10,17 +10,20 @@
                 </div>
                 <div class="card-body">
                     <div class="row">
-                        <div class="col-lg-6">
-                            <h6 class="name">Lorem Ipsum</h6>
-                            <p class="company-name">Switcher</p>
-                            <p class="address">Kolkata</p>
-                            <p class="city">Kolkata</p>
-                            <p class="pincode">700102</p>
-                            <p class="phone-number">9876543210</p>
-                            <p class="email">example@gmail.com</p>
+                        <div class="col-lg-6 customer-details">
+                            <h6 class="name mb-0">Lorem Ipsum</h6>
+                            <p class="company-name mb-0">Switcher</p>
+                            <p class="address mb-0">Kolkata</p>
+                            <p class="city mb-0">Kolkata</p>
+                            <p class="pincode mb-0">700102</p>
+                            <p class="phone-number mb-0">9876543210</p>
+                            <p class="email mb-0">example@gmail.com</p>
                         </div>
-                        <div class="col-lg-6">
-
+                        <div class="col-lg-6 invoice-details">
+                            <P class="invoice-id"><span class="invoice">Invoice Id:</span>2035</p>
+                            <P class="invoice-date"><span class="invoice">Date:</span>21/09/2021</p>
+                            <P class="invoice-customer-id"><span class="invoice">Customer Id:</span>2035</p>
+                            <P class="invoice-terms"><span class="invoice">Terms:</span>Due upon receipt</p>
                         </div>
                     </div>
                     
