@@ -23,6 +23,7 @@
                                     <th>Service Charged Period</th>
                                     <th>Electricity Usage</th>
                                     <th>Emailed this Request</th>
+                                    <th>Date</th>
                                     <th>Contacted By</th>
                                     <th>Remark</th>
                                 </tr>
@@ -54,6 +55,7 @@
                                         <td>{{strtoupper($rfq->serviceChargedPeriod)}}</td>
                                         <td>{{strtoupper($rfq->electricity_usage)}}</td>
                                         <td>@if($rfq->email_request == 1){{('Yes')}}@else{{('NO')}}@endif</td>
+                                        <td>{{date('d M, Y',strtotime($rfq->created_at))}}</td>
                                         <td>
                                             @if($resolvedBy)
                                                 <a href="javascript:void(0)" class="seeDetails" data-id="{{$resolvedBy->id}}" data-name="{{$resolvedBy->name}}" data-email="{{$resolvedBy->email}}" data-mobile="{{$resolvedBy->mobile}}">{{$resolvedBy->name}}</a>

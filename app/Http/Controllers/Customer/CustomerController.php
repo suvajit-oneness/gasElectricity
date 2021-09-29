@@ -22,5 +22,4 @@ class CustomerController extends Controller
         return view('customer.enquiry.rfqReport',compact('rfqs'));
     }*/
 
-
 }
