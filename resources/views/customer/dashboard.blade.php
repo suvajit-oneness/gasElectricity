@@ -9,6 +9,20 @@
                     <h5 class="mb-0">Dashboard</h5>
                 </div>
                 <div class="card-body">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <h6 class="name">Lorem Ipsum</h6>
+                            <p class="company-name">Switcher</p>
+                            <p class="address">Kolkata</p>
+                            <p class="city">Kolkata</p>
+                            <p class="pincode">700102</p>
+                            <p class="phone-number">9876543210</p>
+                            <p class="email">example@gmail.com</p>
+                        </div>
+                        <div class="col-lg-6">
+
+                        </div>
+                    </div>
                     
                     <h3>RFQ Enquiry</h3>
                     <div class="table-responsive">

@@ -102,20 +102,20 @@
 
                             <!-- Main Section -->
                             <li class="nav-divider">Features</li>
-                            <li class="nav-item">
+                            <li class="nav-item custom-tooltip">
                             <span class="tooltiptext">Pincode</span>
                                 <a class="nav-link {{request()->routeIs('supplier.service.pincode')?'active':''}}" href="{{route('supplier.service.pincode')}}"><i class="fa fa-fw fa-user-circle"></i><h5>Pincode</h5></a>
                             </li>
-                            <li class="nav-item">
+                            <li class="nav-item custom-tooltip">
                             <span class="tooltiptext">Companies</span>
                                 <a class="nav-link {{request()->routeIs('supplier.companie*')?'active':''}}" href="{{route('supplier.companies')}}"><i class="fa fa-fw fa-user-circle"></i><h5>Companies</h5></a>
                             </li>
-                            <li class="nav-item">
+                            <li class="nav-item custom-tooltip">
                             <span class="tooltiptext">Products</span>
                                 <a class="nav-link {{request()->routeIs('supplier.product*')?'active':''}}" href="{{route('supplier.products')}}"><i class="fa fa-fw fa-user-circle"></i><h5>Products</h5></a>
                             </li>
                             <li class="nav-divider">Reports</li>
-                            <li class="nav-item">
+                            <li class="nav-item custom-tooltip">
                             <span class="tooltiptext">Reports</span>
                                 <a class="nav-link" href="javascript:void(0)" data-toggle="collapse" aria-expanded="{{request()->routeIs('supplier.reports.*')?'true':'false'}}" data-target="#supplierReports-1" aria-controls="supplierReports-1"><i class="fas fa-fw fa-file"></i> <h5>Reports</h5> </a>
                                 <div id="supplierReports-1" class="collapse submenu {{request()->routeIs('supplier.reports.*')?'show':''}}">
@@ -127,7 +127,7 @@
                                 </div>
                             </li>
                             <li class="nav-divider">Setting</li>
-                            <li class="nav-item">
+                            <li class="nav-item custom-tooltip">
                             <span class="tooltiptext">Settings</span>
                                 <a class="nav-link" href="javascript:void(0)" data-toggle="collapse" aria-expanded="{{request()->routeIs('supplier.setting.*')?'true':'false'}}" data-target="#supplierSettings-6" aria-controls="supplierSettings-6"><i class="fas fa-fw fa-file"></i> <h5>Settings</h5> </a>
                                 <div id="supplierSettings-6" class="collapse submenu {{request()->routeIs('supplier.setting.*')?'show':''}}">
@@ -141,21 +141,21 @@
                         <!-- Supplier Sidebar End-->
                         <!-- Customer Sidebar -->
                         @elseif(Auth::user()->user_type == 3)
-                            <li class="nav-item">
+                            <li class="nav-item custom-tooltip">
                             <span class="tooltiptext">Home & Usage details</span>
                                 <a class="nav-link {{request()->routeIs('user.usage_details')?'active':''}}" href="{{route('user.usage_details')}}"><i class="fa fa-fw fa-user-circle"></i><h5>Home & Usage Details</h5></a>
                             </li>
-                            <li class="nav-item">
+                            <li class="nav-item custom-tooltip">
                                 <span class="tooltiptext">Referral</span>
                                 <a class="nav-link {{request()->routeIs('user.referral')?'active':''}}" href="{{route('user.referral')}}">
                                 <i class="fa fa-fw fa-user-circle"></i>
                                 <h5>Referral</h5></a>
                             </li>
-                            <li class="nav-divider">History</li>
+                            <!-- {{--<li class="nav-divider">History</li>
                             <li class="nav-item">
-                            <span class="tooltiptext">History</span>
+                                <span class="tooltiptext">History</span>
                                 <a class="nav-link {{request()->routeIs('customer.enquiry.rfq')?'active':''}}" href="{{route('customer.enquiry.rfq')}}"><i class="fa fa-fw fa-user-circle"></i><h5>History</h5></a>
-                            </li>
+                            </li>--}} -->
                         @endif
                     </ul>
                 </div>
