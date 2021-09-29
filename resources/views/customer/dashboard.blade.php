@@ -9,9 +9,10 @@
                     <h5 class="mb-0">Dashboard</h5>
                 </div>
                 <div class="card-body">
+                    
                     <h3>RFQ Enquiry</h3>
                     <div class="table-responsive">
-                        <table id="example4" class="table table-striped table-bordered" style="width:100%">
+                        <table class="table table-striped table-bordered" style="width:100%">
                             <thead>
                                 <tr>
                                     <th>Looking to Compare</th>
@@ -45,6 +46,7 @@
                                 @endforeach
                             </tbody>
                         </table>
+                        <div class="float-right">{{$data->rfqs->links()}}</div>
                     </div>
                 </div>
             </div>

@@ -11,7 +11,7 @@ class CustomerController extends Controller
     public function dashboard(Request $req)
     {
         $data = (object)[];
-        $data->rfqs = Rfq::where('userId',auth()->user()->id)->latest()->get();
+        $data->rfqs = Rfq::where('userId',auth()->user()->id)->latest()->paginate(5);
         return view('customer.dashboard',compact('data'));
     }
 
@@ -21,5 +21,5 @@ class CustomerController extends Controller
         return view('customer.enquiry.rfqReport',compact('rfqs'));
     }*/
 
-    
+
 }
