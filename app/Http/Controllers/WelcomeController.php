@@ -461,9 +461,10 @@ class WelcomeController extends Controller
         ];
         $validate = validator()->make($req->all(),$rules);
         if(!$validate->fails()){
-            $rfq = Rfq::where('id',$req->rfqId)->first();
+            $rfq = Rfq::where('id',$req->rfqId)->first();$user = $req->user();
             if($rfq){
                 $productData = Product::findOrFail($planId);
+                $userPoductEnroled = userProductEnrolled($req,$rfq,$productData,$user);
                 $data = (object)[];
                 $data->faq = Faq::get();
                 $data->tariff_type = TariffType::where('companyId',$productData->company_id)->get();
