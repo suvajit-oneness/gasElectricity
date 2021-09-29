@@ -33,21 +33,26 @@
 	<div class="container">
 		<div class="row">
 			@php
-				$url='?productId='.$productData->id.'&';
+				$url='?productId='.$productData->id.'&';$newURL = [];
 				if(!empty($req->rfqId)){
 					$url .= 'rfqId='.$req->rfqId.'&';
+					$newURL['rfqId'] = $req->rfqId;
 				}
 				if(!empty($req->eneryType)){
 					$url .= 'eneryType='.$req->eneryType.'&';
+					$newURL['eneryType'] = $req->eneryType;
 				}
 				if(!empty($req->property_type)){
 					$url .= 'property_type='.$req->property_type.'&';
+					$newURL['property_type'] = $req->property_type;
 				}
 				if(!empty($req->stateId)){
 					$url .= 'stateId='.$req->stateId.'&';
+					$newURL['stateId'] = $req->stateId;
 				}
 				if(!empty($req->search)){
 					$url .= 'search='.$req->search.'&';
+					$newURL['search'] = $req->search;
 				}
 			@endphp
 			<div class="col-md-8">
@@ -55,7 +60,7 @@
 				<a href="{{route('company.supplier.form')}}{{$url}}" class="btn plan_details_btn switch_and_save">Switch & Save Today</a>
 			</div>
 			<div class="col-md-4 text-right">
-				<a href="{{route('product.listing')}}{{$url}}" class="btn plan_details_btn"> <i class="fas fa-chevron-left"></i> Go back to search result</a>
+				<a href="{{route('product.listing',$newURL)}}" class="btn plan_details_btn"> <i class="fas fa-chevron-left"></i> Go back to search result</a>
 			</div>
 		</div>
 		<div class="row">
@@ -99,7 +104,7 @@
 												<h2>{{$gasData->title}}</h2>
 											</div>
 											<div class="price_amount">
-												<h2>$ {{moneyFormat($gasData->price)}}</h2>
+												<h2>$ {{moneyFormat($gasData->price * $rfq->serviceChargedPeriod)}}</h2>
 											</div>
 										</div>
 									@endif
@@ -111,7 +116,7 @@
 												<p>than reference price</p>
 											</div>
 											<div class="price_amount">
-												<h2>${{moneyFormat($electricityData->price)}}</h2>
+												<h2>${{moneyFormat($electricityData->price * $rfq->serviceChargedPeriod)}}</h2>
 											</div>
 										</div>
 									@endif
