@@ -47,7 +47,7 @@ trait OCRTraits
         $result = curl_exec($curl);
         $err = curl_error($curl);
         if($err){
-            return errorResponse('Something went wrong please try after sometime',['ocr_resonse'=>$result]); // sending the Error Response
+            return errorResponse('Something went wrong please try after sometime',['ocr_response'=>$result]); // sending the Error Response
         }
         return $this->convertToText($req,json_decode($result)); // transferring to the next step
     }
