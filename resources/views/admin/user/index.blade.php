@@ -22,11 +22,11 @@
                                     <th>Name</th>
                                     <th>Email</th>
                                     <th>Phone</th>
-                                    <th>Membership</th>
                                     <th>Referral Code</th>
                                     <th>Referred By</th>
                                     <th>Count Referred To</th>
-                                    <th>Total Points</th>
+                                    <!-- <th>Total Points</th> -->
+                                    <th>Details</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -48,7 +48,6 @@
                                         <td>{{$user->name}}</td>
                                         <td>{{$user->email}}</td>
                                         <td>{{$user->mobile}}</td>
-                                        <td>{{($user->membership ? $user->membership->title : 'N/A')}}</td>
                                         <td>{{$user->referral_code}}</td>
                                         <td>
                                             @if($user->referred_through)
@@ -64,9 +63,10 @@
                                                 {{('N/A')}}
                                             @endif
                                         </td>
-                                        <td>
+                                        <!-- <td>
                                             <a href="{{route('admin.user.points',$user->id)}}">{{getSumOfPoints($user->user_points)}}</a>
-                                        </td>
+                                        </td> -->
+                                        <td><a href="{{route('admin.user.details',[$user->id,'username'=>$user->name])}}">Details</a></td>
                                         @if($user->user_type == 1)
                                             <td></td>
                                         @else

@@ -26,6 +26,28 @@
 		$newNotification->save();
 	}
 
+	function user_identification($user)
+	{
+		$iden = \App\Model\UserIdentification::where('userId',$user->id)->first();
+		if(!$iden){
+			$iden = new \App\Model\UserIdentification();
+			$iden->userId = $user->id;
+			$iden->save();
+		}
+		return $iden;
+	}
+
+	function user_homeandUsageDetails($user)
+	{
+		$home = \App\HomeAndUsage::where('userId',$user->id)->first();
+		if(!$home){
+			$home = new \App\HomeAndUsage();
+			$home->userId = $user->id;
+			$home->save();
+		}
+		return $home;
+	}
+
 	function getEnergyType($energyType)
 	{
 		$string = 'Electricity';

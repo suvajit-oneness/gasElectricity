@@ -9,6 +9,7 @@
 	// Users
 	Route::group(['prefix'=>'users'],function(){
 		Route::get('/','Admin\AdminController@getUsers')->name('admin.users');
+		Route::get('{userId}/details','Admin\AdminController@getUserDetails')->name('admin.user.details');
 		Route::get('/create','Admin\AdminController@createUser')->name('admin.user.create');
 		Route::post('/save','Admin\AdminController@saveUser')->name('admin.user.save');
 		Route::post('/manage','Admin\AdminController@manageUser')->name('admin.user.manageUser');

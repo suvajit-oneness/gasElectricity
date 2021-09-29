@@ -28,12 +28,12 @@
                             <h5>Profile</h5></a>
                         </li>
                         @if(Auth::user()->user_type != 1)
-                            <li class="nav-item">
+                            <!-- <li class="nav-item">
                             <span class="tooltiptext">Your Points</span>
                                 <a class="nav-link {{request()->routeIs('user.points')?'active':''}}" href="{{route('user.points')}}">
                                 <i class="fa fa-fw fa-user-circle"></i>
                                 <h5>Your Points</h5></a>
-                            </li>
+                            </li> -->
                         @endif
 
                         <!-- Admin Sidebar -->

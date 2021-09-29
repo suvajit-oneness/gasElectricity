@@ -29,7 +29,7 @@ class AdminController extends Controller
 
     public function rfqDetails(Request $req)
     {
-        $rfqs = Rfq::select('*')->orderBy('created_at','DESC')->get();
+        $rfqs = Rfq::select('*')->latest()->paginate(20);
         return view('admin.reports.rfqDetails',compact('rfqs'));
     }
 
@@ -409,6 +409,12 @@ class AdminController extends Controller
         $users = $users->orderBy('users.id','DESC')->get();
 		return view('admin.user.index',compact('users','req'));
 	}
+
+    public function getUserDetails(Request $req,$userId)
+    {
+        $user = User::findOrFail($userId);
+        return view('admin.user.details',compact('user'));
+    }
 
 	public function manageUser(Request $req)
 	{
