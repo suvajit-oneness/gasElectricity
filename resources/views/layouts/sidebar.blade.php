@@ -2,10 +2,6 @@
     <div class="nav-left-sidebar sidebar-dark closestyle" id="sidenav">
         <div class="menu-list">
             <nav class="navbar navbar-expand-lg navbar-light">
-                <!-- <a class="d-xl-none d-lg-none" href="#">Dashboard</a> -->
-                <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button> -->
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav flex-column">
                         <li class="first-list">
@@ -41,7 +37,6 @@
                             <!-- <li class="nav-item">
                                 <a class="nav-link {{request()->routeIs('admin.membership')?'active':''}}" href="{{route('admin.membership')}}"><i class="fa fa-fw fa-user-circle"></i>Membership</a>
                             </li> -->
-
                             <li class="nav-item custom-tooltip">
                             <span class="tooltiptext">Users</span>
                                 <a class="nav-link {{request()->routeIs('admin.user*')?'active':''}}" href="{{route('admin.users')}}">
@@ -100,26 +95,6 @@
                                 <a class="nav-link {{request()->routeIs('admin.faq')?'active':''}}" href="{{route('admin.faq')}}">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-help-circle"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>    
                                 <h5>Faq</h5></a>
-                            </li>
-                            <li class="nav-item custom-tooltip">
-                            <span class="tooltiptext">Settings</span>
-                                <a class="nav-link" href="javascript:void(0)" data-toggle="collapse" aria-expanded="{{request()->routeIs('admin.setting.*')?'true':'false'}}" data-target="#submenu-6" aria-controls="submenu-6"><i class="fas fa-fw fa-file"></i> <h5>Settings</h5> </a>
-                                <div id="submenu-6" class="collapse submenu {{request()->routeIs('admin.setting.*')?'show':''}}">
-                                    <ul class="nav flex-column">
-                                        <li class="nav-item {{request()->routeIs('admin.setting.points')?'active':''}}">
-                                            <a class="nav-link" href="{{route('admin.setting.points')}}">Points</a>
-                                        </li>
-                                        <li class="nav-item {{request()->routeIs('admin.setting.about_us')?'active':''}}">
-                                            <a class="nav-link" href="{{route('admin.setting.about_us')}}">About us</a>
-                                        </li>
-                                        <li class="nav-item {{request()->routeIs('admin.setting.whychooseus')?'active':''}}">
-                                            <a class="nav-link" href="{{route('admin.setting.whychooseus')}}">Why Choose Us</a>
-                                        </li>
-                                        <li class="nav-item {{request()->routeIs('admin.setting.how_it_works')?'active':''}}">
-                                            <a class="nav-link" href="{{route('admin.setting.how_it_works')}}">How it works</a>
-                                        </li>
-                                    </ul>
-                                </div>
                             </li>
                         <!-- Admin Sidebar End -->
                         <!-- Supplier Sidebar -->
