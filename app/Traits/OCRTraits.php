@@ -47,7 +47,7 @@ trait OCRTraits
         $result = curl_exec($curl);
         $err = curl_error($curl);
         if($err){
-            return errorResponse('Something went wrong please try after sometime'); // sending the Error Response
+            return errorResponse('Something went wrong please try after sometime',['ocr_resonse'=>$result]); // sending the Error Response
         }
         return $this->convertToText($req,json_decode($result)); // transferring to the next step
     }
@@ -63,7 +63,7 @@ trait OCRTraits
             }
         }
         if($error){
-            return errorResponse('uploaded file has no Content',$textData); // sending the Error Response
+            return errorResponse('uploaded file has no Content',['text_conversion_error'=>$textData]); // sending the Error Response
         }
         return $this->readLines($req,$textData); // transferring to the next step
     }
@@ -103,7 +103,7 @@ trait OCRTraits
             continue;
         }
         if($error){
-            return errorResponse('we donot found the data for calculation',$string);
+            return errorResponse('we donot found the data for calculation',['read_lined_error'=>$string]);
         }
         if(!empty($req->rfqId)){
             $rfq = \App\Model\Rfq::where('id',$req->rfqId)->first();
