@@ -428,12 +428,12 @@ class WelcomeController extends Controller
             $productData = $productData->whereRaw('FIND_IN_SET("'.$req->property_type.'",product_for)');
         }
         if($rfq->energy_type == 'electricity'){
-            $productData = $productData->leftjoin('product_electricities','product_electricities.product_id','=','products.id')->whereBetween('product_electricities.price',[$userBillRate-1,$userBillRate+0.5]);
+            $productData = $productData->leftjoin('product_electricities','product_electricities.product_id','=','products.id')->whereBetween('product_electricities.price',[0,$userBillRate]);
         }elseif($rfq->energy_type == 'gas'){
-            $productData = $productData->leftjoin('product_gases','product_gases.product_id','=','products.id')->whereBetween('product_gases.price',[$userBillRate-0.5,$userBillRate+0.5]);
+            $productData = $productData->leftjoin('product_gases','product_gases.product_id','=','products.id')->whereBetween('product_gases.price',[0,$userBillRate]);
         }elseif($rfq->energy_type == 'gas_electricity'){
-            $productData = $productData->leftjoin('product_electricities','product_electricities.product_id','=','products.id')->whereBetween('product_electricities.price',[$userBillRate-1,$userBillRate+0.5]);
-            $productData = $productData->leftjoin('product_gases','product_gases.product_id','=','products.id')->whereBetween('product_gases.price',[$userBillRate-1,$userBillRate+0.5]);
+            $productData = $productData->leftjoin('product_electricities','product_electricities.product_id','=','products.id')->whereBetween('product_electricities.price',[0,$userBillRate]);
+            $productData = $productData->leftjoin('product_gases','product_gases.product_id','=','products.id')->whereBetween('product_gases.price',[0,$userBillRate]);
         }
         $count = $productData->count();
         // $productData = $productData->paginate(5);
@@ -484,16 +484,16 @@ class WelcomeController extends Controller
         ];
         $validate = validator()->make($req->all(),$rules);
         if(!$validate->fails()){
+            $user = $req->user();
             $rfq = Rfq::where('id',$req->rfqId)->first();
             if($rfq){
                 if($rfq->userId == 0){
                     $rfq->userId = $req->userId;
-                    $rfq->save();
                 }
+                $rfq->email_request = 1;$rfq->save();
                 $product = Product::where('id',$req->productId)->first();
                 if($product){
-                    $rfq->email_request = 1;
-                    $rfq->save();
+                    $userPoductEnroled = userProductEnrolled($req,$rfq,$product,$user);
                     $data = [
                         'name' => $rfq->user->name,
                         'content1' => 'Thanks for choosing us to help you find an Electricity & Gas plan that suits you.',
@@ -508,8 +508,6 @@ class WelcomeController extends Controller
                         'plan_rate_link_gas' => emptyCheck($req->plan_rate_link_gas),
                     ];
                     sendMail($data,'emails/emailPlanDetails',$rfq->user->email,'Your Requested Plan Details');
-                    // $data['name'] => $rfq->user->name.' has requested to email plan details',
-                    // sendMail($data,'emails/emailPlanDetails',$product->author->email,$rfq->user->email.' Requested Plan Details');
                     return successResponse('An email has been sent to '.$rfq->user->email.' with the plan details',$req->all());
                 }
             }

@@ -377,7 +377,7 @@
 				url : '{{route('rfq.email.plan.details')}}',
 				type : 'post',
 				dataType : 'JSON',
-				data : {userId:'{{Auth::user()->id}}',plan_rate_link:plan_rate_link,plan_rate_link_gas:plan_rate_link_gas,rfqId:'{{$req->rfqId}}',productId:'{{$productData->id}}',_token:'{{csrf_token()}}'},
+				data : {userId:'{{Auth::user()->id}}',plan_rate_link:plan_rate_link,plan_rate_link_gas:plan_rate_link_gas,rfqId:'{{$rfq->id}}',productId:'{{$productData->id}}',_token:'{{csrf_token()}}'},
 				success:function(response){
 					$('.loading-data').hide();thisBtn.attr('disabled',false);
 					if(response.error == false){

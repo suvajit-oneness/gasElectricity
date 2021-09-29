@@ -47,7 +47,8 @@
 				<center><h4 class="listing_wrap_title">Compare “{{getEnergyType($rfq->energy_type)}}” Plans <br><span>Total : “{{$productData->count}}” data found</span> {{($state) ? 'In "'.$state->name.'"' : ''}}</h4></center>
 				<div class="your-search">
 					<div class="search-panel">
-						<p>The below offers are based on a residential customer who consumes <span> ${{number_format(($rfq->kwh_rate) / ($rfq->kwh_usage),1)}} / unit </span> on a single rate tariff in the <span> SWITCHR </span> network. The lowest annual price is displayed for each offer. Your bill will differ, based on your actual usage.</p>
+						<!-- ${{number_format(($rfq->kwh_rate) / ($rfq->kwh_usage),1)}} / unit -->
+						<p>The below offers are based on a your consumption <span> {{$rfq->kwh_usage}} units </span> at the price <span> $ {{number_format($rfq->kwh_rate,2)}}</span> for <span>{{$rfq->serviceChargedPeriod}} days</span> on a single rate tariff in the <span> SWITCHR </span> network. The lowest annual price is displayed for each offer. Your bill will differ, based on your actual usage.</p>
 					</div>
 				</div>
 			</div>
@@ -122,7 +123,7 @@
 													<h2>{{$gasData->title}}</h2>
 												</div>
 												<div class="price_amount">
-													<h2>$ {{moneyFormat($gasData->price * $rfq->serviceChargedPeriod)}}</h2>
+													<h2>$ {{moneyFormat($gasData->price * $rfq->kwh_usage)}}</h2>
 												</div>
 											</div>
 										@endif
@@ -134,7 +135,7 @@
 													<p>than reference price</p>
 												</div>
 												<div class="price_amount">
-													<h2>${{moneyFormat($electricityData->price * $rfq->serviceChargedPeriod)}}</h2>
+													<h2>${{moneyFormat($electricityData->price * $rfq->kwh_usage)}}</h2>
 												</div>
 											</div>
 										@endif

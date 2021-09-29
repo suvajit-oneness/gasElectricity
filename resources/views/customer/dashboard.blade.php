@@ -9,23 +9,27 @@
                     <h5 class="mb-0">Dashboard</h5>
                 </div>
                 <div class="card-body">
-                    <div class="row">
-                        <div class="col-lg-6 customer-details">
-                            <h6 class="name mb-0">Lorem Ipsum</h6>
-                            <p class="company-name mb-0">Switcher</p>
-                            <p class="address mb-0">Kolkata</p>
-                            <p class="city mb-0">Kolkata</p>
-                            <p class="pincode mb-0">700102</p>
-                            <p class="phone-number mb-0">9876543210</p>
-                            <p class="email mb-0">example@gmail.com</p>
+                    @if($data->userProductChoice)
+                        <div class="row">
+                            @php
+                                $product = $data->userProductChoice->product_data;
+                                $rfq = $data->userProductChoice->rfq_data;
+                            @endphp
+                            @if($product && $rfq)
+                                <div class="col-lg-6 customer-details">
+                                    <h4 class="name mb-0">Product Info</h4>
+                                    <p class="company-name mb-0">{{$product->name}}</p>
+                                    <h4 class="name mb-0">Seller</h4>
+                                    <p class="address mb-0">{{$product->author->name}}</p>
+                                    <p class="city mb-0">{{$product->author->email}}</p>
+                                </div>
+                                <div class="col-lg-6 invoice-details">
+                                    <P class="invoice-id"><span class="invoice">Enquiry Id:</span>{{$rfq->id}}</p>
+                                    <P class="invoice-date"><span class="invoice">Date:</span>{{date('d M, Y',strtotime($rfq->created_at))}}</p>
+                                </div>
+                            @endif
                         </div>
-                        <div class="col-lg-6 invoice-details">
-                            <P class="invoice-id"><span class="invoice">Invoice Id:</span>2035</p>
-                            <P class="invoice-date"><span class="invoice">Date:</span>21/09/2021</p>
-                            <P class="invoice-customer-id"><span class="invoice">Customer Id:</span>2035</p>
-                            <P class="invoice-terms"><span class="invoice">Terms:</span>Due upon receipt</p>
-                        </div>
-                    </div>
+                    @endif
                     
                     <h3>RFQ Enquiry</h3>
                     <div class="table-responsive">
@@ -39,6 +43,7 @@
                                     <th>Kwh Rate</th>
                                     <th>Service Charged Rate</th>
                                     <th>Service Charged Period</th>
+                                    <th>Date</th>
                                     <th>Status</th>
                                 </tr>
                             </thead>
@@ -52,6 +57,7 @@
                                         <td>{{strtoupper($rfq->kwh_rate)}}</td>
                                         <td>{{strtoupper($rfq->serviceChargedRate)}}</td>
                                         <td>{{strtoupper($rfq->serviceChargedPeriod)}}</td>
+                                        <td>{{date('d M, Y',strtotime($rfq->created_at))}}</td>
                                         <td>
                                             @if($rfq->resolved_by == 0)
                                                 {{('We will contact you soon')}}

@@ -4,14 +4,15 @@ namespace App\Http\Controllers\Customer;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Model\Rfq;
+use App\Model\Rfq,App\Model\UserProductEnrolled;
 
 class CustomerController extends Controller
 {
     public function dashboard(Request $req)
     {
-        $data = (object)[];
-        $data->rfqs = Rfq::where('userId',auth()->user()->id)->latest()->paginate(5);
+        $data = (object)[];$user = $req->user();
+        $data->userProductChoice = UserProductEnrolled::where('userId',$user->id)->latest()->first();
+        $data->rfqs = Rfq::where('userId',auth()->user()->id)->latest()->paginate(10);
         return view('customer.dashboard',compact('data'));
     }
 

@@ -1,5 +1,7 @@
 <?php 
 	
+	use Illuminate\Http\Request;
+
 	function successResponse($msg='',$data=[],$status=200)
 	{
 		return response()->json(['error'=>false,'status'=>$status,'message'=>$msg,'data'=>$data]);
@@ -35,6 +37,25 @@
 			$iden->save();
 		}
 		return $iden;
+	}
+
+	function userProductEnrolled(Request $req,$rfq,$product,$user)
+	{
+		$userProductEnrolled = \App\Model\UserProductEnrolled::where('userId',$user->id)->where('productId',$product->id)->first();
+		if(!$userProductEnrolled){
+			$userProductEnrolled = new \App\Model\UserProductEnrolled();
+			$userProductEnrolled->userId = $user->id;
+			$userProductEnrolled->productId = $product->id;
+		}
+		$userProductEnrolled->rfqId = $rfq->id;
+		if(!empty($req->plan_rate_link)){
+			$userProductEnrolled->plan_rate_link = $req->plan_rate_link;
+		}
+		if(!empty($req->plan_rate_link_gas)){
+			$userProductEnrolled->plan_rate_link_gas = $req->plan_rate_link_gas;
+		}
+		$userProductEnrolled->save();
+		return $userProductEnrolled;
 	}
 
 	function user_homeandUsageDetails($user)
