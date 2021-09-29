@@ -34,7 +34,7 @@
 <div class="container-fluid dashboard-content">
     <div class="row">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-            <div class="card">
+            <div class="card shadow-sm p-3">
                 <div class="card-header dashboard-header">
                     <h5 class="mb-0">Admin Dashboard</h5>
                 </div>
@@ -43,7 +43,7 @@
                     <div class="dashboard-body-content-upper p-0">
                         <div class="row m-0">
                             <div class="col-12 col-md-4 mb-3 pl-0">
-                                <div class="card shadow-sm border-0">
+                                <div class="card mb-0 shadow-sm border-0">
                                    <div class="card-body card-body-inner">
                                         <a href="{{route('admin.users')}}?userType=2" class="gpcVCf">
                                             <div class="icon-sec card-1">
@@ -57,7 +57,7 @@
                                 </div>
                             </div>
                             <div class="col-12 col-md-4 mb-3 pl-0">
-                                <div class="card shadow-sm border-0">
+                                <div class="card mb-0 shadow-sm border-0">
                                    <div class="card-body card-body-inner">
                                         <a href="{{route('admin.users')}}?userType=3" class="gpcVCf">
                                             <div class="icon-sec card-2">
@@ -71,7 +71,7 @@
                                 </div>
                             </div>
                             <div class="col-12 col-md-4 mb-3 pl-0">
-                                <div class="card shadow-sm border-0">
+                                <div class="card mb-0 shadow-sm border-0">
                                    <div class="card-body card-body-inner">
                                         <a href="{{route('admin.report.rfqs')}}" class="gpcVCf">
                                             <div class="icon-sec card-3">

@@ -4,7 +4,7 @@
 <div class="container-fluid  dashboard-content">
     <div class="row">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-            <div class="card">
+            <div class="card shadow-sm p-3">
                 <div class="card-header">
                     <h5 class="mb-0">Companies
                         @if(urlprefix() != 'admin')
@@ -43,7 +43,7 @@
                                         <td><img height="35px" width="auto" src="{{asset($company->logo)}}"></td>
                                         <td>{{$company->name}}</td>
                                         <td class="description"><p>{!! $company->description !!}</p>
-                                            <button type="button" class="table-button" data-toggle="modal" data-target="#descriptionmodal">Know More</button>
+                                            <button type="button" class="table-button" data-toggle="modal" data-target="#descriptionmodal">More</button>
                                         </td>
                                         <td>
                                             <div class="feature-box">
@@ -54,7 +54,7 @@
                                                         N/A
                                                     @endforelse
                                                 </a>
-                                                <button type="button" class="table-button" data-toggle="modal" data-target="#featuremodal">Know More</button>
+                                                <button type="button" class="table-button" data-toggle="modal" data-target="#featuremodal">More</button>
                                             </div>
                                         </td>
                                         <td>
@@ -66,12 +66,12 @@
                                                         N/A
                                                     @endforelse
                                                 </a>
-                                            <button type="button" class="table-button" data-toggle="modal" data-target="#discountmodal">Know More</button>
+                                            <button type="button" class="table-button" data-toggle="modal" data-target="#discountmodal">More</button>
                                             </div>
                                         </td>
                                         <td>
                                             <a href="{{route(urlPrefix().'.companies.rate',$company->id)}}" target="_blank">@if(count($company->company_rates) > 0){{('View')}}@else{{('N/A')}}@endif</a>
-                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-eye"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                                            
                                         </td>
                                         <td>
                                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-eye"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>

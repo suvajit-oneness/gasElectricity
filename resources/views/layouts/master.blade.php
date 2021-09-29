@@ -82,8 +82,8 @@
         buttoncross.classList.remove("show");
         }
         function openNav() {
-        document.getElementById("sidenav").style.width = "264px";
-        document.getElementById("dashboardwrapper").style.marginLeft = "264px";
+        document.getElementById("sidenav").style.width = "240px";
+        document.getElementById("dashboardwrapper").style.marginLeft = "240px";
         sidenav.classList.add("openstyle");
         sidenav.classList.remove("closestyle");
         buttoncross.classList.add("show");

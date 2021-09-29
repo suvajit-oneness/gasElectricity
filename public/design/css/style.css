@@ -1,4 +1,7 @@
-
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap');
+body,h1,h2,h3,h4,h5,h6,p,a,th,td{
+    font-family: 'Montserrat', sans-serif !important;
+}
 .headerbuttonforAdd{
     float: right;
     border: 1px solid #eae4e4;
@@ -1712,6 +1715,7 @@ Left Navigation Sidebar
 .nav-left-sidebar .navbar {
     position: relative;
     padding: 14px;
+    padding-top: 0px;
 }
 
 .nav-left-sidebar .navbar-nav .nav-item {}
@@ -1973,11 +1977,11 @@ Container / Wrapper
     margin-left: 64px;
     min-height: 870px !important;
     transition: 0.3s all linear;
-    background-color: #f3fbf2;
+    background-color: #fff;
 }
 
 .dashboard-content {
-    padding: 10px 30px 60px 30px;
+    padding: 10px 35px 60px 35px !important;
 }
 
 
@@ -3244,6 +3248,7 @@ btn-link
     border-bottom: none !important;
     background-color: transparent !important;
     padding-left: 0px !important;
+    margin-bottom: 20px !important;
 }
 
 .card-title {}
@@ -4554,9 +4559,9 @@ Pills vertical
     border: 1px solid #e6e6f2;
 }
 
-.table-bordered td,
-.table-bordered th {
+.table-bordered td,.table-bordered th {
     border: 1px solid #e6e6f2;
+    text-align: center !important;
 }
 
 .table-striped tbody tr:nth-of-type(odd) {
@@ -7417,7 +7422,6 @@ Media Query
 .show{
     display: block;
     margin-left: auto;
-    margin-bottom: 10px;
 }
 .custom-tooltip{
     position: relative;
@@ -7468,6 +7472,10 @@ th{
 .feature-box a{
     color: #000;
 }
+.feature-box a:hover{
+    text-decoration: none;
+    color: #000;
+}
 .feature-box-inner{
     display: block;
     width: 150px;
@@ -7487,7 +7495,6 @@ th{
     font-size: 13px;
     padding: 0px;
     border: none;
-    font-weight: 600;
     color: #529463;
 }
 .table-button:focus,.table-button:focus-visible{
@@ -7496,6 +7503,15 @@ th{
 }
 .dashboard-modal{
     height: 100vh;
+}
+.dashboard-modal .modal-header{
+    background-color: #0f0e28;
+}
+.dashboard-modal .modal-header h5{
+    color: #7ed293;
+}
+.dashboard-modal .close{
+    color: #fff;
 }
 .dashboard-modal .modal-dialog{
     width: 80%;
@@ -7544,7 +7560,7 @@ table thead th{
     border-radius: 0px;
     padding-top:0px;
     padding-bottom: 0px;
-    font-weight: 500;
+    font-weight: 400;
     color: #0e0d28 !important;
     background-color: transparent !important;
 }
@@ -7563,12 +7579,12 @@ table thead th{
     display: flex;
     justify-content: center;
     align-items: center;
-    font-weight: 600;
+    font-weight: 400;
     border-radius: 50%;
 }
 .dataTables_info{
     font-size: 13px;
-    font-weight: 500;
+    font-weight: 400;
     color: #0e0d28;
 }
 .headerbuttonforAdd,button{
@@ -7582,11 +7598,20 @@ table thead th{
 }
 button{
     display: block !important;
-    margin-left: auto !important;
+    box-shadow: none !important;
 }
 .headerbuttonforAdd i{
     margin-right: 5px;
 }
+.closestyle .closebtn{
+    display: none !important;
+}
+.openstyle .closebtn{
+    display: block !important;
+}
+/* .closebtn{
+    display: inline-block !important;
+} */
 td svg{
     width: 20px !important;
 }
@@ -7594,6 +7619,30 @@ label{
     font-size: 14px !important;
     font-weight: 600 !important;
 }
+.dataTables_length label{
+    font-weight: 400 !important;
+}
 input::placeholder{
     font-size: 15px !important;
+}
+.table-responsive .row:nth-child(2){
+    overflow: scroll;
+    overflow-y: hidden;
+    margin: 20px 0px !important;
+}
+::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+}
+ 
+::-webkit-scrollbar-track {
+    background-color: #0f0e28;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    background: #7ed293; 
 }
