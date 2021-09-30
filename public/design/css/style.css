@@ -7632,7 +7632,7 @@ input::placeholder{
 }
 ::-webkit-scrollbar {
     width: 5px;
-    height: 5px;
+    height: 10px;
 }
  
 ::-webkit-scrollbar-track {
@@ -7665,4 +7665,18 @@ input::placeholder{
     font-weight: 500;
     margin-right: 10px;
     color:#7ed293;
+}
+td a{
+    color: #000;
+}
+td a i{
+    font-size: 16px;
+}
+.headerbuttonforAdd:hover{
+    text-decoration: none !important;
+    color: #fff !important;
+    cursor: pointer;
+}
+a:hover{
+    text-decoration: none !important;
 }
