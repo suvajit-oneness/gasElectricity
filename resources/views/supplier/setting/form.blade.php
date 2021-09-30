@@ -64,7 +64,7 @@
                                     <td>
                                         @if(formInputTypeCheck($inputType->input_type))
                                             <?php $formOption = $d->form_option; ?>
-                                            <a class="optionView" href="javascript:void(0)" data-details="{{json_encode($d)}}">View</a>
+                                            <a class="optionView" href="javascript:void(0)" data-details="{{json_encode($d)}}"><i class="fa fa-eye"></i></a>
                                         @endif
                                     </td>
                                     <!-- <td>

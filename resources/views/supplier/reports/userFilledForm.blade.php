@@ -47,7 +47,7 @@
                                         <td>{{($company ? $company->name : 'N/A')}}</td>
                                         <td>{{($product ? $product->name : 'N/A')}}</td>
                                         <td>
-                                            <a href="javascript:void(0)" onclick="getDetailsofRFQInfo('{{$inf->id}}')">view</a>
+                                            <a href="javascript:void(0)" onclick="getDetailsofRFQInfo('{{$inf->id}}')"><i class="fa fa-eye"></i></a>
                                             @if($rfq)
                                                 <!-- Modal View Start -->
                                                 <div class="modal fade" id="userFormRFQInfo{{$inf->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
@@ -111,7 +111,7 @@
                                         </td>
                                         <td>@if($rfq->email_request == 1){{('Yes')}}@else{{('NO')}}@endif</td>
                                         <td>
-                                            <a href="javascript:void(0)" onclick="getDetailsofFormInfo('{{$inf->id}}')">view</a>
+                                            <a href="javascript:void(0)" onclick="getDetailsofFormInfo('{{$inf->id}}')"><i class="fa fa-eye"></i></a>
                                             <!-- Modal View Start -->
                                             <div class="modal fade" id="userFormFilledInfo{{$inf->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
                                                 <div class="modal-dialog" role="document">
