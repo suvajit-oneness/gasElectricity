@@ -55,7 +55,7 @@
                                             <textarea class="form-control" name="howitWorkdescription[]" required="">{{$howWork->description}}</textarea>
                                         </div>
                                     </td>
-                                    <!-- <td><a href="{{route('admin.setting.howitWork.delete',$howWork->id)}}" onclick="return confirm('Are you sure?')" class="text-danger">Delete</a></td> -->
+                                    <!-- <td><a href="{{route('admin.setting.howitWork.delete',$howWork->id)}}" onclick="return confirm('Are you sure?')" class="text-danger"><i class="fa fa-trash"></i></a></td> -->
                                 </tr>
                             @endforeach
                         </table>

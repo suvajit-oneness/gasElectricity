@@ -56,7 +56,7 @@
                                             <textarea class="form-control" name="whychoosedescription[]" required="">{{$whychoose->description}}</textarea>
                                         </div>
                                     </td>
-                                    <!-- <td><a href="{{route('admin.setting.whychooseus.delete',$whychoose->id)}}" onclick="return confirm('Are you sure?')" class="text-danger">Delete</a></td> -->
+                                    <!-- <td><a href="{{route('admin.setting.whychooseus.delete',$whychoose->id)}}" onclick="return confirm('Are you sure?')" class="text-danger"><i class="fa fa-trash"></i></a></td> -->
                                 </tr>
                             @endforeach
                         </table>

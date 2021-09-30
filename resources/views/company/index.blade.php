@@ -81,7 +81,7 @@
                                         @endif
                                         @if(urlprefix() != 'admin')
                                             <td>
-                                                <a href="{{route(urlPrefix().'.companies.edit',$company->id)}}">Edit</a> | <a href="javascript:void(0)" class="deletecompany text-danger" data-id="{{$company->id}}">Delete</a>
+                                                <a href="{{route(urlPrefix().'.companies.edit',$company->id)}}"><i class="fa fa-edit"></i></a> | <a href="javascript:void(0)" class="deletecompany text-danger" data-id="{{$company->id}}"><i class="fa fa-trash"></i></a>
                                             </td>
                                         @endif
                                     </tr>

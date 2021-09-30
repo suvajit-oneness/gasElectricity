@@ -86,8 +86,8 @@
                                         <td>{!!$momenta->description!!}</td>
                                         <td><img src="{{asset($momenta->icon)}}" alt="momenta icon"></td>
                                         <td>
-                                            {{-- <a href="{{route(urlPrefix().'.products.momenta.edit',[$product->id,$momenta->id])}}">Edit</a> --}}
-                                            <a href="javascript:void(0);" data-toggle="modal" data-target="#exampleModal{{$momenta->id}}">Edit</a> | <a href="javascript:void(0)" class="deleteproductmomenta text-danger" data-momenta_id="{{$momenta->id}}">Delete</a>
+                                            {{-- <a href="{{route(urlPrefix().'.products.momenta.edit',[$product->id,$momenta->id])}}"><i class="fa fa-edit"></i></a> --}}
+                                            <a href="javascript:void(0);" data-toggle="modal" data-target="#exampleModal{{$momenta->id}}"><i class="fa fa-edit"></i></a> | <a href="javascript:void(0)" class="deleteproductmomenta text-danger" data-momenta_id="{{$momenta->id}}"><i class="fa fa-trash"></i></a>
                                         </td>
                                     </tr>
                                     <!-- Modal -->

@@ -106,7 +106,7 @@
                                         @endif
                                         @if(urlprefix() != 'admin')
                                             <td>
-                                                <a href="{{route(urlPrefix().'.products.edit',$product->id)}}">Edit</a> | <a href="javascript:void(0)" class="deleteProduct text-danger" data-id="{{$product->id}}">Delete</a>
+                                                <a href="{{route(urlPrefix().'.products.edit',$product->id)}}"><i class="fa fa-edit"></i></a> | <a href="javascript:void(0)" class="deleteProduct text-danger" data-id="{{$product->id}}"><i class="fa fa-trash"></i></a>
                                             </td>
                                         @endif
                                     </tr>

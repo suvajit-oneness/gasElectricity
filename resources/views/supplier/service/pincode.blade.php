@@ -29,7 +29,7 @@
                                         <td>{{$pin->state->name}}</td>
                                         <td>{{$pin->pincode}}</td>
                                         <td>{{$pin->landmark}}</td>
-                                        <td><a href="javascript:void(0)" class="editState" data-id="{{$pin->id}}" data-state="{{$pin->stateId}}" data-pincode="{{$pin->pincode}}" data-landmark="{{$pin->landmark}}">Edit</a> | <a href="javascript:void(0)" class="deletePincode text-danger" data-id="{{$pin->id}}">Delete</a></td>
+                                        <td><a href="javascript:void(0)" class="editState" data-id="{{$pin->id}}" data-state="{{$pin->stateId}}" data-pincode="{{$pin->pincode}}" data-landmark="{{$pin->landmark}}"><i class="fa fa-edit"></i></a> | <a href="javascript:void(0)" class="deletePincode text-danger" data-id="{{$pin->id}}"><i class="fa fa-trash"></i></a></td>
                                     </tr>
                                 @endforeach
                             </tbody>
