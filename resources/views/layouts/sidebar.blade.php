@@ -74,6 +74,10 @@
                             <span class="tooltiptext">RFQs</span>
                                 <a class="nav-link {{request()->routeIs('admin.report.rfqs')?'active':''}}" href="{{route('admin.report.rfqs')}}"><i class="fa fa-fw fa-user-circle"></i><h5>RFQs</h5></a>
                             </li>
+                            <li class="nav-item custom-tooltip">
+                            <span class="tooltiptext">User Enrolled</span>
+                                <a class="nav-link {{request()->routeIs('admin.report.user_enrolled')?'active':''}}" href="{{route('admin.report.user_enrolled')}}"><i class="fa fa-fw fa-user-circle"></i><h5>User Enrolled</h5></a>
+                            </li>
                             <!-- Crud Operation Section -->
                             <li class="nav-divider">Features</li>
                             <li class="nav-item custom-tooltip">

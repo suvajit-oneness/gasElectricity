@@ -85,6 +85,7 @@
 		Route::post('contact-us/remark/save','Admin\AdminController@saveRemarkOfContactUs')->name('admin.report.contactUsSaveRemark');
 		Route::get('rfqs/details','Admin\AdminController@rfqDetails')->name('admin.report.rfqs');
 		Route::post('rfqs/details/remark/save','Admin\AdminController@saveRemarkOfRfqs')->name('admin.report.rfqSaveRemark');
+		Route::any('user/product/enrolled','Supplier\SupplierController@reportSupplierFormFilledByUser')->name('admin.report.user_enrolled');
 	});
 
 	// Blog Category

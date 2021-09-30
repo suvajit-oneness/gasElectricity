@@ -4,15 +4,41 @@ namespace App\Http\Controllers\Supplier;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller,App\Model\SupplierPincode;
-use  App\Model\SupplierForm,App\Model\FormInput,App\Model\State;
-use  App\Model\SupplierFormOption,App\Model\UserFilledSupplierForm;
+use App\Model\SupplierForm,App\Model\FormInput,App\Model\State;
+use App\Model\SupplierFormOption,App\Model\UserFilledSupplierForm;
+use App\Model\UserProductEnrolled,App\User;;
+use App\Model\Rfq,App\Model\Product;
+
 class SupplierController extends Controller
 {
     public function reportSupplierFormFilledByUser(Request $req)
     {
-        $info = UserFilledSupplierForm::where('supplierId',auth()->user()->id)->get();
-        $supplierForm = SupplierForm::where('userId',auth()->user()->id)->where('status',1)->get();
-        return view('supplier.reports.userFilledForm',compact('info','supplierForm'));
+        $user = $req->user();$supplier = [];
+        if($user->user_type == 1){
+            $supplier = User::where('user_type',2)->orderBy('name')->get();
+            if(count($supplier) > 0){
+                foreach ($supplier as $key => $value) {
+                    if(!empty($req->supplier)){
+                        $user = User::where('id',$req->supplier)->first();break;
+                    }else{
+                        $req->request->add(['supplier' => $value->id]);
+                        $user = User::where('id',$value->id)->first();break;
+                    }
+                }
+            }
+        }
+        $userEnrolled = UserProductEnrolled::select('user_product_enrolleds.*')
+            ->leftjoin('products','user_product_enrolleds.productId','=','products.id')->where('products.created_by',$user->id);
+        $userEnrolled = $userEnrolled->latest('user_product_enrolleds.created_at')->paginate(10);
+        foreach($userEnrolled as $key => $getData){
+            $getData->rfq_data = Rfq::where('id',$getData->rfqId)->first();
+            $getData->product_data = Product::where('id',$getData->productId)->first();
+            $getData->user_data = User::where('id',$getData->userId)->first();
+            $getData->userFilledForm = UserFilledSupplierForm::where('userId',$getData->userId)->where('rfqId',$getData->rfqId)
+                ->where('productId',$getData->productId)->where('supplierId',$user->id)->first();
+        }
+        $supplierForm = SupplierForm::where('userId',$user->id)->where('status',1)->get();
+        return view('supplier.reports.userFilledForm',compact('userEnrolled','supplierForm','supplier','req'));
     }
 
     public function supplierServicePincode(Request $req)

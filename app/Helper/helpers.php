@@ -26,7 +26,7 @@
 		if($basePrice != 0){
 			$save = (($basePrice - $realPrice) / $basePrice) * 100;	
 		}
-		return number_format($save,1).' % save';
+		return 'You Save '.number_format($save,1).' %';
 	}
 
 	function addNotification($userId,$message)
