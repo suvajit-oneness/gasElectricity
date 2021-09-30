@@ -56,7 +56,7 @@
                                         <td>
                                             <a href="{{route(urlPrefix().'.products.momenta',$product->id)}}">
                                                 @if(count($product->product_momentum) > 0)
-                                                    {{('View')}}
+                                                    <i class="fa fa-eye"></i>
                                                 @else
                                                     {{('N/A')}}
                                                 @endif
@@ -89,7 +89,7 @@
                                                 {{('N/A')}}
                                             @endif
                                         </td>
-                                        <td><a href="{{route('product.details',$product->id)}}" target="_blank">View</a></td>
+                                        <td><a href="{{route('product.details',$product->id)}}" target="_blank"><i class="fa fa-eye"></i></a></td>
                                         @if(urlprefix() == 'admin')
                                             <?php $author = $product->author;?>
                                             <td>

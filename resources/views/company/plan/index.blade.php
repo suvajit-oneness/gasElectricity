@@ -31,7 +31,7 @@
                                         <td>{{$plan->title}}</td>
                                         <td>{!! $plan->description !!}</td>
                                         <td>
-                                            <a href="javascript:void(0)" class="editPlanModal" data-details="{{json_encode($plan)}}">Edit</a> | <a href="javascript:void(0)" class="deleteCompanyPlan text-danger" data-feature_id="{{$plan->id}}">Delete</a>
+                                            <a href="javascript:void(0)" class="editPlanModal" data-details="{{json_encode($plan)}}"><i class="fa fa-edit"></i></a> | <a href="javascript:void(0)" class="deleteCompanyPlan text-danger" data-feature_id="{{$plan->id}}"><i class="fa fa-trash"></i></a>
                                         </td>
                                     </tr>
                                 @endforeach

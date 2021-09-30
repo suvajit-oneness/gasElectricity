@@ -28,7 +28,7 @@
                             		<tr>
                             			<td>{{$f->title}}</td>
                             			<td>{!! $f->description !!}</td>
-                            			<td><a href="{{route('admin.faq.edit',$f->id)}}">Edit</a> | <a href="javascript:void(0)" class="deleteFaq text-danger" data-id="{{$f->id}}">Delete</a></td>
+                            			<td><a href="{{route('admin.faq.edit',$f->id)}}"><i class="fa fa-edit"></i></a> | <a href="javascript:void(0)" class="deleteFaq text-danger" data-id="{{$f->id}}"><i class="fa fa-trash"></i></a></td>
                             		</tr>
                             	@endforeach
                             </tbody>

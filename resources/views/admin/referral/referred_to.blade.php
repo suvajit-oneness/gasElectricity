@@ -43,7 +43,7 @@
                                             <td>{{$data->referral_code}}</td>
                                             <td>
                                                 @if($data->referred_through)
-                                                    <a href="javascript:void(0)" class="getReferredByDetails" data-details="{{json_encode($data->referred_through)}}">view</a>
+                                                    <a href="javascript:void(0)" class="getReferredByDetails" data-details="{{json_encode($data->referred_through)}}"><i class="fa fa-eye"></i></a>
                                                 @else
                                                     {{('N/A')}}
                                                 @endif
@@ -59,12 +59,12 @@
                                                 <td></td>
                                             @else
                                                 <td>
-                                                    <?php $action = 'Block';
-                                                        if($data->status != 1){
-                                                            $action = 'Unblock';
-                                                        }
-                                                    ?>
-                                                    <a href="javascript:void(0)" class="blockUnblock" data-id="{{$data->id}}">{{$action}}</a> | <a href="javascript:void(0)" class="text-danger userDelete" data-id="{{$data->id}}">Delete</a>
+                                                    @if($data->status == 1)
+                                                        <a href="javascript:void(0)" class="text-danger blockUnblock" data-id="{{$data->id}}"><i class="fa fa-ban"></i></a>
+                                                    @else
+                                                        <a href="javascript:void(0)" class="blockUnblock" data-id="{{$data->id}}"><i class="fa fa-unlock-alt"></i></a>
+                                                    @endif
+                                                     | <a href="javascript:void(0)" class="text-danger userDelete" data-id="{{$user->id}}"><i class="fa fa-trash"></i></a>
                                                 </td>
                                             @endif
                                         @endif
@@ -120,7 +120,7 @@
                 var userId = $(this).attr('data-id');
                 var thisClickedbtn = $(this);
                 var action = 'unblock';
-                if(thisClickedbtn.text() == 'Block'){
+                if(thisClickedbtn.hasClass('text-danger')){
                     action = 'block';
                 }
                 allinOneManageUsers(userId,action,thisClickedbtn);
@@ -140,9 +140,11 @@
                                 swal('Success',"Poof! Your user has been deleted!");
                             }else{
                                 if(action == 'block'){
-                                    clickedBtn.text('Unblock');
+                                    clickedBtn.removeClass('text-danger');
+                                    clickedBtn.empty().append('<i class="fa fa-unlock-alt"></i>');
                                 }else{
-                                    clickedBtn.text('Block');
+                                    clickedBtn.addClass('text-danger');  
+                                    clickedBtn.empty().append('<i class="fa fa-ban"></i>');
                                 }
                             }
                         }else{

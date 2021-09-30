@@ -29,7 +29,7 @@
                                         <td>{{$feature->title}}</td>
                                         <td>{!!$feature->description!!}</td>
                                         <td>
-                                            <a href="{{route(urlPrefix().'.companies.feature.edit',[$company->id,$feature->id])}}">Edit</a> | <a href="javascript:void(0)" class="deleteCompanyfeature text-danger" data-feature_id="{{$feature->id}}">Delete</a>
+                                            <a href="{{route(urlPrefix().'.companies.feature.edit',[$company->id,$feature->id])}}"><i class="fa fa-edit"></i></a> | <a href="javascript:void(0)" class="deleteCompanyfeature text-danger" data-feature_id="{{$feature->id}}"><i class="fa fa-trash"></i></a>
                                         </td>
                                     </tr>
                                 @endforeach

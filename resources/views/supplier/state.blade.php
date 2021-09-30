@@ -29,7 +29,7 @@
                                         <td>{{$st->country->name}}</td>
                                         <td>{{$st->name}}</td>
                                         <td>{{$st->acronym}}</td>
-                                        <td><a href="javascript:void(0)" class="text-success editState" data-id="{{$st->id}}" data-name="{{$st->name}}" data-country="{{$st->countryId}}" data-acronym="{{$st->acronym}}">Edit</a> | <a href="javascript:void(0)" class="text-danger deleteState" data-id="{{$st->id}}">Delete</a></td>
+                                        <td><a href="javascript:void(0)" class="text-success editState" data-id="{{$st->id}}" data-name="{{$st->name}}" data-country="{{$st->countryId}}" data-acronym="{{$st->acronym}}"><i class="fa fa-edit"></i></a> | <a href="javascript:void(0)" class="text-danger deleteState" data-id="{{$st->id}}"><i class="fa fa-trash"></i></a></td>
                                     </tr>
                                 @endforeach
                             </tbody>

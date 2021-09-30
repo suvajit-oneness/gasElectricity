@@ -41,7 +41,7 @@
 
     <script type="text/javascript">
         $(document).ready(function() {
-            $('.loading-data').hide();
+            $('.loading-data').hide();$('.card').addClass('shadow-sm').addClass('p-3');$('.table').removeClass('table-striped');
             $(document).on('submit', 'form', function() {
                 $('button').attr('disabled', 'disabled');
                 $('.loading-data').show();

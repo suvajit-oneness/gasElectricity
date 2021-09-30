@@ -225,9 +225,9 @@
 		return $return;
 	}
 
-	function words($value, $words = 100, $end = '...')
+	function words($string, $words = 100)
     {
-        return Str::words($value, $words, $end);
+        return Str::limit($string, $words);
     }
     
     function sendMail($data,$template,$to,$subject)

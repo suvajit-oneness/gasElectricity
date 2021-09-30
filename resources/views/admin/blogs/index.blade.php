@@ -38,7 +38,7 @@
                                         <td>@if($blog->posted){{$blog->posted->name}}@else{{'N/A'}}@endif</td>
                                         <td>{{$blog->created_at->diffForHumans()}}</td>
                                         <td>
-                                            <a href="{{route('admin.blogs.edit',$blog->id)}}">Edit</a> | <a href="javascript:void(0)" class="deleteBlog text-danger" data-id="{{$blog->id}}">Delete</a>
+                                            <a href="{{route('admin.blogs.edit',$blog->id)}}"><i class="fa fa-edit"></i></a> | <a href="javascript:void(0)" class="deleteBlog text-danger" data-id="{{$blog->id}}"><i class="fa fa-trash"></i></a>
                                         </td>
                                     </tr>
                                 @endforeach

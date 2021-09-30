@@ -35,7 +35,7 @@
                                         <td>{{$testimonial->designation}}</td>
                                         <td>{{$testimonial->quote}}</td>
                                         <td>
-                                            <a href="{{route('admin.testimonial.edit',$testimonial->id)}}">Edit</a> | <a href="javascript:void(0)" class="deleteTestimonial text-danger" data-id="{{$testimonial->id}}">Delete</a>
+                                            <a href="{{route('admin.testimonial.edit',$testimonial->id)}}"><i class="fa fa-edit"></i></a> | <a href="javascript:void(0)" class="deleteTestimonial text-danger" data-id="{{$testimonial->id}}"><i class="fa fa-trash"></i></a>
                                         </td>
                                     </tr>
                                 @endforeach

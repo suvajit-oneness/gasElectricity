@@ -71,7 +71,7 @@
                                         <td>{{$discount->title}}</td>
                                         <td>{!!$discount->description!!}</td>
                                         <td>
-                                            <a href="javascript:void(0);" data-toggle="modal" data-target="#exampleModal{{$discount->id}}">Edit</a> | <a href="javascript:void(0)" class="deleteCompanydiscount text-danger" data-discount_id="{{$discount->id}}">Delete</a>
+                                            <a href="javascript:void(0);" data-toggle="modal" data-target="#exampleModal{{$discount->id}}"><i class="fa fa-edit"></i></a> | <a href="javascript:void(0)" class="deleteCompanydiscount text-danger" data-discount_id="{{$discount->id}}"><i class="fa fa-trash"></i></a>
                                         </td>
                                     </tr>
                                     <!-- Modal -->

@@ -29,7 +29,7 @@
                                         <td>{{$cat->name}}</td>
                                         <th><a href="{{route('admin.blogs',$cat->id)}}">{{count($cat->blogs)}}</a></th>
                                         <td>
-                                            <a href="javascript:void(0)" class="editBlogCategory" data-id="{{$cat->id}}" data-name="{{$cat->name}}">Edit</a> | <a href="javascript:void(0)" class="deleteBlogCategory text-danger" data-id="{{$cat->id}}">Delete</a>
+                                            <a href="javascript:void(0)" class="editBlogCategory" data-id="{{$cat->id}}" data-name="{{$cat->name}}"><i class="fa fa-edit"></i></a> | <a href="javascript:void(0)" class="deleteBlogCategory text-danger" data-id="{{$cat->id}}"><i class="fa fa-trash"></i></a>
                                         </td>
                                     </tr>
                                 @endforeach

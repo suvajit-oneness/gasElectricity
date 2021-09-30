@@ -43,39 +43,27 @@
                                         <td><img height="35px" width="auto" src="{{asset($company->logo)}}"></td>
                                         <td>{{$company->name}}</td>
                                         <td class="description"><p>{!! $company->description !!}</p>
-                                            <button type="button" class="table-button" data-toggle="modal" data-target="#descriptionmodal">More</button>
+                                            <button type="button" class="table-button" onclick="showFullDescription('Description','{{$company->description}}')">More</button>
                                         </td>
                                         <td>
-                                            <div class="feature-box">
-                                                <a href="{{route(urlPrefix().'.companies.feature',$company->id)}}" class="feature-box-inner">
-                                                    @forelse ($company->feature as $item)
-                                                        <div class="feature-container">{{$item->title}}</div>
-                                                    @empty
-                                                        N/A
-                                                    @endforelse
-                                                </a>
-                                                <button type="button" class="table-button" data-toggle="modal" data-target="#featuremodal">More</button>
-                                            </div>
+                                            <a href="{{route(urlPrefix().'.companies.feature',$company->id)}}">
+                                                <i class="fa fa-eye"></i>
+                                            </a>
                                         </td>
                                         <td>
-                                            <div class="feature-box">
-                                                <a href="{{route(urlPrefix().'.companies.discount',$company->id)}}" class="feature-box-inner">
-                                                    @forelse ($company->company_discount as $item)
-                                                    <div class="feature-container">{{$item->title}}</div>
-                                                    @empty
-                                                        N/A
-                                                    @endforelse
-                                                </a>
-                                            <button type="button" class="table-button" data-toggle="modal" data-target="#discountmodal">More</button>
-                                            </div>
+                                            <a href="{{route(urlPrefix().'.companies.discount',$company->id)}}">
+                                                <i class="fa fa-eye"></i>
+                                            </a>
                                         </td>
                                         <td>
-                                            <a href="{{route(urlPrefix().'.companies.rate',$company->id)}}" target="_blank">@if(count($company->company_rates) > 0){{('View')}}@else{{('N/A')}}@endif</a>
-                                            
+                                            <a href="{{route(urlPrefix().'.companies.rate',$company->id)}}" target="_blank">
+                                                <i class="fa fa-eye"></i>
+                                            </a>
                                         </td>
                                         <td>
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-eye"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
-                                            <a href="{{route(urlPrefix().'.companies.plan',$company->id)}}" target="_blank">@if(count($company->company_plan) > 0){{('View')}}@else{{('N/A')}}@endif</a>
+                                            <a href="{{route(urlPrefix().'.companies.plan',$company->id)}}" target="_blank">
+                                                <i class="fa fa-eye"></i>
+                                            </a>
                                         </td>
                                         @if(urlprefix() == 'admin')
                                             <?php $author = $company->author;?>
@@ -100,80 +88,37 @@
                                 @endforeach
                             </tbody>
                         </table>
-                        <!--Feature Modal -->
-                        <div class="modal fade dashboard-modal" id="featuremodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">All features</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio dolores in sed illo fugit, eum porro. Iste voluptate ducimus cum, in, ex quos ipsam quaerat enim mollitia error harum consequatur.</div>
-                                    <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio dolores in sed illo fugit, eum porro. Iste voluptate ducimus cum, in, ex quos ipsam quaerat enim mollitia error harum consequatur.</div>
-                                    <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio dolores in sed illo fugit, eum porro. Iste voluptate ducimus cum, in, ex quos ipsam quaerat enim mollitia error harum consequatur.</div>
-                                </div>
-                                <!-- <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary">Save changes</button>
-                                </div> -->
-                                </div>
-                            </div>
-                        </div>
-                        <!--discount Modal -->
-                        <div class="modal fade dashboard-modal" id="discountmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Discounts</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio dolores in sed illo fugit, eum porro. Iste voluptate ducimus cum, in, ex quos ipsam quaerat enim mollitia error harum consequatur.</div>
-                                    <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio dolores in sed illo fugit, eum porro. Iste voluptate ducimus cum, in, ex quos ipsam quaerat enim mollitia error harum consequatur.</div>
-                                    <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio dolores in sed illo fugit, eum porro. Iste voluptate ducimus cum, in, ex quos ipsam quaerat enim mollitia error harum consequatur.</div>
-                                </div>
-                                <!-- <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary">Save changes</button>
-                                </div> -->
-                                </div>
-                            </div>
-                        </div>
-                         <!--discount Modal -->
-                         <div class="modal fade dashboard-modal" id="descriptionmodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Discounts</h5>
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio dolores in sed illo fugit, eum porro. Iste voluptate ducimus cum, in, ex quos ipsam quaerat enim mollitia error harum consequatur.</div>
-                                    <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio dolores in sed illo fugit, eum porro. Iste voluptate ducimus cum, in, ex quos ipsam quaerat enim mollitia error harum consequatur.</div>
-                                    <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio dolores in sed illo fugit, eum porro. Iste voluptate ducimus cum, in, ex quos ipsam quaerat enim mollitia error harum consequatur.</div>
-                                </div>
-                                <!-- <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary">Save changes</button>
-                                </div> -->
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+<!--Feature Modal -->
+<div class="modal fade dashboard-modal" id="featuremodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title modalHeadingForDescription" id="exampleModalLabel">All features</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="modal-body modalDescription"></div>
+        </div>
+    </div>
+</div>
+<!-- <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio dolores in sed illo fugit, eum porro. Iste voluptate ducimus cum, in, ex quos ipsam quaerat enim mollitia error harum consequatur.</div>
+            <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio dolores in sed illo fugit, eum porro. Iste voluptate ducimus cum, in, ex quos ipsam quaerat enim mollitia error harum consequatur.</div>
+            <div>Lorem ipsum dolor sit amet consectetur adipisicing elit. Distinctio dolores in sed illo fugit, eum porro. Iste voluptate ducimus cum, in, ex quos ipsam quaerat enim mollitia error harum consequatur.</div> -->
 @section('script')
     <script type="text/javascript">
+        
+        function showFullDescription(heading, description){
+            $('#featuremodal .modalHeadingForDescription').empty().append(heading);
+            $('#featuremodal .modalDescription').empty().append(description);
+            $('#featuremodal').modal('show');
+        }
 
         $(document).on('click','.deletecompany',function(){
             var deletecompany = $(this);

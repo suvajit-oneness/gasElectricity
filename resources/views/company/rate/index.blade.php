@@ -31,7 +31,7 @@
                                         <td>{{$rate->title}}</td>
                                         <td>{!!$rate->description!!}</td>
                                         <td>
-                                            <a href="javascript:void(0)" class="editRateModal" data-details="{{json_encode($rate)}}">Edit</a> | <a href="javascript:void(0)" class="deleteCompanyRate text-danger" data-feature_id="{{$rate->id}}">Delete</a>
+                                            <a href="javascript:void(0)" class="editRateModal" data-details="{{json_encode($rate)}}"><i class="fa fa-edit"></i></a> | <a href="javascript:void(0)" class="deleteCompanyRate text-danger" data-feature_id="{{$rate->id}}"><i class="fa fa-trash"></i></a>
                                         </td>
                                     </tr>
                                 @endforeach

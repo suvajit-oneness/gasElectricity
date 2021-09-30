@@ -51,7 +51,7 @@
                                         <td>{{$user->referral_code}}</td>
                                         <td>
                                             @if($user->referred_through)
-                                                <a href="javascript:void(0)" class="getReferredByDetails" data-details="{{json_encode($user->referred_through)}}">view</a>
+                                                <a href="javascript:void(0)" class="getReferredByDetails" data-details="{{json_encode($user->referred_through)}}"><i class="fa fa-eye"></i></a>
                                             @else
                                                 {{('N/A')}}
                                             @endif
@@ -66,17 +66,17 @@
                                         <!-- <td>
                                             <a href="{{route('admin.user.points',$user->id)}}">{{getSumOfPoints($user->user_points)}}</a>
                                         </td> -->
-                                        <td><a href="{{route('admin.user.details',[$user->id,'username'=>$user->name])}}">Details</a></td>
+                                        <td><a href="{{route('admin.user.details',[$user->id,'username'=>$user->name])}}"><i class="fa fa-info-circle"></i></a></td>
                                         @if($user->user_type == 1)
                                             <td></td>
                                         @else
                                             <td>
-                                                <?php $action = 'Block';
-                                                    if($user->status != 1){
-                                                        $action = 'Unblock';
-                                                    }
-                                                ?>
-                                                <a href="javascript:void(0)" class="blockUnblock" data-id="{{$user->id}}">{{$action}}</a> | <a href="javascript:void(0)" class="text-danger userDelete" data-id="{{$user->id}}"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-trash-2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></svg></a>
+                                                @if($user->status == 1)
+                                                    <a href="javascript:void(0)" class="text-danger blockUnblock" data-id="{{$user->id}}"><i class="fa fa-ban"></i></a>
+                                                @else
+                                                    <a href="javascript:void(0)" class="blockUnblock" data-id="{{$user->id}}"><i class="fa fa-unlock-alt"></i></a>
+                                                @endif
+                                                 | <a href="javascript:void(0)" class="text-danger userDelete" data-id="{{$user->id}}"><i class="fa fa-trash"></i></a>
                                             </td>
                                         @endif
                                     </tr>
@@ -140,7 +140,7 @@
             var userId = $(this).attr('data-id');
             var thisClickedbtn = $(this);
             var action = 'unblock';
-            if(thisClickedbtn.text() == 'Block'){
+            if(thisClickedbtn.hasClass('text-danger')){
                 action = 'block';
             }
             allinOneManageUsers(userId,action,thisClickedbtn);
@@ -160,9 +160,11 @@
                             swal('Success',"Poof! Your user has been deleted!");
                         }else{
                             if(action == 'block'){
-                                clickedBtn.text('Unblock');
+                                clickedBtn.removeClass('text-danger');
+                                clickedBtn.empty().append('<i class="fa fa-unlock-alt"></i>');
                             }else{
-                                clickedBtn.text('Block');
+                                clickedBtn.addClass('text-danger');  
+                                clickedBtn.empty().append('<i class="fa fa-ban"></i>');
                             }
                         }
                     }else{
