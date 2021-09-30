@@ -1051,10 +1051,10 @@ class AdminController extends Controller
             'name' => 'required|max:200|string',
             'tag' => 'required|max:200|string',
             'tag_description' => 'nullable|string',
-            'gas_title' => 'required|max:200|string',
             'gas_price' => 'required|numeric|max:99999',
-            'electricty_title' => 'required|max:200|string',
             'electricty_price' => 'required|numeric|max:99999',
+            'gas_title' => 'nullable|max:200|string',
+            'electricty_title' => 'nullable|max:200|string',
             'terms_condition' => 'nullable|url|string',
         ]);
         DB::beginTransaction();
@@ -1069,12 +1069,12 @@ class AdminController extends Controller
                 $product->terms_condition = emptyCheck($req->terms_condition);
             $product->save();
             $gas = new ProductGas();
-                $gas->title = $req->gas_title;
+                $gas->title = emptyCheck($req->gas_title);
                 $gas->product_id = $product->id;
                 $gas->price = $req->gas_price;
             $gas->save();
             $electricity = new ProductElectricity();
-                $electricity->title = $req->electricty_title;
+                $electricity->title = emptyCheck($req->electricty_title);
                 $electricity->product_id = $product->id;
                 $electricity->price = $req->electricty_price;
             $electricity->save();
@@ -1108,10 +1108,10 @@ class AdminController extends Controller
             'name' => 'required|max:200|string',
             'tag' => 'required|max:200|string',
             'tag_description' => 'nullable|string',
-            'gas_title' => 'required|max:200|string',
             'gas_price' => 'required|numeric|max:99999',
-            'electricty_title' => 'required|max:200|string',
             'electricty_price' => 'required|numeric|max:99999',
+            'gas_title' => 'nullable|max:200|string',
+            'electricty_title' => 'nullable|max:200|string',
             'terms_condition' => 'nullable|url|string',
         ]);
         DB::beginTransaction();
@@ -1125,11 +1125,11 @@ class AdminController extends Controller
                 $product->terms_condition = emptyCheck($req->terms_condition);
             $product->save();
             $gas = ProductGas::where('product_id',$product->id)->first();
-                $gas->title = $req->gas_title;
+                $gas->title = emptyCheck($req->gas_title);
                 $gas->price = $req->gas_price;
             $gas->save();
             $electricity = ProductElectricity::where('product_id',$product->id)->first();
-                $electricity->title = $req->electricty_title;
+                $electricity->title = emptyCheck($req->electricty_title);
                 $electricity->price = $req->electricty_price;
             $electricity->save();
             DB::commit();

@@ -20,6 +20,15 @@
 		return !empty($string) ? $string : '';
 	}
 
+	function calculateHowMuchSave($basePrice,$realPrice)
+	{
+		$save = 0;
+		if($basePrice != 0){
+			$save = (($basePrice - $realPrice) / $basePrice) * 100;	
+		}
+		return number_format($save,1).' % save';
+	}
+
 	function addNotification($userId,$message)
 	{
 		$newNotification = new \App\Model\Notification;

@@ -113,7 +113,7 @@
 											<div class="price_compare">
 												<span><img src="{{asset('forntEnd/images/lightbulb.png')}}">ELECTRICITY</span>
 												<h2>{{$electricityData->title}}</h2>
-												<p>than reference price</p>
+												<!-- <p>than reference price</p> -->
 											</div>
 											<div class="price_amount">
 												<h2>${{moneyFormat($electricityData->price * $rfq->serviceChargedPeriod)}}</h2>

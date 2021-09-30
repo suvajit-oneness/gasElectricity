@@ -78,16 +78,6 @@
 
                         <div class="row">
                             <div class="form-group col-md-6">
-                                <label for="gas_title" class="col-form-label">Gas Title:</label>
-                                <input type="text" class="form-control @error('gas_title') is-invalid @enderror" id="gas_title" name="gas_title" placeholder="Product Gas Title" value="{{old('gas_title')}}">
-                                @error('gas_title')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                            
-                            <div class="form-group col-md-6">
                                 <label for="gas_price" class="col-form-label">Gas Price/Unit:</label>
                                 <input type="text" class="form-control @error('gas_price') is-invalid @enderror" id="gas_price" name="gas_price" placeholder="Gas Price Per Unit" value="{{old('gas_price')}}" onkeypress="return isNumberKey(event)">
                                 @error('gas_price')
@@ -96,18 +86,6 @@
                                     </span>
                                 @enderror
                             </div>
-                        </div>
-                        <div class="row">
-                            <div class="form-group col-md-6">
-                                <label for="electricty_title" class="col-form-label">Electricity Title:</label>
-                                <input type="text" class="form-control @error('electricty_title') is-invalid @enderror" id="electricty_title" name="electricty_title" placeholder="Product Electricity Title" value="{{old('electricty_title')}}">
-                                @error('electricty_title')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                            
                             <div class="form-group col-md-6">
                                 <label for="electricty_price" class="col-form-label">Electricity Price/Unit:</label>
                                 <input type="text" class="form-control @error('electricty_price') is-invalid @enderror" id="electricty_price" name="electricty_price" placeholder="Product Electricity Price Per Unit" value="{{old('electricty_price')}}" onkeypress="return isNumberKey(event)">
@@ -117,6 +95,26 @@
                                     </span>
                                 @enderror
                             </div>
+                        </div>
+                        <div class="row">
+                            <!-- <div class="form-group col-md-6">
+                                <label for="gas_title" class="col-form-label">Gas Title:</label>
+                                <input type="text" class="form-control @error('gas_title') is-invalid @enderror" id="gas_title" name="gas_title" placeholder="Product Gas Title" value="{{old('gas_title')}}">
+                                @error('gas_title')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div> -->
+                            <!-- <div class="form-group col-md-6">
+                                <label for="electricty_title" class="col-form-label">Electricity Title:</label>
+                                <input type="text" class="form-control @error('electricty_title') is-invalid @enderror" id="electricty_title" name="electricty_title" placeholder="Product Electricity Title" value="{{old('electricty_title')}}">
+                                @error('electricty_title')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                @enderror
+                            </div> -->
                         </div>
                         <div class="row">
                             <div class="form-group col-md-12">

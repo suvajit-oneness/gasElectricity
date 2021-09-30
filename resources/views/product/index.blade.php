@@ -24,13 +24,13 @@
                                     <th>Product Id</th>
                                     <th>Product Name</th>
                                     <th>Product For</th>
+                                    <th>Gas</th>
+                                    <th>Electricity</th>
                                     <th>Momentum</th>
                                     <th>Tag</th>
                                     <th>Tag Description</th>
-                                    <th>Gas</th>
-                                    <th>Electricity</th>
                                     <th>Terms and Condition</th>
-                                    <th>View Details</th>
+                                    <!-- <th>View Details</th> -->
                                     @if(urlprefix() == 'admin')
                                         <th>Created By</th>
                                     @endif
@@ -54,6 +54,24 @@
                                         <td>{{$product->name}}</td>
                                         <td>{{strtoupper($product->product_for)}}</td>
                                         <td>
+                                            <?php $gasData = $product->product_gas; ?>
+                                            @if($gasData)
+                                                <!-- <li>Title : {{$gasData->title}}</li> -->
+                                                <li style="width: 150px;">Price : $ {{moneyFormat($gasData->price)}} / unit</li>
+                                            @else
+                                                {{('N/A')}}
+                                            @endif
+                                        </td>
+                                        <td>
+                                            <?php $electricityData = $product->product_electricty; ?>
+                                            @if($electricityData)
+                                                <!-- <li>Title : {{$electricityData->title}}</li> -->
+                                                <li style="width: 150px;">Price : $ {{moneyFormat($electricityData->price)}} / unit</li>
+                                            @else
+                                                {{('N/A')}}
+                                            @endif
+                                        </td>
+                                        <td>
                                             <a href="{{route(urlPrefix().'.products.momenta',$product->id)}}">
                                                 @if(count($product->product_momentum) > 0)
                                                     <i class="fa fa-eye"></i>
@@ -65,31 +83,13 @@
                                         <td>{{$product->tag}}</td>
                                         <td>{!! $product->tag_description !!}</td>
                                         <td>
-                                            <?php $gasData = $product->product_gas; ?>
-                                            @if($gasData)
-                                                <li>Title : {{$gasData->title}}</li>
-                                                <li>Price : {{moneyFormat($gasData->price)}} / unit</li>
-                                            @else
-                                                {{('N/A')}}
-                                            @endif
-                                        </td>
-                                        <td>
-                                            <?php $electricityData = $product->product_electricty; ?>
-                                            @if($electricityData)
-                                                <li>Title : {{$electricityData->title}}</li>
-                                                <li>Price : {{moneyFormat($electricityData->price)}} / unit</li>
-                                            @else
-                                                {{('N/A')}}
-                                            @endif
-                                        </td>
-                                        <td>
                                             @if($product->terms_condition != '')
                                                 <a href="{{$product->terms_condition}}" target="_blank">Click Here</a>
                                             @else
                                                 {{('N/A')}}
                                             @endif
                                         </td>
-                                        <td><a href="{{route('product.details',$product->id)}}" target="_blank"><i class="fa fa-eye"></i></a></td>
+                                        <!-- <td><a href="{{route('product.details',$product->id)}}" target="_blank"><i class="fa fa-eye"></i></a></td> -->
                                         @if(urlprefix() == 'admin')
                                             <?php $author = $product->author;?>
                                             <td>
