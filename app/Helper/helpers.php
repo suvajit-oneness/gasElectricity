@@ -248,10 +248,10 @@
     	$newMail->view_file = $template;
     	$newMail->payload = json_encode($data);
     	$newMail->save();
-	    // Mail::send($template, $data, function($message)use ($data,$to,$subject) {
-	    //     $message->to($to, $data['name'])->subject($subject);
-	    //     $message->from('onenesstechsolution@gmail.com','Switcher');
-	    // });
+	    Mail::send($template, $data, function($message)use ($data,$to,$subject) {
+	        $message->to($to, $data['name'])->subject($subject);
+	        $message->from('onenesstechsolution@gmail.com','Switcher');
+	    });
     }
 
     function sendTwilioMessage($to,$message)
