@@ -98,10 +98,12 @@
 								<div class="res-planheading"><h5>Price/year <span>(estimated^)</span></h5></div>
 								<div class="list_amount">
 									@if($gasData)
+										@php $gasUpdatedprice = $gasData->price * $rfq->kwh_usage; @endphp
 										<div class="list_amount_inner">
 											<div class="price_compare">
 												<span><img src="{{asset('forntEnd/images/fire-icon.png')}}">Gas</span>
-												<h2>{{$gasData->title}}</h2>
+												<h2>{{calculateHowMuchSave($rfq->kwh_rate,$electricityUpdatedprice)}}</h2>
+												<!-- <h2>{{$gasData->title}}</h2> -->
 											</div>
 											<div class="price_amount">
 												<h2>$ {{moneyFormat($gasData->price * $rfq->serviceChargedPeriod)}}</h2>
@@ -109,10 +111,12 @@
 										</div>
 									@endif
 									@if($electricityData)
+										@php $electricityUpdatedprice = $electricityData->price * $rfq->kwh_usage; @endphp
 										<div class="list_amount_inner">
 											<div class="price_compare">
 												<span><img src="{{asset('forntEnd/images/lightbulb.png')}}">ELECTRICITY</span>
-												<h2>{{$electricityData->title}}</h2>
+												<h2>{{calculateHowMuchSave($rfq->kwh_rate,$electricityUpdatedprice)}}</h2>
+												<!-- <h2>{{$electricityData->title}}</h2> -->
 												<!-- <p>than reference price</p> -->
 											</div>
 											<div class="price_amount">
