@@ -70,7 +70,7 @@ trait OCRTraits
 
     public function readLines(Request $req,$string)
     {
-        // return errorResponse($string);
+        $string = preg_replace(array('/\s{2,}/', '/[\t\n]/'), ' ', $string);// removing Multiple White Space and \r\n
         $stateId = 0;$error = true;$pincode = '';$stateName = '';$bill_amount = '';$unit_consumed = '';
         $serviceChargePeriod = '';$serviceChargedRate = '';
         $states = \App\Model\State::where('countryId',2)->get();
@@ -173,7 +173,7 @@ trait OCRTraits
         $searchString = 'BASE USAGE ';$pos = strpos(strtoupper($string),$searchString);
         if($pos){$pos += strlen($searchString);}
         else{
-            $searchString = 'AVERAGE DAILY USAGE FOR THIS ACCOUNT';$pos = strpos($string,$searchString);
+            $searchString = 'AVERAGE DAILY USAGE FOR THIS ACCOUNT: ';$pos = strpos(strtoupper($string),$searchString);
             if($pos){$pos += strlen($searchString);}
             else{}
         }
