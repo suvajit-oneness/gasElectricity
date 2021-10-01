@@ -102,7 +102,7 @@
 										<div class="list_amount_inner">
 											<div class="price_compare">
 												<span><img src="{{asset('forntEnd/images/fire-icon.png')}}">Gas</span>
-												<h2>{{calculateHowMuchSave($rfq->kwh_rate,$electricityUpdatedprice)}}</h2>
+												<h2>{{calculateHowMuchSave($rfq->kwh_rate,$gasUpdatedprice)}}</h2>
 												<!-- <h2>{{$gasData->title}}</h2> -->
 											</div>
 											<div class="price_amount">
