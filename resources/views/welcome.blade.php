@@ -221,7 +221,7 @@
 						{{$faq->title}} 
 					</a>
 					<div class="dropdown-inner @if($key == 0){{('open')}}@endif">
-					    <p>{{$faq->description}}</p>
+					    <p>{!! $faq->description !!}</p>
 					</div>
 				</div>
 			@endforeach

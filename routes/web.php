@@ -5,6 +5,16 @@ Route::any('logout','Auth\LoginController@logout');
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+//cache route
+Route::get('cache', function () {
+
+    \Artisan::call('cache:clear');
+    \Artisan::call('config:cache');
+
+    dd("Cache is cleared");
+
+});
+
 // SOCIALITE SIGN-IN
 Route::get('sign-in/{socialite}','Auth\LoginController@socialiteLogin')->name('socialite.login');
 Route::get('sign-in/{socialite}/redirect','Auth\LoginController@socialiteLoginRedirect')->name('socialite.login.redirect');
