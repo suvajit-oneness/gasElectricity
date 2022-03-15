@@ -22,6 +22,7 @@
                                 <a href="{{route('admin.setting.about_us')}}" class="dropdown-item {{request()->routeIs('admin.setting.about_us')?'active':''}}"><i class="fas fa-user mr-2"></i>About Us</a>
                                 <a href="{{route('admin.setting.whychooseus')}}" class="dropdown-item {{request()->routeIs('admin.setting.whychooseus')?'active':''}}"><i class="fas fa-user mr-2"></i>Why choose us</a>
                                 <a href="{{route('admin.setting.how_it_works')}}" class="dropdown-item {{request()->routeIs('admin.setting.how_it_works')?'active':''}}"><i class="fas fa-user mr-2"></i>How it works</a>
+                                 <a href="{{route('admin.setting.individual_utility')}}" class="dropdown-item {{request()->routeIs('admin.setting.individual_utility')?'active':''}}"><i class="fas fa-user mr-2"></i>Individual Utility</a>
                             </div>
                         </li>
                     @endif

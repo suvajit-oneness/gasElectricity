@@ -12,53 +12,53 @@
 	</div>
 </section>
 
-<section class="section_intro_wrap section_intro_wrap-mod">
-	<div class="container">
-		<div class="row align-items-center">
-			<div class="col-12">
-				<div class="intro_content">
-					<!-- <h2 class="text-center">Switchr makes it easier than ever to <br> compare the energy market</h2>
-					<h6 class="semibold green f-20 text-center">Compare Electricity and Gas Plans, Find a Deal, Sign Up On The Spot! Comparing electricity and gas rates on Econnex means you never hit the call wall! Electricity Comparison is easy with Econnex.</h6>
-					<p class="text-center">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.</p> -->
-					<h2 class="text-center">It’s never been easier to switch <br> your energy plan!</h2>
-					<h6 class="semibold green f-20 text-center">Find the cheapest gas and electricity deals where you live with SwitchR! Sign up and save today!</h6>
-					<p class="text-center">SwitchR takes the hassle out of switching your energy plan! In just a few steps, you can discover whether you’re paying more for your gas and electricity than you should be, and quickly switch to a better deal if there’s one available. With access to the best energy plans from all of Australia’s leading energy providers, why not sign up and save money today with SwitchR?!</p>
-				</div>
-			</div>
-		</div>
-	</div>
-</section>
-
-<section class="feature_wraper">
-	@foreach($data->howItWorks as $key => $howWorks)
-		<?php $odd = false;if($key % 2 == 0){$odd = true;}?>
-		@if($odd)
-			<div class="feature_wrap_list">
-				<div class="feature_wrap_list_grid_img">
-					<img src="{{asset($howWorks->image)}}">
-				</div>
-				<div class="feature_wrap_list_grid_content_wrap">
-					<div class="feature_wrap_list_grid_content">
-						<h3>{{$howWorks->title}}</h3>
-						<p>{!! $howWorks->description !!}</p>
+<section class="inner_banner_about">
+			<div class="container">
+				<div class="row m-0">
+					<div class="page_title">
+						<h1 data-aos="fade-down" data-aos-duration="1000">How It <small class="position-relative">Works<div class="border_text" data-aos="fade-left" data-aos-duration="1800"></div></small></h1>
 					</div>
 				</div>
 			</div>
-		@else
-		<div class="feature_wrap_list feature_wrap_list-mod">
-			<div class="feature_wrap_list_grid_content_wrap">
-				<div class="feature_wrap_list_grid_content content_right">
-					<h3>{{$howWorks->title}}</h3>
-					<p>{!! $howWorks->description !!}</p>
-				</div>
+		</section>
+		<!--end_inner_banner-->
+
+		<section class="how_it_sec">
+			<div class="container-fluid">
+				@foreach($data->howItWorks as $key => $howWorks)
+					<?php if(($key + 1) %2 ==0){?>
+						<div class="row m-0 how_it_sub align-items-center">
+							<div class="col-12 col-lg-6 text-sec">
+								<div class="page_title">
+									<h1 class="text-start mb-3 mb-lg-4" data-aos="fade-down" data-aos-duration="1000">{{$howWorks->title}}<small class="position-relative"><div class="border_text" data-aos="fade-left" data-aos-duration="1800"></div></small></h1>
+									<p class="py-2" data-aos="fade-up" data-aos-duration="1400">{{$howWorks->description}}</p>
+								</div>
+							</div>
+							<div class="col-12 col-lg-6 img-sec">
+								<img src="{{asset($howWorks->image)}}"> 
+							</div>
+						</div>
+					<?php }else{?>
+						<div class="row m-0 how_it_sub align-items-center">
+							<div class="col-12 col-lg-6 img-sec order-lg-1 order-2">
+								<img src="{{asset($howWorks->image)}}"> 
+							</div>
+							<div class="col-12 col-lg-6 text-sec order-lg-2 order-1">
+								<div class="page_title">
+									<h1 class="text-start mb-3 mb-lg-4" data-aos="fade-down" data-aos-duration="1000">{!!$howWorks->title!!}d <br/><small class="position-relative"><div class="border_text" data-aos="fade-left" data-aos-duration="1800"></div></small></h1>
+									<p class="py-2" data-aos="fade-up" data-aos-duration="1400">{!!$howWorks->description!!}</p>
+									<p class="py-2" data-aos="fade-up" data-aos-duration="1800">
+									</p>
+								</div>
+							</div>
+						</div>
+					<?php }?>
+						
+						
+				@endforeach
+				
 			</div>
-			<div class="feature_wrap_list_grid_img">
-				<img src="{{asset($howWorks->image)}}">
-			</div>
-		</div>
-		@endif
-	@endforeach
-</section>
+		</section>
 
 <!-- <section class="energy_savings_plan_wrap">
 	<div class="container">

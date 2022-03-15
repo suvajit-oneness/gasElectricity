@@ -1,99 +1,68 @@
+
 @extends('frontend.layouts.master')
 @section('title','About Us')
 @section('content')
-	
-<section class="page_banner">
-	<div class="container">
-		<div class="row">
-			<div class="col-12">
-				<h1 class="heading text-white pb-0 mb-0 text-center">{{$data->aboutus->heading}}</h1>
-			</div>
+<section class="inner_banner_about">
+<div class="container">
+	<div class="row m-0">
+		<div class="page_title">
+			<h1 data-aos="fade-down" data-aos-duration="1000">{{$data->aboutus->heading}} <small class="position-relative"><div class="border_text" data-aos="fade-left" data-aos-duration="1800"></div></small></h1>
 		</div>
 	</div>
+</div>
+</section>
+<!--end_inner_banner-->
+
+<section class="py-4 py-lg-5 about_body">
+<div class="container-fluid overflow-hidden">
+	<div class="row m-0 align-items-center">
+		<div class="col-12 col-lg-6 p-lg-4">
+			<div class="page_title p-4 p-lg-4">
+				<h3 data-aos="fade-down" data-aos-duration="1000">{!! $data->aboutus->title !!}<small class="position-relative"><div class="border_text" data-aos="fade-left" data-aos-duration="1400"></div></small></h3>
+				<p data-aos="fade-up" data-aos-duration="1300">
+					<b class="d-block mb-2"></b>{!! $data->aboutus->description !!}
+				</p>
+				{{-- <p class="py-2" data-aos="fade-up" data-aos-duration="1500"><b>That’s why SwitchR exists!</b></p>
+				<p data-aos="fade-up" data-aos-duration="1700">
+					At SwitchR, we make it easy for you to find the best energy deal around. By working with Australia’s leading energy providers, we can quickly tell you how much you could, and should, be paying for your gas and electricity.All you need to do is upload your energy bill and we’ll do the rest! Our system is designed to identify your energy usage and match it to the best provider and lowest energy plan available in your area.
+				</p>
+				<p data-aos="fade-up" data-aos-duration="1900">
+					Discover how much you could save on your energy bills with SwitchR today!
+				</p> --}}
+			</div>
+		</div>
+		<div class="col-12 col-lg-6 p-0 pt-lg-5 p-0" data-aos="fade-left" data-aos-duration="1900">
+			<img src="{{asset($data->aboutus->image)}}" class="w-100">
+		</div>
+	</div>
+</div>
 </section>
 
-<section class="section_intro_wrap">
-	<div class="container">
-		<div class="row align-items-center">
-			<div class="col-12 col-md-7 col-lg-7">
-				<div class="intro_content">
-					<h2>{!! $data->aboutus->title !!}</h2>
-					<div>{!! $data->aboutus->description !!}</div>
-				</div>
-			</div>
-			<div class="col-12 col-md-5 col-lg-5">
-				<div class="intro_img_wrap">
-					<img src="{{asset($data->aboutus->image)}}">
-				</div>
-			</div>
+<section class="py-4 py-lg-5 why_choose">
+<div class="container">
+	<div class="row m-0">
+		<div class="page_title">
+			<h1 data-aos="fade-down" data-aos-duration="1000">Why  <small class="position-relative">Choose Us<div class="border_text" data-aos="fade-left" data-aos-duration="1800"></div></small></h1>
+			<p class="w-50 m-auto text-center mt-3" data-aos="fade-up" data-aos-duration="1400">Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit.</p>
 		</div>
 	</div>
+	<div class="row m-0 mt-4 mt-lg-5 why_card">
+		@foreach($data->whychooseus as $key=> $choose)
+			<div class="col-12 col-lg-3 mb-3 mb-lg-0 plr-3">
+				<div class="card border-0">
+					<img src="{{asset($choose->image)}}">
+					<h6>{!! $choose->title !!}</h6>
+					<p>
+						{!! $choose->description !!}
+					</p>
+				</div>
+			</div>
+		@endforeach
+	</div>
+</div>
 </section>
 
-<section class="why_choose_wrap">
-	<div class="container">
-		<h2 class="heading text-center whyChooseUsHeading">Why Choose Us</h2>
-		<div class="row">
-			<div class="why_choose_content">
-				<ul>
-					@foreach($data->whychooseus as $key=> $choose)
-						<li>
-							<div class="why_choose_img_wrap">
-								<img src="{{asset($choose->image)}}">
-							</div>
-							<h5>{!! $choose->title !!}</h5>
-							<p>{!! $choose->description !!}</p>
-						</li>
-					@endforeach
-				</ul>
-			</div>
-		</div>
-	</div>
-</section>
-
-<!-- <section class="consumers_update">
-	<div class="container">
-		<div class="update_content">
-			<h2 class="text-center text-white">We’ve helped consumers to reduce <span class="bold d-block">their bills by up to 32% in their first year!</span></h2>
-			<ul class="update_items">
-				<li>
-					<h2>250000+</h2>
-					<p>compared on Econnex</p>
-				</li>
-				<li>
-					<h2>4.6/5</h2>
-					<p>Real User Reviews</p>
-				</li>
-				<li>
-					<h2>$8.5M+</h2>
-					<p>Savings on Energy Bills</p>
-				</li>
-			</ul>
-		</div>
-	</div>
-</section> -->
-
-<!-- <section class="energy_savings_plan_wrap">
-	<div class="container">
-		<div class="row">
-			<div class="col-12">
-				<div class="box_wraper">
-					<div class="row align-items-center">
-						<div class="col-12 col-md-8">
-							<h3>Compare Energy Plans Here – <span>Free!</span></h3>
-							<h4>No obligation to sign up, and it’s 100% free to use!</h4>
-						</div>
-						<div class="col-12 col-md-4 text-md-left text-center pl-md-5 pl-0">
-							<a href="#" class="green-btn">Get Started <span><i class="fas fa-arrow-circle-right"></i></span></a>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</section> -->
-
-@section('script')
+		@section('script')
     <script type="text/javascript">
     	var whyChooseUsHeading = 'Why Choose Us';
     	@foreach($data->whychooseus as $key => $choose)
@@ -104,3 +73,4 @@
     </script>
 @stop
 @endsection
+

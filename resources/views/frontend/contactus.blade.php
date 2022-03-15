@@ -2,74 +2,69 @@
 @section('title','Contact Us')
 @section('content')
 	
-<section class="contact_wraper">
+<section class="contact_sec">
 	<div class="container">
-		<div class="row">
-			<div class="col-12">
-				<div class="contact_form">
-					<div class="row">
-						<div class="col-12 col-lg-6 col-md-12">
-							<div class="contact_details_wrap">
-								<ul class="conatct_links">
-									<li>
-										<img src="{{asset('forntEnd/images/location-pin.png')}}">
-										<h3>{{$contact->name}}</h3>
-										<p>{{$contact->address}}</p>
-									</li>
-									<li>
-										<img src="{{asset('forntEnd/images/call-2.png')}}">
-										<a href="tel:+88 657524332">{{$contact->phone}}</a>
-									</li>
-									<li class="d-flex justify-content-between">
-										<img src="{{asset('forntEnd/images/envelop-2.png')}}">
-										<a href="mailto:info@example.com">{{$contact->email}}</a>
-										<ul class="contact_social_links">
-											<li>
-												<a href="{{$contact->facebook}}" target="_blank"><img src="{{asset('forntEnd/images/facebook.png')}}"></a>
-											</li>
-											<li>
-												<a href="{{$contact->linkedin}}" target="_blank"><img src="{{asset('forntEnd/images/linkedin.png')}}"></a>
-											</li>
-											<li>
-												<a href="{{$contact->youtube}}" target="_blank"><img src="{{asset('forntEnd/images/youtube.png')}}"></a>
-											</li>
-										</ul>
-									</li>
-								</ul>
+		<div class="row m-0">
+			<div class="col-12 col-lg-7 address_text">
+				<div class="page_title">
+					<h1 data-aos="fade-down" data-aos-duration="1000" class="text-start">
+						Let's chat. <br/>Tell me about. 
+						<small class="position-relative">your thought
+							<div class="border_text" data-aos="fade-left" data-aos-duration="1400"></div>
+						</small>
+					</h1>
+					<h6 data-aos="fade-up" data-aos-duration="1400">Let's create something together <img src="{{asset('forntEnd/img/moj.png')}}" class="ms-2"></h6>
+					<ul class="address_sec">
+						<li><i class="fa-solid fa-location-dot"></i> {{$contact->address}}</li>
+						<li><i class="fa-solid fa-phone"></i><a class="text-dark" href="tel:+88 657524332">{{$contact->phone}}</a></li>
+						<li>
+							<div class="d-lg-flex justify-content-between align-items-center">
+								<div><i class="fa-solid fa-envelope"></i><a class="text-dark" href="mailto:info@example.com">{{$contact->email}}</a></div>
+								<!--<div class="mt-3 mt-lg-0 ">
+									<a href="javascript:void(0);"><i class="fa-brands fa-facebook-f"></i></a>
+									<a href="javascript:void(0);"><i class="fa-brands fa-linkedin-in"></i></a>
+									<a href="javascript:void(0);"><i class="fa-brands fa-youtube"></i></a>
+								</div>-->
 							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="col-12 col-lg-5 ps-lg-5">
+				<div class="card border-0 p-3 p-lg-4">
+					<h5>Get in touch with us!</h5>
+					@error('thankyou')
+								<span class="text-success" role="alert"><strong>{{ $message }}</strong></span><br>
+							@enderror
+					<form method="post" action="{{route('contactus.save')}}">
+						@csrf
+						<div class="mb-3">
+							<input type="text" name="name" class="form-control @error('name'){{'is-invalid'}}@enderror" placeholder="Full Name*">
+							@error('name')
+								<span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+							@enderror
 						</div>
-						<div class="col-12 col-lg-6 col-md-12">
-							<div class="contact_form_wrap">
-								<div class="form_container">
-									<h3>Get in touch with us</h3>
-									<!-- Thankyou Message -->
-									@error('thankyou')
-										<span class="text-success" role="alert"><strong>{{ $message }}</strong></span><br>
-									@enderror
-									<form method="post" action="{{route('contactus.save')}}">
-										@csrf
-										<input type="text" name="name" class="custom_input @error('name'){{'is-invalid'}}@enderror" placeholder="Your Name">
-										@error('name')
-                                			<span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
-                            			@enderror
-										<input type="text" name="phone" class="custom_input @error('phone'){{'is-invalid'}}@enderror" placeholder="Enter Phone No" maxlength="10" onkeypress="return isNumberKey(event)">
-										@error('phone')
-                                			<span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
-                            			@enderror
-										<input type="email" name="email" class="custom_input @error('email'){{'is-invalid'}}@enderror" placeholder="Enter email address">
-										@error('email')
-                                			<span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
-                            			@enderror
-										<textarea class="custom_textarea @error('message'){{'is-invalid'}}@enderror" name="message" placeholder="Your Message"></textarea>
-										@error('message')
-                                			<span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
-                            			@enderror
-										<button class="blue-btm" type="submit">submit<span><i class="fas fa-arrow-circle-right"></i></span></button>
-									</form>
-								</div>
-							</div>
+						<div class="mb-3">
+							<input type="email" name="email" class="form-control @error('email'){{'is-invalid'}}@enderror" placeholder="Email Address*">
+							@error('email')
+							<span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+							@enderror
 						</div>
-					</div>
+						<div class="mb-3 mb-lg-0">
+							<input type="text"  name="phone" class="form-control @error('phone'){{'is-invalid'}}@enderror" placeholder="Phone No*">
+							@error('phone')
+							<span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+							@enderror
+						</div>
+						<div class="mb-3">
+							<label class="form-label">Tell us more about your project*</label>
+							<textarea  class="form-control @error('message'){{'is-invalid'}}@enderror" rows="3"  name="message" ></textarea>
+							@error('message')
+							<span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+							@enderror
+						</div>
+						<button class="btn log_drop" type="submit">Send Us</button>
+					</form>
 				</div>
 			</div>
 		</div>

@@ -1,8 +1,8 @@
-@extends('frontend.layouts.master')
+@extends('auth.layouts.master')
 @section('title','Welcome')
 @section('content')
     
-<section class="contact_wraper">
+<section class="contact_wraper d-none" >
     <div class="container">
         <div class="row">
             <div class="col-12">
@@ -71,6 +71,58 @@
             </div>
         </div>
     </div>
+</section>
+
+
+
+
+<section class="contact_sec">
+	<div class="container">
+		<div class="row m-0">
+			<div class="col-12 col-lg-6 p-lg-0 address_text">
+				<img src="{{asset('forntEnd/img/sign-in.png')}}">
+			</div>
+			<div class="col-12 col-lg-6 ps-lg-5 p-lg-0">
+				<div class="card border-0 p-3 p-lg-4">
+					<div class="page_title">
+					<h1 data-aos="fade-down" data-aos-duration="1000" class="text-start">
+						WELCOME
+						<small class="position-relative">BACK :)
+							<div class="border_text" data-aos="fade-left" data-aos-duration="1400"></div>
+						</small>
+					</h1>
+					<p data-aos="fade-up" data-aos-duration="1400" class="mt-3 mb-3">To keep connected with us please login with your personal information by email address and password. <img src="{{asset('forntEnd/img/moj.png')}}" class="ms-2"></p>
+				</div>
+					@error('thankyou')
+								<span class="text-success" role="alert"><strong>{{ $message }}</strong></span><br>
+							@enderror
+					<form method="post" action="{{ route('login') }}">
+						@csrf
+						
+						<div class="mb-3">
+                         <img src="{{asset('forntEnd/img/envelop-3.png')}}">
+							<input type="email"  name="email" class="form-control @error('email'){{'is-invalid'}}@enderror" placeholder="Email Address*">
+							@error('email')
+							<span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+							@enderror
+						</div>
+						<div class="mb-3">
+                        <img src="{{asset('forntEnd/img/lock.png')}}">
+							<input type="text"  name="password" class="form-control @error('password'){{'is-invalid'}}@enderror" placeholder="password*">
+							@error('password')
+							<span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+							@enderror
+						</div>
+					
+						<button class="btn log_drop" type="submit">Login Now</button>
+                        @if (Route::has('register'))
+                            <a href="{{route('register')}}" class="white-btm">+ Create an Account</a>
+                        @endif
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
 </section>
 @endsection
 

@@ -1,0 +1,9 @@
+FONT FAMILY: Montserrat
+
+Banner: h1:- 44px_black
+        h2:- 16px_bold/black
+
+paragraph: 14px, 15px,
+less used: 19px, 16px
+
+Color: #0e172a(dark sec),#f1ffef(light sec),#bad5d8(hover),#7bce92(highlight)

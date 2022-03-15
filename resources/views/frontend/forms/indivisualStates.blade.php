@@ -2,130 +2,128 @@
 @section('title','Plan Listing')
 @section('content')
 
-<section class="banner gas-electricity-banner">
-	<div class="container">
-		<div class="banner-caption">
-			<h1 class="banner-heading"> <span> Compare, Switch, Save & </span> <br> POSTCODE </h1>
-				<div class="text-center white-para">
-				 <p>If you’re a savvy bargain hunter like us at Econnex, you’ll love saving on your energy bills. Compare energy plans, sign up, and start saving!</p>
-				</div>
-			<div class="location-search-section">
-				<datalist id="suppliersPincode">
-					@foreach($data->pincode as $key => $pincde)
-						<option value="{{$pincde->autocomplete}}"></option>
-					@endforeach
-				</datalist>
-				<form action="{{route('rfq.product.listing')}}" method="get" autocomplete="off">
-					<div class="search-form">
-						@error('search')<span class="text-danger">{{$message}}</span>@enderror
-						<label>Where are you located?</label>
-						<input type="text" class="postCodeSearch" name="search" id="search" placeholder="Enter your postcode or suburb..." required="" value="{{old('search')}}" list="suppliersPincode">
-						<div class="button">
-							<button type="submit">compare now</button>
-							<i class="fas fa-arrow-circle-right"></i>
-						</div>
-					</div>
-				</form>
-				<p>Currently available in 
-					@foreach($data->state as $state)
-						<a href="{{route('rfq.product.listing',['stateId'=>base64_encode($state->id),'stateName'=>$state->name])}}" style="color:ffffff">{{$state->name}}</a> ,
-					@endforeach
-				</p>
-			</div>
-		</div>
-	</div> 
-</section>
-
-@if(count($data->compareallSupplier) > 0)
-	<section class="logo-slider">
-		<div class="heading-place">
-			<strong>We compare all of these energy suppliers</strong>
-		</div>
-		<div class="logo-scroll">
-			<div class="slide-logo">
-				@foreach($data->compareallSupplier as $compareallSupplier)
-					<div class="logo-area"><img src="{{asset($compareallSupplier->image)}}"/></div>
-				@endforeach
-			</div>
-		</div>
-	</section>
-@endif
-
-<section class="energy-comp">
-	<div class="container">
-		<div class="electric-head text-center">
-			<h2 class="heading text-center">Compare by ENERGY </h2>
-			<p>Easily compare, select and save on your energy plans</p>
-		</div>
-		<div class="energy_select_box block-display">
-			<form action="{{route('rfq.product.listing')}}" method="get" autocomplete="off">
+<section class="ind_loc_bg">
+			<div class="container">
 				<div class="row">
-					<div class="col-xl-9 col-lg-9 col-md-12 col-sm-12 col-12">
-					<p>Energy type</p>
-						<div class="row">
-							<div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
-								<div class="custom-control custom-radio autowidth p-0">
-								  	<input type="radio" id="customRadio1" name="eneryType" value="gas_electricity" class="custom-control-input" @if(old('eneryType') == 'gas_electricity'){{('checked')}}@elseif(old('eneryType') == 'gas')@else{{('checked')}}@endif>
-								  	<label class="custom-control-label ct_radio" for="customRadio1">Gas &amp; Electricity</label>
-								</div>
-							</div>
+					<h1 data-aos="fade-down" data-aos-duration="1000">Compare Switch, 
+						<small class="position-relative">Save & Postcode<div class="border_text" data-aos="fade-right" data-aos-duration="2800"></div></small>
+					</h1>
+					<h6 data-aos="fade-down" data-aos-duration="1400">If you’re a savvy bargain hunter like us at Econnex, you’ll love saving on your energy bills. Compare energy plans, sign up, and start saving!</h6>
+					<h6 class="m-0 m-auto w-100">Energy type</h6>
+					<form action="{{route('rfq.product.listing')}}" method="get" autocomplete="off">
+						<div class="d-flex w-lg-25 justify-content-center pt-3">
 
-							<div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12">
-								<div class="custom-control custom-radio autowidth gas-icon white-bg p-0">
-								  	<input type="radio" id="customRadio3" name="eneryType" value="gas" class="custom-control-input" @if(old('eneryType') == 'gas'){{('checked')}}@endif>
-								  	<label class="custom-control-label ct_radio" for="customRadio3">Gas </label>
-								</div>
+							<div class="form-check ct_select">
+								<input class="form-check-input" type="radio" id="customRadio1" name="eneryType" value="electricity" class="custom-control-input" @if(old('eneryType') == 'electricity'){{('checked')}}@elseif(old('eneryType') == 'gas')@else{{('checked')}}@endif>
+								<label class="form-check-label" for="flexRadioDefault1">
+									Electricity
+								</label>
+							</div>
+							<div class="form-check ct_select">
+								<input class="form-check-input" type="radio"  id="customRadio3" name="eneryType" value="gas" class="custom-control-input" @if(old('eneryType') == 'gas'){{('checked')}}@endif checked>
+								<label class="form-check-label" for="flexRadioDefault2">
+								Gas
+								</label>
 							</div>
 						</div>
-					</div>
-					<!--<div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 col-12">
-						<div class="text-center">
-							<p>Do you have a recent bill?</p>
-							<div class="yes-no-btn">
-								<input type="radio" name="recentbill" value="yes" @if(old('recentbill') == 'yes'){{('checked')}}@endif>Yes
-								<input type="radio" name="recentbill" value="no" @if(old('recentbill') == 'no'){{('checked')}}@elseif(old('recentbill') == 'yes')@else{{('checked')}}@endif>No
-							</div>
+						<div class="input-group mt-0 mb-2" data-aos="fade-up" data-aos-duration="1300">
+							<datalist id="suppliersPincode">
+								@foreach($data->pincode as $key => $pincde)
+									<option value="{{$pincde->autocomplete}}"></option>
+								@endforeach
+							</datalist>
+							@error('eneryType')<span class="text-danger">{{$message}}</span>@enderror
+							@error('search')<span class="text-danger">{{$message}}</span>@enderror
+							<input type="text" class="form-control postCodeSearch"  name="search" id="postcodesearch" placeholder="Enter your postcode or suburb..." required value="{{old('search')}}"list="suppliersPincode">
+							<button class="btn btn-comp" type="submit">Compare</button>
 						</div>
-					</div>-->
-				</div>
-				<div class="search-form">
-					@error('eneryType')<span class="text-danger">{{$message}}</span>@enderror
-					@error('search')<span class="text-danger">{{$message}}</span>@enderror
-					<label>Enter your suburb or postcode</label>
-					<input type="text" class="postCodeSearch" name="search" id="postcodesearch" placeholder="Enter your postcode or suburb..." required value="{{old('search')}}" list="suppliersPincode">
-				</div>
-				<div class="ccheckandbtn">
-					<div class="custom-control custom-checkbox custom-control-mod">
-					    <input type="checkbox" name="referral_partner" value="true" class="custom-control-input" id="customControl2" @if(old('referral_partner')){{('checked')}}@endif>
-					    <label class="custom-control-label" for="customControl2">Just compare plans which link to a Referral Partner.</label>
+					</form>
+					<div class="row m-0 mt-2">
+						<div class="form-check ct_select sec_two m-auto">
+							<input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault3">
+							<label class="form-check-label" for="flexRadioDefault3">
+								Just compare plans which link to a Referral Partner.
+							</label>
+						</div>
 					</div>
-					<button type="submit" class="blue-btm">COMPARE <span><i class="fas fa-arrow-circle-right"></i></span></button>
 				</div>
-			</form>
-		</div>
-	</div>
-</section>
-
-<section class="why_choose_wrap">
-	<div class="container">
-		<h2 class="heading text-center whyChooseUsHeading">Why Choose Us</h2>
-		<div class="row">
-			<div class="why_choose_content">
-				<ul>
-					@foreach($data->whychooseus as $key=>$choose)
-						<li>
-							<div class="why_choose_img_wrap">
-								<img src="{{asset($choose->image)}}">
-							</div>
-							<h5>{!! $choose->title !!}</h5>
-							<p>{!! $choose->description !!}</p>
-						</li>
-					@endforeach
-				</ul>
 			</div>
-		</div>
-	</div>
-</section>
+		</section>
+
+		<section class="py-4 py-lg-5 about_body">
+			<div class="container overflow-hidden">
+				<div class="row m-0 align-items-center justify-content-between">
+					<div class="col-12 col-lg-5 p-0 pt-lg-5 p-0" data-aos="fade-right" data-aos-duration="1900">
+						<img src="{{asset('forntEnd/img/map_img.png')}}" class="w-100">
+					</div>
+					<div class="col-12 col-lg-6 p-lg-4">
+						<div class="page_title">
+							<h3 data-aos="fade-down" data-aos-duration="1000"> 
+								 <small class="position-relative">Queensland <div class="border_text" data-aos="fade-left" data-aos-duration="1400"></div></small>Energy Comparison</h3>
+							<p data-aos="fade-up" data-aos-duration="1300">
+								<b class="d-block mb-2">Queensland energy usage is on the rise due to growing Gas and 
+									Electricity industry.
+								</b> 
+							</p>
+							<p data-aos="fade-up" data-aos-duration="1700">
+								Morbi accumsan ipsum velit. Nam nec tellus a odio tincidunt auctor a ornare odio. Sed non  mauris vitae erat consequat auctor eu in elit. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Mauris in erat justo. 
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+		
+		<section class="py-4 py-lg-5">
+			<div class="container">
+				<div class="row m-0 justify-content-center text-center">
+					<h5><b>We compare all of these energy suppliers</b></h5>
+					<ul class="provider">
+						<li><img src="{{asset('forntEnd/img/prv_1.png')}}"></li>
+						<li><img src="{{asset('forntEnd/img/prv_2.png')}}"></li>
+						<li><img src="{{asset('forntEnd/img/prv_3.png')}}"></li>
+						<li><img src="{{asset('forntEnd/img/prv_4.png')}}"></li>
+						<li><img src="{{asset('forntEnd/img/prv_5.png')}}"></li>
+						<li><img src="{{asset('forntEnd/img/prv_6.png')}}"></li>
+					</ul>
+				</div>
+			</div>
+		</section>
+
+		<section class="get_start overflow-hidden">
+			<div class="container">
+				<div class="row m-0">
+					<div class="d-lg-flex d-block align-items-center justify-content-between">
+						<h1 data-aos="fade-up" data-aos-duration="1000">Compare Energy Plans Here – <span>Free!</span> <small>No obligation to sign up, and it’s 100% free to use!</small></h1>
+						<a href="{{route('rfq.product.listing')}}" class="btn log_drop mt-3 mt-lg-0" data-aos="fade-left" data-aos-duration="1600">GET STARTED</a>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="py-4 py-lg-5 why_choose">
+			<div class="container">
+				<div class="row m-0">
+					<div class="page_title">
+						<h1 data-aos="fade-down" data-aos-duration="1000">Why  <small class="position-relative">Choose Us<div class="border_text" data-aos="fade-left" data-aos-duration="1800"></div></small></h1>
+						<p class="w-50 m-auto text-center mt-3" data-aos="fade-up" data-aos-duration="1400">Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum, nec sagittis sem nibh id elit.</p>
+					</div>
+				</div>
+				<div class="row m-0 mt-4 mt-lg-5 why_card">
+				 @foreach($data->whychooseus as $key=>$choose)
+					<div class="col-12 col-lg-3 mb-3 mb-lg-0 plr-3">
+						<div class="card border-0">
+							<img src="{{asset($choose->image)}}">
+							<h6>{!! $choose->title !!}</h6>
+							<p>
+								{!! $choose->description !!}
+							</p>
+						</div>
+					</div>
+				 @endforeach
+				</div>
+			</div>
+		</section>
 
 @section('script')
     <script type="text/javascript">

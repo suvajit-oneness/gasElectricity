@@ -4,33 +4,33 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Model\Blog,App\Model\UserType;
-use App\User,App\Model\ContactUs,DB,App\Model\Rfq;
-use App\Model\Testimonials,App\Model\Faq;
-use Hash,App\Model\BlogCategory,App\Model\Setting;
-use App\Model\Membership,App\Model\Company;
-use App\Model\Product,App\Model\ProductRating;
-use App\Model\CompanyFeature,App\Model\Master;
-use App\Model\ProductGas,App\Model\ProductElectricity;
-use App\Model\ProductMomentum,App\Model\CompanyDiscount;
-use App\Model\State,App\Model\Country,App\Model\CompanyCalculation;
-use App\Model\CompanyRateDetails,App\Model\CompanyPlanDetails;
+use App\Model\Blog, App\Model\UserType;
+use App\User, App\Model\ContactUs, DB, App\Model\Rfq;
+use App\Model\Testimonials, App\Model\Faq;
+use Hash, App\Model\BlogCategory, App\Model\Setting;
+use App\Model\Membership, App\Model\Company;
+use App\Model\Product, App\Model\ProductRating;
+use App\Model\CompanyFeature, App\Model\Master;
+use App\Model\ProductGas, App\Model\ProductElectricity;
+use App\Model\ProductMomentum, App\Model\CompanyDiscount;
+use App\Model\State, App\Model\Country, App\Model\CompanyCalculation;
+use App\Model\CompanyRateDetails, App\Model\CompanyPlanDetails;
 
 class AdminController extends Controller
 {
     public function adminDashboard(Request $req)
     {
         $data = (object)[];
-        $data->customer = User::where('user_type',3)->get();
-        $data->supplier = User::where('user_type',2)->get();
+        $data->customer = User::where('user_type', 3)->get();
+        $data->supplier = User::where('user_type', 2)->get();
         $data->rfqs = Rfq::select('*')->get();
-        return view('admin.dashboard',compact('data'));
+        return view('admin.dashboard', compact('data'));
     }
 
     public function rfqDetails(Request $req)
     {
         $rfqs = Rfq::select('*')->latest()->paginate(20);
-        return view('admin.reports.rfqDetails',compact('rfqs'));
+        return view('admin.reports.rfqDetails', compact('rfqs'));
     }
 
     public function saveRemarkOfRfqs(Request $req)
@@ -39,47 +39,47 @@ class AdminController extends Controller
             'rfqId' => 'required|min:1|numeric',
             'remarks' => 'required|max:200|string',
         ]);
-        $Rfq = Rfq::where('id',$req->rfqId)->first();
+        $Rfq = Rfq::where('id', $req->rfqId)->first();
         $Rfq->resolved_by = auth()->user()->id;
         $Rfq->remarks = $req->remarks;
         $Rfq->save();
-        return back()->with('Success','Remarks Saved Success');
+        return back()->with('Success', 'Remarks Saved Success');
     }
 
     public function settingPoints(Request $req)
     {
         $master = Master::first();
-        return view('admin.setting.pointToDeliver',compact('master'));
+        return view('admin.setting.pointToDeliver', compact('master'));
     }
 
-    public function settingPointsUpdate(Request $req,$masterId)
+    public function settingPointsUpdate(Request $req, $masterId)
     {
         $req->validate([
-            'masterId' => 'required|min:1|numeric|in:'.$masterId,
+            'masterId' => 'required|min:1|numeric|in:' . $masterId,
             'point_equals' => 'required|numeric',
             'referral_bonus' => 'required|numeric|min:1',
             'joining_bonus' => 'required|numeric|min:1',
         ]);
-        $master = Master::where('id',$masterId)->first();
-            $master->onepoint_equals = $req->point_equals;
-            $master->referral_bonus = $req->referral_bonus;
-            $master->joining_bonus = $req->joining_bonus;
+        $master = Master::where('id', $masterId)->first();
+        $master->onepoint_equals = $req->point_equals;
+        $master->referral_bonus = $req->referral_bonus;
+        $master->joining_bonus = $req->joining_bonus;
         $master->save();
-        return back()->with('Success','Point Setting Updated SuccessFully');
+        return back()->with('Success', 'Point Setting Updated SuccessFully');
     }
 
-/****************************** Company ******************************/
-    public function companies(Request $req,$companyId = 0)
+    /****************************** Company ******************************/
+    public function companies(Request $req, $companyId = 0)
     {
         $companies = Company::select('*');
-        if($companyId > 0){
-            $companies = $companies->where('id',$companyId);
+        if ($companyId > 0) {
+            $companies = $companies->where('id', $companyId);
         }
-        if(urlPrefix() != 'admin'){
-            $companies = $companies->where('created_by',auth()->user()->id);
+        if (urlPrefix() != 'admin') {
+            $companies = $companies->where('created_by', auth()->user()->id);
         }
         $companies = $companies->get();
-        return view('company.index',compact('companies'));
+        return view('company.index', compact('companies'));
     }
 
     public function createCompany()
@@ -97,22 +97,22 @@ class AdminController extends Controller
         $company = new Company();
         $company->name = $req->name;
         $company->created_by = auth()->user()->id;
-        if($req->hasFile('logo')){
+        if ($req->hasFile('logo')) {
             $logo = $req->file('logo');
             $random = randomGenerator();
-            $logo->move('upload/companies/',$random.'.'.$logo->getClientOriginalExtension());
-            $logourl = 'upload/companies/'.$random.'.'.$logo->getClientOriginalExtension();
+            $logo->move('upload/companies/', $random . '.' . $logo->getClientOriginalExtension());
+            $logourl = 'upload/companies/' . $random . '.' . $logo->getClientOriginalExtension();
             $company->logo = $logourl;
         }
         $company->description = emptyCheck($req->description);
         $company->save();
-        return redirect(route(urlPrefix().'.companies'))->with('Success','Company Added SuccessFully');
+        return redirect(route(urlPrefix() . '.companies'))->with('Success', 'Company Added SuccessFully');
     }
 
-    public function editCompany(Request $req,$companyId)
+    public function editCompany(Request $req, $companyId)
     {
         $company = Company::findOrFail($companyId);
-        return view('company.edit',compact('company'));
+        return view('company.edit', compact('company'));
     }
 
     public function updateCompany(Request $req)
@@ -125,16 +125,16 @@ class AdminController extends Controller
         ]);
         $company = Company::findOrFail($req->companyId);
         $company->name = $req->name;
-        if($req->hasFile('logo')){
+        if ($req->hasFile('logo')) {
             $logo = $req->file('logo');
             $random = randomGenerator();
-            $logo->move('upload/companies/',$random.'.'.$logo->getClientOriginalExtension());
-            $logourl = 'upload/companies/'.$random.'.'.$logo->getClientOriginalExtension();
+            $logo->move('upload/companies/', $random . '.' . $logo->getClientOriginalExtension());
+            $logourl = 'upload/companies/' . $random . '.' . $logo->getClientOriginalExtension();
             $company->logo = $logourl;
         }
         $company->description = emptyCheck($req->description);
         $company->save();
-        return redirect(route(urlPrefix().'.companies'))->with('Success','Company Updated SuccessFully');
+        return redirect(route(urlPrefix() . '.companies'))->with('Success', 'Company Updated SuccessFully');
     }
 
     public function deleteCompany(Request $req)
@@ -142,10 +142,10 @@ class AdminController extends Controller
         $rules = [
             'id' => 'required',
         ];
-        $validator = validator()->make($req->all(),$rules);
-        if(!$validator->fails()){
+        $validator = validator()->make($req->all(), $rules);
+        if (!$validator->fails()) {
             $company = Company::findOrFail($req->id);
-            if($company){
+            if ($company) {
                 // $company->delete();
                 return errorResponse('Something went wrong please try after sometime');
                 return successResponse('Company Deleted Success');
@@ -155,23 +155,23 @@ class AdminController extends Controller
         return errorResponse($validator->errors()->first());
     }
 
-/****************************** Product Feature ******************************/
-    public function companyFeature(Request $req,$companyId)
+    /****************************** Product Feature ******************************/
+    public function companyFeature(Request $req, $companyId)
     {
         $company = Company::findOrFail($companyId);
-        return view('company.feature.index',compact('company'));
+        return view('company.feature.index', compact('company'));
     }
 
-    public function createCompanyFeature(Request $req,$companyId)
+    public function createCompanyFeature(Request $req, $companyId)
     {
         $company = Company::findOrFail($companyId);
         return view('company.feature.create', compact('company'));
     }
 
-    public function saveCompanyFeature(Request $req,$companyId)
+    public function saveCompanyFeature(Request $req, $companyId)
     {
         $req->validate([
-            'companyId' => 'required|min:1|numeric|in:'.$companyId,
+            'companyId' => 'required|min:1|numeric|in:' . $companyId,
             'title' => 'required|max:200',
             'description' => 'nullable|string',
         ]);
@@ -180,46 +180,46 @@ class AdminController extends Controller
         $feature->title = $req->title;
         $feature->description = emptyCheck($req->description);
         $feature->save();
-        return redirect(route(urlPrefix().'.companies.feature',$companyId))->with('Success','Company Feature Added SuccessFully');
+        return redirect(route(urlPrefix() . '.companies.feature', $companyId))->with('Success', 'Company Feature Added SuccessFully');
     }
 
-    public function editCompanyFeature(Request $req,$companyId,$featureId)
+    public function editCompanyFeature(Request $req, $companyId, $featureId)
     {
-        $feature = CompanyFeature::where('id',$featureId)->where('companyId',$companyId)->first();
-        if($feature){
-            return view('company.feature.edit',compact('feature'));
+        $feature = CompanyFeature::where('id', $featureId)->where('companyId', $companyId)->first();
+        if ($feature) {
+            return view('company.feature.edit', compact('feature'));
         }
-        return redirect(route(urlPrefix().'.companies.feature',$companyId))->with('Errors','Something went wrong please try after sometime');
+        return redirect(route(urlPrefix() . '.companies.feature', $companyId))->with('Errors', 'Something went wrong please try after sometime');
     }
 
-    public function updateCompanyFeature(Request $req,$companyId,$featureId)
+    public function updateCompanyFeature(Request $req, $companyId, $featureId)
     {
         $req->validate([
-            'companyId' => 'required|min:1|numeric|in:'.$companyId,
-            'featureId' => 'required|min:1|numeric|in:'.$featureId,
+            'companyId' => 'required|min:1|numeric|in:' . $companyId,
+            'featureId' => 'required|min:1|numeric|in:' . $featureId,
             'title' => 'required|max:200',
             'description' => 'nullable|string',
         ]);
-        $feature = CompanyFeature::where('id',$featureId)->where('companyId',$companyId)->first();
-        if($feature){
+        $feature = CompanyFeature::where('id', $featureId)->where('companyId', $companyId)->first();
+        if ($feature) {
             $feature->title = $req->title;
             $feature->description = emptyCheck($req->description);
             $feature->save();
-            return redirect(route(urlPrefix().'.companies.feature',$companyId))->with('Success','Company Feature Updated SuccessFully');
+            return redirect(route(urlPrefix() . '.companies.feature', $companyId))->with('Success', 'Company Feature Updated SuccessFully');
         }
-        return back()->with('Errors','Something went wrong please try after sometime');
+        return back()->with('Errors', 'Something went wrong please try after sometime');
     }
 
-    public function deleteCompanyFeature(Request $req,$companyId)
+    public function deleteCompanyFeature(Request $req, $companyId)
     {
         $rules = [
-            'companyId' => 'required|min:1|numeric|in:'.$companyId,
+            'companyId' => 'required|min:1|numeric|in:' . $companyId,
             'featureId' => 'required|min:1|numeric',
         ];
-        $validator = validator()->make($req->all(),$rules);
-        if(!$validator->fails()){
-            $feature = CompanyFeature::where('id',$req->featureId)->where('companyId',$req->companyId)->first();
-            if($feature){
+        $validator = validator()->make($req->all(), $rules);
+        if (!$validator->fails()) {
+            $feature = CompanyFeature::where('id', $req->featureId)->where('companyId', $req->companyId)->first();
+            if ($feature) {
                 $feature->delete();
                 return successResponse('Feature Deleted Success');
             }
@@ -228,124 +228,124 @@ class AdminController extends Controller
         return errorResponse($validator->errors()->first());
     }
 
-/*************************** Company Rate Details ************************/
-    public function getCompanyRateDetails(Request $req,$companyId)
+    /*************************** Company Rate Details ************************/
+    public function getCompanyRateDetails(Request $req, $companyId)
     {
         $company = Company::findOrFail($companyId);
-        return view('company.rate.index',compact('company'));
+        return view('company.rate.index', compact('company'));
     }
 
-    public function companyRateDetailsSaveOrUpdate(Request $req,$companyId)
+    public function companyRateDetailsSaveOrUpdate(Request $req, $companyId)
     {
         $req->validate([
             'form_type' => 'required|in:add,edit',
-            'companyId' => 'required|min:1|numeric|in:'.$companyId,
+            'companyId' => 'required|min:1|numeric|in:' . $companyId,
             'type' => 'required|numeric|in:1,2,3',
             'title' => 'required|string|max:100',
             'description' => 'nullable|string',
         ]);
-        if($req->form_type == 'add'){
+        if ($req->form_type == 'add') {
             $add = new CompanyRateDetails();
-                $add->companyId = $req->companyId;
-                $add->type = $req->type;
-                $add->title = $req->title;
-                $add->description = $req->description;
+            $add->companyId = $req->companyId;
+            $add->type = $req->type;
+            $add->title = $req->title;
+            $add->description = $req->description;
             $add->save();
-            return back()->with('Success','Company Rate Added SuccessFully');
-        }else{
+            return back()->with('Success', 'Company Rate Added SuccessFully');
+        } else {
             $req->validate([
                 'rateId' => 'required|min:1|numeric',
             ]);
-            $update = CompanyRateDetails::where('id',$req->rateId)->where('companyId',$req->companyId)->first();
-                $update->type = $req->type;
-                $update->title = $req->title;
-                $update->description = $req->description;
+            $update = CompanyRateDetails::where('id', $req->rateId)->where('companyId', $req->companyId)->first();
+            $update->type = $req->type;
+            $update->title = $req->title;
+            $update->description = $req->description;
             $update->save();
-            return back()->with('Success','Company Rate Updated SuccessFully');
+            return back()->with('Success', 'Company Rate Updated SuccessFully');
         }
     }
 
-    public function companyRateDetailsDelete(Request $req,$companyId)
+    public function companyRateDetailsDelete(Request $req, $companyId)
     {
         $rules = [
             'companyId' => 'required|numeric|min:1',
             'rateId' => 'required|numeric|min:1',
         ];
-        $validator = validator()->make($req->all(),$rules);
-        if(!$validator->fails()){
-            $company_rate = CompanyRateDetails::where('id',$req->rateId)->where('companyId',$req->companyId)->first();
-            if($company_rate){
+        $validator = validator()->make($req->all(), $rules);
+        if (!$validator->fails()) {
+            $company_rate = CompanyRateDetails::where('id', $req->rateId)->where('companyId', $req->companyId)->first();
+            if ($company_rate) {
                 $company_rate->delete();
-                return successResponse('Company Rate Deleted Success'); 
+                return successResponse('Company Rate Deleted Success');
             }
             return errorResponse('Invalid Company Plan Id');
         }
         return errorResponse($validator->errors()->first());
     }
 
-/*************************** Company Plan Details ************************/
-    public function getCompanyPlanDetails(Request $req,$companyId)
+    /*************************** Company Plan Details ************************/
+    public function getCompanyPlanDetails(Request $req, $companyId)
     {
         $company = Company::findOrFail($companyId);
-        return view('company.plan.index',compact('company'));
+        return view('company.plan.index', compact('company'));
     }
 
-    public function companyPlanDetailsSaveOrUpdate(Request $req,$companyId)
+    public function companyPlanDetailsSaveOrUpdate(Request $req, $companyId)
     {
         $req->validate([
             'form_type' => 'required|in:add,edit',
-            'companyId' => 'required|min:1|numeric|in:'.$companyId,
+            'companyId' => 'required|min:1|numeric|in:' . $companyId,
             'type' => 'required|numeric|in:1,2',
             'title' => 'required|string|max:100',
             'description' => 'nullable|string',
         ]);
-        if($req->form_type == 'add'){
+        if ($req->form_type == 'add') {
             $add = new CompanyPlanDetails();
-                $add->companyId = $req->companyId;
-                $add->type = $req->type;
-                $add->title = $req->title;
-                $add->description = $req->description;
+            $add->companyId = $req->companyId;
+            $add->type = $req->type;
+            $add->title = $req->title;
+            $add->description = $req->description;
             $add->save();
-            return back()->with('Success','Company Plan Added SuccessFully');
-        }else{
+            return back()->with('Success', 'Company Plan Added SuccessFully');
+        } else {
             $req->validate([
                 'planId' => 'required|min:1|numeric',
             ]);
-            $update = CompanyPlanDetails::where('id',$req->planId)->where('companyId',$req->companyId)->first();
-                $update->type = $req->type;
-                $update->title = $req->title;
-                $update->description = $req->description;
+            $update = CompanyPlanDetails::where('id', $req->planId)->where('companyId', $req->companyId)->first();
+            $update->type = $req->type;
+            $update->title = $req->title;
+            $update->description = $req->description;
             $update->save();
-            return back()->with('Success','Company Plan Updated SuccessFully');
+            return back()->with('Success', 'Company Plan Updated SuccessFully');
         }
     }
 
-    public function companyPlanDetailsDelete(Request $req,$companyId)
+    public function companyPlanDetailsDelete(Request $req, $companyId)
     {
         $rules = [
             'companyId' => 'required|numeric|min:1',
             'planId' => 'required|numeric|min:1',
         ];
-        $validator = validator()->make($req->all(),$rules);
-        if(!$validator->fails()){
-            $company_plan = CompanyPlanDetails::where('id',$req->planId)->where('companyId',$req->companyId)->first();
-            if($company_plan){
+        $validator = validator()->make($req->all(), $rules);
+        if (!$validator->fails()) {
+            $company_plan = CompanyPlanDetails::where('id', $req->planId)->where('companyId', $req->companyId)->first();
+            if ($company_plan) {
                 $company_plan->delete();
-                return successResponse('Company Plan Deleted Success'); 
+                return successResponse('Company Plan Deleted Success');
             }
             return errorResponse('Invalid Company Plan Id');
         }
         return errorResponse($validator->errors()->first());
     }
 
-/****************************** Company Discount ******************************/
-    public function companyDiscount(Request $req,$companyId)
+    /****************************** Company Discount ******************************/
+    public function companyDiscount(Request $req, $companyId)
     {
         $company = Company::findOrFail($companyId);
-        return view('company.discount.index',compact('company'));
+        return view('company.discount.index', compact('company'));
     }
 
-    public function saveCompanyDiscount(Request $req,$companyId)
+    public function saveCompanyDiscount(Request $req, $companyId)
     {
         $req->validate([
             'title' => 'required|max:200',
@@ -356,24 +356,23 @@ class AdminController extends Controller
         $discount->title = $req->title;
         $discount->description = $req->description;
         $discount->save();
-        return back()->with('Success','Company Discount Added SuccessFully');
+        return back()->with('Success', 'Company Discount Added SuccessFully');
     }
 
-    public function updateCompanyDiscount(Request $req,$companyId,$discountId)
+    public function updateCompanyDiscount(Request $req, $companyId, $discountId)
     {
         $req->validate([
             'title' => 'required|max:200',
             'description' => 'nullable|string',
         ]);
-        $discount = CompanyDiscount::where('id',$discountId)->where('companyId',$companyId)->first();
-        if($discount){
+        $discount = CompanyDiscount::where('id', $discountId)->where('companyId', $companyId)->first();
+        if ($discount) {
             $discount->title = $req->title;
             $discount->description = $req->description;
             $discount->save();
-            return back()->with('Success','Company Discount Updated SuccessFully');
+            return back()->with('Success', 'Company Discount Updated SuccessFully');
         }
-        return back()->with('Errors','Something went wrong Please try after some time')->withInput($req->all());
-
+        return back()->with('Errors', 'Something went wrong Please try after some time')->withInput($req->all());
     }
 
     public function deleteCompanyDiscount(Request $req)
@@ -382,10 +381,10 @@ class AdminController extends Controller
             'companyId' => 'required|min:1|numeric',
             'discountId' => 'required|min:1|numeric',
         ];
-        $validator = validator()->make($req->all(),$rules);
-        if(!$validator->fails()){
-            $discount = CompanyDiscount::where('id',$req->discountId)->where('companyId',$req->companyId)->first();
-            if($discount){
+        $validator = validator()->make($req->all(), $rules);
+        if (!$validator->fails()) {
+            $discount = CompanyDiscount::where('id', $req->discountId)->where('companyId', $req->companyId)->first();
+            if ($discount) {
                 $discount->delete();
                 return successResponse('Discount Deleted Success');
             }
@@ -394,56 +393,58 @@ class AdminController extends Controller
         return errorResponse($validator->errors()->first());
     }
 
-/****************************** Users ******************************/
-	public function getUsers(Request $req)
-	{
-		$users = User::select('*');
-        if(!empty($req->userType)){
-            if($req->userType == 2){
-                $users = $users->where('user_type',2);
+    /****************************** Users ******************************/
+    public function getUsers(Request $req)
+    {
+        $users = User::select('*');
+        if (!empty($req->userType)) {
+            if ($req->userType == 2) {
+                $users = $users->where('user_type', 2);
             }
-            if($req->userType == 3){
-                $users = $users->where('user_type',3);
+            if ($req->userType == 3) {
+                $users = $users->where('user_type', 3);
             }
         }
-        $users = $users->orderBy('users.id','DESC')->get();
-		return view('admin.user.index',compact('users','req'));
-	}
-
-    public function getUserDetails(Request $req,$userId)
-    {
-        $user = User::findOrFail($userId);
-        return view('admin.user.details',compact('user'));
+        $users = $users->orderBy('users.id', 'DESC')->get();
+        return view('admin.user.index', compact('users', 'req'));
     }
 
-	public function manageUser(Request $req)
-	{
-		$rules = [
-			'userId' => 'required|min:1|numeric',
-			'action' => 'required|in:block,unblock,delete',
-		];
-		$validator = validator()->make($req->all(),$rules);
-		if(!$validator->fails()){
-			$user = User::findOrFail($req->userId);
-			if($user){
-				if($req->action == 'block'){
-					$user->status = 0;$user->save();
-				}elseif($req->action == 'unblock'){
-					$user->status = 1;$user->save();
-				}elseif($req->action == 'delete'){
-					$user->delete();
-				}
-				return successResponse('status Updated Success',$user);
-			}
-			return errorResponse('Invalid User Id');
-		}
-		return errorResponse($validator->errors()->first());
-	}
+    public function getUserDetails(Request $req, $userId)
+    {
+        $user = User::findOrFail($userId);
+        return view('admin.user.details', compact('user'));
+    }
+
+    public function manageUser(Request $req)
+    {
+        $rules = [
+            'userId' => 'required|min:1|numeric',
+            'action' => 'required|in:block,unblock,delete',
+        ];
+        $validator = validator()->make($req->all(), $rules);
+        if (!$validator->fails()) {
+            $user = User::findOrFail($req->userId);
+            if ($user) {
+                if ($req->action == 'block') {
+                    $user->status = 0;
+                    $user->save();
+                } elseif ($req->action == 'unblock') {
+                    $user->status = 1;
+                    $user->save();
+                } elseif ($req->action == 'delete') {
+                    $user->delete();
+                }
+                return successResponse('status Updated Success', $user);
+            }
+            return errorResponse('Invalid User Id');
+        }
+        return errorResponse($validator->errors()->first());
+    }
 
     public function createUser(Request $req)
     {
-        $userType = UserType::whereIn('id',[2,3])->orderBy('id','desc')->get();
-        return view('admin.user.create',compact('userType'));
+        $userType = UserType::whereIn('id', [2, 3])->orderBy('id', 'desc')->get();
+        return view('admin.user.create', compact('userType'));
     }
 
     public function saveUser(Request $req)
@@ -464,16 +465,16 @@ class AdminController extends Controller
             $user->name = $req->name;
             $user->email = $req->email;
             $user->mobile = $req->mobile;
-            if($req->hasFile('image')){
+            if ($req->hasFile('image')) {
                 $image = $req->file('image');
-                $image->move('upload/users/image/',$random.'.'.$image->getClientOriginalExtension());
-                $imageurl = 'upload/users/image/'.$random.'.'.$image->getClientOriginalExtension();
+                $image->move('upload/users/image/', $random . '.' . $image->getClientOriginalExtension());
+                $imageurl = 'upload/users/image/' . $random . '.' . $image->getClientOriginalExtension();
                 $user->image = $imageurl;
             }
             $user->password = Hash::make($random);
             $user->save();
-            $this->setReferralCode($user,$req->referral);
-            if($req->user_type == 2){
+            $this->setReferralCode($user, $req->referral);
+            if ($req->user_type == 2) {
                 // vendor Default Form generation
                 $this->defaultFormGenerationForEveryNewVendor($user->id);
             }
@@ -484,8 +485,8 @@ class AdminController extends Controller
                 'password' => $random,
                 'content' => 'Please use the Provided password below to login',
             ];
-            sendMail($data,'emails/userRegistration',$user->email,'Congratulation - Successful Registration !!!');
-            return redirect(route('admin.users'))->with('Success','User Added SuccessFully');
+            sendMail($data, 'emails/userRegistration', $user->email, 'Congratulation - Successful Registration !!!');
+            return redirect(route('admin.users'))->with('Success', 'User Added SuccessFully');
         } catch (Exception $e) {
             DB::rollback();
             $errors['email'] = 'Something went wrong please try after sometime!';
@@ -493,12 +494,12 @@ class AdminController extends Controller
         }
     }
 
-/****************************** Contact Us ******************************/
-	public function contactUs(Request $req)
-	{
-		$contactUs = ContactUs::where('type',2)->orderBy('contactedBy','ASC')->get();
-		return view('admin.reports.contact',compact('contactUs'));
-	}
+    /****************************** Contact Us ******************************/
+    public function contactUs(Request $req)
+    {
+        $contactUs = ContactUs::where('type', 2)->orderBy('contactedBy', 'ASC')->get();
+        return view('admin.reports.contact', compact('contactUs'));
+    }
 
     public function saveRemarkOfContactUs(Request $req)
     {
@@ -506,18 +507,18 @@ class AdminController extends Controller
             'contactUsId' => 'required|min:1|numeric',
             'remark' => 'required|max:200|string',
         ]);
-        $contact = ContactUs::where('id',$req->contactUsId)->first();
+        $contact = ContactUs::where('id', $req->contactUsId)->first();
         $contact->contactedBy = auth()->user()->id;
         $contact->remarks = $req->remark;
         $contact->save();
-        return back()->with('Success','Remarks Saved Success');
+        return back()->with('Success', 'Remarks Saved Success');
     }
 
-/****************************** Blog Category ******************************/
+    /****************************** Blog Category ******************************/
     public function blogsCategory(Request $req)
     {
         $category = BlogCategory::with('blogs')->get();
-        return view('admin.blogs.category.index',compact('category'));
+        return view('admin.blogs.category.index', compact('category'));
     }
 
     public function saveBlogCategory(Request $req)
@@ -525,12 +526,12 @@ class AdminController extends Controller
         $req->validate([
             'name' => 'required|string|max:255',
         ]);
-        $category = BlogCategory::where('name',$req->name)->first();
-        if(!$category){
+        $category = BlogCategory::where('name', $req->name)->first();
+        if (!$category) {
             $category = new BlogCategory();
             $category->name = $req->name;
             $category->save();
-            return back()->with('Success','Blog Category Added SuccessFully');
+            return back()->with('Success', 'Blog Category Added SuccessFully');
         }
         $errors['name'] = 'This Blog Category already exist!';
         return back()->withErrors($errors)->withInput($req->all());
@@ -542,13 +543,13 @@ class AdminController extends Controller
             'blogCategoryId' => 'required|numeric|min:1',
             'updatename' => 'required|string|max:255',
         ]);
-        $category = BlogCategory::where('id','!=',$req->blogCategoryId)->where('name',$req->updatename)->first();
-        if(!$category){
-            $category = BlogCategory::where('id',$req->blogCategoryId)->first();
-            if($category){
+        $category = BlogCategory::where('id', '!=', $req->blogCategoryId)->where('name', $req->updatename)->first();
+        if (!$category) {
+            $category = BlogCategory::where('id', $req->blogCategoryId)->first();
+            if ($category) {
                 $category->name = $req->updatename;
                 $category->save();
-                return back()->with('Success','Blog Category Updated SuccessFully');
+                return back()->with('Success', 'Blog Category Updated SuccessFully');
             }
             $errors['updatename'] = 'Something went wrong please try after sometime!';
             return back()->withErrors($errors)->withInput($req->all());
@@ -562,34 +563,34 @@ class AdminController extends Controller
         $rules = [
             'id' => 'required|numeric|min:1',
         ];
-        $validator = validator()->make($req->all(),$rules);
-        if(!$validator->fails()){
+        $validator = validator()->make($req->all(), $rules);
+        if (!$validator->fails()) {
             $blogCategory = BlogCategory::findOrFail($req->id);
-            if($blogCategory){
-                Blog::where('blogCategoryId',$blogCategory->id)->update(['blogCategoryId'=>0]);
+            if ($blogCategory) {
+                Blog::where('blogCategoryId', $blogCategory->id)->update(['blogCategoryId' => 0]);
                 $blogCategory->delete();
-                return successResponse('Blog Category Deleted Success'); 
+                return successResponse('Blog Category Deleted Success');
             }
             return errorResponse('Invalid Blog Category Id');
         }
         return errorResponse($validator->errors()->first());
     }
 
-/****************************** Blog ******************************/
-	public function blogs(Request $req,$blogCategoryId = 0)
-	{
-		$blogs = Blog::select('*')/*->with('category')->with('posted')*/;
-        if($blogCategoryId > 0){
-            $blogs = $blogs->where('blogCategoryId',$blogCategoryId);
+    /****************************** Blog ******************************/
+    public function blogs(Request $req, $blogCategoryId = 0)
+    {
+        $blogs = Blog::select('*')/*->with('category')->with('posted')*/;
+        if ($blogCategoryId > 0) {
+            $blogs = $blogs->where('blogCategoryId', $blogCategoryId);
         }
         $blogs = $blogs->get();
-        return view('admin.blogs.index',compact('blogs'));
-	}
+        return view('admin.blogs.index', compact('blogs'));
+    }
 
     public function createBlog(Request $req)
     {
         $category = BlogCategory::get();
-        return view('admin.blogs.create',compact('category'));
+        return view('admin.blogs.create', compact('category'));
     }
 
     public function saveBlog(Request $req)
@@ -602,27 +603,27 @@ class AdminController extends Controller
         ]);
         $blog = new Blog();
         $blog->title = $req->title;
-        if(!empty($req->category)){
+        if (!empty($req->category)) {
             $blog->blogCategoryId = $req->category;
         }
         $blog->postedBy = auth()->user()->id;
-        if($req->hasFile('image')){
+        if ($req->hasFile('image')) {
             $image = $req->file('image');
             $random = randomGenerator();
-            $image->move('upload/admin/blogs/',$random.'.'.$image->getClientOriginalExtension());
-            $imageurl = 'upload/admin/blogs/'.$random.'.'.$image->getClientOriginalExtension();
+            $image->move('upload/admin/blogs/', $random . '.' . $image->getClientOriginalExtension());
+            $imageurl = 'upload/admin/blogs/' . $random . '.' . $image->getClientOriginalExtension();
             $blog->image = $imageurl;
         }
         $blog->description = emptyCheck($req->description);
         $blog->save();
-        return redirect(route('admin.blogs'))->with('Success','Blog Added SuccessFully');
+        return redirect(route('admin.blogs'))->with('Success', 'Blog Added SuccessFully');
     }
 
-    public function editBlog(Request $req,$id)
+    public function editBlog(Request $req, $id)
     {
         $blog = Blog::findOrFail($id);
         $category = BlogCategory::get();
-        return view('admin.blogs.edit',compact('blog','category'));
+        return view('admin.blogs.edit', compact('blog', 'category'));
     }
 
     public function updateBlog(Request $req)
@@ -636,19 +637,19 @@ class AdminController extends Controller
         ]);
         $blog = Blog::findOrFail($req->blogId);
         $blog->title = $req->title;
-        if(!empty($req->category)){
+        if (!empty($req->category)) {
             $blog->blogCategoryId = $req->category;
         }
-        if($req->hasFile('image')){
+        if ($req->hasFile('image')) {
             $image = $req->file('image');
             $random = randomGenerator();
-            $image->move('upload/admin/blogs/',$random.'.'.$image->getClientOriginalExtension());
-            $imageurl = 'upload/admin/blogs/'.$random.'.'.$image->getClientOriginalExtension();
+            $image->move('upload/admin/blogs/', $random . '.' . $image->getClientOriginalExtension());
+            $imageurl = 'upload/admin/blogs/' . $random . '.' . $image->getClientOriginalExtension();
             $blog->image = $imageurl;
         }
         $blog->description = emptyCheck($req->description);
         $blog->save();
-        return redirect(route('admin.blogs'))->with('Success','Blog Updated SuccessFully');
+        return redirect(route('admin.blogs'))->with('Success', 'Blog Updated SuccessFully');
     }
 
     public function deleteBlog(Request $req)
@@ -656,23 +657,23 @@ class AdminController extends Controller
         $rules = [
             'id' => 'required',
         ];
-        $validator = validator()->make($req->all(),$rules);
-        if(!$validator->fails()){
+        $validator = validator()->make($req->all(), $rules);
+        if (!$validator->fails()) {
             $blog = Blog::findOrFail($req->id);
-            if($blog){
-            	$blog->delete();
-            	return successResponse('Blog Deleted Success');	
+            if ($blog) {
+                $blog->delete();
+                return successResponse('Blog Deleted Success');
             }
-        	return errorResponse('Invalid Blog Id');
+            return errorResponse('Invalid Blog Id');
         }
         return errorResponse($validator->errors()->first());
     }
 
-/****************************** Testimonials ******************************/
+    /****************************** Testimonials ******************************/
     public function testimonials(Request $req)
     {
-    	$testimonials = Testimonials::get();
-    	return view('admin.testimonials.index',compact('testimonials'));
+        $testimonials = Testimonials::get();
+        return view('admin.testimonials.index', compact('testimonials'));
     }
 
     public function createTestimonial(Request $req)
@@ -694,21 +695,21 @@ class AdminController extends Controller
         $testimonial->title = $req->title;
         $testimonial->designation = $req->designation;
         $testimonial->quote = $req->quote;
-        if($req->hasFile('image')){
+        if ($req->hasFile('image')) {
             $image = $req->file('image');
             $random = randomGenerator();
-            $image->move('upload/admin/testimonial/',$random.'.'.$image->getClientOriginalExtension());
-            $imageurl = 'upload/admin/testimonial/'.$random.'.'.$image->getClientOriginalExtension();
+            $image->move('upload/admin/testimonial/', $random . '.' . $image->getClientOriginalExtension());
+            $imageurl = 'upload/admin/testimonial/' . $random . '.' . $image->getClientOriginalExtension();
             $testimonial->image = $imageurl;
         }
         $testimonial->save();
-        return redirect(route('admin.testimonial'))->with('Success','Testimonial Added SuccessFully');
+        return redirect(route('admin.testimonial'))->with('Success', 'Testimonial Added SuccessFully');
     }
 
     public function editTestimonial(Request $req, $id)
     {
-        $testimonial = Testimonials::where('id',$id)->first();
-        return view('admin.testimonials.edit',compact('testimonial'));
+        $testimonial = Testimonials::where('id', $id)->first();
+        return view('admin.testimonials.edit', compact('testimonial'));
     }
 
     public function updateTestimonial(Request $req)
@@ -726,15 +727,15 @@ class AdminController extends Controller
         $testimonial->title = $req->title;
         $testimonial->designation = $req->designation;
         $testimonial->quote = $req->quote;
-        if($req->hasFile('image')){
+        if ($req->hasFile('image')) {
             $image = $req->file('image');
             $random = randomGenerator();
-            $image->move('upload/admin/testimonial/',$random.'.'.$image->getClientOriginalExtension());
-            $imageurl = 'upload/admin/testimonial/'.$random.'.'.$image->getClientOriginalExtension();
+            $image->move('upload/admin/testimonial/', $random . '.' . $image->getClientOriginalExtension());
+            $imageurl = 'upload/admin/testimonial/' . $random . '.' . $image->getClientOriginalExtension();
             $testimonial->image = $imageurl;
         }
         $testimonial->save();
-        return redirect(route('admin.testimonial'))->with('Success','Testimonial Updated SuccessFully');
+        return redirect(route('admin.testimonial'))->with('Success', 'Testimonial Updated SuccessFully');
     }
 
     public function deleteTestimonial(Request $req)
@@ -742,23 +743,23 @@ class AdminController extends Controller
         $rules = [
             'id' => 'required',
         ];
-        $validator = validator()->make($req->all(),$rules);
-        if(!$validator->fails()){
+        $validator = validator()->make($req->all(), $rules);
+        if (!$validator->fails()) {
             $testimonial = Testimonials::findOrFail($req->id);
-            if($testimonial){
-            	$testimonial->delete();
-            	return successResponse('Testimonial Deleted Success');	
+            if ($testimonial) {
+                $testimonial->delete();
+                return successResponse('Testimonial Deleted Success');
             }
-        	return errorResponse('Invalid Testimonial Id');
+            return errorResponse('Invalid Testimonial Id');
         }
         return errorResponse($validator->errors()->first());
     }
 
-/****************************** How It Works ******************************/
+    /****************************** How It Works ******************************/
     public function howItWorks(Request $req)
     {
-        $howitWork = Setting::where('key','how_it_works')->get();
-        return view('admin.setting.howitworks',compact('howitWork'));
+        $howitWork = Setting::where('key', 'how_it_works')->get();
+        return view('admin.setting.howitworks', compact('howitWork'));
     }
 
     public function updateHowItWorks(Request $req)
@@ -768,7 +769,7 @@ class AdminController extends Controller
             // 'howitWorkId' => 'required|array',
             // 'howitWorkId.*' => 'required|numeric',
             'howitWorkImage' => 'nullable|array',
-            'howitWorkImage.*' => 'nullable|image',
+            'howitWorkImage.*' => 'nullable',
             'old_howitWorkimage' => 'nullable|array',
             'old_howitWorkimage.*' => 'nullable|string',
             'howitWorktitle' => 'required|array',
@@ -778,43 +779,43 @@ class AdminController extends Controller
         ]);
         DB::beginTransaction();
         try {
-            Setting::where('key','how_it_works')->delete();
-            foreach($req->howitWorktitle as $key => $newData){
+            Setting::where('key', 'how_it_works')->delete();
+            foreach ($req->howitWorktitle as $key => $newData) {
                 $howitWork = new Setting;
                 $howitWork->key = 'how_it_works';
                 $howitWork->heading = $req->howitWorkHeading;
-                if(!empty($req->howitWorkImage[$key])){
+                if (!empty($req->howitWorkImage[$key])) {
                     $image = $req->file('howitWorkImage')[$key];
                     $random = randomGenerator();
-                    $image->move('upload/admin/howitworks/',$random.'.'.$image->getClientOriginalExtension());
-                    $imageurl = 'upload/admin/howitworks/'.$random.'.'.$image->getClientOriginalExtension();
+                    $image->move('upload/admin/howitworks/', $random . '.' . $image->getClientOriginalExtension());
+                    $imageurl = 'upload/admin/howitworks/' . $random . '.' . $image->getClientOriginalExtension();
                     $howitWork->image = $imageurl;
-                }elseif(!empty($req->old_howitWorkimage[$key])){
+                } elseif (!empty($req->old_howitWorkimage[$key])) {
                     $howitWork->image = $req->old_howitWorkimage[$key];
                 }
                 $howitWork->title = $req->howitWorktitle[$key];
                 $howitWork->description = $req->howitWorkdescription[$key];
                 $howitWork->save();
-            }   
+            }
             DB::commit();
-            return back()->with('Success','How It Works Updated SuccessFully');
+            return back()->with('Success', 'How It Works Updated SuccessFully');
         } catch (Exception $e) {
             DB::rollback();
-            return back()->with('Errors','Something went wrong please try after sometime');
+            return back()->with('Errors', 'Something went wrong please try after sometime');
         }
     }
 
-    public function deleteHowItWorks(Request $req,$id)
+    public function deleteHowItWorks(Request $req, $id)
     {
-        Setting::where('id',$id)->where('key','how_it_works')->delete();
-        return back()->with('Success','Deleted SuccessFully');
+        Setting::where('id', $id)->where('key', 'how_it_works')->delete();
+        return back()->with('Success', 'Deleted SuccessFully');
     }
 
-/****************************** About Us ******************************/
+    /****************************** About Us ******************************/
     public function aboutUs(Request $req)
     {
-        $aboutus = Setting::where('key','about_us')->first();
-        return view('admin.setting.about-us',compact('aboutus'));
+        $aboutus = Setting::where('key', 'about_us')->first();
+        return view('admin.setting.about-us', compact('aboutus'));
     }
 
     public function saveaboutUs(Request $req)
@@ -826,29 +827,29 @@ class AdminController extends Controller
             'aboutusdescription' => 'required|string',
             'aboutusImage' => '',
         ]);
-        $about = Setting::where('id',$req->aboutUsId)->where('key','about_us')->first();
-        if($about){
+        $about = Setting::where('id', $req->aboutUsId)->where('key', 'about_us')->first();
+        if ($about) {
             $about->heading = $req->aboutusheading;
             $about->title = $req->aboutustitle;
             $about->description = $req->aboutusdescription;
-            if($req->hasFile('aboutusImage')){
+            if ($req->hasFile('aboutusImage')) {
                 $image = $req->file('aboutusImage');
                 $random = randomGenerator();
-                $image->move('upload/admin/aboutus/',$random.'.'.$image->getClientOriginalExtension());
-                $imageurl = 'upload/admin/aboutus/'.$random.'.'.$image->getClientOriginalExtension();
+                $image->move('upload/admin/aboutus/', $random . '.' . $image->getClientOriginalExtension());
+                $imageurl = 'upload/admin/aboutus/' . $random . '.' . $image->getClientOriginalExtension();
                 $about->image = $imageurl;
             }
             $about->save();
-            return back()->with('Success','About Us Updated SuccessFully');
+            return back()->with('Success', 'About Us Updated SuccessFully');
         }
-        return back()->with('Error','Invalid About Us Details');
+        return back()->with('Error', 'Invalid About Us Details');
     }
 
-/****************************** Why Choose Us ******************************/
+    /****************************** Why Choose Us ******************************/
     public function whyChooseUs(Request $req)
     {
-        $whychooseUs = Setting::where('key','whychooseus')->get();
-        return view('admin.setting.whychooseus',compact('whychooseUs'));
+        $whychooseUs = Setting::where('key', 'whychooseus')->get();
+        return view('admin.setting.whychooseus', compact('whychooseUs'));
     }
 
     public function updateWhyChooseUs(Request $req)
@@ -868,44 +869,44 @@ class AdminController extends Controller
         ]);
         DB::beginTransaction();
         try {
-            Setting::where('key','whychooseus')->delete();
-            foreach($req->whychoosetitle as $key => $newData){
+            Setting::where('key', 'whychooseus')->delete();
+            foreach ($req->whychoosetitle as $key => $newData) {
                 $whychoose = new Setting;
                 $whychoose->key = 'whychooseus';
-                if(!empty($req->whychooseimage[$key])){
+                if (!empty($req->whychooseimage[$key])) {
                     $image = $req->file('whychooseimage')[$key];
                     $random = randomGenerator();
-                    $image->move('upload/admin/whychooseus/',$random.'.'.$image->getClientOriginalExtension());
-                    $imageurl = 'upload/admin/whychooseus/'.$random.'.'.$image->getClientOriginalExtension();
+                    $image->move('upload/admin/whychooseus/', $random . '.' . $image->getClientOriginalExtension());
+                    $imageurl = 'upload/admin/whychooseus/' . $random . '.' . $image->getClientOriginalExtension();
                     $whychoose->image = $imageurl;
-                }elseif(!empty($req->old_whychooseimage[$key])){
+                } elseif (!empty($req->old_whychooseimage[$key])) {
                     $whychoose->image = $req->old_whychooseimage[$key];
                 }
                 $whychoose->heading = $req->whychooseheading;
                 $whychoose->title = $req->whychoosetitle[$key];
                 $whychoose->description = $req->whychoosedescription[$key];
                 $whychoose->save();
-            }   
+            }
             DB::commit();
-            return back()->with('Success','Why Choose Us Updated SuccessFully');
+            return back()->with('Success', 'Why Choose Us Updated SuccessFully');
         } catch (Exception $e) {
             DB::rollback();
-            return back()->with('Errors','Something went wrong please try after sometime');
+            return back()->with('Errors', 'Something went wrong please try after sometime');
         }
     }
 
-    public function deleteWhyChooseUs(Request $req,$id)
+    public function deleteWhyChooseUs(Request $req, $id)
     {
         // Setting::where('id',$id)->where('key','whychooseus')->delete();
-        return back()->with('Success','Deleted SuccessFully');
+        return back()->with('Success', 'Deleted SuccessFully');
     }
 
 
-/****************************** FAQ ******************************/
+    /****************************** FAQ ******************************/
     public function faq(Request $req)
     {
         $faq = Faq::get();
-        return view('admin.faq.index',compact('faq'));
+        return view('admin.faq.index', compact('faq'));
     }
 
     public function createFaq(Request $req)
@@ -923,13 +924,13 @@ class AdminController extends Controller
         $faq->title = $req->title;
         $faq->description = $req->description;
         $faq->save();
-        return redirect(route('admin.faq'))->with('Success','Faq Added SuccessFully');
+        return redirect(route('admin.faq'))->with('Success', 'Faq Added SuccessFully');
     }
 
     public function editFaq(Request $req, $id)
     {
         $faq = Faq::findOrFail($id);
-        return view('admin.faq.edit',compact('faq'));
+        return view('admin.faq.edit', compact('faq'));
     }
 
     public function updateFaq(Request $req)
@@ -943,7 +944,7 @@ class AdminController extends Controller
         $faq->title = $req->title;
         $faq->description = $req->description;
         $faq->save();
-        return redirect(route('admin.faq'))->with('Success','Faq Updated SuccessFully');
+        return redirect(route('admin.faq'))->with('Success', 'Faq Updated SuccessFully');
     }
 
     public function deleteFaq(Request $req)
@@ -951,35 +952,35 @@ class AdminController extends Controller
         $rules = [
             'id' => 'required',
         ];
-        $validator = validator()->make($req->all(),$rules);
-        if(!$validator->fails()){
+        $validator = validator()->make($req->all(), $rules);
+        if (!$validator->fails()) {
             $faq = Faq::findOrFail($req->id);
-            if($faq){
+            if ($faq) {
                 $faq->delete();
-                return successResponse('Faq Deleted Success');  
+                return successResponse('Faq Deleted Success');
             }
             return errorResponse('Invalid Faq Id');
         }
         return errorResponse($validator->errors()->first());
     }
-/****************************** Referral List ******************************/
-    public function getReferredToList(Request $req,$userId)
+    /****************************** Referral List ******************************/
+    public function getReferredToList(Request $req, $userId)
     {
         $user = User::findorFail($userId);
-        return view('admin.referral.referred_to',compact('user'));
+        return view('admin.referral.referred_to', compact('user'));
     }
 
-/****************************** User List ******************************/
-    public function getUserPoints(Request $req,$userId)
+    /****************************** User List ******************************/
+    public function getUserPoints(Request $req, $userId)
     {
         $user = User::findorFail($userId);
-        return view('auth.user.point_info',compact('user'));
+        return view('auth.user.point_info', compact('user'));
     }
-/****************************** Membership ******************************/
+    /****************************** Membership ******************************/
     public function membership(Request $req)
     {
         $membership = Membership::select('*')->get();
-        return view('admin.membership.index',compact('membership'));
+        return view('admin.membership.index', compact('membership'));
     }
 
     public function createMembership(Request $req)
@@ -1001,7 +1002,7 @@ class AdminController extends Controller
         $newmember->duration = $req->duration;
         $newmember->description = $req->description;
         $newmember->save();
-        return redirect(route('admin.membership'))->with('Success','Membership Created SuccessFully');
+        return redirect(route('admin.membership'))->with('Success', 'Membership Created SuccessFully');
     }
 
     public function updateMembershipStatus(Request $req)
@@ -1010,33 +1011,33 @@ class AdminController extends Controller
             'id' => 'required|min:1|numeric',
             'is_active' => 'required|in:0,1',
         ];
-        $validator = validator()->make($req->all(),$rules);
-        if(!$validator->fails()){
-            Membership::where('id',$req->id)->update(['is_active' => $req->is_active]);
+        $validator = validator()->make($req->all(), $rules);
+        if (!$validator->fails()) {
+            Membership::where('id', $req->id)->update(['is_active' => $req->is_active]);
             return successResponse('Membership status updated success');
         }
         return errorResponse($validator->errors()->first());
     }
 
-/****************************** Product ******************************/
-	public function products($productId = 0)
-	{
+    /****************************** Product ******************************/
+    public function products($productId = 0)
+    {
         $products = Product::select('*');
-        if($productId > 0){
-            $products = $products->where('id',$productId);
+        if ($productId > 0) {
+            $products = $products->where('id', $productId);
         }
-        if(urlPrefix() != 'admin'){
-            $products = $products->where('created_by',auth()->user()->id);
+        if (urlPrefix() != 'admin') {
+            $products = $products->where('created_by', auth()->user()->id);
         }
         $products = $products->get();
-        return view('product.index',compact('products'));
-	}
+        return view('product.index', compact('products'));
+    }
 
     public function createProduct()
     {
         $companies = Company::select('*');
-        if(urlPrefix() != 'admin'){
-            $companies = $companies->where('created_by',auth()->user()->id);
+        if (urlPrefix() != 'admin') {
+            $companies = $companies->where('created_by', auth()->user()->id);
         }
         $companies = $companies->get();
         return view('product.create', compact('companies'));
@@ -1060,26 +1061,26 @@ class AdminController extends Controller
         DB::beginTransaction();
         try {
             $product = new Product();
-                $product->name = $req->name;
-                $product->product_for = implode(',',$req->product_for);
-                $product->company_id = $req->company_id;
-                $product->tag = $req->tag;
-                $product->created_by = auth()->user()->id;
-                $product->tag_description = emptyCheck($req->tag_description);
-                $product->terms_condition = emptyCheck($req->terms_condition);
+            $product->name = $req->name;
+            $product->product_for = implode(',', $req->product_for);
+            $product->company_id = $req->company_id;
+            $product->tag = $req->tag;
+            $product->created_by = auth()->user()->id;
+            $product->tag_description = emptyCheck($req->tag_description);
+            $product->terms_condition = emptyCheck($req->terms_condition);
             $product->save();
             $gas = new ProductGas();
-                $gas->title = emptyCheck($req->gas_title);
-                $gas->product_id = $product->id;
-                $gas->price = $req->gas_price;
+            $gas->title = emptyCheck($req->gas_title);
+            $gas->product_id = $product->id;
+            $gas->price = $req->gas_price;
             $gas->save();
             $electricity = new ProductElectricity();
-                $electricity->title = emptyCheck($req->electricty_title);
-                $electricity->product_id = $product->id;
-                $electricity->price = $req->electricty_price;
+            $electricity->title = emptyCheck($req->electricty_title);
+            $electricity->product_id = $product->id;
+            $electricity->price = $req->electricty_price;
             $electricity->save();
             DB::commit();
-            return redirect(route(urlPrefix().'.products'))->with('Success','Product Added SuccessFully');
+            return redirect(route(urlPrefix() . '.products'))->with('Success', 'Product Added SuccessFully');
         } catch (Exception $e) {
             DB::rollback();
             $errors['company_id'] = 'Something went wrong please try after sometime!';
@@ -1087,18 +1088,18 @@ class AdminController extends Controller
         }
     }
 
-    public function editProduct(Request $req,$productId)
+    public function editProduct(Request $req, $productId)
     {
         $product = Product::findOrFail($productId);
         $companies = Company::select('*');
-        if(urlPrefix() != 'admin'){
-            $companies = $companies->where('created_by',auth()->user()->id);
+        if (urlPrefix() != 'admin') {
+            $companies = $companies->where('created_by', auth()->user()->id);
         }
         $companies = $companies->get();
-        return view('product.edit',compact('product', 'companies'));
+        return view('product.edit', compact('product', 'companies'));
     }
 
-    public function updateProduct(Request $req,$productId)
+    public function updateProduct(Request $req, $productId)
     {
         $req->validate([
             'productId' => 'required|min:1|numeric',
@@ -1117,58 +1118,58 @@ class AdminController extends Controller
         DB::beginTransaction();
         try {
             $product = Product::findOrFail($req->productId);
-                $product->name = $req->name;
-                $product->product_for = implode(',',$req->product_for);
-                $product->company_id = $req->companyId;
-                $product->tag = $req->tag;
-                $product->tag_description = emptyCheck($req->tag_description);
-                $product->terms_condition = emptyCheck($req->terms_condition);
+            $product->name = $req->name;
+            $product->product_for = implode(',', $req->product_for);
+            $product->company_id = $req->companyId;
+            $product->tag = $req->tag;
+            $product->tag_description = emptyCheck($req->tag_description);
+            $product->terms_condition = emptyCheck($req->terms_condition);
             $product->save();
-            $gas = ProductGas::where('product_id',$product->id)->first();
-                $gas->title = emptyCheck($req->gas_title);
-                $gas->price = $req->gas_price;
+            $gas = ProductGas::where('product_id', $product->id)->first();
+            $gas->title = emptyCheck($req->gas_title);
+            $gas->price = $req->gas_price;
             $gas->save();
-            $electricity = ProductElectricity::where('product_id',$product->id)->first();
-                $electricity->title = emptyCheck($req->electricty_title);
-                $electricity->price = $req->electricty_price;
+            $electricity = ProductElectricity::where('product_id', $product->id)->first();
+            $electricity->title = emptyCheck($req->electricty_title);
+            $electricity->price = $req->electricty_price;
             $electricity->save();
             DB::commit();
-            return redirect(route(urlPrefix().'.products'))->with('Success','Product Updated SuccessFully');
-        }catch(Exception $e) {
+            return redirect(route(urlPrefix() . '.products'))->with('Success', 'Product Updated SuccessFully');
+        } catch (Exception $e) {
             DB::rollback();
             $errors['company_id'] = 'Something went wrong please try after sometime!';
             return back()->withErrors($errors)->withInput($req->all());
         }
     }
 
-    public function deleteProduct(Request $req,$productId)
+    public function deleteProduct(Request $req, $productId)
     {
         $rules = [
             'productId' => 'required|numeric|min:1',
         ];
-        $validator = validator()->make($req->all(),$rules);
-        if(!$validator->fails()){
+        $validator = validator()->make($req->all(), $rules);
+        if (!$validator->fails()) {
             $product = Product::findOrFail($req->productId);
-            if($product){
-                ProductRating::where('product_id',$product->id)->delete();
-                ProductGas::where('product_id',$product->id)->delete();
-                ProductElectricity::where('product_id',$product->id)->delete();
-            	$product->delete();
-            	return successResponse('Product Deleted Success');	
+            if ($product) {
+                ProductRating::where('product_id', $product->id)->delete();
+                ProductGas::where('product_id', $product->id)->delete();
+                ProductElectricity::where('product_id', $product->id)->delete();
+                $product->delete();
+                return successResponse('Product Deleted Success');
             }
-        	return errorResponse('Invalid Product Id');
+            return errorResponse('Invalid Product Id');
         }
         return errorResponse($validator->errors()->first());
     }
 
     /****************************** Product Momenta ******************************/
-	public function productMomenta(Request $req,$productId)
-	{
+    public function productMomenta(Request $req, $productId)
+    {
         $product = Product::findOrFail($productId);
-        return view('product.momenta.index',compact('product'));
-	}
+        return view('product.momenta.index', compact('product'));
+    }
 
-    public function saveProductMomenta(Request $req,$productId)
+    public function saveProductMomenta(Request $req, $productId)
     {
         $req->validate([
             'title' => 'required|max:200',
@@ -1179,38 +1180,38 @@ class AdminController extends Controller
         $momenta->title = $req->title;
         $momenta->description = $req->description;
         $random = randomGenerator();
-        if($req->hasFile('momenta_icon')){
+        if ($req->hasFile('momenta_icon')) {
             $image = $req->file('momenta_icon');
-            $image->move('upload/products/momenta/image/',$random.'.'.$image->getClientOriginalExtension());
-            $imageurl = 'upload/products/momenta/image/'.$random.'.'.$image->getClientOriginalExtension();
+            $image->move('upload/products/momenta/image/', $random . '.' . $image->getClientOriginalExtension());
+            $imageurl = 'upload/products/momenta/image/' . $random . '.' . $image->getClientOriginalExtension();
             $momenta->icon = $imageurl;
         }
         $momenta->save();
-        return redirect(route(urlPrefix().'.products.momenta',$productId))->with('Success','Product Momenta Added SuccessFully');
+        return redirect(route(urlPrefix() . '.products.momenta', $productId))->with('Success', 'Product Momenta Added SuccessFully');
     }
 
-    public function updateProductMomenta(Request $req,$productId,$momentaId)
+    public function updateProductMomenta(Request $req, $productId, $momentaId)
     {
         $req->validate([
             'title' => 'required|max:200',
             'description' => 'nullable|string',
         ]);
-        $momenta = ProductMomentum::where('id',$momentaId)->where('productId',$productId)->first();
-        if($momenta){
+        $momenta = ProductMomentum::where('id', $momentaId)->where('productId', $productId)->first();
+        if ($momenta) {
             $momenta->title = $req->title;
             $momenta->description = $req->description;
             $random = randomGenerator();
-            if($req->hasFile('momenta_icon')){
-                if($momenta->icon != '' && \File::exists($momenta->icon)){
+            if ($req->hasFile('momenta_icon')) {
+                if ($momenta->icon != '' && \File::exists($momenta->icon)) {
                     unlink($momenta->icon);
                 }
                 $image = $req->file('momenta_icon');
-                $image->move('upload/products/momenta/image/',$random.'.'.$image->getClientOriginalExtension());
-                $imageurl = 'upload/products/momenta/image/'.$random.'.'.$image->getClientOriginalExtension();
+                $image->move('upload/products/momenta/image/', $random . '.' . $image->getClientOriginalExtension());
+                $imageurl = 'upload/products/momenta/image/' . $random . '.' . $image->getClientOriginalExtension();
                 $momenta->icon = $imageurl;
             }
             $momenta->save();
-            return redirect(route(urlPrefix().'.products.momenta',$productId))->with('Success','Product Momenta Updated SuccessFully');
+            return redirect(route(urlPrefix() . '.products.momenta', $productId))->with('Success', 'Product Momenta Updated SuccessFully');
         }
     }
     public function deleteProductMomenta(Request $req)
@@ -1219,14 +1220,14 @@ class AdminController extends Controller
             'productId' => 'required|min:1|numeric',
             'momentaId' => 'required|min:1|numeric',
         ];
-        $validator = validator()->make($req->all(),$rules);
-        if(!$validator->fails()){
-            $momenta = ProductMomentum::where('id',$req->momentaId)->where('productId',$req->productId)->first();
-            if($momenta){
-            	$momenta->delete();
-            	return successResponse('Momenta Deleted Success');
+        $validator = validator()->make($req->all(), $rules);
+        if (!$validator->fails()) {
+            $momenta = ProductMomentum::where('id', $req->momentaId)->where('productId', $req->productId)->first();
+            if ($momenta) {
+                $momenta->delete();
+                return successResponse('Momenta Deleted Success');
             }
-        	return errorResponse('Invalid Momenta Id');
+            return errorResponse('Invalid Momenta Id');
         }
         return errorResponse($validator->errors()->first());
     }
@@ -1234,8 +1235,8 @@ class AdminController extends Controller
     /****************************** States ******************************/
     public function states(Request $req)
     {
-        $state = State::where('countryId',2)->get();
-        return view('supplier.state',compact('state'));
+        $state = State::where('countryId', 2)->get();
+        return view('supplier.state', compact('state'));
     }
 
     public function addOrUpdateState(Request $req)
@@ -1246,30 +1247,30 @@ class AdminController extends Controller
             'state' => 'required|string|max:200',
             'acronym' => 'required|string|max:20',
         ]);
-        if($req->form_type == 'add'){
-            $checkState = State::where('countryId',$req->country)->where('name',$req->state)->first();
-            if(!$checkState){
+        if ($req->form_type == 'add') {
+            $checkState = State::where('countryId', $req->country)->where('name', $req->state)->first();
+            if (!$checkState) {
                 $state = new State();
-                    $state->countryId = $req->country;
-                    $state->name = $req->state;
-                    $state->acronym = $req->acronym;
+                $state->countryId = $req->country;
+                $state->name = $req->state;
+                $state->acronym = $req->acronym;
                 $state->save();
-                return back()->with('Success','State Added SuccessFully');
+                return back()->with('Success', 'State Added SuccessFully');
             }
             $error['state'] = 'This State is Already Exists';
             return back()->withErrors($error)->withInput($req->all());
-        }else{
+        } else {
             $req->validate([
                 'stateId' => 'required|numeric|min:1',
             ]);
-            $checkState = State::where('id','!=',$req->stateId)->where('countryId',$req->country)->where('name',$req->state)->first();
-            if(!$checkState){
-                $state = State::where('id',$req->stateId)->first();
-                    $state->countryId = $req->country;
-                    $state->name = $req->state;
-                    $state->acronym = $req->acronym;
+            $checkState = State::where('id', '!=', $req->stateId)->where('countryId', $req->country)->where('name', $req->state)->first();
+            if (!$checkState) {
+                $state = State::where('id', $req->stateId)->first();
+                $state->countryId = $req->country;
+                $state->name = $req->state;
+                $state->acronym = $req->acronym;
                 $state->save();
-                return back()->with('Success','State Updated SuccessFully');
+                return back()->with('Success', 'State Updated SuccessFully');
             }
             $error['state'] = 'This State is Already Exists';
             return back()->withErrors($error)->withInput($req->all());
@@ -1281,15 +1282,77 @@ class AdminController extends Controller
         $rules = [
             'stateId' => 'required|numeric|min:1',
         ];
-        $validator = validator()->make($req->all(),$rules);
-        if(!$validator->fails()){
+        $validator = validator()->make($req->all(), $rules);
+        if (!$validator->fails()) {
             $state = State::findOrFail($req->stateId);
-            if($state){
+            if ($state) {
                 $state->delete();
-                return successResponse('State Deleted Success'); 
+                return successResponse('State Deleted Success');
             }
             return errorResponse('Invalid State Id');
         }
         return errorResponse($validator->errors()->first());
+    }
+
+    // *************************individual Utility*************************
+    public function individualUtility(Request $req)
+    {
+        $utility = Setting::where('key', 'individualutility')->get();
+        // dd($utility);
+        return view('admin.setting.individualutility', compact('utility'));
+    }
+
+    public function updateIndividualUtility(Request $req)
+    {
+        $req->validate([
+            'utilityheading' => 'required|string|max:200',
+            // 'whychooseId' => 'required|array',
+            // 'whychooseId.*' => 'required|numeric',
+            'utilityImage' => 'nullable|array',
+            'utilityImage.*' => 'nullable|image',
+            'old_utilityimage' => 'nullable|array',
+            'old_utilityimage.*' => 'nullable|string',
+            'utilitytitle' => 'required|array',
+            'utilitytitle.*' => 'required|string|max:200',
+            'utilitydescription' => 'required|array',
+            'utilitydescription.*' => 'required|string',
+        ]);
+        DB::beginTransaction();
+        try {
+            Setting::where('key', 'individualutility')->delete();
+            foreach ($req->utilitytitle as $key => $newData) {
+                $utility = new Setting;
+                $utility->key = 'individualutility';
+                if (!empty($req->utilityimage[$key])) {
+                    $image = $req->file('utilityimage')[$key];
+                    $random = randomGenerator();
+                    $image->move('upload/admin/individualutility/', $random . '.' . $image->getClientOriginalExtension());
+                    $imageurl = 'upload/admin/individualutility/' . $random . '.' . $image->getClientOriginalExtension();
+                    $utility->image = $imageurl;
+                    $utility->save();
+                } elseif (!empty($req->old_utilityimage[$key])) {
+                    $utility->image = $req->old_utilityimage[$key];
+                    $utility->save();
+                }
+                // $utility->image = $imageurl;
+                $utility->heading = $req->utilityheading;
+                $utility->title = $req->utilitytitle[$key];
+                $utility->description = $req->utilitydescription[$key];
+                $utility->save();
+            }
+            DB::commit();
+            return back()->with('Success', 'Individual Utility Updated SuccessFully');
+        } catch (Exception $e) {
+            DB::rollback();
+            return back()->with('Errors', 'Something went wrong please try after sometime');
+        }
+    }
+
+    public function deleteIndividualUtility(Request $req, $id)
+    {
+        Setting::where('id', $id)->where('key', 'individualutility')->delete();
+        return back()->with('Success', 'Deleted SuccessFully');
+        // Setting::where('id',$id)->where('key','whychooseus')->delete();
+        // return back()->with('Success', 'Deleted SuccessFully');
     }
 }
