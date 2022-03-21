@@ -76,11 +76,11 @@
 
 
 
-<section class="contact_sec">
+<section class="contact_sec login_sec">
 	<div class="container">
 		<div class="row m-0">
 			<div class="col-12 col-lg-6 p-lg-0 address_text">
-				<img src="{{asset('forntEnd/img/sign-in.png')}}">
+				<!--<img src="{{asset('forntEnd/img/sign-in.png')}}">-->
 			</div>
 			<div class="col-12 col-lg-6 ps-lg-5 p-lg-0">
 				<div class="card border-0 p-3 p-lg-4">
@@ -94,23 +94,23 @@
 					<p data-aos="fade-up" data-aos-duration="1400" class="mt-3 mb-3">To keep connected with us please login with your personal information by email address and password. <img src="{{asset('forntEnd/img/moj.png')}}" class="ms-2"></p>
 				</div>
 					@error('thankyou')
-								<span class="text-success" role="alert"><strong>{{ $message }}</strong></span><br>
+								<span class="text-success" role="alert">{{ $message }}</span><br>
 							@enderror
 					<form method="post" action="{{ route('login') }}">
 						@csrf
 						
-						<div class="mb-3">
-                         <img src="{{asset('forntEnd/img/envelop-3.png')}}">
+						<div class="mb-3 position-relative">
+                         <!--<img src="{{asset('forntEnd/img/envelop-3.png')}}" class="input_img">-->
 							<input type="email"  name="email" class="form-control @error('email'){{'is-invalid'}}@enderror" placeholder="Email Address*">
 							@error('email')
-							<span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+							<span class="invalid-feedback" role="alert">{{ $message }}</span>
 							@enderror
 						</div>
-						<div class="mb-3">
-                        <img src="{{asset('forntEnd/img/lock.png')}}">
+						<div class="mb-3 position-relative">
+                        <!--<img src="{{asset('forntEnd/img/lock.png')}}" class="input_img">-->
 							<input type="text"  name="password" class="form-control @error('password'){{'is-invalid'}}@enderror" placeholder="password*">
 							@error('password')
-							<span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+							<span class="invalid-feedback" role="alert">{{ $message }}</span>
 							@enderror
 						</div>
 					

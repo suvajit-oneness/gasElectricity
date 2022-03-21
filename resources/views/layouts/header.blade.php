@@ -3,8 +3,7 @@
         <button class="openbtn nav-toggler" id="openbutton" onclick="openNav()">
             <i class="fas fa-bars"></i>
         </button>
-        
-        <a class="navbar-brand" href="{{url('/')}}"><img src="{{asset('forntEnd/images/logo.png')}}" width="140px"></a>
+        <a class="navbar-brand" href="{{url('/')}}"><img src="{{asset('forntEnd/img/logo3.png')}}" width="140px"></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
