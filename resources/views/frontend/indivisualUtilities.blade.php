@@ -162,7 +162,7 @@
 				</div>
 				<div class="row m-0 mt-4 mt-lg-5 align-items-center need_to_text">
 					@foreach ($data->individual as $key => $individual)
-					<?php if(($key + 1) %2 == 0){?>
+					@if(($key + 1) %2 == 0)
 						<div class="col-12 col-lg-6">
 							<h6>{{$individual->title}}</h6>
 							<p>
@@ -172,7 +172,7 @@
 						<div class="col-12 col-lg-6">
 							<img src="{{asset($individual->image)}}" class="w-100">
 						</div>
-					<?php }else{?>
+					@else 
 						<div class="col-12 col-lg-5 text-lg-end">
 							<img src="{{asset($individual->image)}}" class="w-75">
 						</div>
@@ -182,7 +182,7 @@
 								{{$individual->description}}
 							</p>
 						</div>	
-					<?PHP } ?>
+					@endif
 					@endforeach
 				</div>
 			</div>
