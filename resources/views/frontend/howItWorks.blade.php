@@ -26,7 +26,7 @@
 		<section class="how_it_sec">
 			<div class="container-fluid">
 				@foreach($data->howItWorks as $key => $howWorks)
-					<?php if(($key + 1) %2 ==0){?>
+					 @if(($key + 1) %2 ==0)
 						<div class="row m-0 how_it_sub align-items-center">
 							<div class="col-12 col-lg-6 text-sec">
 								<div class="page_title">
@@ -38,7 +38,7 @@
 								<img src="{{asset($howWorks->image)}}"> 
 							</div>
 						</div>
-					<?php }else{?>
+					@else
 						<div class="row m-0 how_it_sub align-items-center">
 							<div class="col-12 col-lg-6 img-sec order-lg-1 order-2">
 								<img src="{{asset($howWorks->image)}}"> 
@@ -52,7 +52,7 @@
 								</div>
 							</div>
 						</div>
-					<?php }?>
+					@endif
 						
 						
 				@endforeach
