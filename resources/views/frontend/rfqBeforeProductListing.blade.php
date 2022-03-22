@@ -20,172 +20,253 @@
 			<div class="col-12 col-lg-7 p-0">
 				<div class="card border-0">
 					<form method="post" action="{{route('elecricity.form.rfq.save')}}" enctype="multipart/form-data" id="RFqFormSection">
-					@csrf
-						<div class="row m-0 justify-content-center">
-						<div class="col-12 col-lg-10">
-							<ul>
-								<li class="active"><a href="">1</a></li>
-								<li><a href="">2</a></li>
-								<li><a href="">3</a></li>
-								<li><a href="">4</a></li>
-							</ul>
-						</div>
-						</div>
-						<div class="sw_form">
-						<div class="row m-0 mb-3 mb-lg-4 pb-3 pb-lg-4 border-bottom">
-							<h6>Choose a service</h6>
-							@foreach($requestedData as $key => $value)
-								<input type="hidden" name="otherPageRequest[{{$key}}]" value="{{$value}}">
-							@endforeach
-							<div class="col-12 col-lg-4 p-0">
-								<div class="form-check ct_select">
+						@csrf
+							<div class="row m-0 justify-content-center">
+							<div class="col-12 col-lg-10">
+								<ul>
+									<li class="active"><a href="">1</a></li>
+									<li><a href="">2</a></li>
+									<li><a href="">3</a></li>
+									<li><a href="">4</a></li>
+								</ul>
+							</div>
+							</div>
+							<div class="sw_form">
+							<div class="row m-0 mb-3 mb-lg-4 pb-3 pb-lg-4 border-bottom">
+								<h6>Choose a service</h6>
+								@foreach($requestedData as $key => $value)
+									<input type="hidden" name="otherPageRequest[{{$key}}]" value="{{$value}}">
+								@endforeach
+								<div class="col-12 col-lg-4 p-0">
+									<div class="form-check ct_select">
+										<label class="form-check-label">
+											<input class="form-check-input" type="radio" id="customRadio1" name="energy_type" value="gas_electricity" @if(old('energy_type') == 'gas_electricity'){{('checked')}}@endif>
+											Gas & Electricity
+										</label>
+									</div>
+								</div>
+								<div class="col-12 col-lg-4 p-0">
+									<div class="form-check ct_select">
+										<label class="form-check-label">
+											<input class="form-check-input" type="radio" name="energy_type" id="customRadio2"  value="electricity" @if(old('energy_type') == 'electricity'){{('checked')}}@elseif(!old('energy_type')){{('checked')}}@endif>
+											Electricity
+										</label>
+									</div>
+								</div>
+								<div class="col-6 col-lg-4 p-0">
+									<div class="form-check ct_select">
+										<label class="form-check-label">
+											<input class="form-check-input" type="radio" id="customRadio3" class="custom-control-input" name="energy_type" value="gas" @if(old('energy_type') == 'gas'){{('checked')}}@endif>
+											Gas
+										</label>
+									</div>
+								</div>
+							</div>
+							@error('energy_type')<span class="text-danger">{{$message}}</span>@enderror
+							<div class="row m-0 mb-3 mb-lg-4 pb-3 pb-lg-4 border-bottom">
+								<h6> What type of property? <span class="text-danger">*</span></h6>
+								<div class="col-12 col-lg-4 p-0">
+									<div class="form-check ct_select">
+										<label class="form-check-label">
+											<input class="form-check-input" type="radio" id="myhome" name="type_of_property" value="home" @if(old('type_of_property') == 'home'){{('checked')}}@elseif(!old('type_of_property')){{('checked')}}@endif>
+											My home
+										</label>
+									</div>
+								</div>
+								<div class="col-12 col-lg-4 p-0">
+									<div class="form-check ct_select">
+										<label class="form-check-label">
+											<input class="form-check-input" type="radio" id="mybusness" name="type_of_property" value="business" @if(old('type_of_property') == 'business'){{('checked')}}@endif>
+											My business
+										</label>
+									</div>
+								</div>
+							</div>
+							<div class="row m-0 mb-3 mb-lg-4 pb-3 pb-lg-4 border-bottom">
+								<h6 class="mb-3"> Do you own or rent the property? <span class="text-danger">*</span></h6>
+								<div class="col-12 col-lg-8">
+									<label class="form-check-label mb-3">
+										Do you have your Elecricity / Gas Bill ?
+									</label>
+									<input class="form-control" type="file" id="OCRFormField" class="form-control @error('file'){{('is_invalid')}}@enderror" onchange="OCRFILEUPLOAD(event)">
+								</div>
+							</div>
+							<div class="row m-0 mb-3 mb-lg-6 pb-3 pb-lg-4 border-bottom">
+								<h6 class="mb-3"> Energy usage details  <span class="text-danger">*</span></h6>
+								<div class="col-12 col-lg-6">
+									<label class="form-check-label mb-3">
+										kWh usage
+									</label>
+									<input type="text"  id="kwh_usage" name="kwh_usage" placeholder="kWh usage" class="form-control @error('kwh_usage'){{('is_invalid')}}@enderror" value="{{(old('kwh_usage'))}}">
+									@error('kwh_usage')<span class="text-danger">{{$message}}</span>@enderror
+								</div>
+								<div class="col-12 col-lg-6">
+									<label class="form-check-label mb-3">
+										kWh rate
+									</label>
+									<input type="text" id="kwh_rate" name="kwh_rate" placeholder="kWh rate" class="form-control @error('kwh_rate'){{('is_invalid')}}@enderror" value="{{(old('kwh_rate'))}}">
+			    					@error('kwh_rate')<span class="text-danger">{{$message}}</span>@enderror
+								</div>
+								<div class="col-12 col-lg-6">
+									<label class="form-check-label mb-3">
+										Service charged period
+									</label>
+									<input type="text" id="serviceChargedPeriod" name="serviceChargedPeriod" placeholder="Service charged period" class="form-control @error('serviceChargedPeriod'){{('is_invalid')}}@enderror" value="{{(old('serviceChargedPeriod'))}}">
+			    					@error('serviceChargedPeriod')<span class="text-danger">{{$message}}</span>@enderror
+								</div>
+								<div class="col-12 col-lg-6">
+									<label class="form-check-label mb-3">
+										Service charged rate
+									</label>
+									<input type="text" id="serviceChargedRate" name="serviceChargedRate" placeholder="Service charged rate" class="form-control @error('serviceChargedRate'){{('is_invalid')}}@enderror" value="{{(old('serviceChargedRate'))}}">
+			    					@error('serviceChargedRate')<span class="text-danger">{{$message}}</span>@enderror
+								</div>
+							</div>
+							<div class="row m-0 mb-3 mb-lg-4 pb-3 pb-lg-4 border-bottom">
+								<h6>What level best describes your typical electricity usage?</h6>
+								@foreach($requestedData as $key => $value)
+									<input type="hidden" name="otherPageRequest[{{$key}}]" value="{{$value}}">
+								@endforeach
+								<div class="col-12 col-lg-4 p-0">
+									<div class="form-check ct_select">
+										<label class="form-check-label">
+											<input class="form-check-input" type="radio" name="electricity_usage" value="low"  @if(old('electricity_usage') == 'low'){{('checked')}}@endif>
+											Low
+										</label>
+									</div>
+								</div>
+								<div class="col-12 col-lg-4 p-0">
+									<div class="form-check ct_select">
+										<label class="form-check-label">
+											<input class="form-check-input" type="radio" id="Medium" name="electricity_usage" value="medium" @if(old('electricity_usage') == 'medium'){{('checked')}}@elseif(!old('electricity_usage')){{('checked')}}@endif>
+											Medium
+										</label>
+									</div>
+								</div>
+								<div class="col-6 col-lg-4 p-0">
+									<div class="form-check ct_select">
+										<label class="form-check-label">
+											<input class="form-check-input" type="radio"  id="High" name="electricity_usage" value="high" @if(old('electricity_usage') == 'high'){{('checked')}}@endif>
+											High
+										</label>
+									</div>
+								</div>
+							</div>
+							@error('type_of_property')<span class="text-danger">{{$message}}</span>@enderror
+							<!--<div class="row m-0 mb-3 mb-lg-4 pb-3 pb-lg-4 border-bottom">
+								<h6> Do you own or rent the property? <span class="text-danger">*</span></h6>
+								<div class="col-12 col-lg-4 p-0">
+									<div class="form-check ct_select">
+										<label class="form-check-label">
+											<input class="form-check-input" type="radio" name="flexRadioDefault" id="ch6">
+											Gas & Electricity
+										</label>
+									</div>
+								</div>
+								<div class="col-12 col-lg-4 p-0">
+									<div class="form-check ct_select">
+										<label class="form-check-label">
+											<input class="form-check-input" type="radio" name="flexRadioDefault" id="ch7">
+											Electricity
+										</label>
+									</div>
+								</div>
+							</div>
+							<div class="row m-0 mb-3 mb-lg-4 pb-3 pb-lg-4 border-bottom">
+								<h6> Are you moving into this property? <span class="text-danger">*</span></h6>
+								<div class="col-6 col-lg-4 p-0">
+									<div class="form-check ct_select">
+										<label class="form-check-label">
+											<input class="form-check-input" type="radio" name="flexRadioDefault" id="ch8">
+											Yes
+										</label>
+									</div>
+								</div>
+								<div class="col-6 col-lg-4 p-0">
+									<div class="form-check ct_select">
+										<label class="form-check-label">
+											<input class="form-check-input" type="radio" name="flexRadioDefault" id="ch9">
+											No
+										</label>
+									</div>
+								</div>
+							</div>
+							<div class="row m-0 mb-3 mb-lg-4 pb-3 pb-lg-4 border-bottom">
+								<h6> What is your move in date?  <span class="text-danger">*</span></h6>
+								<div class="col-6 col-lg-4 p-0">
+									
+								</div>
+							</div>
+							<div class="row m-0 mb-3 mb-lg-4 pb-3 pb-lg-4 border-bottom">
+								<h6> Do you also need to connect a broadband or home 
+									entertainment service? <span class="text-danger">*</span></h6>
+								<div class="col-6 col-lg-4 p-0">
+									<div class="form-check ct_select">
+										<label class="form-check-label">
+											<input class="form-check-input" type="radio" name="flexRadioDefault" id="ch12">
+											Yes
+										</label>
+									</div>
+								</div>
+								<div class="col-6 col-lg-4 p-0">
+									<div class="form-check ct_select">
+										<label class="form-check-label">
+											<input class="form-check-input" type="radio" name="flexRadioDefault" id="ch13">
+											No
+										</label>
+									</div>
+								</div>
+							</div>
+							<div class="row m-0">
+								<h6> Do you have gas connection to the property? <span class="text-danger">*</span></h6>
+								<div class="col-6 col-lg-4 p-0">
+									<div class="form-check ct_select">
+										<label class="form-check-label">
+											<input class="form-check-input" type="radio" name="flexRadioDefault" id="ch11">
+											Yes
+										</label>
+									</div>
+								</div>
+								<div class="col-6 col-lg-4 p-0">
+									<div class="form-check ct_select">
+										<label class="form-check-label">
+											<input class="form-check-input" type="radio" name="flexRadioDefault" id="ch12">
+											No
+										</label>
+									</div>
+								</div>
+								<div class="col-12 col-lg-4 p-0">
+									<div class="form-check ct_select">
+										<label class="form-check-label">
+											<input class="form-check-input" type="radio" name="flexRadioDefault" id="ch13">
+											Do’nt know
+										</label>
+									</div>
+								</div>
+							</div>-->
+							<input type="hidden" id="rfqId" name="rfqId" value="{{old('rfqId')}}">
+							@error('rfqId')<span class="text-danger">{{$message}}</span>@enderror
+							@error('electricity_usage')<span class="text-danger">{{$message}}</span>@enderror
+							@error('understand')<span class="text-danger">{{$message}}</span>@enderror
+							<div class="row m-0">
+								<div class="form-check ct_select col-12">
 									<label class="form-check-label">
-										<input class="form-check-input" type="radio" id="customRadio1" name="energy_type"
-                                value="gas_electricity" @if(old('energy_type')=='gas_electricity'
-                                ){{('checked')}}@endif>
-										Gas & Electricity
+										<input class="form-check-input" type="checkbox" name="understand" value="1" id="customControl1" chacked>
+										I understand iSelect recommends plans from a range of providers on its <a href="">Approved Product List</a>.
+									</label>
+								</div>
+								<div class="form-check ct_select col-12">
+									<label class="form-check-label">
+										<input class="form-check-input" type="checkbox" name="termsandconsition" value="1" id="customControl2" chacked>
+										I have read, understood and accept the <a href="">Terms and Conditions</a> & <a href="">Privacy Collection Notice</a>.
 									</label>
 								</div>
 							</div>
-							<div class="col-12 col-lg-4 p-0">
-								<div class="form-check ct_select">
-									<label class="form-check-label">
-										<input class="form-check-input" type="radio" id="customRadio2" name="energy_type"
-                                value="electricity" @if(old('energy_type')=='electricity'
-                                ){{('checked')}}@elseif(!old('energy_type')){{('checked')}}@endif>
-										Electricity
-									</label>
-								</div>
 							</div>
-							<div class="col-6 col-lg-4 p-0">
-								<div class="form-check ct_select">
-									<label class="form-check-label">
-										<input class="form-check-input" type="radio" id="customRadio3" class="custom-control-input" name="energy_type"
-                                value="gas" @if(old('energy_type')=='gas' ){{('checked')}}@endif>
-										Gas
-									</label>
-								</div>
-							</div>
-						</div>
-						@error('energy_type')<span class="text-danger">{{$message}}</span>@enderror
-						<div class="row m-0 mb-3 mb-lg-4 pb-3 pb-lg-4 border-bottom">
-							<h6> What type of property? <span class="text-danger">*</span></h6>
-							<div class="col-12 col-lg-4 p-0">
-								<div class="form-check ct_select">
-									<label class="form-check-label">
-										<input class="form-check-input" type="radio" id="myhome" name="type_of_property" value="home"
-                                    class="custom-control-input" @if(old('type_of_property')=='home'
-                                    ){{('checked')}}@elseif(!old('type_of_property')){{('checked')}}@endif>
-										My home
-									</label>
-								</div>
-							</div>
-							<div class="col-12 col-lg-4 p-0">
-								<div class="form-check ct_select">
-									<label class="form-check-label">
-										<input class="form-check-input" type="radio" id="mybusness" name="type_of_property" value="business"
-                                    class="custom-control-input" @if(old('type_of_property')=='business'
-                                    ){{('checked')}}@endif>
-										My business
-									</label>
-								</div>
-							</div>
-						</div>
-						 @error('type_of_property')<span class="text-danger">{{$message}}</span>@enderror
-						<div class="row m-0 mb-3 mb-lg-4 pb-3 pb-lg-4 border-bottom">
-							<h6> Do you own or rent the property? <span class="text-danger">*</span></h6>
-							<div class="col-12 col-lg-4 p-0">
-								<div class="form-check ct_select">
-									<label class="form-check-label">
-										<input class="form-check-input" type="radio" name="flexRadioDefault" id="ch6">
-										Gas & Electricity
-									</label>
-								</div>
-							</div>
-							<div class="col-12 col-lg-4 p-0">
-								<div class="form-check ct_select">
-									<label class="form-check-label">
-										<input class="form-check-input" type="radio" name="flexRadioDefault" id="ch7">
-										Electricity
-									</label>
-								</div>
-							</div>
-						</div>
-						<div class="row m-0 mb-3 mb-lg-4 pb-3 pb-lg-4 border-bottom">
-							<h6> Are you moving into this property? <span class="text-danger">*</span></h6>
-							<div class="col-6 col-lg-4 p-0">
-								<div class="form-check ct_select">
-									<label class="form-check-label">
-										<input class="form-check-input" type="radio" name="flexRadioDefault" id="ch8">
-										Yes
-									</label>
-								</div>
-							</div>
-							<div class="col-6 col-lg-4 p-0">
-								<div class="form-check ct_select">
-									<label class="form-check-label">
-										<input class="form-check-input" type="radio" name="flexRadioDefault" id="ch9">
-										No
-									</label>
-								</div>
-							</div>
-						</div>
-						<div class="row m-0 mb-3 mb-lg-4 pb-3 pb-lg-4 border-bottom">
-							<h6> What is your move in date?  <span class="text-danger">*</span></h6>
-							<div class="col-6 col-lg-4 p-0">
-								
-							</div>
-						</div>
-						<div class="row m-0 mb-3 mb-lg-4 pb-3 pb-lg-4 border-bottom">
-							<h6> Do you also need to connect a broadband or home 
-								entertainment service? <span class="text-danger">*</span></h6>
-							<div class="col-6 col-lg-4 p-0">
-								<div class="form-check ct_select">
-									<label class="form-check-label">
-										<input class="form-check-input" type="radio" name="flexRadioDefault" id="ch12">
-										Yes
-									</label>
-								</div>
-							</div>
-							<div class="col-6 col-lg-4 p-0">
-								<div class="form-check ct_select">
-									<label class="form-check-label">
-										<input class="form-check-input" type="radio" name="flexRadioDefault" id="ch13">
-										No
-									</label>
-								</div>
-							</div>
-						</div>
-						<div class="row m-0">
-							<h6> Do you have gas connection to the property? <span class="text-danger">*</span></h6>
-							<div class="col-6 col-lg-4 p-0">
-								<div class="form-check ct_select">
-									<label class="form-check-label">
-										<input class="form-check-input" type="radio" name="flexRadioDefault" id="ch11">
-										Yes
-									</label>
-								</div>
-							</div>
-							<div class="col-6 col-lg-4 p-0">
-								<div class="form-check ct_select">
-									<label class="form-check-label">
-										<input class="form-check-input" type="radio" name="flexRadioDefault" id="ch12">
-										No
-									</label>
-								</div>
-							</div>
-							<div class="col-12 col-lg-4 p-0">
-								<div class="form-check ct_select">
-									<label class="form-check-label">
-										<input class="form-check-input" type="radio" name="flexRadioDefault" id="ch13">
-										Do’nt know
-									</label>
-								</div>
-							</div>
-						</div>
-						</div>
+							
 						<div class="mt-3">
-						<button class="btn log_next btn-sm d-block">Continue to next</button>
+						
+							<button type="submit" class="btn log_next btn-sm d-block">Continue to next</button>
 						</div>
 					</form>
 				</div>

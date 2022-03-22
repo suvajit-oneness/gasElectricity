@@ -24,7 +24,7 @@
                                     <th>Description</th>
                                     <th>Posted By</th>
                                     <th>Posted at</th>
-                                    <th>Action</th>
+                                    <th style="width:80px">Action</th>
                                 </tr>
                             </thead>
                             <tbody>

@@ -10,7 +10,7 @@
                     <form method="post" action="{{route('admin.report.user_enrolled')}}">
                         @csrf
                         <div class="row">
-                            <div class="col-md-3">
+                            {{-- <div class="col-md-3">
                                 <label for="suppliers">Suppliers</label>
                                 <select name="supplier" class="form-control" id="suppliers">
                                     <option value="" selected="" hidden="">Select Supplier</option>
@@ -18,7 +18,7 @@
                                         <option value="{{$suppl->id}}" @if(($req->supplier ?? '') == $suppl->id){{('selected')}}@endif>{{$suppl->name}} {{$suppl->email}}</option>
                                     @endforeach
                                 </select>
-                            </div>
+                            </div> --}}
 
                             <!-- <div class="col-md-3">
                                 <label for="dateFrom">Date from</label>
@@ -32,13 +32,25 @@
 
                             <div class="col-md-3 text-right">
                                 <div style="margin-top: 30px"></div>
-                                <button type="submit" class="btn btn-sm btn-primary mr-2"> <i class="fa fa-check"></i> Apply</button>
+                                
                             </div>
                         </div>
                     </form>
                 @endif
-                <div class="card-header">
-                    <h5 class="mb-0">User Enrolled</h5>
+                <div class="card-header u_enrolled">
+                    <div><h5 class="mb-0">User Enrolled</h5></div>
+                    <div class="input-group col-lg-4">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroupFileAddon01">Suppliers</span>
+                        </div>
+                            <select name="supplier" class="form-control" id="suppliers">
+                            <option value="" selected="" hidden="">Select Supplier</option>
+                            @foreach($supplier as $index => $suppl)
+                                <option value="{{$suppl->id}}" @if(($req->supplier ?? '') == $suppl->id){{('selected')}}@endif>{{$suppl->name}} {{$suppl->email}}</option>
+                            @endforeach
+                        </select>
+                            <button type="submit" class="update_button btn-sm ml-2"><i class="fa fa-check"></i> Apply</button>
+                    </div>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">

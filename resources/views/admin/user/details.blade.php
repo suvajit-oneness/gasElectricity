@@ -5,14 +5,14 @@
     <div class="row">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
             <div class="card">
-                <div class="card-header">
+                <div class="card-header mb-0">
                     <h5 class="mb-0">User Details - {{$user->name}}
                         <a class="headerbuttonforAdd" href="{{route('admin.users')}}">
-                            <i class="fa fa-plus" aria-hidden="true"></i>back
+                           <i class="fas fa-angle-left"></i> back
                         </a>
                     </h5>
                 </div>
-                <div class="card-body">
+                <div class="card-body u_details">
                     @php
                         $userType = 'User';
                         switch($user->user_type){
@@ -21,11 +21,11 @@
                             case 3 : $userType = 'Customer';break;
                         }
                     @endphp
-                    <h3>Type : "{{$userType}}"</h3>
-                    <h3>Name : {{$user->name}}</h3>
-                    <h3>Email : {{$user->email}}</h3>
-                    <h3>Phone : {{$user->mobile}}</h3>
-                    <h3>Referral Code : {{$user->referral_code}}</h3>
+                    <h3>Type : <span>{{$userType}}</span></h3>
+                    <h3>Name : <span>{{$user->name}}</span></h3>
+                    <h3>Email : <span>{{$user->email}}</span></h3>
+                    <h3>Phone : <span>{{$user->mobile}}</span></h3>
+                    <h3>Referral Code : <span>{{$user->referral_code}}</span></h3>
                     @if($user->user_type == 3)
                         @php $identification = user_identification($user);@endphp
                         <h4 class="text-center">Identification Details</h4>

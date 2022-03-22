@@ -31,7 +31,7 @@
                         </a>
                         <div class="dropdown-menu dropdown-menu-right nav-user-dropdown" aria-labelledby="navbarDropdownMenuLink2">
                             <div class="nav-user-info">
-                                <h5 class="mb-0 text-white nav-user-name">{{Auth::user()->name}} </h5>
+                                <h5 class="nav-user-name">{{Auth::user()->name}} </h5>
                             </div>
                             <a class="dropdown-item" href="{{route('home')}}"><i class="fas fa-user mr-2"></i>Dashboard</a>
                             <a class="dropdown-item" href="{{route('home')}}"><i class="fas fa-cog mr-2"></i>Setting</a>

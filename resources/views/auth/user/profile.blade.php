@@ -56,8 +56,8 @@
                             </div>
                         </div> -->
 
-                        <div class="form-group col-md-12">
-                            <button type="submit">Update</button>
+                        <div class="form-group">
+                            <button type="submit" class="update_button ml-auto">Update</button>
                         </div>
                     </form>
                 </div>
@@ -119,8 +119,8 @@
                                 </div>
                             </div>
 
-                            <div class="form-group col-md-12">
-                                <button type="submit">Update</button>
+                            <div class="form-group col-12">
+                                <button type="submit" class="update_button ml-auto">Update</button>
                             </div>
                         </form>
                     </div>
@@ -156,7 +156,7 @@
                             </div>
 
                             <div class="form-group col-md-12">
-                                <button type="submit">Update</button>
+                                <button type="submit" class="update_button ml-auto">Update</button>
                             </div>
                         </div>
                     </form>
