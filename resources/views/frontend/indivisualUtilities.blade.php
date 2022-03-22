@@ -76,21 +76,54 @@
 					</div>
 				</div>
 				<div class="row m-0 mt-3 mt-lg-5">
-					@foreach($data->whatWeProvide as $whatWeProvide)
-						<div class="col-12 col-lg-4 why_prosub">
-							<div class="card border-0">
-								<div class="w_mark">01</div>
-								<div class="d-flex">
-									<div>
-										<img src="{{asset($whatWeProvide->image)}}" height="30px">
-									</div>
-									<div class="ms-3">
-										<h2 data-aos="fade-down" data-aos-duration="1000">{!! $whatWeProvide->title !!}<span class="d-lg-block"></span></h2>
-										<p data-aos="fade-up" data-aos-duration="1400">{!! $whatWeProvide->description !!}</p>
+					@foreach($data->whatWeProvide as $whatWeProvideKey => $whatWeProvide)
+						@if ($whatWeProvideKey == 0)
+							<div class="col-12 col-lg-4 why_prosub">
+								<div class="card border-0">
+									<div class="w_mark">01</div>
+									<div class="d-flex">
+										<div>
+											<img src="{{asset($whatWeProvide->image)}}" height="46px">
+										</div>
+										<div class="ms-3">
+											<h2 data-aos="fade-down" data-aos-duration="1000">{!! $whatWeProvide->title !!}<span class="d-lg-block"></span></h2>
+											<p data-aos="fade-up" data-aos-duration="1400">{!! $whatWeProvide->description !!}</p>
+										</div>
 									</div>
 								</div>
 							</div>
-						</div>
+						@elseif($whatWeProvideKey == 1)
+							<div class="col-12 col-lg-4 why_prosub mt-8">
+								<div class="card border-0">
+									<div class="w_mark">02</div>
+									<div class="d-flex">
+										<div>
+											<img src="{{asset($whatWeProvide->image)}}" height="46px">
+										</div>
+										<div class="ms-3">
+											<h2 data-aos="fade-down" data-aos-duration="1000">{!! $whatWeProvide->title !!}<span class="d-lg-block"></span></h2>
+											<p data-aos="fade-up" data-aos-duration="1400">{!! $whatWeProvide->description !!}</p>
+										</div>
+									</div>
+								</div>
+							</div>
+						@elseif($whatWeProvideKey == 2)
+							<div class="col-12 col-lg-4 why_prosub mt-9">
+								<div class="card border-0">
+									<div class="w_mark">03</div>
+									<div class="d-flex">
+										<div>
+											<img src="{{asset($whatWeProvide->image)}}" height="46px">
+										</div>
+										<div class="ms-3">
+											<h2 data-aos="fade-down" data-aos-duration="1000">{!! $whatWeProvide->title !!}<span class="d-lg-block"></span></h2>
+											<p data-aos="fade-up" data-aos-duration="1400">{!! $whatWeProvide->description !!}</p>
+										</div>
+									</div>
+								</div>
+							</div>
+						@else
+						@endif
 					@endforeach
 				</div>
 			</div>
@@ -101,9 +134,7 @@
 		<section class="how_it_sec">
 			<div class="container-fluid p-0">
 				@foreach($data->howItWorks as $howItWorkKey => $howItWork)
-					<?php
-					if(($howItWorkKey + 1) % 2 == 0 ){
-					?>
+					@if(($howItWorkKey + 1) % 2 == 0 )
 						<div class="row m-0 how_it_sub align-items-center">
 							<div class="col-12 col-lg-6 text-sec">
 								<div class="page_title">
@@ -118,7 +149,7 @@
 								<img src="{{asset($howItWork->image)}}"> 
 							</div>
 						</div>
-					<?php} else{ ?>
+					@else
 					<div class="row m-0 how_it_sub align-items-center">
 						<div class="col-12 col-lg-6 img-sec order-lg-1 order-2">
 							<img src="{{asset($howItWork->image)}}"> 
@@ -133,7 +164,7 @@
 							</div>
 						</div>
 					</div>
-					<?php } ?>
+					@endif
 				
 					
 				@endforeach
@@ -147,7 +178,7 @@
 				<div class="row m-0">
 					<div class="d-flex align-items-center justify-content-between">
 						<h1 data-aos="fade-up" data-aos-duration="1000">Compare Energy Plans Here – <span>Free!</span> <small>No obligation to sign up, and it’s 100% free to use!</small></h1>
-						<a href="start_form.html" class="btn log_drop" data-aos="fade-left" data-aos-duration="1600">GET STARTED</a>
+						<a href="{{ route('rfq.product.listing') }}" class="btn log_drop" data-aos="fade-left" data-aos-duration="1600">GET STARTED</a>
 					</div>
 				</div>
 			</div>
@@ -202,7 +233,7 @@
 					<div class="col-12 col-lg-8 mt-4">
 						<div class="accordion" id="accordionExample">
 							@foreach ($data->faq as $key => $faq)
-							<?php if(($key + 1) %2 == 0){?>
+							@if(($key + 1) %2 == 0)
 								<div class="accordion-item">
 									<h2 class="accordion-header" id="headingOne">
 										<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
@@ -215,7 +246,7 @@
 										</div>
 									</div>
 									</div>
-							<?php}else{?>
+							@else
 								<div class="accordion-item">
 									<h2 class="accordion-header" id="headingTwo">
 										<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
@@ -228,7 +259,7 @@
 										</div>
 									</div>
 								</div>
-							<?php } ?>
+							@endif
 
 							@endforeach
 						  </div>

@@ -88,7 +88,7 @@
 								</div>
 								<div class="card-body b_content">
 									<p><span class="bg-slight">{{$blog->title}}</span>{{date('l, M d, Y',strtotime($blog->created_at))}}</p>
-									<a href="{{route('blog.detail',$blog->id)}}"><h6>{!!$blog->description!!}</h6></a>
+									<a href="{{route('blog.detail',$blog->id)}}"><h6></h6></a>
 								</div>
 							</div>
 						</div>
@@ -133,8 +133,18 @@
 							<h6>Ready to get started?</h6>
 							<div class="input_sec mb-3">
 								<div class="input-group">
-									<input type="text" class="form-control" placeholder="Enter your postcode or suburb...">
-									<button class="btn btn-comp">Compare</button>
+									{{-- <input type="text" class="form-control" placeholder="Enter your postcode or suburb...">
+									<button class="btn btn-comp">Compare</button> --}}
+
+									<datalist id="suppliersPincode">
+										@foreach($data->pincode as $key => $pincde)
+											<option value="{{$pincde->autocomplete}}"></option>
+										@endforeach
+									</datalist>
+									@error('eneryType')<span class="text-danger">{{$message}}</span>@enderror
+									@error('search')<span class="text-danger">{{$message}}</span>@enderror
+									<input type="text" class="form-control postCodeSearch"  name="search" id="postcodesearch" placeholder="Enter your postcode or suburb..." required value="{{old('search')}}"list="suppliersPincode">
+									<button class="btn btn-comp" type="submit">Compare</button>
 								</div>
 							</div>
 							<p>

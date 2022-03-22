@@ -185,6 +185,7 @@ class WelcomeController extends Controller
         $data->allBlogs = $data->blogs->orderBy('id', 'desc')->get();
         $data->blogThree = $data->blogs->orderBy('id', 'desc')->take(3)->get();
         $data->blogFirst = $data->blogs->orderBy('id', 'desc')->take(1)->get();
+        $data->pincode = $this->getPincodeList();
         // dd($data->blogs);
         return view('frontend.blog', compact('data'));
     }

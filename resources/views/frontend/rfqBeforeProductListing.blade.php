@@ -131,7 +131,7 @@
 							</div>
 						</div>
 						<div class="row m-0 mb-3 mb-lg-4 pb-3 pb-lg-4 border-bottom">
-							<h6> What is your move in date? * <span class="text-danger">*</span></h6>
+							<h6> What is your move in date?  <span class="text-danger">*</span></h6>
 							<div class="col-6 col-lg-4 p-0">
 								
 							</div>
