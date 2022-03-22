@@ -108,7 +108,7 @@
 						</div>
 						<div class="mb-3 position-relative">
                         <!--<img src="{{asset('forntEnd/img/lock.png')}}" class="input_img">-->
-							<input type="text"  name="password" class="form-control @error('password'){{'is-invalid'}}@enderror" placeholder="password*">
+							<input type="password"  name="password" class="form-control @error('password'){{'is-invalid'}}@enderror" placeholder="password*">
 							@error('password')
 							<span class="invalid-feedback" role="alert">{{ $message }}</span>
 							@enderror
