@@ -14,7 +14,7 @@
 								</div>
 								<div class="b_content">
 									<p>{{date('l, M d, Y',strtotime($blog->created_at))}}</p>
-									<a href="{{route('blog.detail',$blog->id)}}"><h6>{!!$blog->description!!}</h6></a>
+									<a href="{{route('blog.detail',$blog->id)}}"><h6>{!!$blog->title!!}</h6></a>
 								</div>
 							</div> 
 						@endforeach
@@ -132,6 +132,7 @@
 							<h1 class="text-start">Start your <small class="position-relative">free trial<div class="border_text" data-aos="fade-right" data-aos-duration="1400"></div></small></h1>
 							<h6>Ready to get started?</h6>
 							<div class="input_sec mb-3">
+							<form action="{{route('rfq.product.listing')}}" method="get" autocomplete="off">
 								<div class="input-group">
 									{{-- <input type="text" class="form-control" placeholder="Enter your postcode or suburb...">
 									<button class="btn btn-comp">Compare</button> --}}
@@ -143,10 +144,11 @@
 									</datalist>
 									@error('eneryType')<span class="text-danger">{{$message}}</span>@enderror
 									@error('search')<span class="text-danger">{{$message}}</span>@enderror
-									<input type="text" class="form-control postCodeSearch"  name="search" id="postcodesearch" placeholder="Enter your postcode or suburb..." required value="{{old('search')}}"list="suppliersPincode">
+									<input type="text" class="form-control postCodeSearch"  name="search" id="postcodesearch" placeholder="Enter your postcode or suburb..." required value="{{old('search')}}" list="suppliersPincode">
 									<button class="btn btn-comp" type="submit">Compare</button>
 								</div>
-							</div>
+							</form>
+						</div>
 							<p>
 								Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard 
 							</p>

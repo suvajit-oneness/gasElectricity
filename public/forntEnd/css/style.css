@@ -178,7 +178,7 @@ label {
     top: 0;
     left: 0;
     width: 100%;
-    z-index: 9999;
+    z-index: 9;
     -webkit-animation: smoothScroll 1s forwards;
     animation: smoothScroll 1s forwards;
     background-color: #fff;
@@ -273,7 +273,7 @@ label {
 
 .banner {
     background: #f1ffef;
-    height: 100vh;
+    min-height: 100vh;
     padding-top: 145px;
     position: relative;
     z-index: 1;
@@ -1408,7 +1408,8 @@ footer {
     padding-left: 22px;
 }
 
-.sw_form .form-check-input {
+.sw_form .form-check-input,
+.reg_form .form-check-input {
     margin-top: 0;
     width: 30px;
     height: 30px;
@@ -1516,6 +1517,8 @@ form ul .active a {
 
 .login_sec {
     height: 100vh;
+    background: #f1ffef url(../img/contact_bg.png) no-repeat top right;
+    background-size: 100%;
 }
 
 .login_sec::before {
@@ -1525,8 +1528,8 @@ form ul .active a {
     left: 0;
     right: 0;
     bottom: 0;
-    background: url(../img/sign-in.png) no-repeat top left;
-    background-size: 54%;
+    background: url(../img/login_swbg.png) no-repeat 100px 0;
+    background-size: 42%;
 }
 
 .login_sec .card {
@@ -1534,7 +1537,7 @@ form ul .active a {
 }
 
 .login_sec .form-control {
-    border: 1px solid transparent;
+    border: 1px solid #e2f3e0;
     background: #fff;
     font-weight: 500;
     resize: none;
@@ -1546,4 +1549,385 @@ form ul .active a {
     bottom: -19px;
     font-size: 12px;
     font-weight: 400 !important;
+    display: inherit;
+}
+
+.register_form .invalid-feedback {
+    position: absolute;
+    bottom: -13px;
+    font-size: 12px;
+    font-weight: 400 !important;
+    margin-top: 0;
+}
+
+
+/*---------------Form-Step-----------*/
+
+.listing_wrap_title {
+    font-size: 26px;
+    font-weight: 600;
+    line-height: 36px;
+    margin-bottom: 40px;
+    text-transform: capitalize;
+    text-align: center;
+}
+
+.your-search {
+    border: 1px solid #cdcdcd;
+    margin-bottom: 22px;
+}
+
+.search-panel {
+    padding: 20px;
+}
+
+.search-panel p span {
+    color: #7bce92;
+    font-weight: 600;
+}
+
+.plan_listing_items {
+    margin-top: 20px;
+}
+
+.plan_title_wrap {
+    background-color: rgba(49, 65, 89, 0.06);
+    padding: 15px 25px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.plan_title_wrap h5 {
+    font-size: 16px;
+    font-weight: 500;
+    color: #0d0d0d;
+    margin: 0;
+}
+
+.plan_title_wrap h5 span {
+    display: block;
+    font-size: 13px;
+    font-weight: 300;
+    margin-top: 2px;
+}
+
+.plan_tab {
+    background-color: #7bce92;
+    padding: 12px 25px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.plan_tab h5 {
+    color: #fff;
+    font-size: 16px;
+    font-weight: 500;
+    margin: 0;
+    line-height: 1;
+}
+
+.plan_tab a {
+    color: #fff;
+    font-size: 16px;
+    font-weight: 500;
+    margin: 0;
+    line-height: 1;
+    text-transform: uppercase;
+}
+
+.plane_list_wrapper {
+    position: relative;
+    border-bottom: 1px solid #dfdfdf;
+    background-color: #fff;
+    display: flex;
+    justify-content: space-between;
+}
+
+.plan_icon_wrap {
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 0 10px;
+    margin: 15px 0 55px;
+    border-right: 1px solid #ededed;
+}
+
+.plan_icon_wrap img {
+    max-width: 100%;
+    margin-bottom: 15px;
+}
+
+.plan_icon_wrap h6 {
+    text-align: center;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.rate_title {
+    line-height: 1.03;
+    margin-bottom: 27px;
+}
+
+.rate_sub_content {
+    font-size: 16px;
+    line-height: 1.875;
+}
+
+.list_amount {
+    padding: 20px;
+    position: relative;
+    width: 43%;
+}
+
+.list_amount:before {
+    position: absolute;
+    content: "";
+    background-color: rgba(241, 255, 239, 0.80);
+    width: 50%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 0;
+}
+
+.list_amount_inner {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-around;
+    position: relative;
+    z-index: 99;
+    padding-bottom: 35px;
+    border-bottom: 1px solid #d0d0d0;
+    margin-bottom: 15px;
+    padding-left: 10px;
+}
+
+.price_compare {
+    width: 50%;
+}
+
+.price_amount {
+    text-align: center;
+    width: 50%;
+    padding-top: 40px;
+}
+
+.price_amount h2 {
+    font-size: 26px;
+    font-weight: 700;
+    text-align: center;
+    color: #314159;
+}
+
+.price_compare span {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    font-size: 14px;
+    font-weight: 700;
+    color: #314159;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+}
+
+.price_compare h2 {
+    font-size: 26px;
+    line-height: 30px;
+    color: #7bce92;
+    font-weight: 700;
+    margin: 0;
+}
+
+.viewMoreDetailsDIV {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    /* transform: translate(-50%, -14px); */
+    width: 56%;
+    line-height: 0;
+}
+
+.viewMoreDetailsDIV a {
+    font-size: 14px;
+}
+
+.plan_info:after {
+    position: absolute;
+    content: "";
+    border-top: 34px solid transparent;
+    border-left: 15px solid #314159;
+    border-bottom: 0px solid transparent;
+    right: -15px;
+    bottom: 0;
+}
+
+.plan_info {
+    position: absolute;
+    background-color: #314159;
+    padding: 6px 33px;
+    left: -1px;
+    bottom: -1px;
+}
+
+.plan_info p {
+    margin: 0;
+    font-size: 16px;
+    color: #fff;
+}
+
+.list_container_first {
+    position: relative;
+    padding: 55px 20px;
+    width: 43%;
+}
+
+.list_container_first h4 {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.reward_facilities {
+    padding: 0;
+    margin-top: 20px;
+}
+
+.reward_facilities li {
+    font-size: 13px;
+    font-weight: 400;
+    display: block;
+    margin-bottom: 6px;
+    position: relative;
+    padding-left: 25px;
+}
+
+.plan_value {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 22%;
+    text-align: center;
+}
+
+.reward_facilities li:before {
+    position: absolute;
+    content: "";
+    background: url(../img/settings.png) no-repeat center left;
+    background-size: 100%;
+    width: 15px;
+    height: 15px;
+    top: 5px;
+    left: 0;
+}
+
+.plan_value h4 {
+    font-size: 14px;
+    font-weight: 400;
+    text-align: center;
+}
+
+.plan_value h4 span {
+    font-size: 16x;
+    font-weight: 600;
+    display: block;
+}
+
+.list_amount {
+    padding: 20px 0;
+    position: relative;
+    width: 43%;
+}
+
+.list_amount_inner:last-child {
+    border: 0;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.feature-part .card-header {
+    padding: 0;
+    background: #7bce92;
+}
+
+.plan_details_btn {
+    font-size: 14px;
+    padding: 8px;
+    color: #314159;
+    border: none;
+    background: transparent;
+    text-decoration: underline;
+}
+
+.plan_details_btn i {
+    margin-right: 5px;
+}
+
+.plan_details_btn2 {
+    font-size: 13px;
+    font-weight: 500;
+    padding: 8px;
+    color: #fff;
+    border: none;
+    background: #7bce92;
+}
+
+.modal-header {
+    width: 100%;
+    background: #7bce92;
+    padding: 15px;
+    border-radius: 0;
+}
+
+.modal-title {
+    font-size: 18px;
+    color: #fff;
+}
+
+.close {
+    border: 0;
+    background: transparent;
+    color: #314159;
+    line-height: 1;
+}
+
+.modal-content {
+    border-radius: 0;
+    border: none;
+}
+
+.email_send_ch {
+    margin-top: 15px;
+    padding-left: 0;
+}
+
+.email_send_ch li {
+    display: block;
+    margin-bottom: 0px;
+    line-height: 20px;
+}
+
+.email_send_ch li label {
+    font-size: 13px;
+    font-weight: 500;
+    color: #000;
+    display: flex;
+    align-items: center;
+}
+
+.modal-body h5 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #314159;
+}
+
+.btn-close {
+    font-size: 18px;
+}
+
+.btn-close:focus {
+    box-shadow: inherit;
 }

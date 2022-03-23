@@ -437,6 +437,7 @@ class WelcomeController extends Controller
 
     public function getPlanlistingData(Request $req, $supplierId, $rfq)
     {
+        // dd($supplierId);
         $userBillRate = number_format(($rfq->kwh_rate) / ($rfq->kwh_usage), 2);
         $productData = Product::select('products.*')->whereIn('products.created_by', $supplierId);
         if (!empty($req->productId)) {
@@ -463,6 +464,7 @@ class WelcomeController extends Controller
     public function productListingwithAuth(Request $req, $supplierId, $rfq)
     {
         $productData = $this->getPlanlistingData($req, $supplierId, $rfq);
+        // dd($productData);
         $request = $req->all();
         $state = [];
         if (!empty($req->stateId)) {
