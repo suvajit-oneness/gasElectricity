@@ -45,9 +45,7 @@
 				<div class="container-fluid ps-lg-5 pe-lg-5">
 					<a class="navbar-brand" href="{{url('/')}}"><img src="{{asset('forntEnd/img/logo2.png')}}"></a>
 					<div class="dropdown d-block d-lg-none">
-						<button class="btn log_drop btn-sm" type="button">
-							Log In
-						  </button>
+						<a  href="{{url('login')}}" class="btn log_drop btn-sm" type="button">Log In</a>
 						<!-- <button class="btn log_drop btn-sm dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
 						  Log In
 						</button>

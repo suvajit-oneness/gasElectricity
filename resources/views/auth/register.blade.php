@@ -185,12 +185,12 @@
  
 <section class="contact_sec login_sec pt-0 pb-0 h-auto register_form">
     <div class="container">
-        <div class="row m-0">
-            <div class="col-12 col-lg-6 p-lg-0 address_text">
-                <!--<img src="{{ asset('forntEnd/img/sign-in.png') }}">-->
+        <div class="row m-0 ">
+            <div class="col-12 col-lg-6 address_text pt-5 d-none d-lg-block">
+                <img src="{{asset('forntEnd/img/login_swbg.png')}}">
             </div>
             <div class="col-12 col-lg-6 ps-lg-5 p-lg-0">
-                <div class="card border-0 p-3 p-lg-4">
+                <div class="card border-0 p-0 p-lg-4">
                     <div class="page_title">
                         <h1 data-aos="fade-down" data-aos-duration="1000" class="text-start">
                             Register
@@ -230,7 +230,7 @@
                         </div>
 
                         <div class="mb-2 row m-0">
-                            <div class="col-md-6 iputIcon ps-0 pe-1 position-relative">
+                            <div class="col-md-6 iputIcon p-0 ps-lg-0 pe-lg-1 position-relative">
                                 <input id="phone" type="phone"
                                     class="form-control @error('phone') is-invalid @enderror" name="phone"
                                     value="{{ old('phone') }}" placeholder="Phone">
@@ -240,7 +240,7 @@
                                     </span>
                                 @enderror
                             </div>
-                            <div class="col-md-6 iputIcon pe-0 ps-1 position-relative">
+                            <div class="col-md-6 iputIcon p-0 pe-lg-0 ps-lg-1 mt-2 mt-lg-0 position-relative">
                                 <input id="dateOfBirth" type="date"
                                     class="form-control @error('dateOfBirth') is-invalid @enderror"
                                     name="dateOfBirth"
@@ -255,7 +255,7 @@
                         </div>
 
                         <div class="mb-2 row m-0">
-                            <div class="col-md-6 iputIcon ps-0 pe-1 position-relative">
+                            <div class="col-md-6 iputIcon p-0 ps-lg-0 pe-lg-1 position-relative">
                                 <input id="password" type="password"
                                     class="form-control @error('password') is-invalid @enderror" name="password"
                                     autocomplete="new-password" placeholder="Password">
@@ -265,7 +265,7 @@
                                     </span>
                                 @enderror
                             </div>
-                            <div class="col-md-6 iputIcon pe-0 ps-1 position-relative">
+                            <div class="col-md-6 iputIcon p-0 pe-lg-0 ps-lg-1 mt-2 mt-lg-0 position-relative">
                                 <input id="password-confirm" type="password" class="form-control"
                                     name="password_confirmation" autocomplete="new-password"
                                     placeholder="Confirm Password">

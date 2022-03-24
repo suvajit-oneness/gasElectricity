@@ -132,7 +132,7 @@
 											@php $electricityUpdatedprice = $electricityData->price * $rfq->kwh_usage; @endphp
 											<div class="list_amount_inner">
 												<div class="price_compare">
-													<span>ELECTRICITY</span>
+													<span><img src="{{asset('forntEnd/img/lightbulb.png')}}">ELECTRICITY</span>
 													<h2>{{calculateHowMuchSave($rfq->kwh_rate,$electricityUpdatedprice)}}</h2>
 													<!-- <h2>{{$electricityData->title}}</h2> -->
 												</div>
@@ -269,7 +269,7 @@
 															@php $electricityUpdatedprice = $electricityData->price * $rfq->kwh_usage; @endphp
 															<div class="list_amount_inner">
 																<div class="price_compare">
-																	<span>ELECTRICITY</span>
+																	<span><img src="{{asset('forntEnd/img/lightbulb.png')}}">ELECTRICITY</span>
 																	<h2>{{calculateHowMuchSave($rfq->kwh_rate,$electricityUpdatedprice)}}</h2>
 																	<!-- <h2>{{$electricityData->title}}</h2> -->
 																</div>

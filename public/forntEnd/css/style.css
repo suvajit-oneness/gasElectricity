@@ -115,6 +115,10 @@ label {
     box-shadow: none;
 }
 
+.accordion-item {
+    border: 0 !important;
+}
+
 /*---------placeholder----------*/
 
 ::-webkit-input-placeholder {
@@ -178,7 +182,7 @@ label {
     top: 0;
     left: 0;
     width: 100%;
-    z-index: 9;
+    z-index: 999;
     -webkit-animation: smoothScroll 1s forwards;
     animation: smoothScroll 1s forwards;
     background-color: #fff;
@@ -563,6 +567,64 @@ label {
 
 .accordion-body p {
     font-size: 14px;
+    font-weight: 400;
+}
+
+.accordion-body h6 {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 12px;
+    line-height: 24px;
+}
+
+.accordion-body ul {
+    padding: 0;
+    margin: 12px 0;
+}
+
+.accordion-body ul li {
+    font-size: 14px;
+    display: block;
+    line-height: 24px;
+    margin-bottom: 8px;
+}
+
+.accordion-body table {
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+.accordion-body td h4 {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.accordion-body table,
+.accordion-body th,
+.accordion-body td {
+    border: 1px solid #c7e6cf;
+    border-collapse: collapse;
+    padding: 10px;
+    background: #f5f5f5;
+    font-weight: 500;
+    font-size: 14px;
+}
+
+.nav-tabs .nav-item.show .nav-link,
+.nav-tabs .nav-link.active {
+    color: #7bce92;
+    background-color: transparent;
+    border-color: #7bce92;
+}
+
+.nav-tabs .nav-link {
+    margin-bottom: 0;
+    background: 0 0;
+    border: 0;
+    border-bottom: 1px solid #efefef;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    color: #000;
     font-weight: 500;
 }
 
@@ -1347,7 +1409,13 @@ footer {
 }
 
 .address_text {
+    background: #f1ffef;
     z-index: 1;
+    text-align: center;
+}
+
+.address_text img {
+    width: 82%;
 }
 
 .address_sec li a:last-child i {
@@ -1511,7 +1579,7 @@ form ul .active a {
 
 .form_section .card {
     position: relative;
-    top: -10%;
+    top: -115px;
     background: transparent;
 }
 
@@ -1519,9 +1587,10 @@ form ul .active a {
     height: 100vh;
     background: #f1ffef url(../img/contact_bg.png) no-repeat top right;
     background-size: 100%;
+    padding: 50px 0;
 }
 
-.login_sec::before {
+/* .login_sec::before {
     content: "";
     position: absolute;
     top: 0;
@@ -1530,7 +1599,7 @@ form ul .active a {
     bottom: 0;
     background: url(../img/login_swbg.png) no-repeat 100px 0;
     background-size: 42%;
-}
+} */
 
 .login_sec .card {
     background: transparent;
@@ -1930,4 +1999,9 @@ form ul .active a {
 
 .btn-close:focus {
     box-shadow: inherit;
+}
+
+.btn3 {
+    background: #314259;
+    color: #fff !important;
 }

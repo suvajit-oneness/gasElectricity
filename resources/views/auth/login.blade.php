@@ -79,8 +79,8 @@
 <section class="contact_sec login_sec">
 	<div class="container">
 		<div class="row m-0">
-			<div class="col-12 col-lg-6 p-lg-0 address_text">
-				<!--<img src="{{asset('forntEnd/img/sign-in.png')}}">-->
+			<div class="col-12 col-lg-6 p-lg-0 address_text d-none d-lg-block">
+				<img src="{{asset('forntEnd/img/login_swbg.png')}}">
 			</div>
 			<div class="col-12 col-lg-6 ps-lg-5 p-lg-0">
 				<div class="card border-0 p-3 p-lg-4">
