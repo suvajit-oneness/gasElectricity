@@ -13,8 +13,8 @@
 							<div class="border_text" data-aos="fade-left" data-aos-duration="1400"></div>
 						</small>
 					</h1>
-					<h6 data-aos="fade-up" data-aos-duration="1400">Let's create something together <img src="{{asset('forntEnd/img/moj.png')}}" class="ms-2"></h6>
-					<ul class="address_sec">
+					<h6 class="text-start" data-aos="fade-up" data-aos-duration="1400">Let's create something together <img src="{{asset('forntEnd/img/moj.png')}}" class="ms-2" style="width:25px !important"></h6>
+					<ul class="address_sec text-start">
 						<li><i class="fa-solid fa-location-dot"></i> {{$contact->address}}</li>
 						<li><i class="fa-solid fa-phone"></i><a class="text-dark" href="tel:+88 657524332">{{$contact->phone}}</a></li>
 						<li>

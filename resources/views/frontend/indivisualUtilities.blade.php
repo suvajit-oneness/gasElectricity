@@ -77,7 +77,7 @@
 				</div>
 				<div class="row m-0 mt-3 mt-lg-5">
 					@foreach($data->whatWeProvide as $whatWeProvideKey => $whatWeProvide)
-						@if ($whatWeProvideKey == 0)
+						@if($whatWeProvideKey == 0)
 							<div class="col-12 col-lg-4 why_prosub">
 								<div class="card border-0">
 									<div class="w_mark">01</div>

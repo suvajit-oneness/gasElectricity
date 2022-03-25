@@ -29,6 +29,7 @@ class WelcomeController extends Controller
             $product = Product::where('id', $req->productId)->first();
             if ($product) {
                 $rfq = Rfq::where('id', $req->rfqId)->first();
+                // dd($rfq);
                 if ($rfq) {
                     $data = (object)[];
                     $data->company = Company::where('id', $product->company_id)->first();
@@ -36,6 +37,7 @@ class WelcomeController extends Controller
                         $data->supplierForm = SupplierForm::where('userId', $data->company->created_by)->where('status', 1)->get();
                         if (count($data->supplierForm) > 0) {
                             $user = $rfq->user;
+                            // dd($user);
                             $latestSupplierFormForUser = $user->latestSupplierForm;
                             $user->formData = [];
                             if ($latestSupplierFormForUser) {
@@ -281,6 +283,7 @@ class WelcomeController extends Controller
     {
         $req->validate([
             'rfqId' => 'nullable|min:1|numeric',
+            'OCRFormField' => 'required',
             "energy_type" => "required|string|in:gas_electricity,gas,electricity",
             "type_of_property" => "required|string|in:home,business",
             "kwh_usage" => 'required|min:1|string',
@@ -293,6 +296,8 @@ class WelcomeController extends Controller
             "otherPageRequest" => "nullable|array",
             "otherPageRequest.*" => "required|string",
             "ocr" => 'nullable',
+        ], [
+            'OCRFormField.*' => 'Please upload your Electricity/ Gas Bill'
         ]);
         DB::beginTransaction();
         try {

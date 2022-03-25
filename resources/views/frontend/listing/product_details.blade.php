@@ -93,7 +93,7 @@
 										@php $gasUpdatedprice = $gasData->price * $rfq->kwh_usage; @endphp
 										<div class="list_amount_inner">
 											<div class="price_compare">
-												<span>Gas</span>
+												<span><img src="{{asset('forntEnd/img/fire-icon.png')}}">Gas</span>
 												<h2>{{calculateHowMuchSave($rfq->kwh_rate,$gasUpdatedprice)}}</h2>
 												<!-- <h2>{{$gasData->title}}</h2> -->
 											</div>
@@ -106,7 +106,7 @@
 										@php $electricityUpdatedprice = $electricityData->price * $rfq->kwh_usage; @endphp
 										<div class="list_amount_inner">
 											<div class="price_compare">
-												<span>ELECTRICITY</span>
+												<span><img src="{{asset('forntEnd/img/lightbulb.png')}}">ELECTRICITY</span>
 												<h2>{{calculateHowMuchSave($rfq->kwh_rate,$electricityUpdatedprice)}}</h2>
 												<!-- <h2>{{$electricityData->title}}</h2> -->
 												<!-- <p>than reference price</p> -->
@@ -118,7 +118,7 @@
 									@endif
 								</div>
 								<div class="plan_info">
-									<p>{{$productData->tag}} <img src="{{asset('forntEnd/images/question.png')}}" data-toggle="tooltip" data-placement="bottom" title="{!! $productData->tag_description !!}"></p>
+									<p>{{$productData->tag}} <img src="{{asset('forntEnd/img/question.png')}}" data-toggle="tooltip" data-placement="bottom" title="{!! $productData->tag_description !!}"></p>
 								</div>
 							</div>
 						@endif

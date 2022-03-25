@@ -88,7 +88,8 @@
 										<label class="form-check-label mb-3">
 											Do you have your Elecricity / Gas Bill ?
 										</label>
-										<input class="form-control" type="file" id="OCRFormField" class="form-control @error('file'){{('is_invalid')}}@enderror" onchange="OCRFILEUPLOAD(event)">
+										<input class="form-control" type="file" name="OCRFormField" id="OCRFormField" class="form-control @error('OCRFormField'){{('is_invalid')}}@enderror" onchange="OCRFILEUPLOAD(event)">
+										@error('OCRFormField')<span class="invalid-feedback" style="position: initial;">{{$message}}</span>@enderror
 									</div>
 								</div>
 								<div class="row m-0 mb-3 mb-lg-6 pb-3 pb-lg-4 border-bottom">
@@ -251,7 +252,7 @@
 									<div class="form-check ct_select col-12">
 										<label class="form-check-label">
 											<input class="form-check-input" type="checkbox" name="understand" value="1" id="customControl1" chacked>
-											I understand iSelect recommends plans from a range of providers on its <a href="">Approved Product List</a>.
+											I understand SwitchR recommends plans from a range of providers on its <a href="">Approved Product List</a>.
 										</label>
 									</div>
 									<div class="form-check ct_select col-12">

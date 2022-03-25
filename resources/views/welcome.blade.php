@@ -47,34 +47,67 @@
 <!--end_banner-->
 
 @if(count($data->whatWeProvide) > 0)
-<section class="py-4 py-lg-5 wh_provide">
-	<div class="container">
-		<div class="row m-0">
-			<div class="page_title">
-				<h1 data-aos="fade-down" data-aos-duration="1000">What we <small class="position-relative">provide<div class="border_text" data-aos="fade-left" data-aos-duration="1800"></div></small></h1>
-			</div>
-		</div>
-		<div class="row m-0 mt-3 mt-lg-5">
-			@foreach($data->whatWeProvide as $whatWeProvide)
-			<div class="col-12 col-lg-4 why_prosub">
-				<div class="card border-0">
-					<div class="w_mark">01</div>
-					<div class="d-flex">
-						<div>
-							<img src="{{asset($whatWeProvide->image)}}" height="30px">
-						</div>
-						<div class="ms-3">
-							<h2 data-aos="fade-down" data-aos-duration="1000">{{$whatWeProvide->title}}</span></h2>
-							<p data-aos="fade-up" data-aos-duration="1400">{{$whatWeProvide->description}}</p>
-						</div>
+		<section class="py-4 py-lg-5 wh_provide">
+			<div class="container">
+				<div class="row m-0">
+					<div class="page_title">
+						<h1 data-aos="fade-down" data-aos-duration="1000">What we <small class="position-relative">provide<div class="border_text" data-aos="fade-left" data-aos-duration="1800"></div></small></h1>
 					</div>
 				</div>
+				<div class="row m-0 mt-3 mt-lg-5">
+					@foreach($data->whatWeProvide as $whatWeProvideKey => $whatWeProvide)
+						@if($whatWeProvideKey == 0)
+							<div class="col-12 col-lg-4 why_prosub">
+								<div class="card border-0">
+									<div class="w_mark">01</div>
+									<div class="d-flex">
+										<div>
+											<img src="{{asset($whatWeProvide->image)}}" height="46px">
+										</div>
+										<div class="ms-3">
+											<h2 data-aos="fade-down" data-aos-duration="1000">{!! $whatWeProvide->title !!}<span class="d-lg-block"></span></h2>
+											<p data-aos="fade-up" data-aos-duration="1400">{!! $whatWeProvide->description !!}</p>
+										</div>
+									</div>
+								</div>
+							</div>
+						@elseif($whatWeProvideKey == 1)
+							<div class="col-12 col-lg-4 why_prosub mt-8">
+								<div class="card border-0">
+									<div class="w_mark">02</div>
+									<div class="d-flex">
+										<div>
+											<img src="{{asset($whatWeProvide->image)}}" height="46px">
+										</div>
+										<div class="ms-3">
+											<h2 data-aos="fade-down" data-aos-duration="1000">{!! $whatWeProvide->title !!}<span class="d-lg-block"></span></h2>
+											<p data-aos="fade-up" data-aos-duration="1400">{!! $whatWeProvide->description !!}</p>
+										</div>
+									</div>
+								</div>
+							</div>
+						@elseif($whatWeProvideKey == 2)
+							<div class="col-12 col-lg-4 why_prosub mt-9">
+								<div class="card border-0">
+									<div class="w_mark">03</div>
+									<div class="d-flex">
+										<div>
+											<img src="{{asset($whatWeProvide->image)}}" height="46px">
+										</div>
+										<div class="ms-3">
+											<h2 data-aos="fade-down" data-aos-duration="1000">{!! $whatWeProvide->title !!}<span class="d-lg-block"></span></h2>
+											<p data-aos="fade-up" data-aos-duration="1400">{!! $whatWeProvide->description !!}</p>
+										</div>
+									</div>
+								</div>
+							</div>
+						@else
+						@endif
+					@endforeach
+				</div>
 			</div>
-			@endforeach
-		</div>
-	</div>
-</section>
-@endif
+		</section>
+		@endif
 <!--end_Provide_sec-->
 @if(count($data->state) > 0)
 <section class="pt-4 pt-lg-5 find_body">
