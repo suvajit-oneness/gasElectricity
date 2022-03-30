@@ -41,7 +41,7 @@
 	@yield('content')
 
 	<!-- Footer -->
-	@include('frontend.layouts.footer')
+	@include('frontend.layouts.footer') 
 
 	{{-- <script src="{{asset('forntEnd/js/jquery.min.js')}}"></script>
 	<script src="{{asset('forntEnd/js/popper.min.js')}}"></script>
