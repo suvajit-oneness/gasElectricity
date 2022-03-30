@@ -32,8 +32,10 @@
     </head>
 
 <body>
+    <!-- loader -->
+    {{-- <div class="loading-data" style="display:block; color: #fff;">Loading&#8230;</div> --}}
 
-		<header class="header">
+	<header class="header">
 	<!-- Header -->
 	@include('frontend.layouts.header')
 
@@ -41,7 +43,7 @@
 	@yield('content')
 
 	<!-- Footer -->
-	@include('frontend.layouts.footer') 
+	@include('frontend.layouts.footer')
 
 	{{-- <script src="{{asset('forntEnd/js/jquery.min.js')}}"></script>
 	<script src="{{asset('forntEnd/js/popper.min.js')}}"></script>
@@ -56,6 +58,7 @@
 	<script type="text/javascript" src="{{asset('forntEnd/js/bootstrap.min.js')}}"></script>
 	<script type="text/javascript" src="{{asset('forntEnd/js/owl.carousel.min.js')}}"></script>
 	<script type="text/javascript" src="{{asset('forntEnd/js/aos.js')}}"></script>
+	<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 	<script type="text/javascript" src="{{asset('forntEnd/js/custom.js')}}"></script>
 
 	<script type="text/javascript">

@@ -283,13 +283,16 @@ class WelcomeController extends Controller
     {
         $req->validate([
             'rfqId' => 'nullable|min:1|numeric',
-            'OCRFormField' => 'required',
+            'OCRFormField' => 'nullable',
+            // 'OCRFormField' => 'required',
             "energy_type" => "required|string|in:gas_electricity,gas,electricity",
             "type_of_property" => "required|string|in:home,business",
+
             "kwh_usage" => 'required|min:1|string',
             "kwh_rate" => 'required|min:1|string',
             "serviceChargedPeriod" => 'required|min:1|string',
             "serviceChargedRate" => 'required|min:1|string',
+
             "electricity_usage" => "required|string|in:low,medium,high",
             "understand" => "required|in:1",
             "termsandconsition" => "required|in:1",
@@ -297,8 +300,16 @@ class WelcomeController extends Controller
             "otherPageRequest.*" => "required|string",
             "ocr" => 'nullable',
         ], [
-            'OCRFormField.*' => 'Please upload your Electricity/ Gas Bill'
+            'OCRFormField.*' => 'Please upload your Electricity/ Gas Bill',
+            'understand.*' => 'Please accept the terms & conditions'
         ]);
+
+        // if ($req->OCRFormField == null) {
+        //     # code...
+        // } else {
+        //     # code...
+        // }
+
         DB::beginTransaction();
         try {
             if (!empty($req->rfqId)) {
