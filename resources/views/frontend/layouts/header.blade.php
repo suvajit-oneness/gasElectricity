@@ -69,11 +69,19 @@
 						</ul>
 						<ul class="navbar-nav ms-auto d-none d-lg-block">
 							<div class="dropdown">
-								<a  href="{{url('login')}}" class="btn log_drop btn-sm" type="button">
+								@guest
+								<a href="{{url('login')}}" class="btn log_drop btn-sm" type="button">
 									Log In
-								  </a>
+								</a>
+								@endguest
 
-								  {{-- <a href="{{url('login')}}" class="login-btm"><small>Login </small><span><i class="fas fa-user-circle"></i></span></a> --}}
+								@auth
+								<a href="{{route('home')}}" class="btn log_drop btn-sm" type="button">
+									Profile
+								</a>
+								@endauth
+
+								{{-- <a href="{{url('login')}}" class="login-btm"><small>Login </small><span><i class="fas fa-user-circle"></i></span></a> --}}
 								<!-- <button class="btn log_drop btn-sm dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
 								  Log In
 								</button>

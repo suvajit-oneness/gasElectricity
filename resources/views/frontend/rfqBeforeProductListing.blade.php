@@ -88,8 +88,11 @@
 										<label class="form-check-label mb-3">
 											Do you have your Elecricity / Gas Bill ?
 										</label>
-										<input class="form-control" type="file" name="OCRFormField" id="OCRFormField" class="form-control @error('OCRFormField'){{('is_invalid')}}@enderror" onchange="OCRFILEUPLOAD(event)">
+										<input class="form-control" type="file" name="file" id="OCRFormField" class="form-control @error('OCRFormField'){{('is_invalid')}}@enderror" onchange="OCRFILEUPLOAD(event)">
 										@error('OCRFormField')<span class="invalid-feedback" style="position: initial;">{{$message}}</span>@enderror
+									</div>
+									<div class="col-12 position-relative">
+										<h2 style="position: absolute;top: 50%;left: 50%;transform: translate(-50%, 15%);background: #fff;padding: 0px 30px;font-weight: 600;">OR</h2>
 									</div>
 								</div>
 								<div class="row m-0 mb-3 mb-lg-6 pb-3 pb-lg-4 border-bottom">
@@ -251,13 +254,13 @@
 								<div class="row m-0 position-relative">
 									<div class="form-check ct_select col-12">
 										<label class="form-check-label">
-											<input class="form-check-input" type="checkbox" name="understand" value="1" id="customControl1" chacked>
+											<input class="form-check-input" type="checkbox" name="understand" value="1" id="customControl1" checked>
 											I understand SwitchR recommends plans from a range of providers on its <a href="">Approved Product List</a>.
 										</label>
 									</div>
 									<div class="form-check ct_select col-12">
 										<label class="form-check-label">
-											<input class="form-check-input" type="checkbox" name="termsandconsition" value="1" id="customControl2" chacked>
+											<input class="form-check-input" type="checkbox" name="termsandconsition" value="1" id="customControl2" checked>
 											I have read, understood and accept the <a href="">Terms and Conditions</a> & <a href="">Privacy Collection Notice</a>.
 										</label>
 									</div>
@@ -291,7 +294,7 @@
 
     	function fileUpload(formData)
     	{
-    		$('#fileUploadError').text('');$('.loading-data').show();
+    		$('#fileUploadError').text('');
     		$.ajax({
 				url : "{{route('ocr.upload_and_get_data')}}",
 				method : "POST",
@@ -300,6 +303,15 @@
 				contentType: false,
 				cache: false,
 				data : formData,
+				beforeSend: function() {
+					$loadingSwal = Swal.fire({
+						title: 'Please wait...',
+						text: 'We are fetching your details!',
+						showConfirmButton: false,
+						allowOutsideClick: false
+						// timer: 1500
+					})
+				},
 				success:function(response){
 					if(response.error == false){
 						$('#rfqId').val(response.data.rfqId);
@@ -307,14 +319,26 @@
 						$('#kwh_rate').val(response.data.kwh_rate);
 						$('#serviceChargedPeriod').val(response.data.serviceChargedPeriod);
 						$('#serviceChargedRate').val(response.data.serviceChargedRate);
-					}else{
+					} else {
 						$('#fileUploadError').text(response.message);
 					}
-					$('.loading-data').hide();
+					$loadingSwal.close()
+					$successSwal = Swal.fire({
+						icon: 'success',
+						text: 'Details found!',
+						showConfirmButton: false,
+						timer: 1000
+					})
 				},
 				error:function(error){
 					$('#fileUploadError').text('Something went wrong please try after some time');
-					$('.loading-data').hide();
+					console.log(error)
+					$loadingSwal.close()
+					$errorSwal = Swal.fire({
+						icon: 'error',
+						title: 'Something Happened',
+						text: 'Try again!',
+					})
 				}
     		});
     	}
