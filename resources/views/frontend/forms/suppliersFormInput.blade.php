@@ -7,7 +7,7 @@
 	<div class="container">
 		<div class="row m-0">
 			<div class="page_title">
-				<h1 data-aos="fade-down" data-aos-duration="1000">Your  <small class="position-relative">Usage<div class="border_text" data-aos="fade-left" data-aos-duration="1800"></div></small></h1>
+				<h1 data-aos="fade-down" data-aos-duration="1000">Your <small class="position-relative">Usage<div class="border_text" data-aos="fade-left" data-aos-duration="1800"></div></small></h1>
 				<p class="w-75 m-auto text-center mt-3">Proin gravida nibh vel velit auctor aliquet. Aenean sollicitudin, lorem quis bibendum auctor, nisi elit consequat ipsum.</p>
 			</div>
 		</div>
@@ -27,7 +27,7 @@
                     @endif
 					<form method="post" action="{{route('company.supplier.form.save')}}" enctype="multipart/form-data">
                         <div class="sw_form">
-                             @csrf
+                            @csrf
                             @error('success')
                                 <span class="text-success" role="alert"><strong>{{ $message }}</strong></span>
                             @enderror
@@ -53,7 +53,19 @@
                                     <h6 for="{{$form->key}}">{{$form->label}}</h6>
                                     @if($formInput->input_type == 'text' || $formInput->input_type == 'email' || $formInput->input_type == 'url')
                                     {{-- full-name --}}
-                                        <input type="{{$formInput->input_type}}" class="form-control @error($form->key) is-invalid @enderror" id="{{$form->key}}" name="{{$form->key}}" placeholder="{{$form->placeholder}}" value="{{old($form->key)}}" @if($form->is_required){{'required'}}@endif maxlength="200">
+
+                                        @php
+                                            $value = '';
+                                            if ($form->key == "name" && Auth::user()) {
+                                                $value = Auth::user()->name;
+                                            }
+                                            if ($form->key == "email" && Auth::user()) {
+                                                $value = Auth::user()->email;
+                                            }
+                                        @endphp
+
+                                        <input type="{{$formInput->input_type}}" class="form-control @error($form->key) is-invalid @enderror" id="{{$form->key}}" name="{{$form->key}}" placeholder="{{$form->placeholder}}" value="{{$value}}" @if($form->is_required){{'required'}}@endif maxlength="200">
+                                        {{-- <input type="{{$formInput->input_type}}" class="form-control @error($form->key) is-invalid @enderror" id="{{$form->key}}" name="{{$form->key}}" placeholder="{{$form->placeholder}}" {{$test}} value="{{old($form->key)}}" @if($form->is_required){{'required'}}@endif maxlength="200"> --}}
                                     @elseif($formInput->input_type == 'radio')
                                         @php $option = $form->form_option; @endphp
                                         @if(count($option) > 0)

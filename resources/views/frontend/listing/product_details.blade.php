@@ -376,7 +376,7 @@
 			    </div>
 			    <div class="modal-footer border-0 bg-light w-100">
 			        <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
-			        <button type="button" class="btn log_drop btn-sm">Email Plan Details</button>
+			        <button type="button" class="btn log_drop btn-sm emailedPlanDetails">Email Plan Details</button>
 			    </div>
 		    </div>
 		</div>

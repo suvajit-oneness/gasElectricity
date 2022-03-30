@@ -566,6 +566,66 @@ class WelcomeController extends Controller
         return view('frontend.forms.indivisualStates', compact('data'));
     }
 
+    public function indivisualStatesNSW(Request $req)
+    {
+        $data = (object)[];
+        $data->whychooseus = Setting::where('key', 'whychooseus')->get();
+        $data->compareallSupplier = Setting::where('key', 'wecomparealloftheseenegysupplier')->get();
+        $data->state = State::where('countryId', 2)->get();
+        $data->pincode = $this->getPincodeList();
+        return view('frontend.states.NSW', compact('data'));
+    }
+
+    public function indivisualStatesQLD(Request $req)
+    {
+        $data = (object)[];
+        $data->whychooseus = Setting::where('key', 'whychooseus')->get();
+        $data->compareallSupplier = Setting::where('key', 'wecomparealloftheseenegysupplier')->get();
+        $data->state = State::where('countryId', 2)->get();
+        $data->pincode = $this->getPincodeList();
+        return view('frontend.states.queensland', compact('data'));
+    }
+
+    public function indivisualStatesVIC(Request $req)
+    {
+        $data = (object)[];
+        $data->whychooseus = Setting::where('key', 'whychooseus')->get();
+        $data->compareallSupplier = Setting::where('key', 'wecomparealloftheseenegysupplier')->get();
+        $data->state = State::where('countryId', 2)->get();
+        $data->pincode = $this->getPincodeList();
+        return view('frontend.states.VIC', compact('data'));
+    }
+
+    public function indivisualStatesTAS(Request $req)
+    {
+        $data = (object)[];
+        $data->whychooseus = Setting::where('key', 'whychooseus')->get();
+        $data->compareallSupplier = Setting::where('key', 'wecomparealloftheseenegysupplier')->get();
+        $data->state = State::where('countryId', 2)->get();
+        $data->pincode = $this->getPincodeList();
+        return view('frontend.states.TAS', compact('data'));
+    }
+
+    public function indivisualStatesWA(Request $req)
+    {
+        $data = (object)[];
+        $data->whychooseus = Setting::where('key', 'whychooseus')->get();
+        $data->compareallSupplier = Setting::where('key', 'wecomparealloftheseenegysupplier')->get();
+        $data->state = State::where('countryId', 2)->get();
+        $data->pincode = $this->getPincodeList();
+        return view('frontend.states.WA', compact('data'));
+    }
+
+    public function indivisualStatesSA(Request $req)
+    {
+        $data = (object)[];
+        $data->whychooseus = Setting::where('key', 'whychooseus')->get();
+        $data->compareallSupplier = Setting::where('key', 'wecomparealloftheseenegysupplier')->get();
+        $data->state = State::where('countryId', 2)->get();
+        $data->pincode = $this->getPincodeList();
+        return view('frontend.states.SA', compact('data'));
+    }
+
     public function membership(Request $req)
     {
         $membership = Membership::get();

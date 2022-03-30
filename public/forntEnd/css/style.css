@@ -477,7 +477,7 @@ label {
 
 .w_mark {
     position: absolute;
-    top: -179px;
+    top: -260px;
     right: 0;
     /* transform: rotate(-90deg); */
     color: #000;
@@ -632,10 +632,10 @@ label {
     margin-top: 92px;
 }
 
-.mt-8 .w_mark,
+/* .mt-8 .w_mark,
 .mt-9 .w_mark {
     top: -206px;
-}
+} */
 
 .mt-9 {
     margin-top: 180px;
@@ -2004,4 +2004,15 @@ form ul .active a {
 .btn3 {
     background: #314259;
     color: #fff !important;
+}
+
+.dropdown:hover .dropdown-menu {
+    display: block;
+    margin-top: 0;
+}
+
+.navbar .dropdown-menu  {
+    border: transparent;
+    background: #7bce92;
+    color: #fff;
 }

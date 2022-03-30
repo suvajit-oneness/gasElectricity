@@ -42,55 +42,74 @@
 
 
 <nav class="navbar navbar-expand-lg">
-				<div class="container-fluid ps-lg-5 pe-lg-5">
-					<a class="navbar-brand" href="{{url('/')}}"><img src="{{asset('forntEnd/img/logo2.png')}}"></a>
-					<div class="dropdown d-block d-lg-none">
-						<a href="{{url('login')}}" class="btn log_drop btn-sm" type="button">Log In</a>
-						<!-- <button class="btn log_drop btn-sm dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-						  Log In
-						</button>
-						<ul class="dropdown-menu log_btn" aria-labelledby="dropdownMenuButton1">
-						  <li><a class="dropdown-item" href="#">Action</a></li>
-						  <li><a class="dropdown-item" href="#">Another action</a></li>
-						  <li><a class="dropdown-item" href="#">Something else here</a></li>
-						</ul> -->
-					</div>
-					<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#main_nav">
-						<span class="navbar-toggler-icon"><i class="fa-solid fa-bars"></i></span>
-					</button>
-					<div class="collapse navbar-collapse" id="main_nav">
-						<ul class="navbar-nav m-auto ps-lg-5">
-							<li class="nav-item {{request()->routeIs('aboutus')?'active':''}}"> <a class="nav-link" href="{{route('aboutus')}}">ABOUT US</a> </li>
-							<li class="nav-item {{request()->routeIs('contact-us')?'active':''}}"><a class="nav-link" href="{{route('contact-us')}}"> CONTACT</a></li>
-							<li class="nav-item {{request()->routeIs('indivisual.state')?'active':''}}"><a class="nav-link" href="{{route('indivisual.state')}}">INDIVIDUAL STATE</a></li>
-							<li class="nav-item {{request()->routeIs('indivisual.utility')?'active':''}}"><a class="nav-link" href="{{route('indivisual.utility')}}">INDIVIDUAL UTILITY</a></li>
-							<li class="nav-item {{request()->routeIs('blogs')?'active':''}}"><a class="nav-link" href="{{route('blogs')}}"> BLOG </a></li>
-							<li class="nav-item {{request()->routeIs('how-it-works')?'active':''}}"><a class="nav-link" href="{{route('how-it-works')}}"> HOW IT WORKS?  </a></li>
-						</ul>
-						<ul class="navbar-nav ms-auto d-none d-lg-block">
-							<div class="dropdown">
-								@auth
-									<a href="{{route('home')}}" class="btn log_drop btn-sm" type="button">
-										My profile
-									</a>
-								@else
-									<a href="{{url('login')}}" class="btn log_drop btn-sm" type="button">
-										Log In
-									</a>
-								@endauth
+	<div class="container-fluid ps-lg-5 pe-lg-5">
+		<a class="navbar-brand" href="{{url('/')}}"><img src="{{asset('forntEnd/img/logo2.png')}}"></a>
+		<div class="dropdown d-block d-lg-none">
+			<a href="{{url('login')}}" class="btn log_drop btn-sm" type="button">Log In</a>
+			<!-- <button class="btn log_drop btn-sm dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+				Log In
+			</button>
+			<ul class="dropdown-menu log_btn" aria-labelledby="dropdownMenuButton1">
+				<li><a class="dropdown-item" href="#">Action</a></li>
+				<li><a class="dropdown-item" href="#">Another action</a></li>
+				<li><a class="dropdown-item" href="#">Something else here</a></li>
+			</ul> -->
+		</div>
+		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#main_nav">
+			<span class="navbar-toggler-icon"><i class="fa-solid fa-bars"></i></span>
+		</button>
+		<div class="collapse navbar-collapse" id="main_nav">
+			<ul class="navbar-nav m-auto ps-lg-5">
+				<li class="nav-item {{request()->routeIs('aboutus')?'active':''}}"> <a class="nav-link" href="{{route('aboutus')}}">ABOUT US</a> </li>
+				<li class="nav-item {{request()->routeIs('contact-us')?'active':''}}"><a class="nav-link" href="{{route('contact-us')}}"> CONTACT</a></li>
 
-								  {{-- <a href="{{url('login')}}" class="login-btm"><small>Login </small><span><i class="fas fa-user-circle"></i></span></a> --}}
-								<!-- <button class="btn log_drop btn-sm dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-								  Log In
-								</button>
-								<ul class="dropdown-menu log_btn" aria-labelledby="dropdownMenuButton1">
-								  <li><a class="dropdown-item" href="#">Action</a></li>
-								  <li><a class="dropdown-item" href="#">Another action</a></li>
-								  <li><a class="dropdown-item" href="#">Something else here</a></li>
-								</ul> -->
-							</div>
-						</ul>
-					</div> <!-- navbar-collapse.// -->
-				</div> <!-- container-fluid.// -->
-				</nav>
-		</header>
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="javascript: void(0)" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+						STATE
+					</a>
+					<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+						{{-- @foreach($states as $stateKey => $stateValue) --}}
+							<li><a class="dropdown-item" href="{{route('indivisual.state.NSW')}}">New South Wales</a></li>
+							<li><a class="dropdown-item" href="{{route('indivisual.state.QLD')}}">Queensland</a></li>
+							<li><a class="dropdown-item" href="{{route('indivisual.state.VIC')}}">Victoria</a></li>
+							<li><a class="dropdown-item" href="{{route('indivisual.state.TAS')}}">Tasmania</a></li>
+							<li><a class="dropdown-item" href="{{route('indivisual.state.WA')}}">Western Australia</a></li>
+							<li><a class="dropdown-item" href="{{route('indivisual.state.SA')}}">South Australia</a></li>
+							{{-- <li><a class="dropdown-item" href="{{route('indivisual.state', ['state'=>$stateValue->acronym])}}">{{$stateValue->name}}</a></li> --}}
+						{{-- @endforeach --}}
+					</ul>
+				</li>
+
+				{{-- <li class="nav-item {{request()->routeIs('indivisual.state')?'active':''}}"><a class="nav-link" href="{{route('indivisual.state')}}">INDIVIDUAL STATE</a></li> --}}
+
+				<li class="nav-item {{request()->routeIs('indivisual.utility')?'active':''}}"><a class="nav-link" href="{{route('indivisual.utility')}}">INDIVIDUAL UTILITY</a></li>
+				<li class="nav-item {{request()->routeIs('blogs')?'active':''}}"><a class="nav-link" href="{{route('blogs')}}"> BLOG </a></li>
+				<li class="nav-item {{request()->routeIs('how-it-works')?'active':''}}"><a class="nav-link" href="{{route('how-it-works')}}"> HOW IT WORKS?  </a></li>
+			</ul>
+			<ul class="navbar-nav ms-auto d-none d-lg-block">
+				<div class="dropdown">
+					@auth
+						<a href="{{route('home')}}" class="btn log_drop btn-sm" type="button">
+							My profile
+						</a>
+					@else
+						<a href="{{url('login')}}" class="btn log_drop btn-sm" type="button">
+							Log In
+						</a>
+					@endauth
+
+						{{-- <a href="{{url('login')}}" class="login-btm"><small>Login </small><span><i class="fas fa-user-circle"></i></span></a> --}}
+					<!-- <button class="btn log_drop btn-sm dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+						Log In
+					</button>
+					<ul class="dropdown-menu log_btn" aria-labelledby="dropdownMenuButton1">
+						<li><a class="dropdown-item" href="#">Action</a></li>
+						<li><a class="dropdown-item" href="#">Another action</a></li>
+						<li><a class="dropdown-item" href="#">Something else here</a></li>
+					</ul> -->
+				</div>
+			</ul>
+		</div> <!-- navbar-collapse.// -->
+	</div> <!-- container-fluid.// -->
+	</nav>
+</header>

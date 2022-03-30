@@ -44,7 +44,7 @@
                         <div class="row m-0">
                             <div class="col-12 col-md-4 mb-3 pl-0">
                                 <div class="mb-0 shadow-sm border-0 p-0">
-                                   <div class="card-body card-body-inner">
+                                    <div class="card-body card-body-inner">
                                         <a href="{{route('admin.users')}}?userType=2" class="gpcVCf">
                                             <div class="icon-sec card-1">
                                                 <img src="{{asset('image/agreement.png')}}">
@@ -53,7 +53,7 @@
                                                 <h3>{{count($data->supplier)}} <span>Total Suppliers</span></h3>
                                             </div>
                                         </a>
-                                   </div>
+                                    </div>
                                 </div>
                             </div>
                             <div class="col-12 col-md-4 mb-3 pl-0">

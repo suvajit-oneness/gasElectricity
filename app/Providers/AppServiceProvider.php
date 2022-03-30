@@ -3,7 +3,9 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\View;
 use App\Model\ContactUs;
+use App\Model\State;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -25,16 +27,26 @@ class AppServiceProvider extends ServiceProvider
 
     public function boot()
     {
-        $tableCheck = \Schema::hasTable('contact_us');
-        if($tableCheck){
-            $contact = ContactUs::where('id',1)->where('type',1)->first();
-            if(!$contact)$contact = $this->contactData();
-        }else{
-            $contact = $this->contactData();
-        }
-        \View::composer('*', function($view) use ($contact){
+        view::composer('*', function($view) {
+            $tableCheck = \Schema::hasTable('contact_us');
+            $statesExists = \Schema::hasTable('states');
+
+            if($tableCheck){
+                $contact = ContactUs::where('id',1)->where('type',1)->first();
+                if(!$contact)$contact = $this->contactData();
+            }else{
+                $contact = $this->contactData();
+            }
+
+            if ($statesExists) {
+                $states = State::where('countryId', 2)->get();
+            }
+
+        // \View::composer('*', function($view) use ($contact){
             $view->with('contact', $contact);
+            $view->with('states', $states);
         });
+
         if (config('app.debug')) {
             error_reporting(E_ALL & ~E_USER_DEPRECATED);
         } else {

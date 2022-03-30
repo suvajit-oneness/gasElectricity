@@ -54,7 +54,7 @@
 	<div class="container overflow-hidden">
 		<div class="row m-0 align-items-center justify-content-between">
 			<div class="col-12 col-lg-5 p-0 pt-lg-5 p-0" data-aos="fade-right" data-aos-duration="1900">
-				<img src="{{asset('forntEnd/img/map_img.png')}}" class="w-100">
+				<img src="{{asset('forntEnd/img/Queensland.png')}}" class="w-100">
 			</div>
 			<div class="col-12 col-lg-6 p-lg-4">
 				<div class="page_title">

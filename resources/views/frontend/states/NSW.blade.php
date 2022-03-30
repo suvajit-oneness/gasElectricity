@@ -54,14 +54,14 @@
 	<div class="container overflow-hidden">
 		<div class="row m-0 align-items-center justify-content-between">
 			<div class="col-12 col-lg-5 p-0 pt-lg-5 p-0" data-aos="fade-right" data-aos-duration="1900">
-				<img src="{{asset('forntEnd/img/map_img.png')}}" class="w-100">
+				<img src="{{asset('forntEnd/img/NSW.png')}}" class="w-100">
 			</div>
 			<div class="col-12 col-lg-6 p-lg-4">
 				<div class="page_title">
 					<h3 data-aos="fade-down" data-aos-duration="1000"> 
-							<small class="position-relative">Queensland <div class="border_text" data-aos="fade-left" data-aos-duration="1400"></div></small>Energy Comparison</h3>
+							<small class="position-relative">New South Wales <div class="border_text" data-aos="fade-left" data-aos-duration="1400"></div></small>Energy Comparison</h3>
 					<p data-aos="fade-up" data-aos-duration="1300">
-						<b class="d-block mb-2">Queensland energy usage is on the rise due to growing Gas and 
+						<b class="d-block mb-2">New South Wales energy usage is on the rise due to growing Gas and 
 							Electricity industry.
 						</b> 
 					</p>
