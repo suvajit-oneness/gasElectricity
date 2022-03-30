@@ -21,9 +21,12 @@ class AdminController extends Controller
     public function adminDashboard(Request $req)
     {
         $data = (object)[];
-        $data->customer = User::where('user_type', 3)->get();
+        $data->customer = User::where('user_type', 3)->latest('id')->get();
         $data->supplier = User::where('user_type', 2)->get();
-        $data->rfqs = Rfq::select('*')->get();
+        $data->rfqs = Rfq::select('*')->latest('id')->get();
+        $data->blogs = Blog::count();
+        $data->products = Product::count();
+        $data->company = Company::count();
         return view('admin.dashboard', compact('data'));
     }
 

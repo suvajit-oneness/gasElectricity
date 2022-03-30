@@ -71,8 +71,8 @@
                                 <h5>Contact us</h5></a>
                             </li>
                             <li class="nav-item custom-tooltip">
-                            <span class="tooltiptext">RFQs</span>
-                                <a class="nav-link {{request()->routeIs('admin.report.rfqs')?'active':''}}" href="{{route('admin.report.rfqs')}}"><i class="fa fa-fw fa-user-circle"></i><h5>RFQs</h5></a>
+                            <span class="tooltiptext">Customer Request</span>
+                                <a class="nav-link {{request()->routeIs('admin.report.rfqs')?'active':''}}" href="{{route('admin.report.rfqs')}}"><i class="fa fa-fw fa-user-circle"></i><h5>Customer Request</h5></a>
                             </li>
                             <li class="nav-item custom-tooltip">
                             <span class="tooltiptext">User Enrolled</span>
