@@ -13,11 +13,11 @@
 	<link rel="stylesheet" href="{{asset('forntEnd/css/style.css')}}">
 	@yield('css')
 </head> --}}
- <head>
+	<head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <link rel="shortcut icon" href="./favicon.ico">
+        <link rel="shortcut icon" href="{{asset('forntEnd/img/logo2.png')}}">
 		<title>{{config('app.name', 'Laravel')}} - @yield('title')</title>
 
         <!--CSS-->
