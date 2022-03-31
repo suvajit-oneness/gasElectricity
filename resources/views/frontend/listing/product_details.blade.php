@@ -418,9 +418,9 @@
 						// swal('success' , response.message);
 						$successSwal = Swal.fire({
 							icon: 'success',
-							text: 'We sent you a mail!',
+							text: 'Please check your mail!',
 							showConfirmButton: false,
-							timer: 1000
+							timer: 1500
 						})
 					} else {
 						// swal('error' , response.message);
