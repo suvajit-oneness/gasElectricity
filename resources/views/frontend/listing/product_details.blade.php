@@ -392,19 +392,44 @@
     	$(document).on('click','.emailedPlanDetails',function(){
     		var thisBtn = $(this);
     		var plan_rate_link = $("input[name='plan_rate_link']:checked").val(),plan_rate_link_gas = $("input[name='plan_rate_link_gas']:checked").val();
-    		$('.loading-data').show();thisBtn.attr('disabled',true);
+    		// $('.loading-data').show();
+			thisBtn.attr('disabled',true);
 			$.ajax({
 				url : '{{route('rfq.email.plan.details')}}',
 				type : 'post',
 				dataType : 'JSON',
 				data : {userId:'{{Auth::user()->id}}',plan_rate_link:plan_rate_link,plan_rate_link_gas:plan_rate_link_gas,rfqId:'{{$rfq->id}}',productId:'{{$productData->id}}',_token:'{{csrf_token()}}'},
+				beforeSend: function() {
+					$loadingSwal = Swal.fire({
+						title: 'Please wait...',
+						text: 'We are matching the tariff according to your need!',
+						showConfirmButton: false,
+						allowOutsideClick: false
+						// timer: 1500
+					})
+				},
 				success:function(response){
-					$('.loading-data').hide();thisBtn.attr('disabled',false);
+					// $('.loading-data').hide();
+					$loadingSwal.close()
+					thisBtn.attr('disabled',false);
 					if(response.error == false){
-						$('.modal').modal('hide');$('.emailplanDetails').remove();
-						swal('success' , response.message);
-					}else{
-						swal('error' , response.message);
+						$('.modal').modal('hide');
+						$('.emailplanDetails').remove();
+						// swal('success' , response.message);
+						$successSwal = Swal.fire({
+							icon: 'success',
+							text: 'We sent you a mail!',
+							showConfirmButton: false,
+							timer: 1000
+						})
+					} else {
+						// swal('error' , response.message);
+						console.log(response.message)
+						$errorSwal = Swal.fire({
+							icon: 'error',
+							title: 'Something Happened',
+							text: 'Try again!',
+						})
 					}
 				}
 			});
