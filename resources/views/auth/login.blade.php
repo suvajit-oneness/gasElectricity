@@ -94,11 +94,11 @@
 					<p data-aos="fade-up" data-aos-duration="1400" class="mt-3 mb-3">To keep connected with us please login with your personal information by email address and password. <img src="{{asset('forntEnd/img/moj.png')}}" class="ms-2"></p>
 				</div>
 					@error('thankyou')
-								<span class="text-success" role="alert">{{ $message }}</span><br>
-							@enderror
+                        <span class="text-success" role="alert">{{ $message }}</span><br>
+                    @enderror
 					<form method="post" action="{{ route('login') }}">
 						@csrf
-						
+
 						<div class="mb-3 position-relative">
                          <!--<img src="{{asset('forntEnd/img/envelop-3.png')}}" class="input_img">-->
 							<input type="email"  name="email" class="form-control @error('email'){{'is-invalid'}}@enderror" placeholder="Email Address*">
@@ -106,6 +106,7 @@
 							<span class="invalid-feedback" role="alert">{{ $message }}</span>
 							@enderror
 						</div>
+
 						<div class="mb-3 position-relative">
                         <!--<img src="{{asset('forntEnd/img/lock.png')}}" class="input_img">-->
 							<input type="password"  name="password" class="form-control @error('password'){{'is-invalid'}}@enderror" placeholder="password*">
@@ -113,10 +114,10 @@
 							<span class="invalid-feedback" role="alert">{{ $message }}</span>
 							@enderror
 						</div>
-					
+
 						<button class="btn log_drop" type="submit">Login Now</button>
                         @if (Route::has('register'))
-                            <a href="{{route('register')}}" class="white-btm">+ Create an Account</a>
+                            <a href="{{route('register')}}" class="d-block d-sm-inline white-btm mt-4 mt-sm-0">+ Create an Account</a>
                         @endif
 					</form>
 				</div>

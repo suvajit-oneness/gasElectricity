@@ -252,10 +252,10 @@ class WelcomeController extends Controller
         $suppliers = $this->getSuppliersBySearch($req);
         $error = [];
         if (!empty($req->stateId)) {
-            $error['state'] = 'We donot provide the service at selected State';
+            $error['state'] = 'We do not provide service at selected State';
         }
         if (!empty($req->search)) {
-            $error['search'] = 'We donot provide the service at given pincode';
+            $error['search'] = 'We do not provide service at given pincode';
         }
         if (count($suppliers) > 0) {
             $requestedData = $req->all();

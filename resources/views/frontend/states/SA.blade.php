@@ -34,7 +34,7 @@
 					</datalist>
 					@error('eneryType')<span class="text-danger">{{$message}}</span>@enderror
 					@error('search')<span class="text-danger">{{$message}}</span>@enderror
-					<input type="text" class="form-control postCodeSearch"  name="search" id="postcodesearch" placeholder="Enter your postcode or suburb..." required value="{{old('search')}}"list="suppliersPincode">
+					<input type="text" class="form-control postCodeSearch"  name="search" id="postcodesearch" placeholder="Enter your postcode or suburb..." value="{{old('search')}}"list="suppliersPincode">
 
 					<input type="hidden" name="stateId" value="13">
 					<input type="hidden" name="stateName" value="South Australia">

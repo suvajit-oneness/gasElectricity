@@ -6,7 +6,7 @@
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
             <div class="card">
                 <div class="card-header">
-                    <h5 class="mb-0">Dashboard</h5>
+                    <h5 class="mb-0">Welcome, {{auth()->user()->name}}</h5>
                 </div>
                 <div class="card-body">
                     @if($data->userProductChoice)
@@ -31,7 +31,7 @@
                         </div>
                     @endif
                     
-                    <h3>RFQ Enquiry</h3>
+                    <h3>Your Enquiry</h3>
                     <div class="table-responsive">
                         <table class="table table-striped table-bordered" style="width:100%">
                             <thead>

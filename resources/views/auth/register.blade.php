@@ -198,8 +198,7 @@
                                 <div class="border_text" data-aos="fade-left" data-aos-duration="1400"></div>
                             </small>
                         </h1>
-                        <p data-aos="fade-up" data-aos-duration="1400" class="mt-3 mb-3">To keep connected with us please register with your personal information by providing their details. <img
-                                src="{{ asset('forntEnd/img/moj.png') }}" class="ms-2"></p>
+                        <p data-aos="fade-up" data-aos-duration="1400" class="mt-3 mb-3">To keep connected with us please register with your personal information by providing their details. <img src="{{ asset('forntEnd/img/moj.png') }}" class="ms-2"></p>
                     </div>
                     <form method="POST" action="{{ route('register') }}" autocomplete="off">
                         @csrf
@@ -342,9 +341,9 @@
                             </div>
                         </div>
 
-                        <div class="position-relative">
+                        <div class="position-relative mb-5 mb-sm-0">
                             <button type="submit" class="btn log_drop">Register</button>
-                            <!-- <a href="{{ route('login') }}" class="white-btm">+ Login</a> -->
+                            <a href="{{ route('login') }}" class="d-block d-sm-inline white-btm mt-4 mt-sm-0">< Back to Login</a>
                         </div>
                     </form>
                 </div>

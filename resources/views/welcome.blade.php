@@ -181,33 +181,18 @@
 			<div class="col-12 col-lg-8 mt-4">
 				<div class="accordion" id="accordionExample">
 					@foreach ($data->faq as $key => $faq)
-					@if(($key + 1) %2 == 0)
 						<div class="accordion-item">
-							<h2 class="accordion-header" id="headingOne">
-								<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+							<h2 class="accordion-header" id="heading{{$key}}">
+								<button class="accordion-button {{$key == 1 ? '' : 'collapsed'}}" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{$key}}" aria-expanded="{{$key == 1 ? 'true' : 'false'}}" aria-controls="collapse{{$key}}">
 									{{$faq->title}}
 								</button>
 							</h2>
-							<div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-								<div class="accordion-body">
-									<p>{{$faq->description}}</p>
-								</div>
-							</div>
-							</div>
-					@else
-						<div class="accordion-item">
-							<h2 class="accordion-header" id="headingTwo">
-								<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-									{{$faq->title}}
-								</button>
-							</h2>
-							<div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+							<div id="collapse{{$key}}" class="accordion-collapse collapse {{$key == 1 ? 'show' : ''}}" aria-labelledby="heading{{$key}}" data-bs-parent="#accordionExample">
 								<div class="accordion-body">
 									<p>{{$faq->description}}</p>
 								</div>
 							</div>
 						</div>
-					@endif
 					@endforeach
 				</div>
 			</div>

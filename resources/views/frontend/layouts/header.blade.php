@@ -45,7 +45,14 @@
 	<div class="container-fluid ps-lg-5 pe-lg-5">
 		<a class="navbar-brand" href="{{url('/')}}"><img src="{{asset('forntEnd/img/logo2.png')}}"></a>
 		<div class="dropdown d-block d-lg-none">
-			<a href="{{url('login')}}" class="btn log_drop btn-sm" type="button">Log In</a>
+			@auth
+				<a href="{{route('home')}}" class="btn log_drop btn-sm" type="button">My profile</a>
+			@else
+				<a href="{{url('login')}}" class="btn log_drop btn-sm" type="button">Log In</a>
+			@endauth
+
+			{{-- <a href="{{url('login')}}" class="btn log_drop btn-sm" type="button">Log In</a> --}}
+
 			<!-- <button class="btn log_drop btn-sm dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
 				Log In
 			</button>
@@ -89,13 +96,9 @@
 			<ul class="navbar-nav ms-auto d-none d-lg-block">
 				<div class="dropdown">
 					@auth
-						<a href="{{route('home')}}" class="btn log_drop btn-sm" type="button">
-							My profile
-						</a>
+						<a href="{{route('home')}}" class="btn log_drop btn-sm" type="button">My profile</a>
 					@else
-						<a href="{{url('login')}}" class="btn log_drop btn-sm" type="button">
-							Log In
-						</a>
+						<a href="{{url('login')}}" class="btn log_drop btn-sm" type="button">Log In</a>
 					@endauth
 
 						{{-- <a href="{{url('login')}}" class="login-btm"><small>Login </small><span><i class="fas fa-user-circle"></i></span></a> --}}
