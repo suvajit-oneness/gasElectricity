@@ -261,7 +261,13 @@ class WelcomeController extends Controller
             $requestedData = $req->all();
             return view('frontend.rfqBeforeProductListing', compact('requestedData'));
         }
-        return back()->withErrors($error)->withInput($req->all());
+
+        // redirect
+        if (!empty($req->stateId) && !empty($req->stateName)) {
+            return redirect()->route('rfq.product.listing',['stateId'=>base64_encode($req->stateId),'stateName'=>$req->stateName]);
+        } else {
+            return back()->withErrors($error)->withInput($req->all());
+        }
     }
 
     public function ocrUploadAndGetdata(Request $req)

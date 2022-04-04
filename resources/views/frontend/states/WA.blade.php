@@ -22,7 +22,7 @@
 					<div class="form-check ct_select">
 						<input class="form-check-input" type="radio"  id="customRadio3" name="eneryType" value="gas" class="custom-control-input" @if(old('eneryType') == 'gas'){{('checked')}}@endif checked>
 						<label class="form-check-label" for="flexRadioDefault2">
-						Gas
+							Gas
 						</label>
 					</div>
 				</div>
@@ -35,6 +35,9 @@
 					@error('eneryType')<span class="text-danger">{{$message}}</span>@enderror
 					@error('search')<span class="text-danger">{{$message}}</span>@enderror
 					<input type="text" class="form-control postCodeSearch"  name="search" id="postcodesearch" placeholder="Enter your postcode or suburb..." required value="{{old('search')}}"list="suppliersPincode">
+
+					<input type="hidden" name="stateId" value="12">
+					<input type="hidden" name="stateName" value="Western Australia">
 					<button class="btn btn-comp" type="submit">Compare</button>
 				</div>
 			</form>

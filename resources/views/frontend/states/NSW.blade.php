@@ -12,7 +12,6 @@
 			<h6 class="m-0 m-auto w-100">Energy type</h6>
 			<form action="{{route('rfq.product.listing')}}" method="get" autocomplete="off">
 				<div class="d-flex w-lg-25 justify-content-center pt-3">
-
 					<div class="form-check ct_select">
 						<input class="form-check-input" type="radio" id="customRadio1" name="eneryType" value="electricity" class="custom-control-input" @if(old('eneryType') == 'electricity'){{('checked')}}@elseif(old('eneryType') == 'gas')@else{{('checked')}}@endif>
 						<label class="form-check-label" for="flexRadioDefault1">
@@ -22,7 +21,7 @@
 					<div class="form-check ct_select">
 						<input class="form-check-input" type="radio"  id="customRadio3" name="eneryType" value="gas" class="custom-control-input" @if(old('eneryType') == 'gas'){{('checked')}}@endif checked>
 						<label class="form-check-label" for="flexRadioDefault2">
-						Gas
+							Gas
 						</label>
 					</div>
 				</div>
@@ -35,6 +34,9 @@
 					@error('eneryType')<span class="text-danger">{{$message}}</span>@enderror
 					@error('search')<span class="text-danger">{{$message}}</span>@enderror
 					<input type="text" class="form-control postCodeSearch"  name="search" id="postcodesearch" placeholder="Enter your postcode or suburb..." required value="{{old('search')}}"list="suppliersPincode">
+
+					<input type="hidden" name="stateId" value="8">
+					<input type="hidden" name="stateName" value="New South Wales">
 					<button class="btn btn-comp" type="submit">Compare</button>
 				</div>
 			</form>
@@ -59,7 +61,7 @@
 			<div class="col-12 col-lg-6 p-lg-4">
 				<div class="page_title">
 					<h3 data-aos="fade-down" data-aos-duration="1000"> 
-							<small class="position-relative">New South Wales <div class="border_text" data-aos="fade-left" data-aos-duration="1400"></div></small>Energy Comparison</h3>
+						<small class="position-relative">New South Wales <div class="border_text" data-aos="fade-left" data-aos-duration="1400"></div></small>Energy Comparison</h3>
 					<p data-aos="fade-up" data-aos-duration="1300">
 						<b class="d-block mb-2">New South Wales energy usage is on the rise due to growing Gas and 
 							Electricity industry.

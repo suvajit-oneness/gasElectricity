@@ -429,6 +429,7 @@
 							icon: 'error',
 							title: 'Something Happened',
 							text: 'Try again!',
+							showConfirmButton: false,
 						})
 					}
 				}

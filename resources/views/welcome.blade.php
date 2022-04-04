@@ -12,26 +12,26 @@
 				</h1>
 				<h6 data-aos="fade-down" data-aos-duration="1400">If you’re a savvy bargain hunter like us at <b>SwitchR</b>, you’ll love saving on your energy bills. Compare energy plans, <a href="javascript:void(0);">sign up, and start saving!</a></h6>
 			</div>
-				<form action="{{route('rfq.product.listing')}}" autocomplete="off">
-			<div class="bg_l_blue">
-						<datalist id="suppliersPincode">
-							@foreach($data->pincode as $key => $pincde)
-								<option value="{{$pincde->autocomplete}}"></option>
-							@endforeach
-						</datalist>
-			
-				@error('search')<span class="text-danger">{{$message}}</span>@enderror
-				<h5 data-aos="fade-down" data-aos-duration="1000">Where are you located?</h5>
-				<div class="input-group mb-2" data-aos="fade-up" data-aos-duration="1300">
-					<input type="text" class="form-control" name="search" id="search" placeholder="Enter your postcode or suburb..."  required="" value="{{old('search')}}">
-					<button class="btn btn-comp">Compare</button>
+			<form action="{{route('rfq.product.listing')}}" autocomplete="off">
+				<div class="bg_l_blue">
+					<datalist id="suppliersPincode">
+						@foreach($data->pincode as $key => $pincde)
+							<option value="{{$pincde->autocomplete}}"></option>
+						@endforeach
+					</datalist>
+
+					@error('search')<span class="text-danger">{{$message}}</span>@enderror
+					<h5 data-aos="fade-down" data-aos-duration="1000">Where are you located?</h5>
+					<div class="input-group mb-2" data-aos="fade-up" data-aos-duration="1300">
+						<input type="text" class="form-control" name="search" id="search" placeholder="Enter your postcode or suburb..."  required="" value="{{old('search')}}">
+						<button class="btn btn-comp">Compare</button>
+					</div>
+					<p><b>Currently available in</b>
+					@foreach($data->state as $state) 
+						<a href="{{route('rfq.product.listing',['stateId'=>base64_encode($state->id),'stateName'=>$state->name])}}">{{$state->name}}{{$loop->last ? '' : ', '}} </a> 
+					@endforeach
+					</p>
 				</div>
-				<p><b>Currently available in</b>
-				@foreach($data->state as $state) 
-					<a href="{{route('rfq.product.listing',['stateId'=>base64_encode($state->id),'stateName'=>$state->name])}}">{{$state->name}}</a> 
-				@endforeach
-				</p>
-			</div>
 			</form>
 			<ul>
 				<li><img src="{{asset('forntEnd/img/b1.png')}}"></li>
