@@ -112,7 +112,7 @@
     .banner {
         padding-top: 94px;
         padding-bottom: 40px;
-        height: auto;
+        min-height: auto;
     }
 
     .banner .input-group {
@@ -124,7 +124,7 @@
     }
 
     .page_title h1 {
-        font-size: 34px !important;
+        font-size: 30px !important;
     }
 
     .mt-9 {
@@ -183,6 +183,7 @@
 
     .page_title {
         overflow: hidden;
+        padding: 0;
     }
 
     .navbar-collapse {
@@ -299,6 +300,56 @@
     .address_text img {
         width: 22px;
     }
+    .plan_icon_wrap{
+        width: 100%;
+        margin: 15px 0 0 0;
+    }
+    .plane_list_wrapper{
+        display: block;
+    }
+    .list_container_first {
+        padding: 20px 20px 0 20px;
+        width: 100%;
+    }
+    .plan_value {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        text-align: center;
+    }
+    .list_amount {
+        padding: 8px 0;
+        position: relative;
+        width: 100%;
+        margin: 15px 0 46px;
+    }
+    .price_compare h2 {
+        font-size: 16px;
+    }
+    .price_compare span{
+        margin: 0;
+    }
+    .price_amount {
+        padding-top: 15px;
+    }
+    .listing_wrap_title {
+        font-size: 16px;
+        line-height: 25px;
+        margin-bottom: 25px;
+    }
+    .company-details-anchor{
+        background: #7bce92;
+        padding: 4px 14px;
+        border-radius: 5px;
+        color: #fff;
+        margin-top: 15px;
+    }
+    .why_prosub {
+        padding-top: 165px;
+        padding-left: 0;
+    }
 }
 
 @media (max-width: 1360px) {
@@ -312,13 +363,13 @@
     }
 
     .page_title h1 {
-        font-size: 36px;
+        font-size: 30px;
         font-weight: 800;
         text-transform: capitalize;
     }
 
     .page_title h1 small {
-        font-size: 36px;
+        font-size: 30px;
     }
 
     .how_it_sub .border_text,
@@ -333,6 +384,9 @@
         margin: 0 auto;
         border-radius: 10px;
         overflow: hidden;
+    }
+    .w_mark {
+        top: -233px;
     }
 }
 

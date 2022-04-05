@@ -7049,7 +7049,7 @@ Media Query
 
 @media only screen and (max-width:768px) {
     .dashboard-content {
-        padding: 20px 20px 60px 20px;
+        padding: 0 !important;
     }
 
     .nav-left-sidebar .navbar a {
@@ -7062,10 +7062,11 @@ Media Query
     }
 
     .nav-left-sidebar {
-        width: 100%;
-        position: relative;
-        top: 0px;
-        right: 0px;
+        position: fixed;
+        top: 61px;
+        left: 0px;
+        z-index: 22;
+        height: 100vh;
     }
 
     .dashboard-wrapper {
@@ -7123,7 +7124,53 @@ Media Query
         border-right: transparent !important;
     }
 
-
+    .dashboard-header .navbar {
+        justify-content: flex-start;
+    }
+    .openstyle{
+        width: 100% !important;
+    }
+    .responsiv_user{
+        position: absolute !important;
+        top: 0;
+        right: 0;
+    }
+    .responsiv_user .dropdown-menu {
+        position: absolute !important;
+    }
+    .openstyle .navbar{
+        padding-right: 15px !important;
+    }
+    .card-header{
+        margin-bottom: 0 !important;
+        padding-bottom: 0 !important;
+    }
+    .card-body h3{
+        font-size: 16px !important;
+    }
+    .form-group.row label {
+        white-space: normal !important;
+    }
+    .table-responsive{
+        margin-top: 30px !important;
+    }
+    .first-list {
+        position: absolute;
+        right: 17px;
+        top: 0;
+    }
+    .btn-primary {
+        background: #7bce92 !important;
+        font-size: 15px !important;
+        color: #fff !important;
+        font-weight: 600;
+        border-radius: 10px !important;
+        padding: 8px 25px !important;
+        border: 0 !important;
+    }
+    .dataTables_length{
+        margin-bottom: 10px;
+    }
 }
 
 
@@ -7131,7 +7178,7 @@ Media Query
 
 @media only screen and (max-width:480px) {
     .dashboard-content {
-        padding: 20px 20px 60px 20px;
+        padding: 0 !important;
     }
 
     .nav-left-sidebar .navbar a {
@@ -7151,10 +7198,11 @@ Media Query
     }
 
     .nav-left-sidebar {
-        width: 100%;
-        position: relative;
-        top: 0px;
-        right: 0px;
+        position: fixed;
+        top: 61px;
+        left: 0px;
+        z-index: 22;
+        height: 100vh;
     }
 
     .dashboard-wrapper {
@@ -7250,6 +7298,16 @@ Media Query
     .simple-card .nav.nav-tabs .nav-item .nav-link {
         padding: 17px 29px;
     }
+    .collapse:not(.show) {
+        display: block !important;
+    }
+    .navbar-toggler{
+        display: none !important;
+    }
+    .navbar{
+        justify-content: start;
+    }
+    
 }
 
 /* Custom, iPhone Retina */
