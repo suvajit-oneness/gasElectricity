@@ -6,7 +6,7 @@
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
             <div class="card">
                 <div class="card-header">
-                    <h5 class="mb-0">Welcome, {{auth()->user()->name}}</h5>
+                    <h5 class="mb-0">Welcome, {{Auth::user()->name}}</h5>
                 </div>
                 <div class="card-body">
                     @if($data->userProductChoice)
@@ -20,8 +20,8 @@
                                     <h4 class="name mb-0">Product Info</h4>
                                     <p class="company-name mb-0">{{$product->name}}</p>
                                     <h4 class="name mb-0">Seller</h4>
-                                    <p class="address mb-0">{{$product->author->name}}</p>
-                                    <p class="city mb-0">{{$product->author->email}}</p>
+                                    <p class="address mb-0">{{$product->author ? $product->author->name : ''}}</p>
+                                    <p class="city mb-0">{{$product->author ? $product->author->email : ''}}</p>
                                 </div>
                                 <div class="col-lg-6 invoice-details">
                                     <P class="invoice-id"><span class="invoice">Enquiry Id:</span>{{$rfq->id}}</p>
