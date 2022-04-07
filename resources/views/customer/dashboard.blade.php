@@ -19,7 +19,7 @@
                                 <div class="col-lg-6 customer-details">
                                     <h4 class="name mb-0">Product Info</h4>
                                     <p class="company-name mb-0">{{$product->name}}</p>
-                                    <h4 class="name mb-0">Seller</h4>
+                                    <h4 class="name mb-0">{{$product->author ? 'Seller' : '' }}</h4>
                                     <p class="address mb-0">{{$product->author ? $product->author->name : ''}}</p>
                                     <p class="city mb-0">{{$product->author ? $product->author->email : ''}}</p>
                                 </div>
