@@ -319,16 +319,26 @@
 						$('#kwh_rate').val(response.data.kwh_rate);
 						$('#serviceChargedPeriod').val(response.data.serviceChargedPeriod);
 						$('#serviceChargedRate').val(response.data.serviceChargedRate);
+
+						$loadingSwal.close()
+						$successSwal = Swal.fire({
+							icon: 'success',
+							text: 'Details found!',
+							showConfirmButton: false,
+							timer: 1000
+						})
 					} else {
 						$('#fileUploadError').text(response.message);
+
+						$loadingSwal.close()
+						$successSwal = Swal.fire({
+							icon: 'warning',
+							text: response.message,
+							// showConfirmButton: false,
+							confirmButtonText: "Okay",
+							timer: 2000
+						})
 					}
-					$loadingSwal.close()
-					$successSwal = Swal.fire({
-						icon: 'success',
-						text: 'Details found!',
-						showConfirmButton: false,
-						timer: 1000
-					})
 				},
 				error:function(error){
 					$('#fileUploadError').text('Something went wrong please try after some time');
