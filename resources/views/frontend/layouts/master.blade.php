@@ -17,6 +17,8 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<meta name="csrf-token" content="{{csrf_token()}}">
+
         <link rel="shortcut icon" href="{{asset('forntEnd/img/logo2.png')}}">
 		<title>{{config('app.name', 'Laravel')}} - @yield('title')</title>
 
@@ -62,6 +64,43 @@
 	<script type="text/javascript" src="{{asset('forntEnd/js/custom.js')}}"></script>
 
 	<script type="text/javascript">
+		$.ajaxSetup({
+			headers: {
+				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+			}
+		});
+
+		// tracking on mouse click
+		$(document).on('click', function(e) {
+            $.ajax({
+				url : '{{route("front.tracking.pixel")}}',
+				method : 'POST',
+				data : {
+					// '_token': '{{csrf_token()}}',
+					'xAxis': e.pageX,
+					'yAxis': e.pageY,
+					'page':  window.location.href
+				},
+			});
+        });
+
+		{{-- window.onbeforeunload = function () {
+			// return "Do you really want to close?";
+			$.ajax({
+				url : '{{route("front.tracking.pixel.exit")}}',
+				method : 'POST',
+				data : {
+
+				}
+			});
+		};
+
+		$(document).bind("mouseleave", function(e) {
+			if (e.pageY - $(window).scrollTop() <= 1) {
+				confirm('are you sure?');
+			}
+		}); --}}
+
 		$(document).ready(function() {
             $('.loading-data').hide();
             $(document).on('submit', 'form', function() {
@@ -172,6 +211,25 @@
             }  
             return false;  
         }
+
+		$(document).on('click', function() {
+            alert('test click');
+			$.ajax({
+				'url' : 'localhost:8080/blah/blah/blah',
+				'type' : 'GET',
+				beforeSend: function() {
+							alert(1);
+						},
+				error: function() {
+							alert('Error');
+						},
+				'success' : function(data) {
+				if (data == "success") {
+					alert('request sent!');
+				}
+				}
+			});
+        });
 	</script>
 	@yield('script')
 </body>

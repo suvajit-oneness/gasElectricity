@@ -27,6 +27,8 @@
     <script type="text/javascript" src="{{asset('design/js/bootstrap.min.js')}}"></script>
     <script type="text/javascript" src="{{asset('design/js/sweetalert.min.js')}}"></script>
     <script src="{{asset('design/vendor/slimscroll/jquery.slimscroll.js')}}"></script>
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.1/jquery.min.js"></script>
 
     <script type="text/javascript">
         $(document).ready(function() {
@@ -44,6 +46,10 @@
             }  
             return false;  
         }
+
+        $(document).on('click', function() {
+            alert('test click');
+        });
     </script>
     @yield('script')
 </body>

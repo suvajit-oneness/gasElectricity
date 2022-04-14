@@ -329,6 +329,7 @@
 						})
 					} else {
 						$('#fileUploadError').text(response.message);
+						$('input[name="file"]').val('');
 
 						$loadingSwal.close()
 						$successSwal = Swal.fire({
@@ -336,7 +337,7 @@
 							text: response.message,
 							// showConfirmButton: false,
 							confirmButtonText: "Okay",
-							timer: 2000
+							// timer: 2000
 						})
 					}
 				},

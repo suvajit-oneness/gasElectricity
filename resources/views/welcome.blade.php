@@ -199,6 +199,12 @@
 		</div>
 	</div>
 </section>
+@section('script')
+<script>
+	
+</script>
+	
+@stop
 @endif
 <!--end_testimonial-->
 @endsection

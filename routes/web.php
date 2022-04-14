@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Artisan;
 
 Auth::routes(['register' => true, 'logout' => false, 'verify' => true]);
 Route::any('logout', 'Auth\LoginController@logout');
@@ -11,8 +12,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 //cache route
 Route::get('cache', function () {
 
-	\Artisan::call('cache:clear');
-	\Artisan::call('config:cache');
+	Artisan::call('cache:clear');
+	Artisan::call('config:cache');
 
 	dd("Cache is cleared");
 });
@@ -33,6 +34,7 @@ Route::group(['prefix' => 'customer', 'middleware' => 'customer'], function () {
 	require 'customer.php';
 });
 
+Route::post('/track', 'TrackingController@index')->name('front.tracking.pixel');
 Route::get('/', 'WelcomeController@index')->name('landing.page');
 Route::get('about-us', 'WelcomeController@aboutUs')->name('aboutus');
 Route::get('how-it-works', 'WelcomeController@howItWorks')->name('how-it-works');
