@@ -15,6 +15,7 @@ use App\Model\ProductGas, App\Model\ProductElectricity;
 use App\Model\ProductMomentum, App\Model\CompanyDiscount;
 use App\Model\State, App\Model\Country, App\Model\CompanyCalculation;
 use App\Model\CompanyRateDetails, App\Model\CompanyPlanDetails;
+use App\Model\TrackingPixel;
 
 class AdminController extends Controller
 {
@@ -1357,5 +1358,39 @@ class AdminController extends Controller
         return back()->with('Success', 'Deleted SuccessFully');
         // Setting::where('id',$id)->where('key','whychooseus')->delete();
         // return back()->with('Success', 'Deleted SuccessFully');
+    }
+
+    // -------------------report for tracking----------------
+    public function trackingReport(Request $req)
+    {
+        $trackingPixels = TrackingPixel::get();
+        return view('admin.reports.tracking_pixel', compact('trackingPixels'));
+    }
+
+    public function trackingFilter(Request $req)
+    {
+        $trackingPixels = TrackingPixel::where([
+            [function ($query) use ($req) {
+                if ($from = $req->from && $to = $req->to) {
+                    $query->where('time', '>=', $from)->where('time', '<=', $to);
+                }
+                if ($from = $req->from) {
+                    $query->orWhere('time', '>=', $from);
+                }
+                if ($to = $req->to) {
+                    $query->orWhere('time', '<=', $to);
+                }
+                if ($stage = $req->stage) {
+                    $query->orWhere('stage', $stage);
+                }
+                $query->get();
+            }]
+        ])
+            ->orderBy('id', 'desc')
+            ->paginate(15)
+            ->appends(request()->query());
+        // dd($trackingPixels);
+
+        return view('admin.reports.tracking_pixel', compact('trackingPixels'));
     }
 }

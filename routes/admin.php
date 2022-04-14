@@ -85,6 +85,10 @@ Route::group(['prefix' => 'report'], function () {
 	Route::get('contact-us', 'Admin\AdminController@contactUs')->name('admin.report.contactus');
 	Route::post('contact-us/remark/save', 'Admin\AdminController@saveRemarkOfContactUs')->name('admin.report.contactUsSaveRemark');
 	Route::get('rfqs/details', 'Admin\AdminController@rfqDetails')->name('admin.report.rfqs');
+
+	// Route::get('/tracking', 'Admin\AdminController@trackingReport')->name('admin.report.tracking');
+	Route::get('/tracking',  'Admin\AdminController@trackingFilter')->name('admin.report.tracking');
+
 	Route::post('rfqs/details/remark/save', 'Admin\AdminController@saveRemarkOfRfqs')->name('admin.report.rfqSaveRemark');
 	Route::any('user/product/enrolled', 'Supplier\SupplierController@reportSupplierFormFilledByUser')->name('admin.report.user_enrolled');
 });

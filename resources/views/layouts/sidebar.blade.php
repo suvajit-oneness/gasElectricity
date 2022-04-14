@@ -78,6 +78,10 @@
                             <span class="tooltiptext">User Enrolled</span>
                                 <a class="nav-link {{request()->routeIs('admin.report.user_enrolled')?'active':''}}" href="{{route('admin.report.user_enrolled')}}"><i class="fa fa-fw fa-user-circle"></i><h5>User Enrolled</h5></a>
                             </li>
+                            <li class="nav-item custom-tooltip">
+                            <span class="tooltiptext">Tracking Report</span>
+                                <a class="nav-link {{request()->routeIs('admin.report.tracking')?'active':''}}" href="{{route('admin.report.tracking')}}"><i class="fa fa-fw fa-user-circle"></i><h5>Tracking Report</h5></a>
+                            </li>
                             <!-- Crud Operation Section -->
                             <li class="nav-divider">Features</li>
                             <li class="nav-item custom-tooltip">
