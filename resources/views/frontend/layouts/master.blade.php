@@ -64,42 +64,28 @@
 	<script type="text/javascript" src="{{asset('forntEnd/js/custom.js')}}"></script>
 
 	<script type="text/javascript">
-		$.ajaxSetup({
-			headers: {
-				'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-			}
-		});
+		// $.ajaxSetup({
+		// 	headers: {
+		// 		'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+		// 	}
+		// });
 
 		// tracking on mouse click
-		$(document).on('click', function(e) {
-            $.ajax({
-				url : '{{route("front.tracking.pixel")}}',
-				method : 'POST',
-				data : {
-					// '_token': '{{csrf_token()}}',
-					'xAxis': e.pageX,
-					'yAxis': e.pageY,
-					'page':  window.location.href
-				},
-			});
-        });
-
-		{{-- window.onbeforeunload = function () {
-			// return "Do you really want to close?";
-			$.ajax({
-				url : '{{route("front.tracking.pixel.exit")}}',
-				method : 'POST',
-				data : {
-
-				}
-			});
-		};
-
-		$(document).bind("mouseleave", function(e) {
-			if (e.pageY - $(window).scrollTop() <= 1) {
-				confirm('are you sure?');
+		// $(document).on('click', function(e) {
+			function userTrack(buttonId=null) {
+				$.ajax({
+					url : '{{route("front.tracking.pixel")}}',
+					method : 'POST',
+					data : {
+						'_token': '{{csrf_token()}}',
+						// 'xAxis': e.pageX,
+						// 'yAxis': e.pageY,
+						'page':  window.location.href,
+						'buttonId': buttonId
+					},
+				});
 			}
-		}); --}}
+        // });
 
 		$(document).ready(function() {
             $('.loading-data').hide();

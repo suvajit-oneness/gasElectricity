@@ -107,7 +107,7 @@
                                 @enderror
                             </div>
                             <div class="mt-3">
-                                <button type="submit" class="btn log_next btn-sm d-block">Submit</button>
+                                <button type="submit" class="btn log_next btn-sm d-block" onclick="userTrack('finalStageUserDetails')">Submit</button>
                             </div>
                         </div>
                     </form>

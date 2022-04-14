@@ -49,10 +49,10 @@
 			@endphp
 			<div class="col-md-8">
 				<button class="btn plan_details_btn2 emailplanDetails @if(count($data->tariff_type) <= 0) emailedPlanDetails @endif">Email Plan Details</button>
-				<a href="{{route('company.supplier.form')}}{{$url}}" class="btn btn3 plan_details_btn2">Switch & Save Today</a>
+				<a href="javascript: void(0)" class="btn btn3 plan_details_btn2" onclick="switchAndSave('{{route('company.supplier.form')}}{{$url}}')">Switch & Save Today</a>
 			</div>
 			<div class="col-md-4 text-end mr-auto">
-				<a href="{{route('product.listing',$newURL)}}" class="btn plan_details_btn"> <i class="fa-solid fa-arrow-left"></i> Go back to result</a><!--Go back to search result-->
+				<a href="javascript: void(0)" class="btn plan_details_btn" onclick="goBackResults('{{route('product.listing',$newURL)}}')"> <i class="fa-solid fa-arrow-left"></i> Go back to result</a><!--Go back to search result-->
 			</div>
 		</div>
 		<div class="row">
@@ -400,6 +400,7 @@
 				dataType : 'JSON',
 				data : {userId:'{{Auth::user()->id}}',plan_rate_link:plan_rate_link,plan_rate_link_gas:plan_rate_link_gas,rfqId:'{{$rfq->id}}',productId:'{{$productData->id}}',_token:'{{csrf_token()}}'},
 				beforeSend: function() {
+					userTrack('emailPlan');
 					$loadingSwal = Swal.fire({
 						title: 'Please wait...',
 						text: 'We are matching the tariff according to your need!',
@@ -435,6 +436,16 @@
 				}
 			});
     	});
+
+		function goBackResults(route) {
+			userTrack('backtoPlanDetails');
+			window.location = route;
+		}
+
+		function switchAndSave(route) {
+			userTrack('switchAndSaveToday');
+			window.location = route;
+		}
     </script>
 @stop
 @endsection

@@ -271,7 +271,7 @@
 							</div>
 							
 						<div class="mt-3">
-							<button type="submit" class="btn log_next btn-sm d-block">Continue to next</button>
+							<button type="submit" class="btn log_next btn-sm d-block" onclick="userTrack('leavingStage1')">Continue to next</button>
 						</div>
 					</form>
 				</div>
@@ -283,6 +283,7 @@
     <script type="text/javascript">
 		var rfqId = '';
 		function OCRFILEUPLOAD(thisFiles){
+			userTrack('uploadElectricityOrGasBill');
 			$('#fileUploadError').text('');
 			var ocr_FIle = $('#OCRFormField').val();
 			if(ocr_FIle){

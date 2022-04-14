@@ -235,7 +235,7 @@
 													<div class="plan_icon_wrap addBlur">
 														<img src="{{asset($companyData->logo)}}">
 														<h6>{{$companyData->name}}</h6>
-														<a href="{{route('product.details',$product->id)}}{{$url}}" class="company-details-anchor">Details</a>
+														<a href="javascript: void(0)" class="company-details-anchor" onclick="redirectToPlan('{{route('product.details',$product->id)}}{{$url}}')">Details</a>
 													</div>
 													<div class="list_container_first addBlur">
 														<h4>{{$product->name}} <!-- <a href="javascript:void(0)"><i class="fas fa-share"></i></a> --></h4>
@@ -280,7 +280,7 @@
 														@endif
 														@guest
 															<div class="viewMoreDetailsDIV">
-																<a href="{{route('product.details',$product->id)}}{{$url}}" class="btn btn-link viewMoreDetailsAnchortag">View more details</a>
+																<a href="javascript:void(0)" class="btn btn-link viewMoreDetailsAnchortag" onclick="redirectToLogin('{{route('product.details', $product->id)}}{{$url}}')">View more details</a>
 															</div>
 														@endguest
 													</div>
@@ -320,6 +320,16 @@
 			$('.plan_listing_wraper button').attr('disabled',true);
 			$('.viewMoreDetailsAnchortag').attr('disabled',false).removeClass('disable-click'); // only this will enabled to click
     	@endguest
+
+		function redirectToLogin(route) {
+			userTrack('loginToSeeDetails');
+			window.location = route;
+		}
+
+		function redirectToPlan(route) {
+			userTrack('selectPlanToSeeDetails');
+			window.location = route;
+		}
     </script>
 @stop
 @endsection
