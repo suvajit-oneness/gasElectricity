@@ -61,4 +61,7 @@ Route::group(['prefix' => 'get'], function () {
     Route::group(['prefix' => 'product'], function () {
         Route::get('{productId?}', 'API\APIController@productList')->where('productId', '[0-9]+');
     });
+    Route::group(['prefix' => 'sme'], function () {
+        Route::get('/sme', 'API\APIController@getSmeList');
+    });
 });
