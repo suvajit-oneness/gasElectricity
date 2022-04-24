@@ -8,7 +8,7 @@ use Carbon\Carbon, App\Model\Product;
 use App\Model\BlogCategory, App\Model\Blog;
 use App\Model\State, App\Model\UserPoints;
 use App\Model\BlogComment, App\Model\BlogLike;
-use App\Models\Sme;
+use App\Model\Sme;
 
 class APIController extends Controller
 {
@@ -18,10 +18,22 @@ class APIController extends Controller
         $category = BlogCategory::get();
         return successResponse('Blog Categories', $category);
     }
+
     public function getSmeList(Request $req)
     {
         $data = Sme::get();
-        return successResponse('Sme List', $data);
+        return successResponse('SME List', $data);
+    }
+
+    public function getSmeData(Request $req)
+    {
+        $data = Sme::where('id', $req->id)->get();
+
+        if (count($data) > 0) {
+            return successResponse('SME Detail found', $data);
+        } else {
+            return successResponse('No SME Data found');
+        }
     }
 
     public function blogList(Request $req)

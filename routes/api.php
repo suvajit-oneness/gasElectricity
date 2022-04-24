@@ -61,7 +61,31 @@ Route::group(['prefix' => 'get'], function () {
     Route::group(['prefix' => 'product'], function () {
         Route::get('{productId?}', 'API\APIController@productList')->where('productId', '[0-9]+');
     });
-    Route::group(['prefix' => 'sme'], function () {
-        Route::get('/sme', 'API\APIController@getSmeList');
-    });
 });
+
+// SME
+Route::group(['prefix' => 'sme'], function () {
+    Route::get('/get', 'API\APIController@getSmeList');
+    Route::get('/{id}', 'API\APIController@getSmeData');
+});
+
+
+Route::group(['middleware' => 'api', 'prefix' => 'aggregator'], function ($router) {
+    Route::post('login', 'API\AggregatorController@aggregatorLogin');
+    Route::post('logout', 'API\AggregatorController@aggregatorLogout');
+    Route::post('profile', 'API\AggregatorController@aggregatorProfile');
+    Route::get('{id}', 'API\AggregatorController@aggregatorSmeList');
+});
+
+
+// // Aggregator login
+// Route::prefix('aggregator')->group(function () {
+//     Route::middleware(['guest:aggregator'])->group(function () {
+//         Route::post('/login', 'API\APIController@aggregatorLogin');
+//     });
+// });
+
+// // Aggregator
+// Route::group(['prefix' => 'aggregator'], function () {
+//     Route::get('/{id}', 'API\APIController@getAggregatorData');
+// });

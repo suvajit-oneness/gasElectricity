@@ -14,9 +14,12 @@ return [
     */
 
     'defaults' => [
-        // 'guard' => 'web',
-        'guard' => 'api',
+        'guard' => 'web',
         'passwords' => 'users',
+    ],
+    'aggregator'=>[
+        'driver' => 'eloquent',
+        'model' => App\Models\Aggregator::class,
     ],
 
     /*
@@ -43,10 +46,15 @@ return [
         ],
 
         'api' => [
-            // 'driver' => 'token',
-            'driver' => 'jwt',
+            'driver' => 'token',
+            // 'driver' => 'passport',
+            'provider' => 'users',
+            'hash' => false,
+        ],
+
+        'aggregator'=>[
+            'driver' => 'session',
             'provider' => 'aggregators',
-            // 'hash' => false,
         ],
     ],
 
@@ -72,9 +80,10 @@ return [
             'driver' => 'eloquent',
             'model' => App\User::class,
         ],
-        'aggregators' => [
+
+        'aggregators'=>[
             'driver' => 'eloquent',
-            'model' => App\Model\Aggregator::class,
+            'model' => App\Models\Aggregator::class,
         ],
 
         // 'users' => [
@@ -103,6 +112,10 @@ return [
             'provider' => 'users',
             'table' => 'password_resets',
             'expire' => 60,
+        ],
+        'aggregators'=>[
+            'driver'=>'eloquent',
+            'model'=>App\Models\Aggregator::class,
         ],
     ],
 
