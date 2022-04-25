@@ -17,4 +17,9 @@ class TrackingPixel extends Model
     {
         return $this->belongsTo('App\User', 'user_id', 'id');
     }
+
+    public function company()
+    {
+        return $this->belongsTo('App\Model\Company', 'seller_id', 'id');
+    }
 }

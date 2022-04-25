@@ -60,7 +60,8 @@
                             <thead>
                                 <tr>
                                     <th>Sl. No.</th>
-                                    <th>User Name</th>
+                                    <th>User</th>
+                                    <th>Retailer</th>
                                     <th>Stage</th>
                                     <th>IP</th>
                                     <th>Page</th>
@@ -73,7 +74,8 @@
                                 @foreach($trackingPixels as $key => $tracking)
                                     <tr>
                                         <td>{{strtoupper($key +1)}}</td>
-                                        <td>{{strtoupper($tracking->user?$tracking->user->name : 'N/A')}}</td>
+                                        <td>{{strtoupper($tracking->user ? $tracking->user->name : 'N/A')}}</td>
+                                        <td>{{strtoupper($tracking->company ? $tracking->company->author->name : 'N/A')}}</td>
                                         <td> <h5 class="badge badge-dark fw-bold rounded-0" style="font-size: 18px">{{$tracking->stage}}</h5> </td>
                                         <td>{{strtoupper($tracking->ip)}}</td>
                                         <td>{{$tracking->page}}</td>
