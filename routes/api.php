@@ -69,23 +69,18 @@ Route::group(['prefix' => 'sme'], function () {
     Route::get('/{id}', 'API\APIController@getSmeData');
 });
 
+// Aggregator
+// Route::post('aggregator/login', 'API\AggregatorController@aggregatorLogin');
 
-Route::group(['middleware' => 'api', 'prefix' => 'aggregator'], function ($router) {
-    Route::post('login', 'API\AggregatorController@aggregatorLogin');
-    Route::post('logout', 'API\AggregatorController@aggregatorLogout');
+// Route::group(['middleware' => 'jwt.auth', 'prefix' => 'aggregator'], function ($router) {
+//     Route::post('logout', 'API\AggregatorController@aggregatorLogout');
+//     Route::post('profile', 'API\AggregatorController@aggregatorProfile');
+//     Route::get('{id}', 'API\AggregatorController@aggregatorSmeList');
+// });
+
+Route::post('aggregator/login', 'API\AggregatorController@aggregatorLogin');
+
+Route::middleware('jwt.auth')->prefix('aggregator')->group(function() {
     Route::post('profile', 'API\AggregatorController@aggregatorProfile');
-    Route::get('{id}', 'API\AggregatorController@aggregatorSmeList');
+    Route::post('logout', 'API\AggregatorController@aggregatorLogout');
 });
-
-
-// // Aggregator login
-// Route::prefix('aggregator')->group(function () {
-//     Route::middleware(['guest:aggregator'])->group(function () {
-//         Route::post('/login', 'API\APIController@aggregatorLogin');
-//     });
-// });
-
-// // Aggregator
-// Route::group(['prefix' => 'aggregator'], function () {
-//     Route::get('/{id}', 'API\APIController@getAggregatorData');
-// });

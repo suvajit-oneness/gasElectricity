@@ -19,11 +19,19 @@ class AggregatorController extends Controller
         $this->middleware('auth:api', ['except' => ['aggregatorLogin']]);
     }
 
+    protected function respondWithToken($token) {
+        return response()->json([
+            'access_token' => $token,
+            'token_type' => 'bearer',
+            'expires_in' => auth('api')->factory()->getTTL() * 60
+        ]);
+    }
+
     public function aggregatorLogin()
     {
         $credentials = request(['email', 'password']);
 
-        if (! $token = auth()->attempt($credentials)) {
+        if (! $token = auth()->guard('api')->attempt($credentials)) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
         return $this->respondWithToken($token);
@@ -31,23 +39,23 @@ class AggregatorController extends Controller
 
     public function aggregatorProfile()
     {
-        return response()->json(auth()->user());
+        return response()->json(auth()->guard('api')->user());
     }
 
     public function aggregatorLogout()
     {
-        auth()->logout();
+        auth()->guard('api')->logout();
         return response()->json(['message' => 'Successfully logged out']);
     }
 
-    protected function respondWithToken($token)
-    {
-        return response()->json([
-            'access_token' => $token,
-            'token_type' => 'bearer',
-            'expires_in' => auth()->factory()->getTTL() * 60
-        ]);
-    }
+    // protected function respondWithToken($token)
+    // {
+    //     return response()->json([
+    //         'access_token' => $token,
+    //         'token_type' => 'bearer',
+    //         'expires_in' => auth('api')->factory()->getTTL() * 60
+    //     ]);
+    // }
 
     public function aggregatorSmeList(Request $request)
     {
