@@ -39,7 +39,7 @@ class WelcomeController extends Controller
                         if (count($data->supplierForm) > 0) {
                             $user = $rfq->user;
                             // dd($user);
-                            $latestSupplierFormForUser = $user->latestSupplierForm;
+                            $latestSupplierFormForUser = $user ? $user->latestSupplierForm : '';
                             $user->formData = [];
                             if ($latestSupplierFormForUser) {
                                 $user->formData = UserFilledSupplierFormDetails::select('key', 'value')->where('userFilledSupplierFormId', $latestSupplierFormForUser->id)->get();
@@ -198,7 +198,7 @@ class WelcomeController extends Controller
         $data = (object)[];
         $data->category = BlogCategory::get();
         $data->blog = Blog::findOrfail($blogId);
-        $data->blogs = Blog::select('*');
+        $data->blogs = Blog::select('*')->where('id', '!=', $blogId);
         if (!empty($req->category)) {
             $data->blogs = $data->blogs->where('blogCategoryId', base64_decode($req->category));
         }
@@ -512,7 +512,7 @@ class WelcomeController extends Controller
         return view('frontend.listing.productWithAuth', compact('productData', 'state', 'request', 'rfq'));
     }
 
-    public function productDetails(Request $req, $planId)
+    public function productDetails(Request $req, $planId, $sellerId)
     {
         $rules = [
             'rfqId' => 'required|min:1|numeric',

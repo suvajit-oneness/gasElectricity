@@ -72,7 +72,7 @@
 
 		// tracking on mouse click
 		// $(document).on('click', function(e) {
-			function userTrack(buttonId=null) {
+			function userTrack(buttonId=null, sellerId=null) {
 				$.ajax({
 					url : '{{route("front.tracking.pixel")}}',
 					method : 'POST',
@@ -81,7 +81,8 @@
 						// 'xAxis': e.pageX,
 						// 'yAxis': e.pageY,
 						'page':  window.location.href,
-						'buttonId': buttonId
+						'buttonId': buttonId,
+						'sellerId': sellerId
 					},
 				});
 			}

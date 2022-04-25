@@ -235,7 +235,7 @@
 													<div class="plan_icon_wrap addBlur">
 														<img src="{{asset($companyData->logo)}}">
 														<h6>{{$companyData->name}}</h6>
-														<a href="javascript: void(0)" class="company-details-anchor" onclick="redirectToPlan('{{route('product.details',$product->id)}}{{$url}}')">Details</a>
+														<a href="javascript: void(0)" class="company-details-anchor" onclick="redirectToPlan('{{route('product.details',['productId' => $product->id, 'sellerId' => $companyData->id])}}{{$url}}', '{{$companyData->id}}')">Details</a>
 													</div>
 													<div class="list_container_first addBlur">
 														<h4>{{$product->name}} <!-- <a href="javascript:void(0)"><i class="fas fa-share"></i></a> --></h4>
@@ -326,8 +326,8 @@
 			window.location = route;
 		}
 
-		function redirectToPlan(route) {
-			userTrack('selectPlanToSeeDetails');
+		function redirectToPlan(route, sellerId) {
+			userTrack('selectPlanToSeeDetails', sellerId);
 			window.location = route;
 		}
     </script>

@@ -56,6 +56,7 @@ class TrackingController extends Controller
         // $track->x_axis = $request->xAxis;
         // $track->y_axis = $request->yAxis;
         $track->button_id = $request->buttonId;
+        $track->seller_id = $request->sellerId;
         $track->stage = $stage;
         $track->desc = $desc;
         $track->save();

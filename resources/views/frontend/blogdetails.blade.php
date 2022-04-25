@@ -26,7 +26,7 @@
 		<section class="">
 			<div class="container-fluid p-0">
 				<div class="blog_img_det">
-					<img src="{{asset('forntEnd/img/blog_4.png')}}" class="w-100">
+					<img src="{{asset($data->blog->image)}}" class="w-100">
 				</div>
 				<div class="row m-0 justify-content-center">
 					<div class="col-12 col-lg-7 py-4 blog_text">
