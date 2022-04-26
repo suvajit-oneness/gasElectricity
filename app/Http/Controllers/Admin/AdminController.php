@@ -1369,23 +1369,30 @@ class AdminController extends Controller
 
     public function trackingFilter(Request $req)
     {
+
         $trackingPixels = TrackingPixel::where([
             [function ($query) use ($req) {
-                if ($from = $req->from && $to = $req->to) {
-                    $newTo = date('Y-m-d', strtotime($to.' + 1 day'));
+                if ($req->from && $req->to) {
+                    // $today = $req->from;
+                    // $nextday = date("d-m-Y", strtotime("$today +1 day"));
+                    // dd([$req->from, $req->to]);
+                    $query->whereBetween('time', [date($req->from), date("Y-m-d", strtotime("$req->to +1 day"))]);
+
+                    // $query->where('time', '>=', $from);
+                    // $newTo = date('Y-m-d', strtotime($to . ' + 1 day'));
+                    // $query->where('time', '<=', $to);
+                    // $newTo = date('Y-m-d', strtotime($to . ' + 1 day'));
                     // $query->where([['time', '>=', $from], ['time', '<=', $newTo]]);
-                    $query->whereRaw('time >= $from AND time <= $newTo');
-                }
-                if ($from = $req->from) {
+                    // $query->whereRaw('time >= ' . $from . ' AND time <= ' . $newTo);
+                } elseif ($from = $req->from) {
                     $query->orWhere('time', '>=', $from);
-                }
-                if ($to = $req->to) {
+                } elseif ($to = $req->to) {
                     // dd('to');
-                    $newTo = date('Y-m-d', strtotime($to.' + 1 day'));
+                    $newTo = date('Y-m-d', strtotime($to . ' + 1 day'));
                     $query->orWhere('time', '<=', $newTo);
                 }
                 if ($stage = $req->stage) {
-                    $query->orWhere('stage', $stage);
+                    $query->where('stage', $stage);
                 }
                 $query->get();
             }]
@@ -1394,6 +1401,8 @@ class AdminController extends Controller
             ->paginate(15)
             ->appends(request()->query());
         // dd($trackingPixels);
+
+
 
         return view('admin.reports.tracking_pixel', compact('trackingPixels'));
     }
