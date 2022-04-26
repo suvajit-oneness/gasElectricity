@@ -5,7 +5,8 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav flex-column">
                         <li class="first-list">
-                            <button class="closebtn nav-toggler hide" id="closebutton" onclick="closeNav()">
+                            {{-- <button class="closebtn nav-toggler hide" id="closebutton" onclick="closeNav()"> --}}
+                            <button class="closebtn nav-toggler" id="closebutton" onclick="closeNav()">
                                 <i class="fas fa-times"></i>
                             </button>
                         </li>
@@ -65,7 +66,7 @@
                             <!-- Report Section -->
                             <li class="nav-divider">Report</li>
                             <li class="nav-item custom-tooltip">
-                            <span class="tooltiptext">Contact us</span>
+                                <span class="tooltiptext">Contact us</span>
                                 <a class="nav-link {{request()->routeIs('admin.report.contactus')?'active':''}}" href="{{route('admin.report.contactus')}}">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-phone"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
                                 <h5>Contact us</h5></a>
@@ -122,23 +123,49 @@
                             <span class="tooltiptext">Products</span>
                                 <a class="nav-link {{request()->routeIs('supplier.product*')?'active':''}}" href="{{route('supplier.products')}}"><i class="fa fa-fw fa-user-circle"></i><h5>Products</h5></a>
                             </li>
-                            <li class="nav-divider">Reports</li>
+                            {{-- <li class="nav-divider">Reports</li>
                             <li class="nav-item custom-tooltip">
-                            <span class="tooltiptext">Reports</span>
+                                <span class="tooltiptext">Reports</span>
                                 <a class="nav-link" href="javascript:void(0)" data-toggle="collapse" aria-expanded="{{request()->routeIs('supplier.reports.*')?'true':'false'}}" data-target="#supplierReports-1" aria-controls="supplierReports-1"><i class="fas fa-fw fa-file"></i> <h5>Reports</h5> </a>
                                 <div id="supplierReports-1" class="collapse submenu {{request()->routeIs('supplier.reports.*')?'show':''}}">
                                     <ul class="nav flex-column">
                                         <li class="nav-item {{request()->routeIs('supplier.reports.form.filledbyuser')? 'active':''}}">
                                            <a class="nav-link" href="{{route('supplier.reports.form.filledbyuser')}}">User Form Filled</a>
-                                        </li>
+                                        </li> --}}
                                         {{-- now --}}
-                                        <li class="nav-item {{request()->routeIs('supplier.reports.traking_pixel')? 'active':''}}">
+                                        {{-- <li class="nav-item {{request()->routeIs('supplier.reports.traking_pixel')? 'active':''}}">
                                             <a class="nav-link" href="{{route('supplier.reports.traking_pixel')}}">Tracking</a>
                                          </li>
                                     </ul>
                                 </div>
+                            </li> --}}
+
+
+
+                            <!-- Report Section -->
+                            <li class="nav-divider">Report</li>
+                           
+                            <li class="nav-item custom-tooltip">
+                            <span class="tooltiptext">User Form Filled</span>
+                                <a class="nav-link {{request()->routeIs('supplier.reports.form.filledbyuser')? 'active':''}}" href="{{route('supplier.reports.form.filledbyuser')}}"><i class="fa fa-fw fa-user-circle"></i><h5>User Form Filled</h5></a>
                             </li>
+                            <li class="nav-item custom-tooltip">
+                            <span class="tooltiptext">Tracking</span>
+                                <a class="nav-link {{request()->routeIs('supplier.reports.traking_pixel')? 'active':''}}" href="{{route('supplier.reports.traking_pixel')}}"><i class="fa fa-fw fa-user-circle"></i><h5>Tracking</h5></a>
+                            </li>
+                            
+
                             <li class="nav-divider">Setting</li>
+                        
+                            <li class="nav-item custom-tooltip">
+                            <span class="tooltiptext">Settings</span>
+                                <a class="nav-link {{request()->routeIs('supplier.setting.form')?'active':''}}"" href="{{route('supplier.setting.form')}}"><i class="fa fa-fw fa-user-circle"></i><h5>Settings</h5></a>
+                            </li>
+                               
+
+
+                            
+                            {{-- <li class="nav-divider">Setting</li>
                             <li class="nav-item custom-tooltip">
                             <span class="tooltiptext">Settings</span>
                                 <a class="nav-link" href="javascript:void(0)" data-toggle="collapse" aria-expanded="{{request()->routeIs('supplier.setting.*')?'true':'false'}}" data-target="#supplierSettings-6" aria-controls="supplierSettings-6"><i class="fas fa-fw fa-file"></i> <h5>Settings</h5> </a>
@@ -149,7 +176,7 @@
                                         </li>
                                     </ul>
                                 </div>
-                            </li>
+                            </li> --}}
                         <!-- Supplier Sidebar End-->
                         <!-- Customer Sidebar -->
                         @elseif(Auth::user()->user_type == 3)
