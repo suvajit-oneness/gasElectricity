@@ -64,26 +64,28 @@
                                     <th>Retailer</th>
                                     <th>Stage</th>
                                     <th>IP</th>
-                                    <th>Page</th>
+                                    <th style="max-width:300px">Page</th>
                                     <th>Description</th>
                                     <th>Time</th>
                                     {{-- <th>Button Name</th> --}}
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach($trackingPixels as $key => $tracking)
+                                @forelse($trackingPixels as $key => $tracking)
                                     <tr>
                                         <td>{{strtoupper($key +1)}}</td>
                                         <td>{{strtoupper($tracking->user ? $tracking->user->name : 'N/A')}}</td>
                                         <td>{{strtoupper($tracking->company ? $tracking->company->author->name : 'N/A')}}</td>
                                         <td> <h5 class="badge badge-dark fw-bold rounded-0" style="font-size: 18px">{{$tracking->stage}}</h5> </td>
                                         <td>{{strtoupper($tracking->ip)}}</td>
-                                        <td>{{$tracking->page}}</td>
+                                        <td style="max-width:300px">{{$tracking->page}}</td>
                                         <td>{{$tracking->desc}}</td>
                                         <td>{{strtoupper($tracking->time)}}</td>
                                         {{-- <td>{{strtoupper($tracking->button_id)}}</td> --}}
                                     </tr>
-                                @endforeach
+                                @empty
+                                    <tr><td colspan="100%" class="text-center text-muted">No data found</td></tr>
+                                @endforelse
                             </tbody>
                         </table>                        
                     </div>

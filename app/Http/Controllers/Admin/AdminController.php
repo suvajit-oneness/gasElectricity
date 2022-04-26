@@ -1363,7 +1363,7 @@ class AdminController extends Controller
     // -------------------report for tracking----------------
     public function trackingReport(Request $req)
     {
-        $trackingPixels = TrackingPixel::get();
+        $trackingPixels = TrackingPixel::orderBy('id', 'desc')->get();
         return view('admin.reports.tracking_pixel', compact('trackingPixels'));
     }
 
@@ -1372,13 +1372,17 @@ class AdminController extends Controller
         $trackingPixels = TrackingPixel::where([
             [function ($query) use ($req) {
                 if ($from = $req->from && $to = $req->to) {
-                    $query->where('time', '>=', $from)->where('time', '<=', $to);
+                    $newTo = date('Y-m-d', strtotime($to.' + 1 day'));
+                    // $query->where([['time', '>=', $from], ['time', '<=', $newTo]]);
+                    $query->whereRaw('time >= $from AND time <= $newTo');
                 }
                 if ($from = $req->from) {
                     $query->orWhere('time', '>=', $from);
                 }
                 if ($to = $req->to) {
-                    $query->orWhere('time', '<=', $to);
+                    // dd('to');
+                    $newTo = date('Y-m-d', strtotime($to.' + 1 day'));
+                    $query->orWhere('time', '<=', $newTo);
                 }
                 if ($stage = $req->stage) {
                     $query->orWhere('stage', $stage);
