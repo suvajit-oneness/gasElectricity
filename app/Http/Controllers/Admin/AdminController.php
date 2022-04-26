@@ -1361,11 +1361,11 @@ class AdminController extends Controller
     }
 
     // -------------------report for tracking----------------
-    public function trackingReport(Request $req)
-    {
-        $trackingPixels = TrackingPixel::orderBy('id', 'desc')->get();
-        return view('admin.reports.tracking_pixel', compact('trackingPixels'));
-    }
+    // public function trackingReport(Request $req)
+    // {
+    //     $trackingPixels = TrackingPixel::orderBy('id', 'desc')->get();
+    //     return view('admin.reports.tracking_pixel', compact('trackingPixels'));
+    // }
 
     public function trackingFilter(Request $req)
     {

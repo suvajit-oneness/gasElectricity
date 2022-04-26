@@ -159,7 +159,7 @@
                         
                             <li class="nav-item custom-tooltip">
                             <span class="tooltiptext">Settings</span>
-                                <a class="nav-link {{request()->routeIs('supplier.setting.form')?'active':''}}"" href="{{route('supplier.setting.form')}}"><i class="fa fa-fw fa-user-circle"></i><h5>Settings</h5></a>
+                                <a class="nav-link {{request()->routeIs('supplier.setting.form')?'active':''}}" href="{{route('supplier.setting.form')}}"><i class="fa fa-fw fa-user-circle"></i><h5>Settings</h5></a>
                             </li>
                                
 

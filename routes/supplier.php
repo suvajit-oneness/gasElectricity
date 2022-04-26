@@ -86,6 +86,7 @@ Route::group(['prefix' => 'reports'], function () {
 	// Form Filled By the User
 	Route::group(['prefix' => 'supplier/forms'], function () {
 		Route::get('/', 'Supplier\SupplierController@reportSupplierFormFilledByUser')->name('supplier.reports.form.filledbyuser');
-		Route::get('/tracking', 'Supplier\SupplierController@trackingReport')->name('supplier.reports.traking_pixel');
+		Route::get('/tracking', 'Supplier\SupplierController@trackingFilter')->name('supplier.reports.traking_pixel');
+		// Route::get('/tracking',  'Admin\SupplierController@trackingFilter')->name('supplier.report.tracking');
 	});
 });

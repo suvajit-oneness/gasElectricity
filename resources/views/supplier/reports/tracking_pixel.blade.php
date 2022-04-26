@@ -11,7 +11,7 @@
                     <!-- <p>This example shows FixedHeader being styled by the Bootstrap 4 CSS framework.</p> -->
                     <div class="row justify-content-end">
                         <div class="col-sm-8 text-right">
-                            <form action="#" method="GET" role="search">
+                            <form action="{{route('supplier.reports.traking_pixel')}}" method="GET" role="search">
                                 <div class="input-group">
                                   <span class="input-group-btn">
                                         <button class="btn btn-info btn-sm rounded-0" type="submit" title="Search projects">
@@ -45,7 +45,7 @@
                                     </div>
                                     <div class="input-group-append">
                                         <span class="input-group-btn">
-                                            <a href="{{ route('admin.report.tracking') }}" class="btn btn-info btn-sm rounded-0">
+                                            <a href="{{route('supplier.reports.traking_pixel')}}" class="btn btn-info btn-sm rounded-0">
                                                 <i class="fas"></i> Remove
                                             </a>
                                         </span>

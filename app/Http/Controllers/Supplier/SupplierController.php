@@ -188,9 +188,46 @@ class SupplierController extends Controller
         return back()->with('Success', 'Form Option added SuccessFully');
     }
 
-    public function trackingReport(Request $req)
+    // public function trackingReport(Request $req)
+    // {
+    //     $trackingPixels = TrackingPixel::get();
+    //     return view('supplier.reports.tracking_pixel', compact('trackingPixels'));
+    // }
+
+    public function trackingFilter(Request $req)
     {
-        $trackingPixels = TrackingPixel::get();
+
+        $trackingPixels = TrackingPixel::where([
+            [function ($query) use ($req) {
+                if ($req->from && $req->to) {
+                    // $today = $req->from;
+                    // $nextday = date("d-m-Y", strtotime("$today +1 day"));
+                    // dd([$req->from, $req->to]);
+                    $query->whereBetween('time', [date($req->from), date("Y-m-d", strtotime("$req->to +1 day"))]);
+
+                    // $query->where('time', '>=', $from);
+                    // $newTo = date('Y-m-d', strtotime($to . ' + 1 day'));
+                    // $query->where('time', '<=', $to);
+                    // $newTo = date('Y-m-d', strtotime($to . ' + 1 day'));
+                    // $query->where([['time', '>=', $from], ['time', '<=', $newTo]]);
+                    // $query->whereRaw('time >= ' . $from . ' AND time <= ' . $newTo);
+                } elseif ($from = $req->from) {
+                    $query->orWhere('time', '>=', $from);
+                } elseif ($to = $req->to) {
+                    // dd('to');
+                    $newTo = date('Y-m-d', strtotime($to . ' + 1 day'));
+                    $query->orWhere('time', '<=', $newTo);
+                }
+                if ($stage = $req->stage) {
+                    $query->where('stage', $stage);
+                }
+                $query->get();
+            }]
+        ])
+            ->orderBy('id', 'desc')
+            ->paginate(15)
+            ->appends(request()->query());
+
         return view('supplier.reports.tracking_pixel', compact('trackingPixels'));
     }
 }
