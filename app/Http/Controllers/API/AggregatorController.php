@@ -9,6 +9,7 @@ use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 use Tymon\JWTAuth\Contracts\JWTSubject;
 use App\Model\Sme;
+use DB;
 
 class AggregatorController extends Controller
 {
@@ -67,7 +68,25 @@ class AggregatorController extends Controller
 
         // echo $id; die;
 
-        $data = Sme::where('aggregator_id', $id)->get();
+        $filterby_created_at = !empty($request->filterby_created_at)?$request->filterby_created_at:'';
+        $filterby_updated_at = !empty($request->filterby_updated_at)?$request->filterby_updated_at:'';
+
+        
+
+        $data = DB::table('smes')->select('*');
+        // $data = Sme::select('*');
+
+        if(!empty($filterby_created_at)){
+            $filterby_created_at = date('Y-m-d', strtotime($filterby_created_at));
+            // echo $filterby_created_at; die;
+            $data = $data->whereRaw(" DATE_FORMAT(created_at, '%Y-%m-%d') = '".$filterby_created_at."' ");
+        }
+        if(!empty($filterby_updated_at)){
+            $filterby_updated_at = date('Y-m-d', strtotime($filterby_updated_at));
+            $data = $data->whereRaw(" DATE_FORMAT(updated_at, '%Y-%m-%d') = '".$filterby_updated_at."' ");
+        }
+
+        $data = $data->where('aggregator_id', $id)->get();
 
         if (count($data) > 0) {
             return successResponse('Aggregator wise SME list', $data);
