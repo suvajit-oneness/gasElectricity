@@ -16,7 +16,10 @@ class AggregatorController extends Controller
 
     public function __construct()
     {
+        // die('Hi');
         $this->middleware('auth:api', ['except' => ['aggregatorLogin']]);
+        
+        // $this->middleware('auth:api', ['except' => ['aggregatorLogin']]);
     }
 
     protected function respondWithToken($token) {
@@ -59,6 +62,11 @@ class AggregatorController extends Controller
 
     public function aggregatorSmeList(Request $request)
     {
+        $id = !empty($request->id)?$request->id:'';
+
+        if(empty($id))
+            return errorResponse("Param ID is required");
+        
         $data = Sme::where('aggregator_id', $request->id)->get();
 
         if (count($data) > 0) {

@@ -60,5 +60,9 @@ class LoginController extends Controller
     {
         DB::table('oauth_access_tokens')->where('user_id',auth()->user()->id)->where('revoked',false)->update(['revoked' => true]);
         return successResponse('Logout SuccessFully from all device');
-    }    
+    }
+    
+    public function showAuthMessage(){
+        return response()->json(['error' => 'Unauthorized'], 401);
+    }
 }

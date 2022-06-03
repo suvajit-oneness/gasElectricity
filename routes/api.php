@@ -15,6 +15,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::any('login', 'API\LoginController@login');
+Route::any('showAuthMessage', 'API\LoginController@showAuthMessage');
 Route::group(['middleware' => 'auth:api'], function () {
     Route::get('/user', function (Request $request) {
         return $request->user();
@@ -76,5 +77,6 @@ Route::middleware('jwt.auth')->prefix('aggregator')->group(function() {
     Route::post('profile', 'API\AggregatorController@aggregatorProfile');
     Route::post('logout', 'API\AggregatorController@aggregatorLogout');
 
-    Route::get('{id}/sme/list', 'API\AggregatorController@aggregatorSmeList');
+    Route::post('sme/list', 'API\AggregatorController@aggregatorSmeList');
+    // Route::get('{id}/sme/list', 'API\AggregatorController@aggregatorSmeList');
 });
