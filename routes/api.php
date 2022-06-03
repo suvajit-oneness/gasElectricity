@@ -74,7 +74,7 @@ Route::group(['prefix' => 'sme'], function () {
 Route::post('aggregator/login', 'API\AggregatorController@aggregatorLogin');
 
 Route::middleware('jwt.auth')->prefix('aggregator')->group(function() {
-    Route::post('profile', 'API\AggregatorController@aggregatorProfile');
+    Route::get('profile', 'API\AggregatorController@aggregatorProfile');
     Route::post('logout', 'API\AggregatorController@aggregatorLogout');
 
     Route::post('sme/list', 'API\AggregatorController@aggregatorSmeList');
