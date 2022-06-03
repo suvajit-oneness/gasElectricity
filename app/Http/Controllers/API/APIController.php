@@ -9,6 +9,7 @@ use App\Model\BlogCategory, App\Model\Blog;
 use App\Model\State, App\Model\UserPoints;
 use App\Model\BlogComment, App\Model\BlogLike;
 use App\Model\Sme;
+use DB;
 
 class APIController extends Controller
 {
@@ -19,9 +20,33 @@ class APIController extends Controller
         return successResponse('Blog Categories', $category);
     }
 
-    public function getSmeList(Request $req)
+    public function getSmeList(Request $request)
     {
-        $data = Sme::get();
+        $filterby_created_at = !empty($request->filterby_created_at)?$request->filterby_created_at:'';
+        $filterby_updated_at = !empty($request->filterby_updated_at)?$request->filterby_updated_at:'';
+
+        
+
+        $data = DB::table('smes')->select('*');
+        // $data = Sme::select('*');
+
+        if(!empty($filterby_created_at)){
+            $filterby_created_at = date('Y-m-d', strtotime($filterby_created_at));
+            // echo $filterby_created_at; die;
+            $data = $data->whereRaw(" DATE_FORMAT(created_at, '%Y-%m-%d') = '".$filterby_created_at."' ");
+        }
+        if(!empty($filterby_updated_at)){
+            $filterby_updated_at = date('Y-m-d', strtotime($filterby_updated_at));
+            $data = $data->whereRaw(" DATE_FORMAT(updated_at, '%Y-%m-%d') = '".$filterby_updated_at."' ");
+        }
+
+        DB::enableQueryLog(); 
+
+        $data = $data->get();
+
+        // dd(\DB::getQueryLog($data)); 
+
+        
         return successResponse('SME List', $data);
     }
 

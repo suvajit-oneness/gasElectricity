@@ -66,7 +66,7 @@ Route::group(['prefix' => 'get'], function () {
 
 // SME
 Route::group(['prefix' => 'sme'], function () {
-    Route::get('/get', 'API\APIController@getSmeList');
+    Route::any('/get', 'API\APIController@getSmeList');
     Route::get('/{id}', 'API\APIController@getSmeData');
 });
 
@@ -77,6 +77,6 @@ Route::middleware('jwt.auth')->prefix('aggregator')->group(function() {
     Route::get('profile', 'API\AggregatorController@aggregatorProfile');
     Route::post('logout', 'API\AggregatorController@aggregatorLogout');
 
-    Route::post('sme/list', 'API\AggregatorController@aggregatorSmeList');
+    Route::get('sme/list', 'API\AggregatorController@aggregatorSmeList');
     // Route::get('{id}/sme/list', 'API\AggregatorController@aggregatorSmeList');
 });
